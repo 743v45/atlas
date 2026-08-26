@@ -35,8 +35,7 @@
     {
       "day": "2026-08-04",
       "files": 14,
-      "status": "in-flight",
-      "agent": "dig-0804"
+      "status": "queued"
     },
     {
       "day": "2026-08-05",
@@ -59,44 +58,37 @@
     {
       "day": "2026-08-11",
       "files": 9,
-      "status": "in-flight",
-      "agent": "dig-0811"
+      "status": "queued"
     },
     {
       "day": "2026-08-18",
       "files": 3,
-      "status": "in-flight",
-      "agent": "dig-0818"
+      "status": "queued"
     },
     {
       "day": "2026-08-19",
       "files": 5,
-      "status": "in-flight",
-      "agent": "dig-0819"
+      "status": "queued"
     },
     {
       "day": "2026-08-20",
       "files": 2,
-      "status": "in-flight",
-      "agent": "dig-0820"
+      "status": "queued"
     },
     {
       "day": "2026-08-21",
       "files": 14,
-      "status": "in-flight",
-      "agent": "dig-0821"
+      "status": "queued"
     },
     {
       "day": "2026-08-22",
       "files": 34,
-      "status": "in-flight",
-      "agent": "dig-0822"
+      "status": "queued"
     },
     {
       "day": "2026-08-23",
       "files": 32,
-      "status": "in-flight",
-      "agent": "dig-0823"
+      "status": "queued"
     },
     {
       "day": "2026-08-24",
@@ -118,5 +110,6 @@
       "files": 31,
       "status": "queued"
     }
-  ]
+  ],
+  "note": "并发 16→8:真瓶颈是 API 限流而非 pane(各队 1h 仅 17s CPU,集体等限流)。小天队先行打通链路,之后完成一队补一队"
 }
