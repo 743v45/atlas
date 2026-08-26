@@ -1,20 +1,21 @@
 #!/bin/bash
-# 引擎对账(血缘与纪律见同目录 ORIGIN.md):
-# 精确 diff 两库共享的 Markdown 渲染器(render_inline → render_markdown 整块)。
-# 输出 ✅ = 共享层同步;有 diff = 逐处确认「故意的分叉」还是「忘了同步」,当天处理。
+# 引擎对账(反向断言,见 ORIGIN.md):
+# shared/render.py 抽取后,任何 build 脚本内不得再出现本地渲染器副本——
+# 有人复制回去 = 分叉复活。输出 ✅ = 干净;列出文件 = 立即删副本接 shared。
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
-PICK="$(dirname "$HERE")/../pick/scripts/build-index.py"
-APP="$HERE/build-index.py"
+ATLAS="$(cd "$HERE/../../.." && pwd)"
 
-[ -f "$PICK" ] || { echo "⚠️  找不到 pick 的引擎:$PICK"; exit 2; }
-
-# 抽取 def render_inline 起到下一个 "#####" 分隔线为止的函数块
-extract() { sed -n '/^def render_inline/,/^# =\{10,\}$/p' "$1" | sed '$d'; }
-
-if diff <(extract "$PICK") <(extract "$APP") > /tmp/apprentice-drift.txt; then
-  echo "✅ 渲染引擎同步"
-else
-  echo "⚠️  渲染引擎漂移(详见 /tmp/apprentice-drift.txt):确认是故意的分叉还是忘了同步(ORIGIN.md 同步纪律)"
-  cat /tmp/apprentice-drift.txt
-fi
+BAD=0
+for f in "$ATLAS"/pick/scripts/build-index.py \
+         "$ATLAS"/apprentice/scripts/build-index.py \
+         "$ATLAS"/mistakes/scripts/build-index.py \
+         "$ATLAS"/scripts/build-atlas.py; do
+  [ -f "$f" ] || continue
+  if grep -q "^def render_inline\|^BASE_CSS = " "$f"; then
+    echo "⚠️  $f 含本地渲染器副本——删除并接 atlas/shared/render.py"
+    BAD=1
+  fi
+done
+[ "$BAD" -eq 0 ] && echo "✅ 引擎单源:各 build 均无本地副本,统一挂 shared/render.py"
+exit $BAD

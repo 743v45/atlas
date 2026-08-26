@@ -9,5 +9,7 @@
 - 分:**生成物入库 + GitHub Pages**(vs 生成物忽略)——与 pick 同策略:克隆即看,Pages 由 Actions 重建(纯标准库,幂等)
   - 叶:[pages.yml](.github/workflows/pages.yml) 部署于 743v45/apprentice
 - 分:**课收录即定案**(vs learning/settled/outdated 三态生命周期)——库是结论馆,不是草稿箱:在学不建课,结论走通才进;「过期」是唯一的状态变迁(模型换代失效)。2026-08-27 用户定调
+- 分:**翻车档案外迁 mistakes 馆**(vs 课内小节自足)——错题是跨项目维度,单一事实源:课内翻车小节只留一行摘要+链接,根因/修正住 mistakes;同步改 RULES 第 3 节与本库门禁说明。2026-08-27
+- 分:**渲染器上提 shared/**(vs 各馆副本+对账)——第三馆(mistakes)触发 ORIGIN.md 写死的抽象条款:引擎抽至 atlas/shared/render.py,check-drift 转反向断言防倒退。2026-08-27
 - 分:**暂不引入域/界层**(vs 跟随 pick 的四层结构)——1 课 1 类别,预付抽象税;结构判据先立(RULES 第 1 节),类别 >7±2 个再上域,触发即拆
 - 分:**暂不做全站搜索**——单索引页过滤已覆盖症状反查路径;课多到单页装不下再说

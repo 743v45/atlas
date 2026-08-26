@@ -93,3 +93,9 @@
 - 选择：`raw/<日期>/{gh,web,sessions}/` 三通道留档；**机制化**——refresh-stats.py 每次 gh 调用自动落盘完整 API 响应（不靠自觉）；web/sessions 靠规则（subagent prompt 必备条款）。
 - 否决：只存提炼后的 meta（原始丢失后不可复核、不可二次加工）；事后补采（star 会变、网页会消失、会话会被清理——原始数据是一次性资产）。
 - 红利：跨日目录 = star/push 时间序列；报告可引用 raw/ 路径作可复核出处。
+
+### D15 渲染器上提 shared/ — 第三馆触发引擎单源（2026-08-27）
+
+- 选择：render_inline / render_markdown / BASE_CSS 上提至 `atlas/shared/render.py`，三馆（pick / apprentice / mistakes）与门户统一 import；本库 build 1023→843 行。
+- 否决：第三馆继续复制骨架（分叉面×3，对账噪音超收益）；立即抽更细的 schema 引擎（没有第四馆证据，过度）。
+- 红利：改渲染只改一处；check-drift 转反向断言（防本地副本倒退），对账成本归零。

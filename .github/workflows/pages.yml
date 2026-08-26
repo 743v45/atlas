@@ -31,7 +31,10 @@ jobs:
       - name: Build apprentice
         run: python3 scripts/build-index.py
         working-directory: apprentice
-      - name: Build atlas（门户 + 错题集）
+      - name: Build mistakes
+        run: python3 scripts/build-index.py
+        working-directory: mistakes
+      - name: Build atlas（门户 + 错题集视图）
         run: python3 scripts/build-atlas.py
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1,0 +1,8 @@
+{
+  "name": "「我想要的」:Z 没说清就动手",
+  "date": "2026-08-27",
+  "source": "2026-08-27 Claude Code 会话:FDE 视频字幕提取需求",
+  "tags": ["表达不清", "Z未定义", "形容词当判据"],
+  "status": "fixed",
+  "related": ["../apprentice/items/express/describe-the-goal"]
+}
