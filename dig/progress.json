@@ -5,8 +5,8 @@
     {
       "day": "2026-07-28",
       "files": 7,
-      "status": "in-flight",
-      "agent": "dig-0728"
+      "status": "done",
+      "summary": "环境配置日(pyenv/zsh/CLI 依赖)+ Sourcetree 选型调研 + 插件开发侦察;3 条候选入 INBOX"
     },
     {
       "day": "2026-07-29",

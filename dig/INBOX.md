@@ -15,7 +15,20 @@ AI 的边界(dig/RULES §3):spark 级可直接代录入苗圃;**凡进本收件�
 
 ## 待审
 
-(暂空——16 队在途,回报到达后按 dig/RULES §5 写入此处)
+### [pick] Sourcetree 替代品选型调研 | 2026-07-28 | 5b13ef50
+「Sourcetree 一样的软件有哪些,最好用的是哪个。以及价格」——git GUI 客户端对比。
+**待查重**:pick/items/git-gui-clients 类别已存在,可能是同期同一调研的产物;若已覆盖则 dismissed:重复。
+状态:pending
+
+### [mistakes] CLI 安装败于环境版本 | 2026-07-28 | ea55b84e
+Tavily CLI 安装报错 "Python 3.10+ is required" → 同日转去装 pyenv 3.12/3.13。
+根因候选:「装工具前没查依赖环境」。边缘案例,价值低——是否值得立错题,用户定。
+状态:pending
+
+### [维度] 环境与装机(setup) | 2026-07-28 | 4 个会话
+pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403——一天内 4 个会话在修环境。
+证据尚弱(仅一天);若有独立生命周期+门禁(机器配置清单?还原脚本?)才配建馆,否则 spark 念头即可。待更多天数据。
+状态:pending
 
 ## 已决
 
