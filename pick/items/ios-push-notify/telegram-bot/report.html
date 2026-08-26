@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telegram Bot · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>iPhone Webhook 通知</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../pushover/report.html">← Pushover</a><span class="sep">·</span><a href="../web-push-pwa/report.html">Web Push + PWA（自建） →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>Telegram Bot</h1>
+<blockquote><strong>TL;DR</strong>：Bot API 免费强大、客户端成熟，但大陆网络 Telegram 全线被墙：发送端服务器要可达 api.telegram.org、接收端 iPhone 都需常驻代理，把一个通知通道变成两个外部依赖——不推荐新采用，网络环境变化再重评。</blockquote>
+<ul><li><strong>结论</strong>：hold（观望——工具本身优秀，网络可达性在本库环境不成立）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">Bot API（sendMessage 等）+ Telegram 客户端接收；也支持 webhook 回调</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left">API 免费；客户端开源；服务端闭源云</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">官方文档</td><td style="text-align:left">core.telegram.org/bots（访问 2026-08-27）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么（hold）</h2>
+<ul><li><strong>工具本身几乎无可挑剔</strong>：完全免费、无注册门槛、Bot API 文档完善（会话 2026-08-25 评价「免费、无门槛」[4]）；客户端通知体验成熟。若网络无障碍，这是第一梯队候选。</li><li><strong>大陆网络是决定性否决项</strong>：Telegram 在中国大陆被防火长城整体封锁，访问需常驻 VPN（MyChina Guide 2026；Trip.com 2026 等多源一致）[2]。落到本场景是<strong>双重依赖</strong>：① 发送端（NAS/服务器上的脚本）要可达 api.telegram.org——国内服务器直连不可达，常见解法是境外节点/隧道回源（Pinggy 2025-05 实操记录）[3]；② 接收端 iPhone 的 Telegram 客户端本身也要翻墙——通知通道的最下游挂在一个需要代理才在线的 App 上，告警可靠性不成立。</li><li><strong>会话判定一致</strong>：2026-08-25 会话将其归入「其他：免费、无门槛，但国内网络要处理」[4]。本报告将「要处理」量化为双端依赖后，升级为 hold。</li></ul>
+<h2>对比</h2>
+<ul><li>与飞书机器人：同为「IM App 收通知」，飞书在国内直连、零额外 App（本库环境已装）；Telegram 表达力相当但被墙——见 <code>../lark-webhook/report.md</code>。</li><li>逐维度对比见 <code>../comparison.md</code>。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>若未来主要基础设施在境外（VPS + 境外网络），否决项消失，可重评为 trial/adopt。</li><li>境外服务器中转 + 回源隧道的架构（Cloudflare Tunnel 等）可行 [3]，但为一条通知通道维护一条跨境隧道，复杂度收益比远差于 Bark/飞书。</li></ul>
+<h2>来源</h2>
+<ol><li>Telegram Bot API / Webhooks 官方文档 — <a href="https://core.telegram.org/bots/webhooks">https://core.telegram.org/bots/webhooks</a>（访问 2026-08-27）</li><li>Does Telegram Work in China?（MyChina Guide，2026）— <a href="https://mychina.guide/blog/does-telegram-work-in-china">https://mychina.guide/blog/does-telegram-work-in-china</a>（访问 2026-08-27）</li><li>How to Set Up and Test Telegram Bot Webhook（Pinggy Blog，2025-05-22）— <a href="https://pinggy.io/blog/how_to_set_up_and_test_telegram_bot_webhook">https://pinggy.io/blog/how_to_set_up_and_test_telegram_bot_webhook</a>（访问 2026-08-27）</li><li>Claude 会话 13bf0e5c（2026-08-25）——候选与网络限制判定来源</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录（2026-08-25 会话候选；核验大陆被墙为双端依赖）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

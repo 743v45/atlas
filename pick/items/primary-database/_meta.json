@@ -1,0 +1,6 @@
+{
+  "name": "主数据库选型",
+  "description": "以 PostgreSQL 为锚的应用数据库横评：通用 OLTP、文档 NoSQL、列式 OLAP、嵌入式、分布式 NewSQL——「应用的第一个数据库选什么」",
+  "order": 5,
+  "columns": ["定位", "许可", "水平扩展", "协议兼容", "托管", "成本"]
+}

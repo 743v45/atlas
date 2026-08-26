@@ -1,0 +1,23 @@
+{
+  "name": "Telegram Bot",
+  "homepage": "https://core.telegram.org/bots/api",
+  "license": "免费 API（客户端开源）",
+  "verdict": "hold",
+  "summary": "Bot API 免费强大、客户端成熟，但大陆网络 Telegram 全线被墙：发送端服务器要可达 api.telegram.org、接收端 iPhone 都需常驻代理，把一个通知通道变成两个外部依赖——不推荐新采用，网络环境变化再重评。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://core.telegram.org/bots/webhooks",
+    "https://mychina.guide/blog/does-telegram-work-in-china",
+    "https://pinggy.io/blog/how_to_set_up_and_test_telegram_bot_webhook",
+    "Claude 会话 13bf0e5c（2026-08-25）——「国内网络要处理」判定来源"
+  ],
+  "tags": ["telegram", "推送", "免费", "webhook"],
+  "matrix": {
+    "形态": "IM 机器人 API",
+    "自托管": "❌ 依赖 TG 云",
+    "免费额度": "完全免费",
+    "iOS 体验": "原生（需代理）",
+    "延迟": "秒级（需代理）"
+  }
+}

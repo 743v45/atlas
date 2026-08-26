@@ -1,0 +1,27 @@
+{
+  "name": "嵌入级+CI 校验组合",
+  "homepage": "https://www.writethedocs.org/guide/docs-as-code/",
+  "verdict": "adopt",
+  "summary": "自建「嵌入级+CI 强制校验」：同仓 docs/ + 引用只指 symbol 不指行号 + CI 死链检查 exit 1 卡合并 + ADR 留痕 + AGENTS.md/llms.txt——一天成本的简化版 Swimm，个人/小团队最优解。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.writethedocs.org/guide/docs-as-code/",
+    "https://docusaurus.io/docs/api/docusaurus-config",
+    "https://docusaurus.io/docs/markdown-features/react",
+    "https://github.com/lycheeverse/lychee",
+    "https://backstage.io/docs/architecture-decisions",
+    "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation",
+    "https://llmstxt.org",
+    "https://agents.md",
+    "Claude 历史会话（2026-08-25）——六级分级框架与结论提取源"
+  ],
+  "tags": ["docs-as-code", "自建", "ci", "adr", "ai"],
+  "matrix": {
+    "关联强度": "嵌入级(+ADR/AI)",
+    "标识": "symbol 引用",
+    "单一事实源": "代码仓",
+    "CI 强制": "✅ exit 1 卡点",
+    "形态": "同仓 docs/+脚本"
+  }
+}

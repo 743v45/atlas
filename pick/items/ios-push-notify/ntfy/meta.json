@@ -1,0 +1,39 @@
+{
+  "name": "ntfy",
+  "repo": "https://github.com/binwiederhier/ntfy",
+  "homepage": "https://ntfy.sh",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "开源 HTTP pub-sub 推送全家桶（iOS/Android/Web，Apache-2.0，⭐33,772.8k 高活跃），多端告警场景最强；硬伤在 iOS：自建服务器的即时推送必须经官方 ntfy.sh 转发 poll_request，不配 upstream 则退化为分钟级轮询（几分钟～约 20 分钟一档）——iPhone 单机场景让位 Bark，多端场景值得试用。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/binwiederhier/ntfy",
+    "https://docs.ntfy.sh/config",
+    "https://docs.ntfy.sh/publish",
+    "https://noted.lol/ntfy",
+    "https://github.com/binwiederhier/ntfy/issues/1305",
+    "Claude 会话 13bf0e5c（2026-08-25）——需求与候选来源"
+  ],
+  "tags": [
+    "推送",
+    "免费",
+    "自托管",
+    "pub-sub",
+    "多端"
+  ],
+  "matrix": {
+    "形态": "App + HTTP pub-sub",
+    "自托管": "⚠️ iOS 需 upstream",
+    "免费额度": "250 条/天(ntfy.sh)",
+    "iOS 体验": "原生(官方服务器)",
+    "延迟": "⚠️ 自建无 upstream 分钟级轮询"
+  },
+  "stats": {
+    "source_repo": "binwiederhier/ntfy",
+    "stars": 33773,
+    "pushed_at": "2026-08-25",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Pushover",
+  "homepage": "https://pushover.net",
+  "license": "专有（商业 SaaS）",
+  "verdict": "hold",
+  "summary": "体验口碑最佳的商业推送：$4.99/平台一次性买断、终身有效、30 天全功能试用（2026-08-27 官网报价），但试用后必付费且闭源不可自托管——与「免费」硬约束直接冲突；哪天愿意付这 5 美元它就是体验上限。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://pushover.net/pricing",
+    "https://pushover.net/licensing",
+    "https://support.pushover.net/i8-how-much-does-pushover-cost-is-there-a-subscription",
+    "Claude 会话 13bf0e5c（2026-08-25）——「体验最好但要 $5，不符合免费要求」判定来源"
+  ],
+  "tags": ["推送", "商业", "买断制"],
+  "matrix": {
+    "形态": "商业 SaaS App",
+    "自托管": "❌ 闭源",
+    "免费额度": "试用 30 天→$4.99 买断",
+    "iOS 体验": "原生（口碑最佳）",
+    "延迟": "秒级"
+  }
+}

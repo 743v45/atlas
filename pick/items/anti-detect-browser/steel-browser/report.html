@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steel Browser · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/browser-agents.html">AI × 浏览器</a><span class="sep">·</span><span>反检测浏览器</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../patchright/report.html">← Patchright</a><span class="sep">·</span><a href="../undetected-chromedriver/report.html">undetected-chromedriver →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Steel Browser</h1>
+<blockquote><strong>TL;DR</strong>：把浏览器 API 做成开源基础设施、可自托管，自托管云浏览器首选之一；AIMultiple 2026 速度分 99 但功能分 45，功能面弱于商业云。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">star</td><td style="text-align:left">⭐7,543（gh 采集 2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">最后 push</td><td style="text-align:left">2026-08-25</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">备注</td><td style="text-align:left">repo 已从 <code>steel-dev/steel</code> 改名 <code>steel-dev/steel-browser</code>（2026 年内）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ul><li><strong>开源基础设施</strong>：浏览器 API 本体开源、可自托管，API / Python / Node SDK 控制会话舰队（APIScout 2026：对 agent builder 的开放性是主要卖点）[2]。</li><li><strong>速度</strong>：AIMultiple 2026 速度分 99（功能分 45，见风险）[3]。</li></ul>
+<h2>对比</h2>
+<ul><li>与 Browserbase：Steel 开源可自托管 vs Browserbase 托管省心（APIScout 2026 对比定位）[2]。</li><li>AIMultiple 2026 综合 72，低于 Bright Data 97 / BrowserAI 87 / Anchor 82，高于 Hyperbrowser 62 [3]。</li><li>完整矩阵见 <code>../comparison.md</code>。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>功能分 45（AIMultiple 2026）：观测/反检测等能力面弱于商业云 [3]。</li><li>repo 改名史说明项目在快速演进，接口稳定性需盯 changelog。</li></ul>
+<h2>来源</h2>
+<ol><li>steel-browser — <a href="https://github.com/steel-dev/steel-browser">https://github.com/steel-dev/steel-browser</a>（gh 一手数据 2026-08-27）</li><li>Browserbase vs Steel vs Hyperbrowser — apiscout.dev（2026 评测）</li><li>Remote Browsers: Web Infra for AI Agents Compared — aimultiple.com（2026 评测）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

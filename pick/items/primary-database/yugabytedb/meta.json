@@ -1,0 +1,38 @@
+{
+  "name": "YugabyteDB",
+  "repo": "https://github.com/yugabyte/yugabyte-db",
+  "homepage": "https://www.yugabyte.com",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "2024 年起 100% Apache-2.0、深度 fork PG 查询层，是「要分布式又不想离开 PG 生态」时许可最干净、兼容最深的选择；生态规模与托管成熟度仍小于 CockroachDB。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.yugabyte.com/blog/why-we-changed-yugabyte-db-licensing-to-100-open-source",
+    "https://docs.yugabyte.com/stable/releases/ybdb-releases",
+    "https://www.yugabyte.com/blog/a-postgresql-database-for-every-agent",
+    "https://db-engines.com/en/ranking",
+    "taevasidian/tech/数据库选型/YugabyteDB · 分布式 NewSQL 数据库选型报告——历史调研底稿"
+  ],
+  "tags": [
+    "newsql",
+    "分布式",
+    "pg兼容",
+    "apache"
+  ],
+  "matrix": {
+    "定位": "分布式 NewSQL",
+    "许可": "Apache-2.0",
+    "水平扩展": "原生分布式",
+    "协议兼容": "PG 深兼容（fork 查询层）",
+    "托管": "YugabyteDB Managed",
+    "成本": "开源免费"
+  },
+  "stats": {
+    "source_repo": "yugabyte/yugabyte-db",
+    "stars": 10500,
+    "pushed_at": "2026-08-26",
+    "license": "NOASSERTION",
+    "collected_at": "2026-08-27"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "MongoDB",
+  "repo": "https://github.com/mongodb/mongo",
+  "homepage": "https://www.mongodb.com",
+  "license": "SSPL-1.0",
+  "verdict": "trial",
+  "summary": "文档灵活与原生分片仍是刚需场景的好选择，但多数「想用 MongoDB」的需求 PostgreSQL JSONB 已能覆盖且更稳；SSPL 非 OSI 许可是商业采用的心理闸门。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.mongodb.com/products/updates/mongodb-8-3",
+    "https://www.mongodb.com/docs/manual/release-notes/8.0",
+    "https://db-engines.com/en/ranking",
+    "https://checkthat.ai/brands/mongodb/pricing",
+    "taevasidian/tech/数据库选型/MongoDB · 文档型 NoSQL 数据库选型报告——历史调研底稿"
+  ],
+  "tags": [
+    "nosql",
+    "文档型",
+    "分片",
+    "atlas"
+  ],
+  "matrix": {
+    "定位": "文档 NoSQL",
+    "许可": "SSPL-1.0",
+    "水平扩展": "原生分片",
+    "协议兼容": "MQL（非 SQL）",
+    "托管": "Atlas",
+    "成本": "SSPL 商业风险"
+  },
+  "stats": {
+    "source_repo": "mongodb/mongo",
+    "stars": 28507,
+    "pushed_at": "2026-08-26",
+    "license": "NOASSERTION",
+    "collected_at": "2026-08-27"
+  }
+}

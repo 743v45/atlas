@@ -1,0 +1,12 @@
+{
+  "name": "浏览器访问层",
+  "description": "AI Agent 驱动浏览器的通道选型：MCP server、CLI 子进程、SDK 原语、自治框架四层",
+  "order": 2,
+  "columns": [
+    "形态",
+    "常驻 token",
+    "引擎覆盖",
+    "独占能力",
+    "许可"
+  ]
+}

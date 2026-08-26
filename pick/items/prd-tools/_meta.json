@@ -1,0 +1,6 @@
+{
+  "name": "PRD 工具",
+  "description": "产品需求文档工具：协作文档平台、AI 直写、spec-driven 开发三线——分水岭是 PRD 给人读还是给 AI 消费",
+  "order": 7,
+  "columns": ["形态", "AI 能力", "协作", "Agent 读写", "价格", "中文"]
+}

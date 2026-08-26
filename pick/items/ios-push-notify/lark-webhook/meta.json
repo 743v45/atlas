@@ -1,0 +1,21 @@
+{
+  "name": "飞书群自定义机器人",
+  "homepage": "https://open.feishu.cn/document/client-docs/bot-v3/add-custom-bot",
+  "license": "专有（免费 SaaS）",
+  "verdict": "adopt",
+  "summary": "飞书群里加「自定义机器人」即得 webhook：免费、免管理员审核、限流 100 条/分钟，富文本/卡片直进已装的飞书 App——重度飞书用户（本库环境即如此）的零成本补充通道，适合工作流告警与 Bark 并存；代价是内容经飞书云、呈现受飞书 App 通知策略约束。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://open.feishu.cn/document/client-docs/bot-v3/add-custom-bot",
+    "Claude 会话 13bf0e5c（2026-08-25）——需求与环境（重度飞书）来源"
+  ],
+  "tags": ["飞书", "lark", "webhook", "免费", "推送"],
+  "matrix": {
+    "形态": "群机器人 webhook",
+    "自托管": "❌ SaaS",
+    "免费额度": "免费 100 条/分",
+    "iOS 体验": "经飞书 App 通知",
+    "延迟": "秒级（待验证）"
+  }
+}

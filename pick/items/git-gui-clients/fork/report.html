@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fork · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>Git 图形化客户端</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../gitfox/report.html">GitFox →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>Fork</h1>
+<blockquote><strong>TL;DR</strong>：买断制里体验最好：$59.99 一次付费终身用，轻快稳定，macOS 重度终端用户的首选 GUI 辅助。</blockquote>
+<ul><li><strong>结论</strong>：adopt 推荐</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">Mac 2.66.7 / Win 2.16.1（官网 CDN 下载链接观察，2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">闭源（专有软件，$59.99 一次性买断，评估版免费无时限）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left">无公开仓库（独立开发者 Dan Pristupov）</td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">两个平台持续发版（2026-08-27 观察到的当前版本号较新）；无公开 changelog 仓库，节奏只能从版本号推断</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ol><li><strong>买断制 + 不限时免费评估，在订阅浪潮里独树一帜</strong>：官网明示 $59.99、free evaluation（2026-08-27 查询），无订阅、无功能墙试用 [1]。7 月底会话与 8 月底复核价格一致，无波动。</li><li><strong>第三方评测一致点名「最均衡」</strong>：Rockstar Developer University 2026 年评测结论「Fork 是多数开发者的最佳 Git 客户端——快、专注、staging/历史/rebase/blame/冲突工具全而不 bury 基础操作」[3]；Tower 官方横评（2026）也称其「非常能打、界面干净、藏了不少高级功能（多作者 profile 等）」[2]——竞争对手拿它当参照系本身就是背书。</li><li><strong>性能与场景匹配</strong>：2025 年 dev.to 横评把 Fork 列入「能优雅处理大仓库」一组（对照：GitKraken/SourceTree/GitHub Desktop 在 monorepo 上吃力）[4]。对把 GUI 当辅助、主力在终端的用户，Fork 的轻快恰好是核心诉求。</li><li><strong>Reddit 社区口碑长期稳定</strong>：r/git 2025 年「你用什么 Git 客户端」讨论中 Fork 是付费项里被点名最多的推荐 [5]。</li></ol>
+<h2>对比</h2>
+<p>与免费方案（Sourcetree/GitHub Desktop）相比贵 $59.99 但换来性能与交互打磨；与 Sublime Merge（$99 买断）相比更便宜、更「常规 GUI」，Sublime 胜在极致性能与行级操作；与 Tower（$69/年 起）相比一次付费 vs 年年付。逐维度对比见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li>闭源、单人维护的独立软件：bus factor 风险客观存在；但自 2016 年 Beta 起持续运营 10 年（Reddit 早期推广帖可佐证 longevity [5]），2026 年仍在发版 [1]。</li><li>自带捆绑 Git、历史上未提供切换系统 Git 的选项（Reddit 用户抱怨，2019 年讨论；当前版本是否已支持待验证）[5]。</li><li>无 Linux 版；macOS/Windows 双平台 [1]。</li></ul>
+<h2>来源</h2>
+<ol><li>Fork 官网（版本与价格） — <a href="https://fork.dev">https://fork.dev</a> （访问 2026-08-27）</li><li>Tower Blog: Best Git Client - for Mac and Windows in 2026 — <a href="https://www.git-tower.com/blog/best-git-client">https://www.git-tower.com/blog/best-git-client</a> （访问 2026-08-27）</li><li>Rockstar Developer University: 11 Best Git Clients for Developers in 2026 — <a href="https://rockstardeveloperuniversity.com/best-git-clients-for-developers">https://rockstardeveloperuniversity.com/best-git-clients-for-developers</a> （访问 2026-08-27）</li><li>dev.to: Best Git GUI Clients in 2025: GitKraken, SourceTree, Fork, and More Compared — <a href="https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd">https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd</a> （访问 2026-08-27）</li><li>Reddit r/git: What git client do you use (2025) — <a href="https://www.reddit.com/r/git/comments/1inut0b/what_git_client_do_you_use">https://www.reddit.com/r/git/comments/1inut0b/what_git_client_do_you_use</a> （访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录（承接 2026-07-28 会话结论：付费首选 Fork）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

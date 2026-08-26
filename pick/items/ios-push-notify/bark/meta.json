@@ -1,0 +1,38 @@
+{
+  "name": "Bark",
+  "repo": "https://github.com/Finb/Bark",
+  "homepage": "https://bark.day.app",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "iOS 专属推送 App，完全免费、装好即得一个 URL，任何脚本 curl 一下就弹锁屏通知；官方服务器即开即用，有 NAS 可 Docker 自建 bark-server + E2E 加密把业务数据留在内网——「脚本→iPhone 弹通知」的默认答案。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/Finb/Bark",
+    "https://apps.apple.com/us/app/bark-custom-notifications/id1403753865",
+    "https://github.com/Finb/bark-server",
+    "https://dev.co/devops/open-source/bark-server",
+    "Claude 会话 13bf0e5c（2026-08-25）——需求与首推结论来源"
+  ],
+  "tags": [
+    "ios",
+    "推送",
+    "免费",
+    "自托管",
+    "webhook"
+  ],
+  "matrix": {
+    "形态": "iOS App + URL",
+    "自托管": "✅ bark-server(Docker)",
+    "免费额度": "完全免费",
+    "iOS 体验": "原生锁屏+重要警告+加密",
+    "延迟": "APNs 秒级"
+  },
+  "stats": {
+    "source_repo": "Finb/Bark",
+    "stars": 8947,
+    "pushed_at": "2026-08-18",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  }
+}

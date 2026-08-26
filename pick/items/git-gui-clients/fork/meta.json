@@ -1,0 +1,24 @@
+{
+  "name": "Fork",
+  "homepage": "https://fork.dev",
+  "license": "Proprietary",
+  "verdict": "adopt",
+  "summary": "买断制里体验最好：$59.99 一次付费终身用，轻快稳定，macOS 重度终端用户的首选 GUI 辅助。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://fork.dev",
+    "https://www.git-tower.com/blog/best-git-client",
+    "https://rockstardeveloperuniversity.com/best-git-clients-for-developers",
+    "https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd",
+    "https://www.reddit.com/r/git/comments/1inut0b/what_git_client_do_you_use"
+  ],
+  "tags": ["git", "gui", "macos", "paid-once"],
+  "matrix": {
+    "许可": "闭源买断",
+    "价格": "$59.99 一次性",
+    "平台": "macOS/Win",
+    "性能": "轻快",
+    "大仓库": "好"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "updated": "2026-08-27",
+  "weights": {
+    "生态扩展": 5,
+    "许可": 4,
+    "运维门槛": 4,
+    "水平扩展": 3,
+    "OLAP能力": 2,
+    "托管生态": 3
+  },
+  "scores": {
+    "postgresql": {"生态扩展": 5, "许可": 5, "运维门槛": 3, "水平扩展": 2, "OLAP能力": 3, "托管生态": 5},
+    "mysql": {"生态扩展": 3, "许可": 3, "运维门槛": 4, "水平扩展": 2, "OLAP能力": 2, "托管生态": 4},
+    "sqlite": {"生态扩展": 2, "许可": 5, "运维门槛": 5, "水平扩展": 1, "OLAP能力": 2, "托管生态": 2},
+    "mongodb": {"生态扩展": 3, "许可": 2, "运维门槛": 3, "水平扩展": 4, "OLAP能力": 2, "托管生态": 5},
+    "clickhouse": {"生态扩展": 3, "许可": 5, "运维门槛": 2, "水平扩展": 5, "OLAP能力": 5, "托管生态": 4},
+    "cockroachdb": {"生态扩展": 2, "许可": 2, "运维门槛": 4, "水平扩展": 5, "OLAP能力": 3, "托管生态": 4},
+    "yugabytedb": {"生态扩展": 3, "许可": 5, "运维门槛": 3, "水平扩展": 5, "OLAP能力": 3, "托管生态": 3},
+    "tidb": {"生态扩展": 3, "许可": 5, "运维门槛": 2, "水平扩展": 5, "OLAP能力": 4, "托管生态": 4}
+  },
+  "note": "评分口径（由属性矩阵值与报告事实映射，非拍脑袋）：①许可：公共领域/Apache-2.0/PostgreSQL(BSD 类)=5，GPL-2.0=3，SSPL=2，BUSL 源可用(≥$5M 收费)=2；②生态扩展：PG extension 一等公民+FDW=5，MySQL 插件有限=3，SQLite 内建 FTS5/R-Tree 但无服务端扩展=2，Cockroach PG 扩展大多不可用=2，其余=3；③运维门槛（高分=省心）：SQLite 零运维=5，Cockroach 自动化好/MySQL 上手快=4，PG vacuum+调参+连接池=3，TiDB 全家桶/ClickHouse 自托管重=2；④水平扩展：原生分布式=5，MongoDB 原生分片=4，PG 靠 Citus/云=2，MySQL 中间件=2，SQLite=1；⑤OLAP：ClickHouse 列式向量化=5，TiDB TiFlash HTAP=4，PG 并行+AIO=3，MySQL/SQLite/MongoDB=2；⑥托管生态：PG/Atlas 全云覆盖=5，MySQL/ClickHouse/Cockroach/TiDB=4，Yugabyte=3，SQLite 无需托管=2。必读注记：矩阵只覆盖上述六维——ClickHouse/TiDB/Yugabyte 等专家库总分高是「各自维度强」的加总，不代表可替代 OLTP 主库（事务/点查/正确性不在矩阵内）；维度外风险（BUSL 合规、生态规模、并发写边界）以各条目 verdict 为准，矩阵高分与 trial/hold 并存是两层分工（RULES.md 第 5 节）。"
+}

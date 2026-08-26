@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nodriver · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/browser-agents.html">AI × 浏览器</a><span class="sep">·</span><span>反检测浏览器</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../multilogin/report.html">← Multilogin</a><span class="sep">·</span><a href="../patchright/report.html">Patchright →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>nodriver</h1>
+<blockquote><strong>TL;DR</strong>：undetected-chromedriver 官方继任者：WebSocket 直连系统 Chrome、无中间层痕迹，直面 Cloudflare 的 Python 默认选择；维护放缓，备选社区 fork zendriver。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">star</td><td style="text-align:left">⭐4,698（gh 采集 2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">最后 push</td><td style="text-align:left">2026-05-13（节奏放缓）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">AGPL-3.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">形态</td><td style="text-align:left">Python async 驱动库</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">前作</td><td style="text-align:left">undetected-chromedriver ⭐4,698，push 停在 2025-07-05（已死，勿选）</td><td style="text-align:left">[3]</td></tr><tr><td style="text-align:left">社区 fork</td><td style="text-align:left">zendriver ⭐4,698，push 2026-08-16（活跃）</td><td style="text-align:left">[2]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ul><li><strong>原理</strong>：通过 WebSocket 直连系统 Chrome 的 DevTools 端口——控制平面里没有 Playwright shim、没有 <code>Runtime.enable</code> 调用序列、没有中间件 [4]。</li><li><strong>定位</strong>：直面 Cloudflare / Imperva / hCaptcha 场景的 Python 默认选择（Scrapfly 2026 评测结论）[5]。</li><li><strong>AI 接入</strong>：纯 Python API，与 browser-use 等框架组合方便。</li><li><strong>血统</strong>：undetected-chromedriver 作者 ultrafunkamsterdam 的官方续作 [1]。</li></ul>
+<h2>对比</h2>
+<p>见 <code>../comparison.md</code>。与 Patchright 互为补丁派两条路：nodriver 无中间层直连（Python），Patchright 修补 Playwright（Node/Python 双栈）。</p>
+<h2>风险与注意</h2>
+<ul><li><strong>维护放缓</strong>：最后 push 2026-05-13（gh 2026-08-27 观测）；停摆时切 fork zendriver（AGPL-3.0，push 2026-08-16 活跃）[1][2]。</li><li><strong>AGPL-3.0</strong>：网络服务场景有传染性，商用注意合规。</li><li>单作者项目，巴士系数低。</li></ul>
+<h2>来源</h2>
+<ol><li>nodriver — <a href="https://github.com/ultrafunkamsterdam/nodriver">https://github.com/ultrafunkamsterdam/nodriver</a>（gh 一手数据 2026-08-27）</li><li>zendriver — <a href="https://github.com/cdpdriver/zendriver">https://github.com/cdpdriver/zendriver</a>（gh 一手数据 2026-08-27）</li><li>undetected-chromedriver — <a href="https://github.com/ultrafunkamsterdam/undetected-chromedriver">https://github.com/ultrafunkamsterdam/undetected-chromedriver</a>（gh 一手数据 2026-08-27）</li><li>Anti-Detect Browser Benchmark 2026 — ianlpaterson.com（2026 评测）</li><li>Best Stealth Browsers for Web Scraping in 2026 — scrapfly.io（2026 评测）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录；维护放缓故 adopt 降 trial</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

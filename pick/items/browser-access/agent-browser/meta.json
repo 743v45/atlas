@@ -1,0 +1,35 @@
+{
+  "name": "agent-browser",
+  "repo": "https://github.com/vercel-labs/agent-browser",
+  "homepage": "https://github.com/vercel-labs/agent-browser",
+  "license": "Apache-2.0",
+  "verdict": "adopt",
+  "summary": "Vercel 出品的 Rust CLI，AI Agent 浏览器自动化的 CLI 路线领跑者（⭐41,376、日更）；@e2 元素引用语法 + 官方 skill 一键装进 Claude Code 等 8 个 Agent，装完即用。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/vercel-labs/agent-browser",
+    "https://bitbasti.com — Code-First Agents: Browser CLI with agent-browser",
+    "https://scrapfly.io — Vercel Agent Browser + Cloud Browser Integration"
+  ],
+  "tags": [
+    "cli",
+    "rust",
+    "claude-code",
+    "cdp"
+  ],
+  "stats": {
+    "source_repo": "vercel-labs/agent-browser",
+    "stars": 41377,
+    "pushed_at": "2026-08-26",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "CLI (Rust)",
+    "常驻 token": "≈0",
+    "引擎覆盖": "Chromium/CDP",
+    "独占能力": "8 Agent skill",
+    "许可": "Apache-2.0"
+  }
+}

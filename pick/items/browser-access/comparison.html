@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>浏览器访问层 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/browser-agents.html">AI × 浏览器</a><span class="sep">·</span><span>浏览器访问层 · 横评</span></nav>
+  <article>
+<h1>浏览器访问层横评（MCP 与 CLI）</h1>
+<blockquote>调研时间 2026-08-27，方法 tvly（Tavily）+ gh（GitHub CLI 一手数据）。 核心命题：<strong>AI Agent（Claude Code / Codex / Cursor 等）要通过什么通道驱动浏览器</strong>——MCP server、CLI 子进程，还是 SDK 原语？2026 年最大动态是 Microsoft 把重心从 Playwright MCP 转向 Playwright CLI，<strong>token 经济学正在改写这条赛道</strong>。</blockquote>
+<h2>场景速配（TL;DR 矩阵）</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">推荐</th><th style="text-align:left">理由</th></tr></thead><tbody><tr><td style="text-align:left">Claude Code 里的日常通用浏览器操作</td><td style="text-align:left"><a href="agent-browser/report.md">agent-browser</a></td><td style="text-align:left">Rust CLI，<code>@e2</code> 元素引用极省 token，官方 skill 一行装</td></tr><tr><td style="text-align:left">自研 Agent 要页面级原语</td><td style="text-align:left"><a href="stagehand/report.md">Stagehand</a></td><td style="text-align:left">act/extract/observe 三原语 SDK</td></tr><tr><td style="text-align:left">token 敏感的多步任务</td><td style="text-align:left"><a href="playwright-cli/report.md">Playwright CLI</a></td><td style="text-align:left">state 存磁盘不进上下文，微软官方演进方向</td></tr><tr><td style="text-align:left">调试/性能分析、看网络瀑布</td><td style="text-align:left"><a href="chrome-devtools-mcp/report.md">Chrome DevTools MCP</a></td><td style="text-align:left">trace/insight 能力独占</td></tr><tr><td style="text-align:left">跨浏览器测试</td><td style="text-align:left"><a href="playwright-mcp/report.md">Playwright MCP</a></td><td style="text-align:left">唯一成熟跨引擎选项</td></tr><tr><td style="text-align:left">接管你<strong>正在用</strong>的 Chrome</td><td style="text-align:left"><a href="claude-in-chrome/report.md">Claude in Chrome</a></td><td style="text-align:left">官方扩展，同 profile 登录态</td></tr><tr><td style="text-align:left">自治执行（给目标它自己跑）</td><td style="text-align:left"><a href="browser-use/report.md">browser-use</a></td><td style="text-align:left">自治层顶流，WebVoyager 89.1%</td></tr><tr><td style="text-align:left">云端托管、免本地浏览器</td><td style="text-align:left">Browserbase MCP（观察名单）</td><td style="text-align:left">云会话 + Stealth，与反检测复合</td></tr><tr><td style="text-align:left">反检测 + MCP 一步到位</td><td style="text-align:left"><a href="../anti-detect-browser/donut-browser/report.md">Donut Browser 内置 MCP</a></td><td style="text-align:left">自托管反检测浏览器自带 MCP</td></tr></tbody></table>
+<h2>一、两条路线的本质差异</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">MCP server</th><th style="text-align:left">CLI 子进程</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">常驻进程，暴露结构化工具 schema</td><td style="text-align:left">按需 spawn 的命令，输出即结果</td></tr><tr><td style="text-align:left">上下文成本</td><td style="text-align:left"><strong>schema 常驻上下文</strong>（Playwright MCP ≈13.7k；DevTools MCP ≈18k，2025-11 基准），多步任务运行时往返累积</td><td style="text-align:left">零常驻 schema；<code>--help</code> 按需加载；<strong>state 存磁盘不进上下文</strong></td></tr><tr><td style="text-align:left">状态管理</td><td style="text-align:left">server 内维持会话</td><td style="text-align:left">文件系统即状态（snapshot 引用如 <code>@e2</code>），可组合、可断点续传</td></tr><tr><td style="text-align:left">生态</td><td style="text-align:left">Claude Desktop/Code 原生，协议标准化</td><td style="text-align:left">任何能跑 shell 的 Agent 都能用</td></tr><tr><td style="text-align:left">适用</td><td style="text-align:left">实时双向交互、IDE 集成、复杂会话</td><td style="text-align:left">token 敏感、批处理、可脚本化组合</td></tr></tbody></table>
+<p>2026 年动向：微软发布 Playwright CLI 并明示重心迁移（Kualitatem 2026）；Vercel agent-browser 从另一头（Rust 性能 + CLI 组合性）印证同一趋势。<strong>CLI 不是 MCP 的替代，而是 token 经济学更优的第二条主路</strong>；两者长期并存。</p>
+<h2>二、通道 / 原语 / 自治：先想清楚要哪层</h2>
+<table><thead><tr><th style="text-align:left">层</th><th style="text-align:left">回答的问题</th><th style="text-align:left">代表</th><th style="text-align:left">特征</th></tr></thead><tbody><tr><td style="text-align:left">通道</td><td style="text-align:left">Agent 自己看页面、亲手点</td><td style="text-align:left">MCP（DevTools/Playwright）、CLI（agent-browser、playwright-cli）</td><td style="text-align:left">通用、可控性最强、每步 token 成本敏感</td></tr><tr><td style="text-align:left">原语</td><td style="text-align:left">代码里调页面级操作</td><td style="text-align:left"><a href="stagehand/report.md">Stagehand</a></td><td style="text-align:left">act/extract/observe，确定性与效率的折中</td></tr><tr><td style="text-align:left">自治</td><td style="text-align:left">给目标它自己跑</td><td style="text-align:left"><a href="browser-use/report.md">browser-use</a>、<a href="skyvern/report.md">Skyvern</a></td><td style="text-align:left">LLM 规划，不确定性最高</td></tr></tbody></table>
+<p>三者是<strong>抽象层级而非竞争关系</strong>，大型系统常三层叠用。</p>
+<h2>三、token 成本速查</h2>
+<table><thead><tr><th style="text-align:left">方案</th><th style="text-align:left">常驻成本</th><th style="text-align:left">运行时特征</th></tr></thead><tbody><tr><td style="text-align:left">Playwright MCP</td><td style="text-align:left">≈13.7k（schema）</td><td style="text-align:left">多步任务往返累积，长 journey 成本高</td></tr><tr><td style="text-align:left">Chrome DevTools MCP</td><td style="text-align:left">≈18k（schema）</td><td style="text-align:left">同上；换来 trace/网络独占能力</td></tr><tr><td style="text-align:left">Playwright CLI</td><td style="text-align:left">≈0</td><td style="text-align:left">state 存磁盘，回传紧凑引用</td></tr><tr><td style="text-align:left">agent-browser</td><td style="text-align:left">≈0（skill 按需）</td><td style="text-align:left"><code>@e2</code> 元素引用 + Web 调试 UI 压缩快照</td></tr></tbody></table>
+<p>（MCP schema 数据：2025-11 公开基准，Trackingplan 2026 引述；运行时结论：Trackingplan 2026 实测。）</p>
+<h2>三·五、属性对比矩阵</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">Chrome DevTools MCP</th><th style="text-align:left">Playwright MCP</th><th style="text-align:left">agent-browser</th><th style="text-align:left">Playwright CLI</th><th style="text-align:left">Stagehand</th><th style="text-align:left">browser-use</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">MCP server</td><td style="text-align:left">MCP server</td><td style="text-align:left">CLI（Rust）</td><td style="text-align:left">CLI</td><td style="text-align:left">SDK（TS/Python）</td><td style="text-align:left">自治框架（Python）</td></tr><tr><td style="text-align:left">常驻 token</td><td style="text-align:left">≈18k（最重）</td><td style="text-align:left">≈13.7k</td><td style="text-align:left"><strong>≈0</strong></td><td style="text-align:left"><strong>≈0</strong></td><td style="text-align:left">N/A（代码内调用）</td><td style="text-align:left">N/A</td></tr><tr><td style="text-align:left">状态管理</td><td style="text-align:left">进程内会话</td><td style="text-align:left">进程内会话</td><td style="text-align:left"><strong>磁盘 + <code>@e2</code> 引用</strong></td><td style="text-align:left"><strong>磁盘引用</strong></td><td style="text-align:left">代码控制</td><td style="text-align:left">Agent 规划</td></tr><tr><td style="text-align:left">引擎覆盖</td><td style="text-align:left">Chromium 系</td><td style="text-align:left"><strong>三引擎</strong></td><td style="text-align:left">Chromium（CDP）</td><td style="text-align:left">三引擎</td><td style="text-align:left">三引擎（PW 底座）</td><td style="text-align:left">Chromium</td></tr><tr><td style="text-align:left">独占能力</td><td style="text-align:left">trace / 网络瀑布 / console</td><td style="text-align:left">跨引擎测试</td><td style="text-align:left">8 个 Agent 官方 skill</td><td style="text-align:left">微软官方演进方向</td><td style="text-align:left">act/extract/observe 三原语</td><td style="text-align:left">自治执行（WebVoyager 89.1%）</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">MIT</td><td style="text-align:left">MIT</td></tr><tr><td style="text-align:left">star（gh 2026-08-27）</td><td style="text-align:left">49,749</td><td style="text-align:left">36,492</td><td style="text-align:left">41,373</td><td style="text-align:left">monorepo 95,165</td><td style="text-align:left">24,065</td><td style="text-align:left">110,792</td></tr></tbody></table>
+<h2>决策矩阵（加权）</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">形态（w=2）</th><th style="text-align:left">常驻 token（w=5）</th><th style="text-align:left">引擎覆盖（w=3）</th><th style="text-align:left">独占能力（w=4）</th><th style="text-align:left">许可（w=3）</th><th style="text-align:left">维护活跃（w=5）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="stagehand/report.md">Stagehand</a></td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>105</strong> / 110</td></tr><tr><td style="text-align:left"><a href="playwright-cli/report.md">Playwright CLI</a></td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left"><strong>99</strong> / 110</td></tr><tr><td style="text-align:left"><a href="agent-browser/report.md">agent-browser</a></td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>98</strong> / 110</td></tr><tr><td style="text-align:left"><a href="browser-use/report.md">browser-use</a></td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>92</strong> / 110</td></tr><tr><td style="text-align:left"><a href="playwright-mcp/report.md">Playwright MCP</a></td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left"><strong>84</strong> / 110</td></tr><tr><td style="text-align:left"><a href="chrome-devtools-mcp/report.md">Chrome DevTools MCP</a></td><td style="text-align:left">4</td><td style="text-align:left">1</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>82</strong> / 110</td></tr><tr><td style="text-align:left"><a href="skyvern/report.md">Skyvern</a></td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left"><strong>82</strong> / 110</td></tr><tr><td style="text-align:left"><a href="claude-in-chrome/report.md">Claude in Chrome</a></td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">4</td><td style="text-align:left"><strong>72</strong> / 110</td></tr><tr><td style="text-align:left"><a href="mcp-chrome/report.md">mcp-chrome</a></td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left"><strong>68</strong> / 110</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-08-27；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<h2>四、GitHub 活跃度速查</h2>
+<table><thead><tr><th style="text-align:left">项目</th><th style="text-align:left">仓库</th><th style="text-align:left">star</th><th style="text-align:left">最后 push</th><th style="text-align:left">license</th></tr></thead><tbody><tr><td style="text-align:left"><a href="browser-use/report.md">browser-use</a></td><td style="text-align:left"><a href="https://github.com/browser-use/browser-use">browser-use/browser-use</a></td><td style="text-align:left">⭐110,846</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">MIT</td></tr><tr><td style="text-align:left"><a href="playwright-cli/report.md">Playwright CLI</a></td><td style="text-align:left"><a href="https://github.com/microsoft/playwright">microsoft/playwright</a></td><td style="text-align:left">⭐95,172</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">Apache-2.0</td></tr><tr><td style="text-align:left"><a href="chrome-devtools-mcp/report.md">Chrome DevTools MCP</a></td><td style="text-align:left"><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp">ChromeDevTools/chrome-devtools-mcp</a></td><td style="text-align:left">⭐49,751</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">Apache-2.0</td></tr><tr><td style="text-align:left"><a href="agent-browser/report.md">agent-browser</a></td><td style="text-align:left"><a href="https://github.com/vercel-labs/agent-browser">vercel-labs/agent-browser</a></td><td style="text-align:left">⭐41,377</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">Apache-2.0</td></tr><tr><td style="text-align:left"><a href="playwright-mcp/report.md">Playwright MCP</a></td><td style="text-align:left"><a href="https://github.com/microsoft/playwright-mcp">microsoft/playwright-mcp</a></td><td style="text-align:left">⭐36,495</td><td style="text-align:left">2026-08-21</td><td style="text-align:left">Apache-2.0</td></tr><tr><td style="text-align:left"><a href="stagehand/report.md">Stagehand</a></td><td style="text-align:left"><a href="https://github.com/browserbase/stagehand">browserbase/stagehand</a></td><td style="text-align:left">⭐24,066</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">MIT</td></tr><tr><td style="text-align:left"><a href="skyvern/report.md">Skyvern</a></td><td style="text-align:left"><a href="https://github.com/Skyvern-AI/skyvern">Skyvern-AI/skyvern</a></td><td style="text-align:left">⭐22,851</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">AGPL-3.0</td></tr><tr><td style="text-align:left"><a href="mcp-chrome/report.md">mcp-chrome</a></td><td style="text-align:left"><a href="https://github.com/hangwin/mcp-chrome">hangwin/mcp-chrome</a></td><td style="text-align:left">⭐12,352</td><td style="text-align:left">2026-01-06</td><td style="text-align:left">MIT</td></tr></tbody></table>
+<p>*star / push 为 gh 一手快照，采集 2026-08-27；无 stats 的项（商业闭源等）不列。*</p>
+<p>（跨类别与观察项另见观察名单：Donut Browser（反检测类）、stealth-browser-mcp、Browserbase MCP 等。microsoft/playwright 本体 95,165 即 <code>@playwright/cli</code> 所在 monorepo；browser-use ⭐110k+ 见反检测横评。选型门槛 ≥1k star。）</p>
+<h2>五、选型决策树</h2>
+<pre><code class="lang-">Agent 要驱动浏览器
+│
+├── 环境里有 MCP 生态（Claude Desktop/Code）?
+│   ├── 要调试/性能/网络 → Chrome DevTools MCP
+│   ├── 要跨浏览器测试 → Playwright MCP
+│   ├── 要接现有登录态会话 → Claude in Chrome（mcp-chrome 放缓，暂 hold）
+│   ├── 要云端+反检测 → Browserbase MCP
+│   └── 要持久 profile 长任务 → Browser Use MCP
+│
+├── token 敏感 / 长任务 / 可组合?
+│   ├── Playwright 生态 → Playwright CLI
+│   └── 通用 CLI Agent → agent-browser（Vercel）
+│
+└── 反检测也是需求?
+    └── Donut Browser / stealth-browser-mcp（MCP 自带）或 agent-browser + 云端 stealth
+
+前置问题：要通道（MCP/CLI）、原语（Stagehand）还是自治（browser-use/Skyvern）？
+三者是抽象层级而非竞争关系，大型系统常三层叠用。</code></pre>
+<p>务实组合（2026 共识，Medium/Lalatendu 综述口径）：<strong>测试与预发验证用 Playwright MCP，日常开发调试用 Claude in Chrome，深度性能网络分析加 Chrome DevTools MCP，长任务与 token 敏感场景切 CLI</strong>——按任务形态分层，而非一门工具打天下。</p>
+<h2>六、观察名单（不建独立报告，含理由）</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">状态（观测 2026-08-27）</th><th style="text-align:left">备注</th></tr></thead><tbody><tr><td style="text-align:left">Browser Use MCP</td><td style="text-align:left">browser-use 本体的通道之一</td><td style="text-align:left">主打持久 profile 与长任务，本体见 browser-use 报告</td></tr><tr><td style="text-align:left">Browserbase MCP</td><td style="text-align:left">⭐3,409，push 2026-07-20</td><td style="text-align:left">云会话 + Stealth；本体见反检测横评</td></tr><tr><td style="text-align:left">Webfuse MCP</td><td style="text-align:left">小众</td><td style="text-align:left">面向「线上用户会话」实时协作场景</td></tr><tr><td style="text-align:left">stealth-browser-mcp</td><td style="text-align:left">⭐1,667，push 2026-07-24</td><td style="text-align:left">反检测×MCP 交集，Donut 的轻量替代</td></tr><tr><td style="text-align:left">BrowserMCP/mcp</td><td style="text-align:left">⭐7,018，push 2025-04-24</td><td style="text-align:left">❌ 停更一年余，勿选</td></tr></tbody></table>
+<h2>数据时间说明</h2>
+<p>本页所有 star / push / license 为 gh 2026-08-27 采集快照；token 成本为 2025-11 公开基准（Trackingplan 2026 引述）；评测结论均标注评测方与年份。复用前先核对时效（RULES.md 第 3 节）。</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

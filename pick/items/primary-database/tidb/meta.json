@@ -1,0 +1,38 @@
+{
+  "name": "TiDB",
+  "repo": "https://github.com/pingcap/tidb",
+  "homepage": "https://www.pingcap.com",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "MySQL 协议栈的分布式/HTAP 升级路径：TiFlash 列存副本一库同时跑交易与分析，数百 TB 级有大型互联网实战；PG 生态项目优先看 YugabyteDB，自托管全家桶组件多运维不轻。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://docs.pingcap.com/tidb/stable/release-timeline",
+    "https://docs.pingcap.com/tidbcloud/tidb-cloud-release-notes",
+    "https://www.srvrlss.io/provider/tidb",
+    "https://db-engines.com/en/ranking",
+    "taevasidian/tech/数据库选型/TiDB · 分布式 NewSQL 数据库选型报告——历史调研底稿"
+  ],
+  "tags": [
+    "newsql",
+    "htap",
+    "mysql协议",
+    "分布式"
+  ],
+  "matrix": {
+    "定位": "分布式 HTAP",
+    "许可": "Apache-2.0",
+    "水平扩展": "原生分布式",
+    "协议兼容": "MySQL 为主（PG 增强中）",
+    "托管": "TiDB Cloud",
+    "成本": "开源免费；云 Starter 免费额度"
+  },
+  "stats": {
+    "source_repo": "pingcap/tidb",
+    "stars": 40473,
+    "pushed_at": "2026-08-26",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  }
+}

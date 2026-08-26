@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>信息组织 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/knowledge-docs.html">知识与文档</a><span class="sep">·</span><span>信息组织 · 横评</span></nav>
+  <article>
+<h1>信息组织横评</h1>
+<blockquote>pick 自身信息架构的选型（2026-08-27，源自本库三层结构的设计决策与分类学类比讨论）。</blockquote>
+<h2>场景速配</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">选</th></tr></thead><tbody><tr><td style="text-align:left">选型库 / 决策库（百级条目，一族一屏）</td><td style="text-align:left"><strong>浅三层 + 宽表</strong></td></tr><tr><td style="text-align:left">商品 / 媒体库（千级同质，多维检索）</td><td style="text-align:left">扁平 + 多面标签</td></tr><tr><td style="text-align:left">标本馆 / 书目（万级，天然单亲）</td><td style="text-align:left">深分类学树</td></tr><tr><td style="text-align:left">知识内容（关联密集，漫游深读）</td><td style="text-align:left">网络图</td></tr></tbody></table>
+<h2>属性对比矩阵</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">浅三层 + 宽表</th><th style="text-align:left">扁平多面</th><th style="text-align:left">深分类学树</th><th style="text-align:left">网络图</th></tr></thead><tbody><tr><td style="text-align:left">导航方式</td><td style="text-align:left">目录 + 宽表</td><td style="text-align:left">多面过滤</td><td style="text-align:left">树形目录</td><td style="text-align:left">双链 + 图</td></tr><tr><td style="text-align:left">层级深度</td><td style="text-align:left">3 层</td><td style="text-align:left">0–1 层</td><td style="text-align:left">5–8 层</td><td style="text-align:left">0 层（图）</td></tr><tr><td style="text-align:left">检索</td><td style="text-align:left">过滤 + 表头排序</td><td style="text-align:left">最强（多维组合）</td><td style="text-align:left">路径即地址</td><td style="text-align:left">反链 / 全文</td></tr><tr><td style="text-align:left">浏览骨架</td><td style="text-align:left">有（一族一屏）</td><td style="text-align:left">无（只搜不逛）</td><td style="text-align:left">有（逐层下钻）</td><td style="text-align:left">无（漫游）</td></tr><tr><td style="text-align:left">归类成本</td><td style="text-align:left">低（域/类两级）</td><td style="text-align:left">无（免归类）</td><td style="text-align:left">高（单亲争论）</td><td style="text-align:left">无（写入时织）</td></tr><tr><td style="text-align:left">维护</td><td style="text-align:left">meta 单一来源</td><td style="text-align:left">标签纪律难持</td><td style="text-align:left">重排频繁</td><td style="text-align:left">AI 织网可行</td></tr><tr><td style="text-align:left">适配规模</td><td style="text-align:left">百级</td><td style="text-align:left">千级同质</td><td style="text-align:left">万级异质</td><td style="text-align:left">关联密集内容</td></tr></tbody></table>
+<h2>决策矩阵（加权）</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">导航效率（w=5）</th><th style="text-align:left">层级税（w=4）</th><th style="text-align:left">检索（w=4）</th><th style="text-align:left">维护（w=3）</th><th style="text-align:left">规模适配（w=4）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="shallow-hierarchy/report.md">浅三层 + 宽表</a></td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left"><strong>92</strong> / 100</td></tr><tr><td style="text-align:left"><a href="flat-facets/report.md">扁平 + 多面标签</a></td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left"><strong>87</strong> / 100</td></tr><tr><td style="text-align:left"><a href="deep-taxonomy/report.md">深分类学树</a></td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left"><strong>73</strong> / 100</td></tr><tr><td style="text-align:left"><a href="graph-wiki/report.md">网络图（wiki 双链）</a></td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left"><strong>64</strong> / 100</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-08-27；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<h2>分层判据（何时加层 / 拆层）</h2>
+<ul><li>一层值得存在 ⟺ 回答一个别的层不回答的问题，且有独立生命周期。</li><li>甜点 3–4 层；向上加「界」当域 &gt; 7±2；向下加「亚种」当变体有独立 meta；类别 &gt; 30 条横向拆分不加深（RULES.md 第 1 节）。</li></ul>
+<h2>关系说明（树管入口，图管深读）</h2>
+<p>pick 的实践是<strong>组合</strong>：目录层是树（域→类别→条目，管入口与秩序），正文层是图（报告 ↔ 横评 ↔ 设计树互链，管深读与漫游）——四条目非互斥，shallow-hierarchy 与 graph-wiki 在本库同时生效于不同层。</p>
+<h2>观察名单</h2>
+<ul><li><strong>卡片目录（index card catalog）</strong>：图书馆卡片柜——域页宽表的意象来源，未单独立目（属浅层方案的呈现形态而非组织模式）。</li><li><strong>杜威十进 / UDC</strong>：深树的编号制变体，编号承载含义（与天干编号同思路）。</li></ul>
+<h2>GitHub 活跃度速查</h2>
+<table><thead><tr><th style="text-align:left">项目</th><th style="text-align:left">仓库</th><th style="text-align:left">star</th><th style="text-align:left">最后 push</th><th style="text-align:left">license</th></tr></thead><tbody><tr><td style="text-align:left"><a href="graph-wiki/report.md">网络图（wiki 双链）</a></td><td style="text-align:left"><a href="https://github.com/743v45/taevasidian">743v45/taevasidian</a></td><td style="text-align:left">⭐0</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">NOASSERTION</td></tr></tbody></table>
+<p>*star / push 为 gh 一手快照，采集 2026-08-27；无 stats 的项（商业闭源等）不列。*</p>
+<p>（本类别为组织模式，仅 graph-wiki 有实证仓库；其余无 repo 不列。）</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "Qwen3-ASR",
+  "repo": "https://github.com/QwenLM/Qwen3-ASR",
+  "homepage": "https://qwen.ai/blog?id=qwen3asr",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "2026-01 新秀：1.7B 即达普通话平均 CER 3.76%，覆盖 30 语言+22 中文方言，transformers 原生/vLLM 部署还带 ForcedAligner 时间戳模型；Mac 本地路径未经验证，适合先试用再定。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/QwenLM/Qwen3-ASR",
+    "https://github.com/FireRedTeam/FireRedASR2S",
+    "https://arxiv.org/abs/2601.21337"
+  ],
+  "tags": [
+    "asr",
+    "qwen",
+    "multilingual",
+    "model"
+  ],
+  "stats": {
+    "source_repo": "QwenLM/Qwen3-ASR",
+    "stars": 3422,
+    "pushed_at": "2026-06-26",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "模型（transformers/vLLM）",
+    "中文支持": "强 3.76%+22 方言",
+    "本地部署": "✅（服务器向）/Mac 待验证",
+    "速度": "快（0.6B 高吞吐）",
+    "许可": "Apache-2.0"
+  }
+}

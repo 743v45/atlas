@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chrome DevTools MCP · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/browser-agents.html">AI × 浏览器</a><span class="sep">·</span><span>浏览器访问层</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../browser-use/report.html">← browser-use</a><span class="sep">·</span><a href="../claude-in-chrome/report.html">Claude in Chrome →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>Chrome DevTools MCP</h1>
+<blockquote><strong>TL;DR</strong>：Google 官方、直连活跃 Chrome 实例，performance trace / insight / 网络瀑布 / console 能力独占——前端调试与性能场景无可替代；代价是 schema 最重（≈18k token）。</blockquote>
+<ul><li><strong>结论</strong>：adopt（推荐——限定调试/性能场景）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">star</td><td style="text-align:left">⭐49,750，MCP 榜第一（gh 采集 2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">最后 push</td><td style="text-align:left">2026-08-26（日更）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">schema 成本</td><td style="text-align:left">≈18,000 token 常驻（2025-11 公开基准，主流 MCP 里最重）</td><td style="text-align:left">[2]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ul><li><strong>独占能力</strong>：performance trace、insight 分析、网络请求瀑布、console 消息——前端调试/性能场景无可替代 [1]。</li><li><strong>直连活跃实例</strong>：连接你开着的 Chrome（通过 DevTools 协议），不是新起无痕会话——「看正在发生的」是它区别于 Playwright MCP 的形态差异。</li><li><strong>生态验证</strong>：MCP 生态 star 榜第一（49.7k，gh 2026-08-27），Google 官方出品，日更。</li></ul>
+<h2>对比</h2>
+<p>与 <a href="../playwright-mcp/report.md">Playwright MCP</a>：调试/性能/网络 → 本项；跨浏览器测试 → 对方。schema 本项更重（18k vs 13.7k），换来 trace/网络独占 [2]。见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li>schema 最重：单会话任务不划算，重调试场景才值回票价。</li><li>Chromium 系限定（Firefox/WebKit 场景无解）。</li></ul>
+<h2>来源</h2>
+<ol><li>chrome-devtools-mcp — <a href="https://github.com/ChromeDevTools/chrome-devtools-mcp">https://github.com/ChromeDevTools/chrome-devtools-mcp</a>（gh 一手数据 2026-08-27）</li><li>Chrome DevTools MCP vs Playwright MCP: A Practical Comparison — trackingplan.com（2026，引用 2025-11 公开基准）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录；限定调试/性能场景</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

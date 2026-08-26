@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>知识与文档 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .masthead { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .masthead .sub { color: var(--muted); font-size: .92rem; }
+  .masthead .figures { margin-left: auto; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+  #filter {
+    width: 100%; padding: .5rem .8rem; margin-bottom: .6rem; font-size: .95rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text);
+  }
+  .chips { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .chip {
+    padding: .1rem .7rem; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--card); color: var(--muted); cursor: pointer; font-size: .8rem; font-family: var(--font-body);
+  }
+  .chip.active { color: var(--chip-c); border-color: var(--chip-c); font-weight: 600; }
+  .category { margin-bottom: 2.1rem; animation: drawer .4s ease both; }
+  .category:nth-child(1) { animation-delay: .02s } .category:nth-child(2) { animation-delay: .07s }
+  .category:nth-child(3) { animation-delay: .12s } .category:nth-child(4) { animation-delay: .17s }
+  @keyframes drawer { from { opacity: 0; transform: translateY(7px) } to { opacity: 1; transform: none } }
+  @media (prefers-reduced-motion: reduce) { .category { animation: none } }
+  .category h2 { font-size: 1.32rem; margin: 0 0 .5rem; display: flex; align-items: center; gap: .65rem; }
+  .gan {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.75em; height: 1.75em; border: 1.5px solid var(--text); border-radius: 5px;
+    font-size: .82em; font-family: var(--font-display); line-height: 1; flex-shrink: 0;
+  }
+  .cmp { font-size: .8rem; font-weight: normal; margin-left: auto; font-family: var(--font-body); }
+  .idx-table { display: table; table-layout: fixed; }
+  .idx-table th {
+    font-size: .73rem; color: var(--muted); font-weight: 500; text-align: left; font-family: var(--font-body);
+    cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .idx-table th:focus-visible { outline-offset: -2px; }
+  .idx-table th.sorted-asc::after { content: " ↑"; color: var(--link); }
+  .idx-table th.sorted-desc::after { content: " ↓"; color: var(--link); }
+  .idx-table td { border-bottom: 1px solid var(--border); font-size: .82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .idx-table td:first-child { width: 7.5rem; }
+  .idx-table td.num, .idx-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-family: var(--font-mono); font-size: .78rem; }
+  .idx-table td.mx { color: var(--muted); }
+  .idx-table td.warn { color: var(--accent); }
+  .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
+  .idx-table .tool-name { font-weight: 600; }
+  .push-stale { color: var(--danger); }
+  .collected-note { color: var(--muted); font-size: .75rem; margin-top: .3rem; font-family: var(--font-mono); }
+  .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
+  /* 域列表（顶层索引）与域页 */
+  .domain {
+    margin-bottom: 1.3rem; padding: 1rem 1.2rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+  }
+  .domain h2 { margin: 0 0 .35rem; display: flex; align-items: center; gap: .65rem; font-size: 1.3rem; }
+  .domain h2 a { color: inherit; text-decoration: none; }
+  .domain h2 a:hover { color: var(--link); }
+  .domain .figures { margin-left: auto; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); font-weight: 400; }
+  .domain-desc { margin: .1rem 0 .7rem; color: var(--muted); font-size: .9rem; font-family: var(--font-body); }
+  .cat-chips { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .cat-chip {
+    display: inline-flex; align-items: baseline; gap: .4rem; padding: .18rem .8rem;
+    border: 1px solid var(--border); border-radius: 999px; background: var(--bg);
+    text-decoration: none; color: var(--text); font-size: .85rem; font-family: var(--font-body);
+  }
+  .cat-chip:hover { border-color: var(--link); color: var(--link); }
+  .cat-chip span { color: var(--muted); font-family: var(--font-mono); font-size: .72rem; }
+  .cat-count { font-size: .74rem; color: var(--muted); font-weight: 400; font-family: var(--font-mono); }
+  .kingdom-name {
+    font-size: 1.05rem; color: var(--muted); font-weight: 600; margin: 1.6rem 0 .6rem;
+    border-bottom: 1px dashed var(--border); padding-bottom: .3rem;
+  }
+  .omni-wrap { position: relative; margin-bottom: 1.4rem; }
+  #omni {
+    width: 100%; padding: .55rem .9rem; font-size: .98rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 9px; background: var(--card); color: var(--text);
+  }
+  .omni-results {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 10;
+    background: var(--card); border: 1px solid var(--border); border-radius: 9px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.10); overflow: hidden;
+  }
+  .omni-results a, .omni-none {
+    display: flex; align-items: baseline; gap: .6rem; padding: .45rem .9rem;
+    text-decoration: none; color: var(--text); font-size: .88rem; font-family: var(--font-body);
+  }
+  .omni-results a:hover { background: color-mix(in srgb, var(--link) 6%, transparent); }
+  .omni-results b { font-weight: 600; }
+  .omni-v { font-size: .74rem; color: var(--muted); }
+  .omni-d { margin-left: auto; font-size: .76rem; color: var(--muted); font-family: var(--font-mono); }
+  @media (max-width: 720px) {
+    body { padding: 1rem .7rem 2.5rem; }
+    .category { overflow-x: auto; }
+    .category h2 { font-size: 1.12rem; }
+    .masthead .figures { display: none; }
+    .idx-table { min-width: 640px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><span>知识与文档</span><span class="sep">·</span><span>3 类 15 条</span></nav>
+  <div class="masthead">
+    <h1>知识与文档</h1>
+    <span class="sub">AI 共建的知识层：库怎么建（存储层原生访问权），文档与代码怎么强关联（锚点 + 单一事实源 + CI 强制），信息怎么分层组织（树管入口、图管深读）。</span>
+  </div>
+  <input id="filter" type="search" placeholder="按名称 / 结论 / 标签过滤…" autocomplete="off">
+  <div class="chips">
+    <button class="chip active" data-verdict="all">全部</button>
+    <button class="chip" data-verdict="adopt" style="--chip-c:#0ca30c">推荐</button><button class="chip" data-verdict="trial" style="--chip-c:#fab219">试用</button><button class="chip" data-verdict="assess" style="--chip-c:#898781">评估</button><button class="chip" data-verdict="hold" style="--chip-c:#d03b3b">观望</button>
+  </div>
+  <section class="category" id="knowledge-base" data-search="个人知识库">
+    <h2>个人知识库 <span class="cat-count">7 条</span> <a class="cmp" href="../items/knowledge-base/comparison.html">横评 →</a></h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>数据形态</th><th>双链</th><th>AI 写入</th><th>自托管</th><th>成本</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="assess" data-stars="44643"
+          data-push="2026-08-26" data-name="Logseq"
+          data-search="logseq 开源大纲式双链笔记，本地文件形态、ai 可直写——次选；2.0（2026-07 beta）转向 sqlite 数据库版、文件版 og 并行维护，页面阅读型知识库场景仍弱于 obsidian。 大纲 开源 本地">
+        <td class="tool-name"><a href="../items/knowledge-base/logseq/report.html" title="开源大纲式双链笔记，本地文件形态、AI 可直写——次选；2.0（2026-07 beta）转向 SQLite 数据库版、文件版 OG 并行维护，页面阅读型知识库场景仍弱于 Obsidian。">Logseq</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">MD（OG）/ SQLite（2.0）</td><td class="mx">有</td><td class="mx">文件直写（OG）</td><td class="mx">✅ 本地</td><td class="mx">免费</td>
+        <td class="num">44.6k</td>
+        <td class="num">08-26</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="0"
+          data-push="2026-08-26" data-name="Markdown + Git 仓库工作流"
+          data-search="markdown + git 仓库工作流 被实际 pick 的方案：纯 markdown + git 仓库 + agent cli（claude code）直写 + index 索引驱动——ai 共建的本质是 ai 对存储层的原生访问权，本地纯文本是唯一没有中间商的形态。 方案 git ai-共建">
+        <td class="tool-name"><a href="../items/knowledge-base/markdown-git-vault/report.html" title="被实际 pick 的方案：纯 Markdown + Git 仓库 + agent CLI（Claude Code）直写 + INDEX 索引驱动——AI 共建的本质是 AI 对存储层的原生访问权，本地纯文本是唯一没有中间商的形态。">Markdown + Git 仓库工作流</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">纯 Markdown</td><td class="mx">AI 织网 + 自动反链</td><td class="mx">文件直写</td><td class="mx">✅ 完全</td><td class="mx">免费</td>
+        <td class="num">0</td>
+        <td class="num">08-26</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="-1"
+          data-push="" data-name="Notion"
+          data-search="notion 团队协作/权限/数据库视图最强——但 ai 批量读写走 api 很慢、共建体验差、数据不在本地；完整 ai 能力锁在 business 档（$20/人/月，2026-08 查询），ai 共建个人知识库场景被否。 saas 协作 落选">
+        <td class="tool-name"><a href="../items/knowledge-base/notion/report.html" title="团队协作/权限/数据库视图最强——但 AI 批量读写走 API 很慢、共建体验差、数据不在本地；完整 AI 能力锁在 Business 档（$20/人/月，2026-08 查询），AI 共建个人知识库场景被否。">Notion</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">SaaS</td><td class="mx">反链弱</td><td class="mx">API 慢</td><td class="mx">❌</td><td class="mx">完整AI $20/人/月</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="Obsidian"
+          data-search="obsidian 被 pick 为 taevasidian 的阅读器层：本地纯 markdown、[[双链]] 是文件层面机制、反链/图谱为核心功能——只当阅读器用（随时可换），不做写入通道；2026 年官方 cli 与 agent skills 落地，这一架构方向获官方背书。 阅读器 双链 本地">
+        <td class="tool-name"><a href="../items/knowledge-base/obsidian/report.html" title="被 pick 为 taevasidian 的阅读器层：本地纯 Markdown、[[双链]] 是文件层面机制、反链/图谱为核心功能——只当阅读器用（随时可换），不做写入通道；2026 年官方 CLI 与 agent skills 落地，这一架构方向获官方背书。">Obsidian</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">纯 Markdown</td><td class="mx">[[文件层]]</td><td class="mx">官方 CLI + Skills</td><td class="mx">✅ 本地</td><td class="mx">免费（同步 $4/月）</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="40339"
+          data-push="2026-08-26" data-name="Outline"
+          data-search="outline 用户曾自托管的存量方案，已废弃：无 [[式双链（只有文档间跳转）补不上需求——落选理由是功能缺口而非质量；团队知识库场景仍是合格选项（2026 云版 $10/月起、自托管社区版免费）。 自托管 wiki 已废弃">
+        <td class="tool-name"><a href="../items/knowledge-base/outline/report.html" title="用户曾自托管的存量方案，已废弃：无 [[式双链（只有文档间跳转）补不上需求——落选理由是功能缺口而非质量；团队知识库场景仍是合格选项（2026 云版 $10/月起、自托管社区版免费）。">Outline</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">Postgres + 自管</td><td class="mx">无 [[]]</td><td class="mx">API 慢</td><td class="mx">✅ Docker</td><td class="mx">自托管免费/云$10起</td>
+        <td class="num">40.3k</td>
+        <td class="num">08-26</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="45995"
+          data-push="2026-08-26" data-name="思源笔记 SiYuan"
+          data-search="思源笔记 siyuan 块级引用最细、中文原生、docker 自建同步，v3.8.0（2026-08）内置 mcp 与智能体、全面转向人与 ai 协作——但数据仍是自管格式而非纯 markdown，牺牲 agent 文件直写的通用性，维持排除。 块级引用 中文 docker mcp">
+        <td class="tool-name"><a href="../items/knowledge-base/siyuan/report.html" title="块级引用最细、中文原生、Docker 自建同步，v3.8.0（2026-08）内置 MCP 与智能体、全面转向人与 AI 协作——但数据仍是自管格式而非纯 Markdown，牺牲 agent 文件直写的通用性，维持排除。">思源笔记 SiYuan</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">自管数据库</td><td class="mx">块级</td><td class="mx">内置 MCP+Agent</td><td class="mx">✅ Docker</td><td class="mx">免费（同步付费）</td>
+        <td class="num">46.0k</td>
+        <td class="num">08-26</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="37599"
+          data-push="2026-08-26" data-name="Trilium / TriliumNext"
+          data-search="trilium / triliumnext 自托管 web 多端访问、docker 部署好——但数据非纯 markdown、ai 写入通道弱；2025-06 fork 仓库归档、项目并回原名 trilium（原 zadam/trilium 仓库，2026-08 仍活跃发版）；多端 web 访问刚需时才值得评。 自托管 web docker">
+        <td class="tool-name"><a href="../items/knowledge-base/trilium-next/report.html" title="自托管 Web 多端访问、Docker 部署好——但数据非纯 Markdown、AI 写入通道弱；2025-06 fork 仓库归档、项目并回原名 Trilium（原 zadam/trilium 仓库，2026-08 仍活跃发版）；多端 Web 访问刚需时才值得评。">Trilium / TriliumNext</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">自管数据库</td><td class="mx">有（克隆树）</td><td class="mx">API 弱</td><td class="mx">✅ Docker</td><td class="mx">免费</td>
+        <td class="num">37.6k</td>
+        <td class="num">08-26</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="collected-note">star / push 为 gh 快照，采集 2026-08-27；红色 push 表示停滞超 180 天；条目名悬停看一句话结论。</p>
+  </section>
+  <section class="category" id="docs-code-linking" data-search="文档-代码关联">
+    <h2>文档-代码关联 <span class="cat-count">4 条</span> <a class="cmp" href="../items/docs-code-linking/comparison.html">横评 →</a></h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>关联强度</th><th>标识</th><th>单一事实源</th><th>CI 强制</th><th>形态</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="嵌入级+CI 校验组合"
+          data-search="嵌入级+ci 校验组合 自建「嵌入级+ci 强制校验」：同仓 docs/ + 引用只指 symbol 不指行号 + ci 死链检查 exit 1 卡合并 + adr 留痕 + agents.md/llms.txt——一天成本的简化版 swimm，个人/小团队最优解。 docs-as-code 自建 ci adr ai">
+        <td class="tool-name"><a href="../items/docs-code-linking/ci-drift-combo/report.html" title="自建「嵌入级+CI 强制校验」：同仓 docs/ + 引用只指 symbol 不指行号 + CI 死链检查 exit 1 卡合并 + ADR 留痕 + AGENTS.md/llms.txt——一天成本的简化版 Swimm，个人/小团队最优解。">嵌入级+CI 校验组合</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">嵌入级(+ADR/AI)</td><td class="mx">symbol 引用</td><td class="mx">代码仓</td><td class="mx">✅ exit 1 卡点</td><td class="mx">同仓 docs/+脚本</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="66092"
+          data-push="2026-08-26" data-name="Docusaurus"
+          data-search="docusaurus 嵌入级代表载体：raw-loader 构建时拉源码片段+onbrokenlinks 默认 throw 卡死链，meta 出品、66k star 活跃；但选 ssg 是站点形态决策，须与知识库/博客落点合并另评——本类别只确认其嵌入机制可载组合方案。 ssg 嵌入级 react meta">
+        <td class="tool-name"><a href="../items/docs-code-linking/docusaurus/report.html" title="嵌入级代表载体：raw-loader 构建时拉源码片段+onBrokenLinks 默认 throw 卡死链，Meta 出品、66k star 活跃；但选 SSG 是站点形态决策，须与知识库/博客落点合并另评——本类别只确认其嵌入机制可载组合方案。">Docusaurus</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">嵌入级</td><td class="mx">文件路径(构建时)</td><td class="mx">代码仓(构建拉取)</td><td class="mx">✅ 死链 throw</td><td class="mx">SSG 框架</td>
+        <td class="num">66.1k</td>
+        <td class="num">08-26</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="-1"
+          data-push="" data-name="Swimm"
+          data-search="swimm 锚点级最强——token/ast 锚点随重构自动跟随+swimm-verify ci 卡点；但核心闭源、按代码行数计价、2026 已转向企业现代化服务，对个人/小团队过重。 锚点级 saas ide-插件 闭源">
+        <td class="tool-name"><a href="../items/docs-code-linking/swimm/report.html" title="锚点级最强——token/AST 锚点随重构自动跟随+swimm-verify CI 卡点；但核心闭源、按代码行数计价、2026 已转向企业现代化服务，对个人/小团队过重。">Swimm</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">锚点级(最强)</td><td class="mx">AST/token 锚点</td><td class="mx">仓库 .swm(绑平台)</td><td class="mx">✅ swimm-verify</td><td class="mx">SaaS+IDE 插件</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="8447"
+          data-push="2026-07-13" data-name="TypeDoc"
+          data-search="typedoc 生成级代表：从 ts docstring 生成 api 文档，周下载 490 万、维护十年；作为组合方案在「api 参考」环节的补充直接可用——但不解决知识库/博客的叙述性文档关联。 生成级 typescript api-docs">
+        <td class="tool-name"><a href="../items/docs-code-linking/typedoc/report.html" title="生成级代表：从 TS docstring 生成 API 文档，周下载 490 万、维护十年；作为组合方案在「API 参考」环节的补充直接可用——但不解决知识库/博客的叙述性文档关联。">TypeDoc</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">生成级</td><td class="mx">符号级(API 面)</td><td class="mx">源码 docstring</td><td class="mx warn">⚠️ 无内建卡点</td><td class="mx">CLI 生成器</td>
+        <td class="num">8.4k</td>
+        <td class="num">07-13</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="collected-note">star / push 为 gh 快照，采集 2026-08-27；红色 push 表示停滞超 180 天；条目名悬停看一句话结论。</p>
+  </section>
+  <section class="category" id="info-architecture" data-search="信息组织">
+    <h2>信息组织 <span class="cat-count">4 条</span> <a class="cmp" href="../items/info-architecture/comparison.html">横评 →</a></h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>导航方式</th><th>层级深度</th><th>检索</th><th>维护</th><th>适配规模</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="深分类学树"
+          data-search="深分类学树 界门纲目科属种式深树：单一路径、严谨、层级无上限——适合千级且天然单亲的标本型集合（物种、杜威十进法）；层级税高，选型场景被浅层+宽表吸收。 层级 单亲归类">
+        <td class="tool-name"><a href="../items/info-architecture/deep-taxonomy/report.html" title="界门纲目科属种式深树：单一路径、严谨、层级无上限——适合千级且天然单亲的标本型集合（物种、杜威十进法）；层级税高，选型场景被浅层+宽表吸收。">深分类学树</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">树形目录</td><td class="mx">5–8 层</td><td class="mx">路径即地址</td><td class="mx">归类争议频繁</td><td class="mx">万级异质条目</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="扁平 + 多面标签"
+          data-search="扁平 + 多面标签 无层级的 faceted 组织：条目平铺，按多维度标签过滤（颜色×尺寸×价格式）——免归类争论、检索强，但无浏览骨架，只搜不逛。 facets 标签 检索">
+        <td class="tool-name"><a href="../items/info-architecture/flat-facets/report.html" title="无层级的 faceted 组织：条目平铺，按多维度标签过滤（颜色×尺寸×价格式）——免归类争论、检索强，但无浏览骨架，只搜不逛。">扁平 + 多面标签</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">多面过滤</td><td class="mx">0–1 层</td><td class="mx">最强（多维组合）</td><td class="mx">标签纪律难持</td><td class="mx">千级同质条目</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="0"
+          data-push="2026-08-26" data-name="网络图（wiki 双链）"
+          data-search="网络图（wiki 双链） 双链织网 + 图导航：无预设骨架、关联即结构（taevasidian 内容层已验证）——漫游强但无入口秩序，选型速查场景只作补充不作主导航。 双链 图 漫游">
+        <td class="tool-name"><a href="../items/info-architecture/graph-wiki/report.html" title="双链织网 + 图导航：无预设骨架、关联即结构（taevasidian 内容层已验证）——漫游强但无入口秩序，选型速查场景只作补充不作主导航。">网络图（wiki 双链）</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">双链 + 图</td><td class="mx">0 层（图）</td><td class="mx">反链/全文</td><td class="mx">AI 织网可行</td><td class="mx">关联密集内容</td>
+        <td class="num">0</td>
+        <td class="num">08-26</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="浅三层 + 宽表"
+          data-search="浅三层 + 宽表 被 pick 实际采用的方案：域→类别→条目浅三层，类别内用宽表做属性对比——层级税最低、每层回答一个独立问题，74 条目仍一屏一族。 方案 本库实践 层级">
+        <td class="tool-name"><a href="../items/info-architecture/shallow-hierarchy/report.html" title="被 pick 实际采用的方案：域→类别→条目浅三层，类别内用宽表做属性对比——层级税最低、每层回答一个独立问题，74 条目仍一屏一族。">浅三层 + 宽表</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">目录 + 宽表</td><td class="mx">3 层</td><td class="mx">过滤 + 表头排序</td><td class="mx">meta 单一来源</td><td class="mx">百级条目</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="collected-note">star / push 为 gh 快照，采集 2026-08-27；红色 push 表示停滞超 180 天；条目名悬停看一句话结论。</p>
+  </section>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
+</main>
+<script>
+  // 文本过滤 + verdict chips + 表头排序（类别内，点击切换升降序）
+  const VERDICT_ORDER = {"adopt": 0, "trial": 1, "assess": 2, "hold": 3};
+  const input = document.getElementById('filter');
+  let verdictF = 'all';
+  const chips = [...document.querySelectorAll('.chip')];
+
+  function applyFilter() {
+    document.querySelectorAll('.category').forEach(sec => {
+      let visible = 0;
+      sec.querySelectorAll('tbody tr').forEach(tr => {
+        const q = input.value.trim().toLowerCase();
+        const hitText = !q || tr.dataset.search.includes(q) || sec.dataset.search.includes(q);
+        const hitVerdict = verdictF === 'all' || tr.dataset.verdict === verdictF;
+        const hit = hitText && hitVerdict;
+        tr.classList.toggle('hidden', !hit);
+        if (hit) visible++;
+      });
+      sec.classList.toggle('hidden', visible === 0);
+    });
+  }
+  input.addEventListener('input', applyFilter);
+  chips.forEach(ch => ch.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    ch.classList.add('active');
+    verdictF = ch.dataset.verdict;
+    applyFilter();
+  }));
+
+  document.querySelectorAll('.idx-table th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const table = th.closest('table');
+      const tbody = table.querySelector('tbody');
+      const key = th.dataset.sort;
+      const asc = !th.classList.contains('sorted-asc');
+      table.querySelectorAll('th').forEach(t => t.classList.remove('sorted-asc', 'sorted-desc'));
+      th.classList.add(asc ? 'sorted-asc' : 'sorted-desc');
+      [...tbody.querySelectorAll('tr')].sort((a, b) => {
+        let va = a.dataset[key], vb = b.dataset[key];
+        if (key === 'stars') return (Number(va) - Number(vb)) * (asc ? 1 : -1);
+        if (key === 'verdict') return ((VERDICT_ORDER[va] ?? 9) - (VERDICT_ORDER[vb] ?? 9)) * (asc ? 1 : -1);
+        if (key === 'push') return String(va).localeCompare(String(vb)) * (asc ? 1 : -1);
+        return va.localeCompare(vb, 'zh') * (asc ? 1 : -1);
+      }).forEach(tr => tbody.appendChild(tr));
+    });
+  });
+</script>
+</body>
+</html>

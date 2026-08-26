@@ -1,0 +1,27 @@
+{
+  "name": "Multilogin",
+  "repo": "https://github.com/multilogin-automation",
+  "homepage": "https://multilogin.com",
+  "license": "商业（订阅）",
+  "verdict": "hold",
+  "summary": "商业指纹浏览器口碑领先者：自研 Mimic/Stealthfox 引擎、指纹技术行业标杆，€29/mo 起；官方 Playwright/Puppeteer/Selenium automation 文档齐全；多账号矩阵商业场景才需要。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://multilogin.com/help/en_US/playwright-automation-example",
+    "https://multilogin.com/help/en_US/multilogin-x-api-beginners-guide",
+    "https://www.proxyhorizon.com — 8 Best Anti-Detect Browsers for AI Agents 2026"
+  ],
+  "tags": [
+    "商业",
+    "指纹浏览器",
+    "多账号"
+  ],
+  "matrix": {
+    "反检测层级": "商业指纹库",
+    "AI 接入": "REST→端口",
+    "许可": "商业",
+    "成本": "€29+/mo",
+    "自托管": "桌面端"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Notion + Notion AI",
+  "repo": "",
+  "homepage": "https://www.notion.com",
+  "license": "商业 SaaS",
+  "verdict": "assess",
+  "summary": "英文协作团队的默认 PRD 落点：Notion AI 内联起草+数据库跟踪，协作最强一档；但 AI 需 Business 档（$20/席/月，2026）且 agent 批量读写慢、数据不在本地——协作优先选它，AI 共建优先选别的。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.notion.com",
+    "https://felloai.com/notion-ai-pricing",
+    "https://blog.buildbetter.ai/best-chatprd-alternatives-in-2026-ai-prd-generators-for-product-teams",
+    "Claude 会话 99faa8a0（2026-08-20，知识库选型）——API 慢的排除理由"
+  ],
+  "tags": ["协作", "英文", "saas"],
+  "matrix": {
+    "形态": "SaaS 协作知识库",
+    "AI 能力": "Notion AI 内联起草",
+    "协作": "强（数据库视图/权限）",
+    "Agent 读写": "API 可用但批量慢",
+    "价格": "Business $20/席/月含 AI",
+    "中文": "界面支持中文"
+  }
+}

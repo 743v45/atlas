@@ -1,0 +1,37 @@
+{
+  "name": "GitHub Desktop",
+  "repo": "https://github.com/desktop/desktop",
+  "homepage": "https://desktop.github.com",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "官方免费入门款：界面最简洁但功能基础、Electron 在大仓库吃力，适合 GitHub 重度用户轻量使用。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/desktop/desktop",
+    "https://github.com/desktop/desktop/releases",
+    "https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd",
+    "https://rockstardeveloperuniversity.com/best-git-clients-for-developers"
+  ],
+  "tags": [
+    "git",
+    "gui",
+    "github",
+    "opensource",
+    "free"
+  ],
+  "matrix": {
+    "许可": "MIT 开源",
+    "价格": "免费",
+    "平台": "macOS/Win",
+    "性能": "中（Electron）",
+    "大仓库": "差"
+  },
+  "stats": {
+    "source_repo": "desktop/desktop",
+    "stars": 21792,
+    "pushed_at": "2026-08-26",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Claude（Agent 直写）",
+  "repo": "",
+  "homepage": "https://claude.com",
+  "license": "商业 SaaS（订阅制）",
+  "verdict": "adopt",
+  "summary": "PRD 写作质量横评第一（Fireside PM 2025-12 实测：Claude 胜 ChatPRD、Gemini、ChatGPT、Grok）：口述→起草→红队评审→按模板写入飞书或 repo，零新增订阅；它只管生成，协作与承载交给宿主工具。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres",
+    "https://storyflow.so/blog/best-ai-tools-for-product-managers-2026",
+    "https://www.ideaplan.io/blog/best-free-ai-prd-generators-2026",
+    "https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/",
+    "https://icnk3gqknrte.feishu.cn/docx/M72Od0wGRo9kQyxkPtPcR977nye（本工作流产物：agent 写入飞书，2026-08-26）",
+    "Claude 会话 d77eeed3（2026-08-26）——本报告提取源"
+  ],
+  "tags": ["ai", "起草", "评审", "零订阅"],
+  "matrix": {
+    "形态": "LLM 对话 / CLI（Claude Code）",
+    "AI 能力": "横评第一的起草+评审",
+    "协作": "❌ 靠宿主工具承载",
+    "Agent 读写": "✅ 本身即 agent",
+    "价格": "订阅（Pro $20/月量级）",
+    "中文": "✅ 中英皆可"
+  }
+}

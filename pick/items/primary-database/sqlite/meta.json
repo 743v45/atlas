@@ -1,0 +1,36 @@
+{
+  "name": "SQLite",
+  "repo": "https://github.com/sqlite/sqlite",
+  "homepage": "https://www.sqlite.org",
+  "license": "公共领域（Public Domain）",
+  "verdict": "adopt",
+  "summary": "被 pick 为嵌入式与单机场景的默认数据库：单文件零运维、部署量世界第一；但多用户并发网络服务不是它的战场——与 PostgreSQL 互补而非竞争。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://sqlite.org/news.html",
+    "https://db-engines.com/en/ranking",
+    "taevasidian/tech/数据库选型/SQLite · 嵌入式关系数据库选型报告——历史调研底稿"
+  ],
+  "tags": [
+    "嵌入式",
+    "边缘",
+    "单文件",
+    "边缘计算"
+  ],
+  "matrix": {
+    "定位": "嵌入式/边缘",
+    "许可": "公共领域",
+    "水平扩展": "无（单机）",
+    "协议兼容": "SQL 大子集",
+    "托管": "无需（Turso/LiteFS）",
+    "成本": "免费"
+  },
+  "stats": {
+    "source_repo": "sqlite/sqlite",
+    "stars": 10347,
+    "pushed_at": "2026-08-26",
+    "license": "NOASSERTION",
+    "collected_at": "2026-08-27"
+  }
+}

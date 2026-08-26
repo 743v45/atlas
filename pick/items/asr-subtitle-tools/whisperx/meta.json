@@ -1,0 +1,34 @@
+{
+  "name": "WhisperX",
+  "repo": "https://github.com/m-bain/whisperX",
+  "license": "BSD-2-Clause",
+  "verdict": "trial",
+  "summary": "基于 faster-whisper 的研究级框架：词级时间戳强制对齐 + 说话人分离一步到位，是「字幕轴精修/多人访谈」的独占能力；中文准确率继承 Whisper 上限，速度换精度。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/m-bain/whisperX",
+    "https://github.com/SYSTRAN/faster-whisper",
+    "https://www.promptquorum.com/power-local-llm/local-whisper-stt-comparison-2026"
+  ],
+  "tags": [
+    "whisper",
+    "alignment",
+    "diarization",
+    "subtitle"
+  ],
+  "stats": {
+    "source_repo": "m-bain/whisperX",
+    "stars": 23762,
+    "pushed_at": "2026-07-13",
+    "license": "BSD-2-Clause",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "Python 框架",
+    "中文支持": "弱（同 Whisper）",
+    "本地部署": "✅",
+    "速度": "快+对齐开销",
+    "许可": "BSD-2-Clause"
+  }
+}

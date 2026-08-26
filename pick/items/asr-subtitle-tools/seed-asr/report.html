@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>豆包 Seed-ASR（火山引擎 API） · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/speech-content.html">语音与内容</a><span class="sep">·</span><span>字幕/语音识别工具</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../qwen3-asr/report.html">← Qwen3-ASR</a><span class="sep">·</span><a href="../sensevoice/report.html">SenseVoice →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>豆包 Seed-ASR（火山引擎 API）</h1>
+<blockquote><strong>TL;DR</strong>：字节豆包 Seed-ASR 云 API：普通话平均 CER 3.69% 的闭源顶配（FireRedASR2 官方对比口径），录音文件 1.8 元/小时还带热词/替换词杠杆；无本地权重，隐私敏感场景出局。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用（可接受云 API 时的中文准确率顶配路线）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">Seed-ASR 系（大模型流式语音识别，豆包语音家族）；对比口径含 2026-02 基准</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">商业闭源（按量计费，非 SPDX 开源许可）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">仓库/入口</td><td style="text-align:left">火山引擎控制台，无公开权重仓库（「仅论文，无权重与部署代码」——2026-08-24 调研结论）</td><td style="text-align:left">[1] [2]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">商业服务持续迭代（计费/功能页活跃，观察 2026-08-27）</td><td style="text-align:left">[2]</td></tr></tbody></table>
+<h2>为什么值得试用</h2>
+<ol><li><strong>闭源阵营顶配</strong>：第三方统一口径（FireRedASR2 官方 24 测试集对比，2026-02）普通话平均 CER 3.69%——仅次于 FireRedASR2-LLM（2.89%）与 AED（3.05%），优于 Qwen3-ASR（3.76%）与 Fun-ASR（4.16%）；方言 15.39% 略逊于开源头部 [1]。</li><li><strong>字幕场景专属杠杆</strong>：热词（人名/术语/产品名）、替换词、ITN 文本规范化、多方言、长视频无截断（火山引擎文档，2026-08-24 调研汇总）[3]——开源方案普遍缺热词机制，这是纠专有名词错字最直接的武器。</li><li><strong>价格门槛极低</strong>：录音文件识别标准版 0-300 小时档 1.8 元/小时（量增递减至 0.9 元），极速版 3.5 元/小时，有免费试用额度（火山引擎计费页，2026-08-24 查询）[2]——30 分钟视频约 0.9 元。</li><li><strong>省运维</strong>：无模型下载、无 CPU/内存占用、无启停管理——与本地路线（见 <a href="../fireredasr-ui/report.md">fireredasr-ui</a>）的运维成本成对照。</li></ol>
+<h2>为什么不是 adopt</h2>
+<ol><li><strong>本地部署不可能</strong>：字节未开源模型权重与部署代码，隐私敏感/离线场景直接出局（2026-08-24 调研结论）[1]。</li><li><strong>本项目主线是本地/免费</strong>：历史决策链（2026-08-24）最终选了本地 FireRedASR——准确率足够且零边际成本。</li><li>数据出域：素材上传第三方云。</li></ol>
+<h2>对比</h2>
+<p>准确率与 FireRedASR2 同档（差距 &lt;1 个百分点，统一口径 2026-02 [1]）；本地免费路线已覆盖需求时，云 API 的增量价值主要在热词纠错与免运维。逐维度见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li>价格与额度为 2026-08-24 查询快照，采用前以<a href="https://www.volcengine.com/docs/6561/1359370">计费页</a>为准。</li><li>「待验证」：热词对英文专名（历史实测痛点：FireRedASR 系英文专名误差）的实际改善幅度。</li></ul>
+<h2>来源</h2>
+<ol><li>FireRedASR2S 官方评测表（Doubao-ASR 3.69%/15.39%，统一口径）— <a href="https://github.com/FireRedTeam/FireRedASR2S">https://github.com/FireRedTeam/FireRedASR2S</a>（访问 2026-08-27）</li><li>豆包语音计费说明（火山引擎；价格查询 2026-08-24）— <a href="https://www.volcengine.com/docs/6561/1359370">https://www.volcengine.com/docs/6561/1359370</a>（访问 2026-08-27）</li><li>配置语音识别 ASR：热词/替换词提升准确率（火山引擎）— <a href="https://www.volcengine.com/docs/6348/1581712">https://www.volcengine.com/docs/6348/1581712</a>（访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：云 API 顶配路线（历史会话 2026-08-24 评估后因本地优先未采用）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

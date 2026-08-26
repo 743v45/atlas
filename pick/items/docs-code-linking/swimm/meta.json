@@ -1,0 +1,25 @@
+{
+  "name": "Swimm",
+  "homepage": "https://swimm.io",
+  "verdict": "hold",
+  "summary": "锚点级最强——token/AST 锚点随重构自动跟随+swimm-verify CI 卡点；但核心闭源、按代码行数计价、2026 已转向企业现代化服务，对个人/小团队过重。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://swimm.io",
+    "https://swimm.io/pricing",
+    "https://swimm.io/blog/docs-as-code-understanding-swimm-sw-md-markdown-format",
+    "https://github.com/marketplace/swimm-io",
+    "https://github.com/swimmio/swimm-verify-action",
+    "https://thectoclub.com/tools/swimm-review",
+    "Claude 历史会话（2026-08-25）——锚点级分析与否决结论提取源"
+  ],
+  "tags": ["锚点级", "saas", "ide-插件", "闭源"],
+  "matrix": {
+    "关联强度": "锚点级(最强)",
+    "标识": "AST/token 锚点",
+    "单一事实源": "仓库 .swm(绑平台)",
+    "CI 强制": "✅ swimm-verify",
+    "形态": "SaaS+IDE 插件"
+  }
+}

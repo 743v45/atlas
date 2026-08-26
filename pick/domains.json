@@ -1,0 +1,79 @@
+{
+  "updated": "2026-08-27",
+  "domains": [
+    {
+      "slug": "browser-agents",
+      "name": "AI × 浏览器",
+      "description": "Agent 驱动浏览器的两条正交命题：通道怎么选（MCP / CLI / SDK / 自治），被驱动的本体怎么选（反检测 / 指纹）。",
+      "categories": [
+        "browser-access",
+        "anti-detect-browser"
+      ]
+    },
+    {
+      "slug": "knowledge-docs",
+      "name": "知识与文档",
+      "description": "AI 共建的知识层：库怎么建（存储层原生访问权），文档与代码怎么强关联（锚点 + 单一事实源 + CI 强制），信息怎么分层组织（树管入口、图管深读）。",
+      "categories": [
+        "knowledge-base",
+        "docs-code-linking",
+        "info-architecture"
+      ]
+    },
+    {
+      "slug": "data-storage",
+      "name": "数据与存储",
+      "description": "主数据库与存储引擎选型，以 PostgreSQL 为锚——用到不够用为止。",
+      "categories": [
+        "primary-database"
+      ]
+    },
+    {
+      "slug": "speech-content",
+      "name": "语音与内容",
+      "description": "语音 / 字幕的识别与内容处理：中文准确率优先，本地可部署。",
+      "categories": [
+        "asr-subtitle-tools"
+      ]
+    },
+    {
+      "slug": "workflow-tools",
+      "name": "工作流工具",
+      "description": "写文档、看仓库、收通知、排字符——日常工具链的散件选型。",
+      "categories": [
+        "prd-tools",
+        "git-gui-clients",
+        "ios-push-notify",
+        "typography"
+      ]
+    }
+  ],
+  "kingdoms": [
+    {
+      "slug": "ai-agents",
+      "name": "AI 与智能体",
+      "description": "Agent 如何感知与行动、如何共建知识",
+      "domains": [
+        "browser-agents",
+        "knowledge-docs"
+      ]
+    },
+    {
+      "slug": "data-content",
+      "name": "数据与内容",
+      "description": "存储引擎与内容处理",
+      "domains": [
+        "data-storage",
+        "speech-content"
+      ]
+    },
+    {
+      "slug": "daily-workflow",
+      "name": "日常工具",
+      "description": "工作流散件",
+      "domains": [
+        "workflow-tools"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>agent-browser · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/browser-agents.html">AI × 浏览器</a><span class="sep">·</span><span>浏览器访问层</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../browser-use/report.html">browser-use →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>agent-browser</h1>
+<blockquote><strong>TL;DR</strong>：Vercel 出品的 Rust CLI，AI Agent 浏览器自动化的 CLI 路线领跑者（⭐41,376、日更）；<code>@e2</code> 元素引用语法 + 官方 skill 一键装进 Claude Code 等 8 个 Agent，装完即用。</blockquote>
+<ul><li><strong>结论</strong>：adopt（推荐）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">star</td><td style="text-align:left">⭐41,376（gh 采集 2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">最后 push</td><td style="text-align:left">2026-08-26（日更）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">语言/安装</td><td style="text-align:left">Rust；npm / brew / cargo 三通道</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">控制协议</td><td style="text-align:left">CDP</td><td style="text-align:left">[2]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ul><li><strong>CLI 路线领跑</strong>：评测文章里的「12k+ stars」是旧数据，gh 2026-08-27 实测 ⭐41,376——增长极快，也是「评测数据会过期」的实例 [1]。</li><li><strong>token 经济学</strong>：零常驻 schema（skill 按需加载）；<code>@e2</code> 元素引用语法压缩快照，长任务成本远低于 MCP 路线（对比见 <code>../comparison.md</code> token 成本表）。</li><li><strong>生态一等公民</strong>：官方 skill 一键装进 Claude Code、Codex、Cursor、Gemini CLI、Copilot、Goose、OpenCode、Windsurf（<code>npx skills add vercel-labs/agent-browser</code>），skill 从仓库动态拉取保持更新 [1]。</li><li><strong>命令面完整</strong>：<code>open/click/fill/extract/snapshot/screenshot</code> + <code>agent-browser chat "自然语言指令"</code>（单发/REPL，可 <code>--model</code>）[2]。</li><li><strong>云地组合</strong>：本地 CLI + 云端浏览器（Scrapfly/Browserless 均有官方对接指南）渐成模式 [3]。</li></ul>
+<h2>对比</h2>
+<ul><li>与 Playwright CLI：同构思路（state 存磁盘、引用元素），agent-browser 通用性更广（不绑 Playwright 生态）[2]。</li><li>与 MCP 路线：token 成本占优，见 <code>../comparison.md</code>。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>Vercel Labs 出品，带实验性质；迭代快意味着接口可能变。</li><li>CDP 路线的底层限制（同源限制见知识库 Chrome 调试端口笔记）。</li></ul>
+<h2>来源</h2>
+<ol><li>agent-browser — <a href="https://github.com/vercel-labs/agent-browser">https://github.com/vercel-labs/agent-browser</a>（gh 一手数据 2026-08-27）</li><li>Code-First Agents – Browser CLI with agent-browser — bitbasti.com（2026）</li><li>Vercel Agent Browser + Cloud Browser Integration — scrapfly.io（2026）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

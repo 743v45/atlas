@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iPhone Webhook 通知 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>iPhone Webhook 通知 · 横评</span></nav>
+  <article>
+<h1>iPhone Webhook 通知横评</h1>
+<blockquote>调研时间 2026-08-27，方法 gh（GitHub 一手数据）+ tvly（Tavily）+ 官方文档核验；需求原点：2026-08-25 会话「iPhone 有没有免费的 webhook 通知工具」+ 追问「自建绕过的方案」。 核心命题：<strong>脚本/CI/服务器告警 → iPhone 锁屏弹通知，选哪条通道</strong>。硬约束两条：免费、（进阶）数据不出自己手里。天花板一条：<strong>iOS 锁屏通知的最后一跳必经 Apple APNs，谁也绕不过</strong>——「自建」的真实含义是业务数据不经过第三方服务器，只剩加密推送指令经 Apple（2026-08-25 会话结论，全部候选均受此约束）。</blockquote>
+<h2>场景速配（TL;DR 矩阵）</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">推荐</th><th style="text-align:left">理由</th></tr></thead><tbody><tr><td style="text-align:left">「脚本跑完/CI/告警 → iPhone 弹通知」</td><td style="text-align:left"><a href="bark/report.md">Bark</a></td><td style="text-align:left">免费全功能，一个 URL 即推；官方服务器即开即用</td></tr><tr><td style="text-align:left">有 Synology/服务器，要数据不出内网</td><td style="text-align:left"><a href="bark/report.md">Bark 自建 bark-server</a></td><td style="text-align:left">Docker 一容器 + E2E 加密，APNs 上全是密文</td></tr><tr><td style="text-align:left">已重度用飞书，工作流结果汇报</td><td style="text-align:left"><a href="lark-webhook/report.md">飞书群自定义机器人</a></td><td style="text-align:left">零额外 App、卡片富文本、100 条/分钟免费</td></tr><tr><td style="text-align:left">iOS + Android + 桌面多端告警</td><td style="text-align:left"><a href="ntfy/report.md">ntfy</a>（试用）</td><td style="text-align:left">多端生态最强；iOS 注意 upstream 依赖</td></tr><tr><td style="text-align:left">不在乎 5 美元、要多平台一致体验</td><td style="text-align:left"><a href="pushover/report.md">Pushover</a>（观望）</td><td style="text-align:left">体验上限，但违反免费硬约束</td></tr><tr><td style="text-align:left">要完全自控推送证书</td><td style="text-align:left"><a href="web-push-pwa/report.md">Web Push + PWA</a>（评估）</td><td style="text-align:left">唯一 VAPID 自控路线，工程量大</td></tr><tr><td style="text-align:left">大陆网络直连（无代理）</td><td style="text-align:left">排除 <a href="telegram-bot/report.md">Telegram Bot</a></td><td style="text-align:left">双端都要代理，告警可靠性不成立</td></tr></tbody></table>
+<p><strong>务实组合（2026-08-25 会话建议，贴合本库环境 Synology + 重度飞书；纯咨询、尚未部署）</strong>：Bark（自建 bark-server 于 Synology）做主力告警通道 + 飞书群机器人做工作流汇报——两者互补不互斥。</p>
+<h2>一、先认清天花板：iOS 推送的最后一跳</h2>
+<p>无论选谁，锁屏通知都必须经 Apple APNs（iOS 系统层设计，2026-08-25 会话结论）。各候选的差别只在<strong>谁的服务器能看到你的业务数据</strong>：</p>
+<table><thead><tr><th style="text-align:left">路线</th><th style="text-align:left">你的数据经手方</th></tr></thead><tbody><tr><td style="text-align:left">Bark 自建 + E2E 加密</td><td style="text-align:left">只有自己（APNs 见密文）[见 bark 报告]</td></tr><tr><td style="text-align:left">Web Push + PWA</td><td style="text-align:left">只有自己（自控 VAPID 证书）[见 web-push-pwa 报告]</td></tr><tr><td style="text-align:left">Bark 官方服务器</td><td style="text-align:left">Finb 的 api.day.app</td></tr><tr><td style="text-align:left">ntfy 自建（iOS 即时）</td><td style="text-align:left">自建服务器 + ntfy.sh（仅消息 ID 元数据）[见 ntfy 报告]</td></tr><tr><td style="text-align:left">飞书机器人 / Telegram / Pushover</td><td style="text-align:left">对应厂商云</td></tr></tbody></table>
+<h2>二、属性对比矩阵</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">Bark</th><th style="text-align:left">ntfy</th><th style="text-align:left">飞书自定义机器人</th><th style="text-align:left">Telegram Bot</th><th style="text-align:left">Pushover</th><th style="text-align:left">Web Push + PWA</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">iOS App + URL</td><td style="text-align:left">App + HTTP pub-sub</td><td style="text-align:left">群机器人 webhook</td><td style="text-align:left">IM 机器人 API</td><td style="text-align:left">商业 SaaS App</td><td style="text-align:left">PWA + VAPID</td></tr><tr><td style="text-align:left">自托管</td><td style="text-align:left">✅ bark-server(Docker)，iOS 直连 APNs</td><td style="text-align:left">⚠️ iOS 即时推送需官方 ntfy.sh 转发 poll_request</td><td style="text-align:left">❌ 飞书 SaaS</td><td style="text-align:left">❌ 依赖 TG 云</td><td style="text-align:left">❌ 闭源</td><td style="text-align:left">✅ 全自持（唯一自控证书路线）</td></tr><tr><td style="text-align:left">免费额度</td><td style="text-align:left">完全免费（官方/自建均无文档限额）</td><td style="text-align:left">ntfy.sh 250 条/天/visitor；自建无限</td><td style="text-align:left">免费，100 条/分、5 条/秒</td><td style="text-align:left">完全免费</td><td style="text-align:left">30 天试用 → $4.99/平台买断（2026-08-27 官网价）</td><td style="text-align:left">完全免费（自建成本=工程时间）</td></tr><tr><td style="text-align:left">iOS 体验</td><td style="text-align:left">原生锁屏 + 重要警告 + 铃声/图标 + E2E 加密（AES-GCM）</td><td style="text-align:left">原生（官方服务器时）；自建退化见下</td><td style="text-align:left">经飞书 App 通知，卡片富文本；受群免打扰约束</td><td style="text-align:left">原生但客户端需代理</td><td style="text-align:left">原生（口碑基准）</td><td style="text-align:left">⚠️ 无声（iOS 17 前无声，此后有限）、仅主屏幕 PWA、无静默推送</td></tr><tr><td style="text-align:left">延迟</td><td style="text-align:left">APNs 秒级</td><td style="text-align:left">官方/配 upstream 秒级；<strong>自建无 upstream 分钟级轮询</strong>（几分钟～约 20 分钟，issue #363/#1305 记录）</td><td style="text-align:left">秒级（待验证）</td><td style="text-align:left">秒级（双端代理在线为前提）</td><td style="text-align:left">秒级</td><td style="text-align:left">及时，iOS 有节流风险（待验证）</td></tr><tr><td style="text-align:left">大陆直连</td><td style="text-align:left">✅（自建内网更佳）</td><td style="text-align:left">✅</td><td style="text-align:left">✅</td><td style="text-align:left">❌ 全线被墙（MyChina Guide 2026）</td><td style="text-align:left">✅</td><td style="text-align:left">✅（APNs 通道正常）</td></tr><tr><td style="text-align:left">多端覆盖</td><td style="text-align:left">仅 iOS</td><td style="text-align:left">iOS/Android/Web（最强）</td><td style="text-align:left">全飞书端</td><td style="text-align:left">全 TG 端</td><td style="text-align:left">iOS/Android/桌面</td><td style="text-align:left">任何支持 Web Push 的平台</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left">MIT（App+server 双开源）</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">专有（免费功能）</td><td style="text-align:left">API 免费/客户端开源</td><td style="text-align:left">专有（商业）</td><td style="text-align:left">开放标准 + 自选栈</td></tr><tr><td style="text-align:left">star（gh 2026-08-27）</td><td style="text-align:left">⭐8,947（server ⭐3,595）</td><td style="text-align:left">⭐33,772</td><td style="text-align:left">—（SaaS）</td><td style="text-align:left">—（平台）</td><td style="text-align:left">—（闭源）</td><td style="text-align:left">—（标准）</td></tr></tbody></table>
+<p>（每格数据的来源与时间见对应条目报告；价格为 2026-08-27 官网快照。）</p>
+<h2>决策矩阵（加权）</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">形态（w=2）</th><th style="text-align:left">自托管（w=4）</th><th style="text-align:left">免费额度（w=5）</th><th style="text-align:left">iOS 体验（w=5）</th><th style="text-align:left">延迟（w=4）</th><th style="text-align:left">维护活跃（w=3）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="bark/report.md">Bark</a></td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left"><strong>112</strong> / 115</td></tr><tr><td style="text-align:left"><a href="ntfy/report.md">ntfy</a></td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left"><strong>87</strong> / 115</td></tr><tr><td style="text-align:left"><a href="web-push-pwa/report.md">Web Push + PWA（自建）</a></td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left"><strong>84</strong> / 115</td></tr><tr><td style="text-align:left"><a href="lark-webhook/report.md">飞书群自定义机器人</a></td><td style="text-align:left">4</td><td style="text-align:left">1</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left"><strong>78</strong> / 115</td></tr><tr><td style="text-align:left"><a href="pushover/report.md">Pushover</a></td><td style="text-align:left">4</td><td style="text-align:left">1</td><td style="text-align:left">1</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left"><strong>74</strong> / 115</td></tr><tr><td style="text-align:left"><a href="telegram-bot/report.md">Telegram Bot</a></td><td style="text-align:left">3</td><td style="text-align:left">1</td><td style="text-align:left">5</td><td style="text-align:left">3</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left"><strong>73</strong> / 115</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-08-27；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<blockquote>注记：决策矩阵只覆盖上表所列维度。lark-webhook 的 adopt 是<strong>环境契合 verdict</strong>（重度飞书 → 零成本零安装），该维度未入矩阵权重；矩阵高分与条件性 verdict 并存时，以各条目报告为准——这是两层的分工（RULES.md 第 5 节）。</blockquote>
+<h2>三、GitHub 活跃度速查</h2>
+<table><thead><tr><th style="text-align:left">项目</th><th style="text-align:left">仓库</th><th style="text-align:left">star</th><th style="text-align:left">最后 push</th><th style="text-align:left">license</th></tr></thead><tbody><tr><td style="text-align:left"><a href="ntfy/report.md">ntfy</a></td><td style="text-align:left"><a href="https://github.com/binwiederhier/ntfy">binwiederhier/ntfy</a></td><td style="text-align:left">⭐33,773</td><td style="text-align:left">2026-08-25</td><td style="text-align:left">Apache-2.0</td></tr><tr><td style="text-align:left"><a href="bark/report.md">Bark</a></td><td style="text-align:left"><a href="https://github.com/Finb/Bark">Finb/Bark</a></td><td style="text-align:left">⭐8,947</td><td style="text-align:left">2026-08-18</td><td style="text-align:left">MIT</td></tr></tbody></table>
+<p>*star / push 为 gh 一手快照，采集 2026-08-27；无 stats 的项（商业闭源等）不列。*</p>
+<p>（仅两段式开源项目有 stats：Bark / ntfy。飞书、Pushover 为 SaaS 无仓库；Telegram 为平台 API；Web Push 为 W3C 标准。）</p>
+<h2>四、选型决策树</h2>
+<pre><code class="lang-">要 iPhone 收脚本/CI 告警
+│
+├── 预算 = 0？（硬约束）
+│   └── 否，愿意 $4.99 买断多平台一致体验 → Pushover（hold：等付费意愿）
+│
+├── 数据能不能出内网？
+│   ├── 不能，且要完全自控证书 → Web Push + PWA（assess：先实测 iOS 无声/节流）
+│   ├── 不能，接受 Finb 证书 → Bark 自建 bark-server + E2E 加密（adopt·主力）
+│   └── 无所谓 → 继续
+│
+├── 要不要多端（Android/桌面）？
+│   ├── 要 → ntfy（trial：iOS 端配 upstream 或用官方 ntfy.sh）
+│   └── 只要 iPhone → Bark（adopt）
+│
+├── 通知要不要进飞书工作流？
+│   └── 要 → 叠加飞书群自定义机器人（adopt·补充通道）
+│
+└── 网络环境在大陆且无代理？
+    └── 排除 Telegram Bot（hold：双端被墙）</code></pre>
+<h2>五、观察名单（不建独立报告，含理由）</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">状态（观测 2026-08-27）</th><th style="text-align:left">备注</th></tr></thead><tbody><tr><td style="text-align:left">Home Assistant Companion</td><td style="text-align:left">iOS 推送稳、支持穿透勿扰的 critical alerts（2026-08-25 会话）</td><td style="text-align:left">为了通知装 HA 太重；已有 HA 者直接用</td></tr><tr><td style="text-align:left">Gotify</td><td style="text-align:left">⭐15,799、push 2026-08-26（gh），活跃</td><td style="text-align:left"><strong>无官方 iOS App</strong>（issue #87，2018 开至今）；第三方 iGotify 需额外组件——iOS 场景劣于 ntfy/Bark</td></tr><tr><td style="text-align:left">Overpush（mrusme/overpush）</td><td style="text-align:left">⭐83、push 2026-01-13（gh）</td><td style="text-align:left">自托管 Pushover 平替，早期项目，观察成熟度</td></tr><tr><td style="text-align:left">Bark 官方服务器限流</td><td style="text-align:left">未见公开文档</td><td style="text-align:left"><strong>待验证</strong>；重度使用建议自建</td></tr><tr><td style="text-align:left">Bark 的 Finb APNs 证书依赖</td><td style="text-align:left">生命周期不透明</td><td style="text-align:left"><strong>待验证</strong>：证书失效对自建实例影响面</td></tr></tbody></table>
+<h2>数据时间说明</h2>
+<p>本页所有 star / push / license 为 gh 2026-08-27 采集快照；价格为 pushover.net 2026-08-27 查询价；飞书限流为开放平台文档 2026-08-27 访问口径；iOS PWA 限制为 MobiLoud/MagicBell 2026 指南与 ntfy 官方 known-issues；Telegram 大陆被墙为 MyChina Guide 2026。复用前先核对时效（RULES.md 第 3 节）。</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

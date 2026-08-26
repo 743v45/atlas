@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pushover · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>iPhone Webhook 通知</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../ntfy/report.html">← ntfy</a><span class="sep">·</span><a href="../telegram-bot/report.html">Telegram Bot →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>Pushover</h1>
+<blockquote><strong>TL;DR</strong>：体验口碑最佳的商业推送：$4.99/平台一次性买断、终身有效、30 天全功能试用（2026-08-27 官网报价），但试用后必付费且闭源不可自托管——与「免费」硬约束直接冲突；哪天愿意付这 5 美元它就是体验上限。</blockquote>
+<ul><li><strong>结论</strong>：hold（观望——不满足免费硬约束；仅质量问题会重评）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">商业 SaaS：HTTP API + 各平台官方 App（iOS/Android/桌面）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left">闭源商业服务，无自托管选项</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">价格</td><td style="text-align:left">$4.99（US）一次性/平台，该平台下个人所有设备终身可用；30 天免费全功能试用（pushover.net/pricing，查询 2026-08-27）</td><td style="text-align:left">[1][3]</td></tr></tbody></table>
+<h2>为什么（hold）</h2>
+<ul><li><strong>体验是行业标杆</strong>：2026-08-25 会话评价「体验最好」，跨平台一致、API 稳定多年 [4]；各竞品评测（如 DEV.co 2026 对比表）也默认它为体验基准 [5]。</li><li><strong>唯一否决项是价格结构</strong>：个人版 30 天试用后必须 $4.99/平台买断（无订阅）[1][3]。需求原点是「免费的 webhook 通知工具」[4]——Bark 免费提供了同级别的 iOS 原生体验（含重要警告、E2E 加密），Pushover 的付费无法用体验差距正当化。</li><li><strong>闭源不可自托管</strong>：与「有 NAS、想数据不出内网」的自建诉求完全相悖 [4]。</li></ul>
+<h2>对比</h2>
+<ul><li>与 Bark：同为 APNs 原生体验，Bark 免费 + 可自建 + E2E 加密；Pushover 胜在多平台一致性（一套 API 覆盖 iOS/Android/桌面且各端体验统一）与十年级商业稳定性。多平台且愿意付费时 Pushover 才反超——见 <code>../bark/report.md</code>。</li><li>逐维度对比见 <code>../comparison.md</code>。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>价格口径为 2026-08-27 官网快照，购买前重新核对 [1]。</li><li>Teams 版 $5/用户/月（含全平台），团队场景另算 [1]。</li></ul>
+<h2>来源</h2>
+<ol><li>Pushover: Pricing — <a href="https://pushover.net/pricing">https://pushover.net/pricing</a>（查询 2026-08-27）</li><li>Pushover: Licensing — <a href="https://pushover.net/licensing">https://pushover.net/licensing</a>（查询 2026-08-27）</li><li>How much does Pushover cost?（Pushover Support 官方问答）— <a href="https://support.pushover.net/i8-how-much-does-pushover-cost-is-there-a-subscription">https://support.pushover.net/i8-how-much-does-pushover-cost-is-there-a-subscription</a>（访问 2026-08-27）</li><li>Claude 会话 13bf0e5c（2026-08-25）——「体验最好但 $5、不符合免费要求」判定来源</li><li>bark-server: Self-Hosted iOS Push Notifications（DEV.co，2026，含 Bark/FCM/OneSignal/Pushover 对比表）— <a href="https://dev.co/devops/open-source/bark-server">https://dev.co/devops/open-source/bark-server</a>（访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录（2026-08-25 会话候选；官网核验价格结构）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

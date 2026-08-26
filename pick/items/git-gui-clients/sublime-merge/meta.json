@@ -1,0 +1,23 @@
+{
+  "name": "Sublime Merge",
+  "homepage": "https://www.sublimemerge.com",
+  "license": "Proprietary",
+  "verdict": "trial",
+  "summary": "$99 买断的性能标杆：自研 Git 读库极快、行级暂存精细，2026 年仍在活跃更新，大仓库场景首选。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.sublimehq.com/store/merge",
+    "https://www.sublimemerge.com",
+    "https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd",
+    "https://sourceforge.net/softwarecomparison/GitKraken-vs-SourceTree-vs-Sublime-Merge/"
+  ],
+  "tags": ["git", "gui", "performance", "paid-once", "cross-platform"],
+  "matrix": {
+    "许可": "闭源买断",
+    "价格": "$99 一次性",
+    "平台": "macOS/Win/Linux",
+    "性能": "极快",
+    "大仓库": "好"
+  }
+}

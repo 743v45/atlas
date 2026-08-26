@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qwen3-ASR · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/speech-content.html">语音与内容</a><span class="sep">·</span><span>字幕/语音识别工具</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../funasr/report.html">← FunASR</a><span class="sep">·</span><a href="../seed-asr/report.html">豆包 Seed-ASR（火山引擎 API） →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Qwen3-ASR</h1>
+<blockquote><strong>TL;DR</strong>：2026-01 新秀：1.7B 即达普通话平均 CER 3.76%，覆盖 30 语言+22 中文方言，transformers 原生/vLLM 部署还带 ForcedAligner 时间戳模型；Mac 本地路径未经验证，适合先试用再定。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">0.6B/1.7B + ForcedAligner-0.6B（2026-01-29 发布）；2026-06-26 transformers 原生支持（含 <code>torch.compile</code>）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/QwenLM/Qwen3-ASR">https://github.com/QwenLM/Qwen3-ASR</a>（⭐3,422，gh 2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">活跃（最近推送 2026-06-26；半年内三波功能更新：发版 → vLLM/流式 → transformers 原生）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选（值得试用的理由）</h2>
+<ol><li><strong>小参数量打出高准确率</strong>：1.7B 版普通话平均 CER 3.76%（AISHELL-1 1.48%），官方称「开源 ASR 中 SOTA、可与最强商业 API 竞争」；第三方统一口径下仅次于 FireRedASR2（2.89/3.05%）与 Doubao-ASR（3.69%）[1] [2]。</li><li><strong>语言/方言覆盖最广的一档</strong>：30 语言 + 22 中文方言（含粤语两种口音、吴语、闽南语），中英混杂、多口音素材的兜底能力强 [1]。</li><li><strong>字幕刚需的时间戳有专门模型</strong>：Qwen3-ForcedAligner-0.6B 做非自回归强制对齐，11 语言内任意单元时间戳，单次对齐最长 5 分钟语音，官方称时间戳精度超 E2E 对齐模型 [1]。</li><li><strong>推理栈现代且全</strong>：vLLM 批量/异步服务、流式与离线统一、长音频直转、Docker、Gradio demo；2026-06 起不依赖自定义代码（transformers 原生 + torch.compile）[1]。</li><li><strong>0.6B 档吞吐惊人</strong>：官方口径 128 并发下 2000 倍吞吐——批量字幕回填任务的成本友好选项 [1]。</li></ol>
+<h2>对比</h2>
+<p>与 FireRedASR2 同代（2026 上半年）：统一口径普通话准确率略逊（3.76% vs 2.89%），方言互有胜负（11.85% vs 11.55%），但语言覆盖广得多、transformers 生态接入更顺 [2]。与 SenseVoice 比：更准但更重（1.7B LLM 架构 vs 234M 非自回归）。逐维度见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li><strong>Mac 本地未验证</strong>：官方推荐路径是 vLLM（Linux/GPU 向）；transformers 原生路径理论上可 CPU/MPS 跑 1.7B，但本机（16GB Apple Silicon）无实测记录——<strong>待验证</strong>后再定 verdict。</li><li>准确率主张主要来自自家技术报告 [3] 与 FireRedASR2 的对比口径 [2]，独立第三方横评尚少（2026-08 观察期）。</li><li>发布仅半年余，生产案例与社区问答密度不及 FunASR/Whisper 系。</li></ul>
+<h2>来源</h2>
+<ol><li>Qwen3-ASR 官方仓库（模型表/吞吐/ForcedAligner/部署路径）— <a href="https://github.com/QwenLM/Qwen3-ASR">https://github.com/QwenLM/Qwen3-ASR</a>（访问 2026-08-27）</li><li>FireRedASR2S 评测表（Qwen3-ASR-1.7B 统一口径数据）— <a href="https://github.com/FireRedTeam/FireRedASR2S">https://github.com/FireRedTeam/FireRedASR2S</a>（访问 2026-08-27）</li><li>Qwen3-ASR 技术报告 — <a href="https://arxiv.org/abs/2601.21337">https://arxiv.org/abs/2601.21337</a>（访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：多语言/新栈路线的有力候选</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "Logseq",
+  "repo": "https://github.com/logseq/logseq",
+  "homepage": "https://logseq.com",
+  "license": "AGPL-3.0",
+  "verdict": "assess",
+  "summary": "开源大纲式双链笔记，本地文件形态、AI 可直写——次选；2.0（2026-07 beta）转向 SQLite 数据库版、文件版 OG 并行维护，页面阅读型知识库场景仍弱于 Obsidian。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://logseq.com",
+    "https://github.com/logseq/logseq（gh 2026-08-27 采集）",
+    "https://logseq.io/p/e3YDyX5AYr（官方：Logseq 拆分为两个版本，访问 2026-08-27）",
+    "Claude 会话 be457b46（2026-08-25）——本报告提取源"
+  ],
+  "tags": [
+    "大纲",
+    "开源",
+    "本地"
+  ],
+  "stats": {
+    "source_repo": "logseq/logseq",
+    "stars": 44643,
+    "pushed_at": "2026-08-26",
+    "license": "AGPL-3.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "数据形态": "MD（OG）/ SQLite（2.0）",
+    "双链": "有",
+    "AI 写入": "文件直写（OG）",
+    "自托管": "✅ 本地",
+    "成本": "免费"
+  }
+}

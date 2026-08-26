@@ -1,0 +1,6 @@
+{
+  "name": "iPhone Webhook 通知",
+  "description": "脚本/CI/服务器告警推到 iPhone 的通道选型：APNs 原生 App、自建服务器、IM 机器人、PWA——免费与自托管是硬约束，iOS 最后一跳必经 Apple 是天花板",
+  "order": 9,
+  "columns": ["形态", "自托管", "免费额度", "iOS 体验", "延迟"]
+}

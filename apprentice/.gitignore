@@ -1,0 +1,5 @@
+# 生成物入库(与 pick 同策略):克隆即看、Pages 直接可用;Actions 侧重建幂等
+# 由 scripts/build-index.py 生成: index.html、items/**/lesson.html
+
+__pycache__/
+.DS_Store

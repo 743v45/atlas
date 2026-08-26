@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MongoDB · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/data-storage.html">数据与存储</a><span class="sep">·</span><span>主数据库选型</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../cockroachdb/report.html">← CockroachDB</a><span class="sep">·</span><a href="../mysql/report.html">MySQL →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>MongoDB</h1>
+<blockquote><strong>TL;DR</strong>：文档灵活与原生分片仍是刚需场景的好选择，但多数「想用 MongoDB」的需求 PostgreSQL JSONB 已能覆盖且更稳；SSPL 非 OSI 许可是商业采用的心理闸门。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用——schema 剧变/超大规模分片刚需时引入）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">最新大版 8.3（2026-05-07）；8.0 线维护至 8.0.29（2026-08-11）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">SSPL-1.0（源可用，非 OSI 认证开源；2018 年起替代 AGPL）</td><td style="text-align:left">[5]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/mongodb/mongo">https://github.com/mongodb/mongo</a>（⭐28,507，push 2026-08-26，gh 2026-08-27）</td><td style="text-align:left">[6]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">季度级小版本稳定输出；8.0 线 2026-08-11 仍在发安全更新</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">流行度</td><td style="text-align:left">DB-Engines 第 5（384.88 分，2026-08 快照），NoSQL 第一</td><td style="text-align:left">[3]</td></tr><tr><td style="text-align:left">托管</td><td style="text-align:left">Atlas：免费 M0 层（512MB）+ Flex 弹性档 + 专用集群按小时计费；Serverless 实例已于 2026-01-22 退役并迁移至 Flex（查询 2026-08-27）</td><td style="text-align:left">[4]</td></tr></tbody></table>
+<h2>为什么选（在其领域）</h2>
+<ul><li><strong>schema 灵活是真优势</strong>：结构频繁变化的初创迭代、内容/CMS、用户画像等场景，改字段不动表结构，开发速度极快 [5]。</li><li><strong>原生分片成熟</strong>：内置 sharding，海量文档的水平扩展比「PG + Citus」更省心 [5]。</li><li><strong>聚合管道与文档模型</strong>：嵌套文档即对象，面向对象映射自然；聚合管道做流水线式数据加工直观 [5]。</li><li><strong>托管体验好</strong>：Atlas 覆盖多云 + 专有云，搜索（Atlas Search）、向量（Atlas Vector Search）一体化（查询 2026-08-27）[4]。</li></ul>
+<h2>为什么不选（新项目默认）</h2>
+<ul><li><strong>先问 JSONB 够不够</strong>：PG 的 JSONB + GIN 索引已覆盖大多数文档型需求，且同时保留关系建模、严格 ACID 与 SQL 生态——「半个 MongoDB」+ 全部 PostgreSQL（taevasidian 底稿 2026-08）[5]。</li><li><strong>SSPL 许可闸门</strong>：非 OSI 开源，云厂商不可自由托管（AWS 因此自研 DocumentDB）；自托管商用虽通常无碍，但法务评估是现实摩擦 [5]。</li><li><strong>事务与一致性后天补齐</strong>：多文档事务 4.0 才有（4.2 支持分布式事务），复杂关联查询（JOIN 式 <code>$lookup</code> 性能差）仍弱于关系库——关联密集型业务不适合（taevasidian 底稿 2026-08）[5]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs <strong>PostgreSQL</strong>：逐维度见 <code>../comparison.md</code>。判断口径：读多写多、schema 多变、要原生分片 → MongoDB；关系+文档混合、要 SQL 与强一致 → PG [5]。</li><li>vs <strong>MySQL</strong>：两者都被 PG 挤压，但挤压的方向不同——MySQL 丢的是功能上限，MongoDB 丢的是「文档需求可被 JSONB 替代」的部分 [5]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>SSPL 下游分发/嵌入产品的合规评估（法务介入成本）[5]。</li><li>Atlas Serverless 已退役迁移 Flex（2026-01-22），若有旧架构文档需更新口径（查询 2026-08-27）[4]。</li><li>分片键选错的重构成本极高——引入前先做容量与访问模式规划 [5]。</li><li>Schema-less 是双刃剑：字段规范与数据治理要靠应用层自我约束（taevasidian 底稿 2026-08）[5]。</li></ul>
+<h2>来源</h2>
+<ol><li>New in MongoDB · 8.3（2026-05-07）— <a href="https://www.mongodb.com/products/updates/mongodb-8-3">https://www.mongodb.com/products/updates/mongodb-8-3</a> （访问 2026-08-27）</li><li>MongoDB 8.0 Release Notes（8.0.29 · 2026-08-11）— <a href="https://www.mongodb.com/docs/manual/release-notes/8.0">https://www.mongodb.com/docs/manual/release-notes/8.0</a> （访问 2026-08-27）</li><li>DB-Engines Ranking（2026-08 快照，采集 2026-08-27）— <a href="https://db-engines.com/en/ranking">https://db-engines.com/en/ranking</a></li><li>MongoDB Pricing 2026（checkthat.ai，含 Serverless 退役与 Atlas 档位；查询 2026-08-27）— <a href="https://checkthat.ai/brands/mongodb/pricing">https://checkthat.ai/brands/mongodb/pricing</a></li><li>taevasidian《MongoDB · 文档型 NoSQL 数据库选型报告》（2026-08 导出；2026-08-06 会话调研底稿）</li><li>gh repos/mongodb/mongo（star/push 采集 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial（初始）</td><td style="text-align:left">首次记录：8.3（2026-05）；DB-Engines 2026-08 第 5</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

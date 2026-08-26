@@ -1,0 +1,23 @@
+{
+  "name": "Sourcetree",
+  "homepage": "https://www.sourcetreeapp.com",
+  "license": "Proprietary",
+  "verdict": "trial",
+  "summary": "免费且功能全的参照系：Atlassian 出品但更新偏慢、大仓库卡顿报告多，已在用可继续，新装建议先试 Fork。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.sourcetreeapp.com/download-archives",
+    "https://product-downloads.atlassian.com/sourcetree/GUI/ReleaseNotes.html",
+    "https://getpi.bytestack.ai/blog/4-gui-git",
+    "https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd"
+  ],
+  "tags": ["git", "gui", "atlassian", "free"],
+  "matrix": {
+    "许可": "免费闭源",
+    "价格": "免费",
+    "平台": "macOS/Win",
+    "性能": "中（有卡顿报告）",
+    "大仓库": "差"
+  }
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git 图形化客户端 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>Git 图形化客户端 · 横评</span></nav>
+  <article>
+<h1>Git 图形化客户端 · 横评</h1>
+<blockquote>主题：macOS 上 Sourcetree 同类 GUI 客户端怎么选。用户画像：重度终端用户（zsh + Claude Code），GUI 是可视化辅助而非主战场。 数据核查日：2026-08-27（承接 2026-07-28 会话调研，价格全部重查）。</blockquote>
+<h2>场景速配（先给结论）</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">推荐</th><th style="text-align:left">一句话理由</th></tr></thead><tbody><tr><td style="text-align:left">终端重度、GUI 只用来看 diff/历史</td><td style="text-align:left"><strong>lazygit</strong>（主）+ <strong>Fork</strong>（辅）</td><td style="text-align:left">零成本 TUI 覆盖 90% 操作，GUI 补可视化 [1][2]</td></tr><tr><td style="text-align:left">愿意付一次钱买最顺手的 GUI</td><td style="text-align:left"><strong>Fork</strong></td><td style="text-align:left">$59.99 买断，轻快稳定，2026 评测共识 [2][3]</td></tr><tr><td style="text-align:left">大仓库 / monorepo</td><td style="text-align:left"><strong>Sublime Merge</strong></td><td style="text-align:left">自研 Git 读库，性能标杆 [4][5]</td></tr><tr><td style="text-align:left">完全免费且要全功能 GUI</td><td style="text-align:left"><strong>Sourcetree</strong></td><td style="text-align:left">免费参照系，代价是慢节奏与卡顿 [6][7]</td></tr><tr><td style="text-align:left">GitHub 重度 + 新手向</td><td style="text-align:left"><strong>GitHub Desktop</strong></td><td style="text-align:left">官方免费，功能基础 [3][8]</td></tr><tr><td style="text-align:left">学生 / 开源维护者要免费商业级</td><td style="text-align:left"><strong>SmartGit</strong>（或 Tower 教育版）</td><td style="text-align:left">非商业免费档覆盖全功能 [9]</td></tr><tr><td style="text-align:left">需要 Linux 的团队订阅</td><td style="text-align:left"><strong>GitKraken</strong> / <strong>SmartGit</strong></td><td style="text-align:left">跨平台 + 集成，个人不推荐 [10][9]</td></tr><tr><td style="text-align:left">追新 macOS 原生体验</td><td style="text-align:left"><strong>GitFox</strong>（观察）</td><td style="text-align:left">SwiftUI 原生、迭代快，待大仓库验证 [11]</td></tr></tbody></table>
+<h2>属性对比矩阵</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">lazygit</th><th style="text-align:left">Fork</th><th style="text-align:left">Sublime Merge</th><th style="text-align:left">Sourcetree</th><th style="text-align:left">GitHub Desktop</th><th style="text-align:left">SmartGit</th><th style="text-align:left">GitFox</th><th style="text-align:left">GitKraken</th><th style="text-align:left">Tower</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">TUI</td><td style="text-align:left">GUI</td><td style="text-align:left">GUI</td><td style="text-align:left">GUI</td><td style="text-align:left">GUI</td><td style="text-align:left">GUI</td><td style="text-align:left">GUI</td><td style="text-align:left">GUI</td><td style="text-align:left">GUI</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left"><strong>MIT 开源</strong></td><td style="text-align:left">闭源买断</td><td style="text-align:left">闭源买断</td><td style="text-align:left">免费闭源</td><td style="text-align:left"><strong>MIT 开源</strong></td><td style="text-align:left">商业（非商业免费）</td><td style="text-align:left">闭源订阅</td><td style="text-align:left">freemium</td><td style="text-align:left">闭源订阅</td></tr><tr><td style="text-align:left">价格</td><td style="text-align:left"><strong>免费</strong></td><td style="text-align:left">$59.99 一次性</td><td style="text-align:left">$99 一次性</td><td style="text-align:left"><strong>免费</strong></td><td style="text-align:left"><strong>免费</strong></td><td style="text-align:left">$5/人/月起</td><td style="text-align:left">€60/年</td><td style="text-align:left">$6.99/人/月起</td><td style="text-align:left">$69/年起</td></tr><tr><td style="text-align:left">平台</td><td style="text-align:left">全平台（TUI）</td><td style="text-align:left">macOS/Win</td><td style="text-align:left">macOS/Win/Linux</td><td style="text-align:left">macOS/Win</td><td style="text-align:left">macOS/Win</td><td style="text-align:left">macOS/Win/Linux</td><td style="text-align:left"><strong>仅 macOS</strong></td><td style="text-align:left">macOS/Win/Linux</td><td style="text-align:left">macOS/Win</td></tr><tr><td style="text-align:left">性能</td><td style="text-align:left">快（无 GUI 开销）</td><td style="text-align:left">轻快</td><td style="text-align:left"><strong>极快</strong>（自研 Git 库）[5]</td><td style="text-align:left">中（卡顿报告）[7]</td><td style="text-align:left">中（Electron）[4]</td><td style="text-align:left">好</td><td style="text-align:left">快（SwiftUI 原生）[11]</td><td style="text-align:left">中（大仓库差）[12]</td><td style="text-align:left">中上 [4]</td></tr><tr><td style="text-align:left">大仓库</td><td style="text-align:left">好</td><td style="text-align:left">好 [4]</td><td style="text-align:left"><strong>好</strong> [4][5]</td><td style="text-align:left">差 [4][7]</td><td style="text-align:left">差（monorepo 吃力）[4]</td><td style="text-align:left">好 [3]</td><td style="text-align:left">待验证</td><td style="text-align:left">差（官方性能专页自认）[12]</td><td style="text-align:left">好 [4]</td></tr><tr><td style="text-align:left">维护活跃</td><td style="text-align:left"><strong>极高</strong>（月更，8-12 新版）[1]</td><td style="text-align:left">高（持续发版）[2]</td><td style="text-align:left">中（低频深耕，2026-04）[5]</td><td style="text-align:left">中低（年 4 小修）[6]</td><td style="text-align:left"><strong>极高</strong>（官方团队周级）[8]</td><td style="text-align:left">高（syntevo 长期）[9]</td><td style="text-align:left">高（v4.x 快迭代）[11]</td><td style="text-align:left">极高（平台化厂商）[10]</td><td style="text-align:left">高（17.x）[13]</td></tr><tr><td style="text-align:left">拖拽/可视化 rebase</td><td style="text-align:left">✗（键位）</td><td style="text-align:left">✓</td><td style="text-align:left">✓</td><td style="text-align:left">✓</td><td style="text-align:left">有限</td><td style="text-align:left">✓</td><td style="text-align:left">✓</td><td style="text-align:left">✓（招牌分支图）</td><td style="text-align:left">✓（含拖拽）</td></tr><tr><td style="text-align:left">行级/hunk 暂存</td><td style="text-align:left">✓</td><td style="text-align:left">✓</td><td style="text-align:left"><strong>✓（最精细）</strong>[5]</td><td style="text-align:left">✓</td><td style="text-align:left">有限</td><td style="text-align:left">✓</td><td style="text-align:left">✓</td><td style="text-align:left">✓</td><td style="text-align:left">✓</td></tr><tr><td style="text-align:left">撤销安全网</td><td style="text-align:left">部分可逆</td><td style="text-align:left">有限</td><td style="text-align:left">有限</td><td style="text-align:left">有限</td><td style="text-align:left">有限</td><td style="text-align:left">有限</td><td style="text-align:left">有限</td><td style="text-align:left">有限</td><td style="text-align:left"><strong>无限撤销任意操作（独占）</strong>[13]</td></tr></tbody></table>
+<p>注：✓/✗ 为功能有无速记，依据各条目报告引用；「快/中/差」性能档位依据 dev.to 2025 与 Bytestack 2026 横评分组 [4][7]。</p>
+<h2>价格表（查询日期 2026-08-27，均为官网现价）</h2>
+<table><thead><tr><th style="text-align:left">工具</th><th style="text-align:left">个人价</th><th style="text-align:left">商业/团队价</th><th style="text-align:left">免费档</th><th style="text-align:left">vs 2026-07-28 会话快照</th></tr></thead><tbody><tr><td style="text-align:left">lazygit</td><td style="text-align:left">免费</td><td style="text-align:left">—</td><td style="text-align:left">全功能</td><td style="text-align:left">不变</td></tr><tr><td style="text-align:left">Sourcetree</td><td style="text-align:left">免费</td><td style="text-align:left">免费</td><td style="text-align:left">全功能</td><td style="text-align:left">不变</td></tr><tr><td style="text-align:left">GitHub Desktop</td><td style="text-align:left">免费</td><td style="text-align:left">免费</td><td style="text-align:left">全功能</td><td style="text-align:left">不变</td></tr><tr><td style="text-align:left">Fork</td><td style="text-align:left"><strong>$59.99 一次性</strong>（评估免费无时限）[2]</td><td style="text-align:left">同价/席</td><td style="text-align:left">评估版</td><td style="text-align:left">不变</td></tr><tr><td style="text-align:left">Sublime Merge</td><td style="text-align:left"><strong>$99 一次性</strong>（评估无时限）[5]</td><td style="text-align:left">$75/人/年 [5]</td><td style="text-align:left">评估版</td><td style="text-align:left">个人价不变；本次新增商业价口径</td></tr><tr><td style="text-align:left">GitFox</td><td style="text-align:left"><strong>€60/年</strong>（含 VAT；或 €8/月）[11]</td><td style="text-align:left">Team €144/年/2 席 [11]</td><td style="text-align:left">30 天试用</td><td style="text-align:left"><strong>7 月未收录</strong>（本轮新晋候选；早期曾 €32 档）[11]</td></tr><tr><td style="text-align:left">SmartGit</td><td style="text-align:left">非商业免费（需注册）[9]</td><td style="text-align:left"><strong>$5/人/月</strong>起 或 perpetual [9]</td><td style="text-align:left">Hobby/学生/开源/慈善</td><td style="text-align:left"><strong>比 7 月预估低</strong>（7 月参考口径「约 $99/年起」）</td></tr><tr><td style="text-align:left">GitKraken</td><td style="text-align:left">—（免费档仅本地+公开仓库）[10]</td><td style="text-align:left">Pro <strong>$6.99/席/月</strong>（年付）、Advanced $9.99、Business $19.99 [10]</td><td style="text-align:left">仅本地+公开仓库</td><td style="text-align:left"><strong>从「参考 $5–9」落定为确切价</strong></td></tr><tr><td style="text-align:left">Tower</td><td style="text-align:left">Basic <strong>$69/年</strong>、Pro $129/年 [13]</td><td style="text-align:left">Enterprise $149/年/人；10+ 席 9 折 [13]</td><td style="text-align:left">30 天试用（学生计划另议）</td><td style="text-align:left">不变（$69/$129/$149 三档同）</td></tr></tbody></table>
+<h2>维护活跃度（人工核验快照，gh 采集 2026-08-27）</h2>
+<table><thead><tr><th style="text-align:left">工具</th><th style="text-align:left">关键证据</th><th style="text-align:left">观察日期</th></tr></thead><tbody><tr><td style="text-align:left">lazygit</td><td style="text-align:left">v0.64.1（2026-08-12）；push 2026-08-26；⭐81,654</td><td style="text-align:left">gh 2026-08-27</td></tr><tr><td style="text-align:left">GitHub Desktop</td><td style="text-align:left">3.6.4（2026-08-13）；push 2026-08-26；⭐21,792</td><td style="text-align:left">gh 2026-08-27</td></tr><tr><td style="text-align:left">Fork</td><td style="text-align:left">Mac 2.66.7 / Win 2.16.1（官网 CDN）</td><td style="text-align:left">官网 2026-08-27</td></tr><tr><td style="text-align:left">Sourcetree</td><td style="text-align:left">Mac 4.2.19（2026-07-30）；2026 年 4 个小版本</td><td style="text-align:left">官网 2026-08-27</td></tr><tr><td style="text-align:left">Sublime Merge</td><td style="text-align:left">稳定版 2026-04-14；dev Build 2124（2026-04-01）</td><td style="text-align:left">官网 2026-08-27</td></tr><tr><td style="text-align:left">GitFox</td><td style="text-align:left">4.1.4（App Store，2026-04-29）</td><td style="text-align:left">App Store 2026-08-27</td></tr><tr><td style="text-align:left">Tower</td><td style="text-align:left">Mac 17.1.1</td><td style="text-align:left">官网 2026-08-27</td></tr><tr><td style="text-align:left">SmartGit</td><td style="text-align:left">定价页持续更新；版本号未公开（待验证）</td><td style="text-align:left">官网 2026-08-27</td></tr><tr><td style="text-align:left">GitKraken</td><td style="text-align:left">产品线扩至 CLI/GitLens/AI 全家桶</td><td style="text-align:left">官网 2026-08-27</td></tr></tbody></table>
+<table><thead><tr><th style="text-align:left">项目</th><th style="text-align:left">仓库</th><th style="text-align:left">star</th><th style="text-align:left">最后 push</th><th style="text-align:left">license</th></tr></thead><tbody><tr><td style="text-align:left"><a href="lazygit/report.md">lazygit</a></td><td style="text-align:left"><a href="https://github.com/jesseduffield/lazygit">jesseduffield/lazygit</a></td><td style="text-align:left">⭐81,656</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">MIT</td></tr><tr><td style="text-align:left"><a href="github-desktop/report.md">GitHub Desktop</a></td><td style="text-align:left"><a href="https://github.com/desktop/desktop">desktop/desktop</a></td><td style="text-align:left">⭐21,792</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">MIT</td></tr></tbody></table>
+<p>*star / push 为 gh 一手快照，采集 2026-08-27；无 stats 的项（商业闭源等）不列。*</p>
+<h2>决策树</h2>
+<pre><code class="lang-text">你在终端里的时间多吗？
+├─ 是（主力 CLI/TUI）
+│   ├─ 接受键位学习成本 → lazygit（免费，主力）
+│   └─ 想要鼠标可视化兜底 → + Fork（$59.99 买断，辅助）
+└─ 否（要全 GUI 工作流）
+    ├─ 预算为零？
+    │   ├─ 要功能全 → Sourcetree（接受慢节奏/卡顿）
+    │   ├─ 要简洁/官方 → GitHub Desktop
+    │   └─ 学生/开源身份 → SmartGit 非商业免费（或 Tower 教育版）
+    ├─ 愿付一次钱？
+    │   ├─ 大仓库/性能敏感 → Sublime Merge（$99）
+    │   └─ 均衡优先 → Fork（$59.99）
+    └─ 接受订阅？
+        ├─ 团队 + Linux + 集成 → GitKraken（$6.99/席/月起）或 SmartGit（$5/席/月起）
+        ├─ 要无限撤销/企业管控 → Tower（$69+/年）
+        └─ 要 macOS 原生尝鲜 → GitFox（€60/年，先观察）</code></pre>
+<h2>加权决策矩阵</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">成本（w=4）</th><th style="text-align:left">性能（w=4）</th><th style="text-align:left">维护活跃（w=4）</th><th style="text-align:left">许可（w=3）</th><th style="text-align:left">大仓库（w=2）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="lazygit/report.md">lazygit</a></td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left"><strong>83</strong> / 85</td></tr><tr><td style="text-align:left"><a href="sublime-merge/report.md">Sublime Merge</a></td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left"><strong>74</strong> / 85</td></tr><tr><td style="text-align:left"><a href="fork/report.md">Fork</a></td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left"><strong>68</strong> / 85</td></tr><tr><td style="text-align:left"><a href="github-desktop/report.md">GitHub Desktop</a></td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left"><strong>67</strong> / 85</td></tr><tr><td style="text-align:left"><a href="smartgit/report.md">SmartGit</a></td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left"><strong>61</strong> / 85</td></tr><tr><td style="text-align:left"><a href="gitfox/report.md">GitFox</a></td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left"><strong>56</strong> / 85</td></tr><tr><td style="text-align:left"><a href="tower/report.md">Tower</a></td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left">4</td><td style="text-align:left"><strong>54</strong> / 85</td></tr><tr><td style="text-align:left"><a href="sourcetree/report.md">Sourcetree</a></td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">2</td><td style="text-align:left"><strong>53</strong> / 85</td></tr><tr><td style="text-align:left"><a href="gitkraken/report.md">GitKraken</a></td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left"><strong>46</strong> / 85</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-08-27；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<blockquote><strong>注记</strong>：决策矩阵只覆盖上表所列维度（许可/成本/维护/性能/大仓库），<strong>不包含</strong>功能深度、交互打磨、UI 审美、团队协作能力等维度外因素；维度外风险以各条目 verdict 为准。矩阵高分与谨慎 verdict 并存时不是矛盾，是两层分工——例如 GitHub Desktop 维护分高但功能基础故仅 trial；GitFox 若矩阵分不低但大仓库无数据故 assess。</blockquote>
+<h2>观察名单（未立条目，触发条件再升级）</h2>
+<table><thead><tr><th style="text-align:left">候选</th><th style="text-align:left">状态快照（gh 2026-08-27）</th><th style="text-align:left">观察理由与触发条件</th></tr></thead><tbody><tr><td style="text-align:left"><strong>GitButler</strong></td><td style="text-align:left">⭐21,572；v0.22.1（2026-08-24）；push 2026-08-26</td><td style="text-align:left">「虚拟分支」新范式（并行分支栈），与传统 GUI 不可直接对比；license 非 OSI 标准（source-available）。触发：范式需求出现或 1.0 稳定</td></tr><tr><td style="text-align:left"><strong>GitUp</strong></td><td style="text-align:left">⭐12,110；GPL-3.0；push 2026-07-27</td><td style="text-align:left">macOS 开源原生老将，但迭代慢于 GitHub Desktop。触发：想要开源+原生 mac 且接受功能取舍</td></tr><tr><td style="text-align:left"><strong>Gitoryx</strong></td><td style="text-align:left">2026 年横评中出现的新买断制原生客户端 [14]</td><td style="text-align:left">信息尚少（厂商自评为主）。触发：独立评测出现后再核</td></tr></tbody></table>
+<h2>来源</h2>
+<ol><li>GitHub: jesseduffield/lazygit — <a href="https://github.com/jesseduffield/lazygit">https://github.com/jesseduffield/lazygit</a> （gh 采集 2026-08-27）</li><li>Fork 官网 — <a href="https://fork.dev">https://fork.dev</a> （访问 2026-08-27）</li><li>Rockstar Developer University: 11 Best Git Clients for Developers in 2026 — <a href="https://rockstardeveloperuniversity.com/best-git-clients-for-developers">https://rockstardeveloperuniversity.com/best-git-clients-for-developers</a> （访问 2026-08-27）</li><li>dev.to: Best Git GUI Clients in 2025: GitKraken, SourceTree, Fork, and More Compared — <a href="https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd">https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd</a> （访问 2026-08-27）</li><li>Sublime Merge 官网 / Store — <a href="https://www.sublimemerge.com">https://www.sublimemerge.com</a> 、<a href="https://www.sublimehq.com/store/merge">https://www.sublimehq.com/store/merge</a> （访问 2026-08-27）</li><li>Sourcetree Download Archives — <a href="https://www.sourcetreeapp.com/download-archives">https://www.sourcetreeapp.com/download-archives</a> （访问 2026-08-27）</li><li>Bytestack: Sourcetree, GitKraken, GitHub Desktop, and Fork Compared — <a href="https://getpi.bytestack.ai/blog/4-gui-git">https://getpi.bytestack.ai/blog/4-gui-git</a> （访问 2026-08-27）</li><li>GitHub: desktop/desktop — <a href="https://github.com/desktop/desktop">https://github.com/desktop/desktop</a> （gh 采集 2026-08-27）</li><li>SmartGit Pricing — <a href="https://www.smartgit.dev/pricing/">https://www.smartgit.dev/pricing/</a> （访问 2026-08-27）</li><li>GitKraken Pricing — <a href="https://www.gitkraken.com/pricing">https://www.gitkraken.com/pricing</a> （访问 2026-08-27）</li><li>Gitfox 官网 / Plans — <a href="https://www.gitfox.app">https://www.gitfox.app</a> 、<a href="https://www.gitfox.app/plans">https://www.gitfox.app/plans</a> （访问 2026-08-27）</li><li>GitKraken Help: Improve GitKraken Desktop Performance（更新 2026-03） — <a href="https://help.gitkraken.com/notifications/desktop-performance/">https://help.gitkraken.com/notifications/desktop-performance/</a> （访问 2026-08-27）</li><li>Tower 官网 / Pricing / Blog — <a href="https://www.git-tower.com">https://www.git-tower.com</a> 、<a href="https://www.git-tower.com/pricing">https://www.git-tower.com/pricing</a> 、<a href="https://www.git-tower.com/blog/best-git-client">https://www.git-tower.com/blog/best-git-client</a> （访问 2026-08-27）</li><li>Gitoryx: Best Git GUI Clients in 2026 — <a href="https://www.gitoryx.com">https://www.gitoryx.com</a> （访问 2026-08-27，厂商自评为准）</li><li>用户 2026-07-28 Claude 会话（初始调研与 2026-07 价格快照）— 本地会话记录</li></ol>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

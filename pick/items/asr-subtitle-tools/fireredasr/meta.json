@@ -1,0 +1,36 @@
+{
+  "name": "FireRedASR",
+  "repo": "https://github.com/FireRedTeam/FireRedASR2S",
+  "homepage": "https://arxiv.org/abs/2603.10420",
+  "license": "Apache-2.0",
+  "verdict": "adopt",
+  "summary": "小红书开源的中文 ASR 准确率冠军：v2（FireRedASR2S，2026-02）普通话平均 CER 2.89% 且原生支持中英混杂与词级时间戳，v1-AED 已在本机 16GB Mac 部署实测（纯中文近零错）；无官方 WebUI、自配门槛偏高。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/FireRedTeam/FireRedASR2S",
+    "https://github.com/FireRedTeam/FireRedASR",
+    "https://cloud.tencent.com/developer/article/2642961",
+    "https://open-llm-vtuber.github.io/en/docs/user-guide/backend/asr/"
+  ],
+  "tags": [
+    "asr",
+    "chinese",
+    "sota",
+    "local"
+  ],
+  "stats": {
+    "source_repo": "FireRedTeam/FireRedASR2S",
+    "stars": 653,
+    "pushed_at": "2026-06-02",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "模型+官方 CLI",
+    "中文支持": "SOTA 2.89%",
+    "本地部署": "✅ CPU 实测",
+    "速度": "中等（CPU）",
+    "许可": "Apache-2.0"
+  }
+}

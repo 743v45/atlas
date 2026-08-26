@@ -1,0 +1,36 @@
+{
+  "name": "FunASR",
+  "repo": "https://github.com/modelscope/FunASR",
+  "homepage": "https://www.funasr.com/",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "达摩院语音工具链事实标准（⭐20,035、日更）：一个 AutoModel 串起 VAD/ASR/标点/说话人并直出 SRT，自带 Docker 服务与 OpenAI 兼容端点，中文靠 SenseVoice/Paraformer 模型撑起第一梯队——「要开箱即用的字幕服务」的默认起点。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/modelscope/FunASR",
+    "https://github.com/FunAudioLLM/SenseVoice",
+    "https://cloud.tencent.com/developer/article/2642961"
+  ],
+  "tags": [
+    "asr",
+    "toolkit",
+    "chinese",
+    "docker",
+    "srt"
+  ],
+  "stats": {
+    "source_repo": "modelscope/FunASR",
+    "stars": 20035,
+    "pushed_at": "2026-08-26",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "工具链+Docker 服务",
+    "中文支持": "强（模型第一梯队）",
+    "本地部署": "✅ pip/Docker",
+    "速度": "快（非自回归模型）",
+    "许可": "MIT"
+  }
+}

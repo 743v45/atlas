@@ -1,0 +1,12 @@
+# 白名单式:本仓只收馆群体系(pick / apprentice / 门户脚本);yawyd 下其他项目是独立代码仓,不纳入
+/*
+!/.gitignore
+!/README.md
+!/.github/
+!/scripts/
+!/pick/
+!/apprentice/
+
+# 迁移时归档的原独立仓库(历史与 remote 留档,git 不认作仓库)
+*.archived-mono/
+__pycache__/

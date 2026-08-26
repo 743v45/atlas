@@ -1,0 +1,6 @@
+{
+  "name": "Git 图形化客户端",
+  "description": "Sourcetree 同类 Git GUI 选型：免费开源 / 买断 / 订阅三线——付费买断选 Fork，终端党 lazygit，大仓库选 Sublime Merge",
+  "order": 8,
+  "columns": ["许可", "价格", "平台", "性能", "大仓库"]
+}

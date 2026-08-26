@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Push + PWA（自建） · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>iPhone Webhook 通知</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../telegram-bot/report.html">← Telegram Bot</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#898781" title="评估"><i></i>评</span>
+<h1>Web Push + PWA（自建）</h1>
+<blockquote><strong>TL;DR</strong>：唯一证书完全自控的路线：自生成 VAPID 密钥、不依赖任何 App 开发者的推送证书，iOS 16.4+ 主屏幕 PWA 可收锁屏通知；但无静默推送、自定义声音 iOS 17 才补齐、订阅页面与推送服务全要自己搭——彻底自持者再评估，暂不结论。</blockquote>
+<ul><li><strong>结论</strong>：assess（评估——架构上最彻底，工程与 iOS 限制未实测）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">自建订阅页 + Service Worker + Web Push（VAPID）协议栈</td><td style="text-align:left">[1][4]</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left">W3C 开放标准，栈自选（web-push 库等均开源）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">平台门槛</td><td style="text-align:left">iOS 16.4+，且必须「添加到主屏幕」的 PWA——Safari 标签页内不推送</td><td style="text-align:left">[1][2]</td></tr></tbody></table>
+<h2>为什么（assess）</h2>
+<ul><li><strong>自持上限最高的路线</strong>：自己生成 VAPID 密钥对，不依赖任何 App 开发者的推送证书——是唯一完全自控证书链的方案（会话 2026-08-25 方案 3：「最彻底的自持」；Bark 自建仍依赖 Finb 的 APNs 证书）[4]。APNs 在这条路上只搬运加密后的标准 Web Push 载荷。</li><li><strong>iOS 支持是「能用」而非「好用」</strong>：Web Push 仅对主屏幕 Web App 开放（2023 年 iOS 16.4 起）；不支持静默推送（无后台代码执行）、无自动安装提示；自定义声音缺失——ntfy 官方 known-issues 记录 Safari 将 Web Push 一律按无声处理，iOS 17/Safari 17 才修复 [1][2][3]。</li><li><strong>工程量是独立小项目</strong>：订阅落地页（iPhone 上触发权限弹窗并收集 endpoint）+ 推送服务 + 密钥管理都要自己搭，会话估计「几十行代码起步」但需长期维护 [4]；对比 Bark 的「装 App 即得 URL」，成本差一个量级。</li><li><strong>EU 市场曾有反复</strong>：2024 年 Apple 因 DMA 一度调整 EU 区 PWA 处理方式，相关限制随 iOS 版本多次变动（MobiLoud 2026 指南仍单列 EU 注意事项）[1]——<strong>待验证</strong>：本场景在中国区 Apple ID，影响面需按当前 iOS 版本实测。</li></ul>
+<h2>对比</h2>
+<ul><li>与 Bark：Bark 10 分钟落地、体验原生（铃声/重要警告/加密全有），代价是信任 Finb 的证书；PWA 证书全自控，代价是自建工程 + iOS 通知能力打折（无声等）[1][2][4]。见 <code>../bark/report.md</code>。</li><li>逐维度对比见 <code>../comparison.md</code>。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>iOS 对 PWA 的后台执行限制意味着通知点击前不能做任何本地处理（无 NotificationServiceExtension 等价物）[1][2]。</li><li>推送延迟通常及时，但 iOS 对低频使用的 Web Push 存在节流/清理订阅的报道（7 天不活跃清理订阅一类机制，MobiLoud 2026 综述口径）[1]——<strong>待验证</strong>：告警场景可靠性需实测。</li><li>通知无声 + 无徽章刷新的场景下，重要告警可能被漏看 [1][3]。</li></ul>
+<h2>来源</h2>
+<ol><li>Do Progressive Web Apps Work on iOS? The Complete Guide for 2026（MobiLoud）— <a href="https://www.mobiloud.com/blog/progressive-web-apps-ios">https://www.mobiloud.com/blog/progressive-web-apps-ios</a>（访问 2026-08-27）</li><li>PWA iOS Limitations and Safari Support（MagicBell，2026）— <a href="https://www.magicbell.com/blog/pwa-ios-limitations-safari-support-complete-guide">https://www.magicbell.com/blog/pwa-ios-limitations-safari-support-complete-guide</a>（访问 2026-08-27）</li><li>ntfy Known issues（Safari Web Push 无声、iOS 17 修复记录）— <a href="https://docs.ntfy.sh/known-issues">https://docs.ntfy.sh/known-issues</a>（访问 2026-08-27）</li><li>Claude 会话 13bf0e5c（2026-08-25）——方案 3（Web Push + PWA 最彻底自持）来源</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">assess</td><td style="text-align:left">首次记录（2026-08-25 会话方案 3 + iOS 支持现状核验）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

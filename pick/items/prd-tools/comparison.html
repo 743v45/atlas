@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRD 工具 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>PRD 工具 · 横评</span></nav>
+  <article>
+<h1>PRD 工具横评（协作文档 × AI 直写 × Spec-Driven）</h1>
+<blockquote>调研时间 2026-08-27，方法：历史会话 d77eeed3（2026-08-26「prd 最佳工具」）结论提取 + tvly（Tavily）网络调研 + gh（GitHub CLI 一手数据）。 核心命题：<strong>PRD 到底给谁读</strong>——给人（协作评审平台）、给 AI（spec-driven 可执行流程），还是给自己+AI（独立开发者的思考锚）。2026 年这条赛道最大的动态是 <strong>spec-driven 开发把 PRD 变成 agent 的直接输入</strong>（GitHub Spec Kit ⭐131k 一年破十万星），以及<strong>生成器同质化</strong>（各家都用同样的底层模型，质量收敛，差异转移到上下文与流转）。</blockquote>
+<h2>场景速配（TL;DR 矩阵）</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">推荐</th><th style="text-align:left">理由</th></tr></thead><tbody><tr><td style="text-align:left">中文团队协作写 PRD + 需求跟踪</td><td style="text-align:left"><a href="feishu-docs-base/report.md">飞书文档+多维表格</a></td><td style="text-align:left">评论/@/审批原生，智能伙伴生成 PRD，agent 经 lark-doc/base 直读直写</td></tr><tr><td style="text-align:left">PRD 起草与评审质量优先</td><td style="text-align:left"><a href="claude/report.md">Claude 直写</a></td><td style="text-align:left">五工具横评第一（Fireside PM 2025-12），零新增订阅</td></tr><tr><td style="text-align:left">PRD 是给 agent 的开发输入（repo 内）</td><td style="text-align:left"><a href="spec-kit/report.md">Spec Kit</a></td><td style="text-align:left">specify→plan→tasks→implement→converge，30+ agent 通用，MIT</td></tr><tr><td style="text-align:left">PM 团队要文档标准 + Linear/Notion 流转</td><td style="text-align:left"><a href="chatprd/report.md">ChatPRD</a></td><td style="text-align:left">专用平台最成熟：模板库 + CPO 评审 + 流转集成</td></tr><tr><td style="text-align:left">英文团队协作承载</td><td style="text-align:left"><a href="notion-ai/report.md">Notion + Notion AI</a></td><td style="text-align:left">协作最强档；AI 要 Business $20/席（2026）</td></tr><tr><td style="text-align:left">AWS 栈团队要需求→测试硬流程</td><td style="text-align:left"><a href="kiro/report.md">Kiro</a></td><td style="text-align:left">EARS 需求 + FastCheck 性质测试 + 审批门</td></tr><tr><td style="text-align:left">反馈洪流聚类成 roadmap</td><td style="text-align:left">Productboard（hold）</td><td style="text-align:left">那是「证据聚合」赛道，个人/小团队不值</td></tr></tbody></table>
+<h2>一、三条路线的本质差异</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">协作文档流（飞书 / Notion / ChatPRD）</th><th style="text-align:left">AI 直写（Claude）</th><th style="text-align:left">spec-as-code（spec-kit / Kiro）</th></tr></thead><tbody><tr><td style="text-align:left">PRD 的角色</td><td style="text-align:left">团队评审的社交资产</td><td style="text-align:left">思考的产物、可落任何载体</td><td style="text-align:left">agent 的可执行输入</td></tr><tr><td style="text-align:left">生命周期</td><td style="text-align:left">活文档，评论驱动迭代</td><td style="text-align:left">会话产物，靠宿主持久化</td><td style="text-align:left">repo 资产，与代码同版本控制</td></tr><tr><td style="text-align:left">2026 增量</td><td style="text-align:left">AI 内联化（智能伙伴 / Notion AI）</td><td style="text-align:left">质量横评第一但无协作层</td><td style="text-align:left"><strong>新范式</strong>：spec 可收敛校验（converge / FastCheck）</td></tr><tr><td style="text-align:left">短板</td><td style="text-align:left">agent 批量读写受限（API 慢 / 额度计费）</td><td style="text-align:left">无承载、上下文不持久</td><td style="text-align:left">人类评审体验弱</td></tr></tbody></table>
+<p>关键行业判断：<strong>生成器在收敛，差异在上下文</strong>——「生成 PRD 的工具都用同样的模型，输出质量趋同；差异在生成前往上下文里装了什么、生成后能流转到哪里」（Enterpret 2026-07-29）。因此选型重心从「谁写得最好」转向「谁离你的工作流最近」。</p>
+<h2>二、属性对比矩阵</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">飞书文档+多维表格</th><th style="text-align:left">Claude 直写</th><th style="text-align:left">Spec Kit</th><th style="text-align:left">ChatPRD</th><th style="text-align:left">Notion AI</th><th style="text-align:left">Kiro</th><th style="text-align:left">Productboard</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">SaaS 文档+表格</td><td style="text-align:left">LLM 对话/CLI</td><td style="text-align:left">CLI+slash 命令（开源）</td><td style="text-align:left">SaaS AI PM 平台</td><td style="text-align:left">SaaS 知识库</td><td style="text-align:left">spec-driven IDE</td><td style="text-align:left">SaaS 需求管理</td></tr><tr><td style="text-align:left">AI 能力</td><td style="text-align:left">智能伙伴生成 PRD+搭表</td><td style="text-align:left">横评第一的起草+评审</td><td style="text-align:left">借宿主 agent</td><td style="text-align:left">起草+CPO 评审</td><td style="text-align:left">内联起草</td><td style="text-align:left">EARS 生成+FastCheck</td><td style="text-align:left">反馈聚类（起草弱）</td></tr><tr><td style="text-align:left">协作</td><td style="text-align:left">评论/@/审批原生</td><td style="text-align:left">❌ 靠宿主</td><td style="text-align:left">git PR</td><td style="text-align:left">Teams 共享空间</td><td style="text-align:left">数据库视图/权限</td><td style="text-align:left">spec 审批门</td><td style="text-align:left">门户+路线图</td></tr><tr><td style="text-align:left">Agent 读写</td><td style="text-align:left">✅ API+CLI（实测）</td><td style="text-align:left">✅ 本身即 agent</td><td style="text-align:left">✅ Markdown 即上下文</td><td style="text-align:left">MCP（官网宣称）</td><td style="text-align:left">API 慢</td><td style="text-align:left">IDE 内置自家 agent</td><td style="text-align:left">❌</td></tr><tr><td style="text-align:left">价格（查询日）</td><td style="text-align:left">免费档+订阅，AI 按额度（2026-08-27）</td><td style="text-align:left">Pro $20/月量级（2026）</td><td style="text-align:left">免费开源</td><td style="text-align:left">Free / $15 / $29（2026-08-27）</td><td style="text-align:left">Business $20/席含 AI（2026）</td><td style="text-align:left">Free 50cr / $20（2026-07）</td><td style="text-align:left">$19 / $59 per maker（2026）</td></tr><tr><td style="text-align:left">中文</td><td style="text-align:left">✅ 原生</td><td style="text-align:left">✅ 中英皆可</td><td style="text-align:left">README 中文版</td><td style="text-align:left">❌ 英文</td><td style="text-align:left">界面支持中文</td><td style="text-align:left">❌ 英文</td><td style="text-align:left">界面多语言（待验证）</td></tr><tr><td style="text-align:left">verdict</td><td style="text-align:left">adopt</td><td style="text-align:left">adopt</td><td style="text-align:left">trial</td><td style="text-align:left">trial</td><td style="text-align:left">assess</td><td style="text-align:left">assess</td><td style="text-align:left">hold</td></tr></tbody></table>
+<p>（各格数据来源见对应条目报告；star 级数据见下方活跃度表。）</p>
+<h2>决策矩阵（加权）</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">形态（w=2）</th><th style="text-align:left">AI 能力（w=4）</th><th style="text-align:left">协作（w=3）</th><th style="text-align:left">Agent 读写（w=5）</th><th style="text-align:left">价格（w=3）</th><th style="text-align:left">中文（w=3）</th><th style="text-align:left">维护活跃（w=4）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="feishu-docs-base/report.md">飞书文档+多维表格</a></td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>103</strong> / 120</td></tr><tr><td style="text-align:left"><a href="claude/report.md">Claude（Agent 直写）</a></td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">1</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left"><strong>98</strong> / 120</td></tr><tr><td style="text-align:left"><a href="spec-kit/report.md">Spec Kit（GitHub）</a></td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left"><strong>98</strong> / 120</td></tr><tr><td style="text-align:left"><a href="notion-ai/report.md">Notion + Notion AI</a></td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left"><strong>80</strong> / 120</td></tr><tr><td style="text-align:left"><a href="chatprd/report.md">ChatPRD</a></td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">1</td><td style="text-align:left">4</td><td style="text-align:left"><strong>79</strong> / 120</td></tr><tr><td style="text-align:left"><a href="kiro/report.md">Kiro（AWS）</a></td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">1</td><td style="text-align:left">4</td><td style="text-align:left"><strong>74</strong> / 120</td></tr><tr><td style="text-align:left"><a href="productboard/report.md">Productboard</a></td><td style="text-align:left">3</td><td style="text-align:left">2</td><td style="text-align:left">4</td><td style="text-align:left">1</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">4</td><td style="text-align:left"><strong>59</strong> / 120</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-08-27；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<p>注记：决策矩阵只覆盖所列维度；维度外风险（ChatPRD 英文产品、Kiro 需换 IDE、Productboard 赛道错位）以各条目 verdict 为准——矩阵高分与谨慎 verdict 并存是两层分工，不是矛盾。</p>
+<h2>三、GitHub 活跃度速查</h2>
+<table><thead><tr><th style="text-align:left">项目</th><th style="text-align:left">仓库</th><th style="text-align:left">star</th><th style="text-align:left">最后 push</th><th style="text-align:left">license</th></tr></thead><tbody><tr><td style="text-align:left"><a href="spec-kit/report.md">Spec Kit（GitHub）</a></td><td style="text-align:left"><a href="https://github.com/github/spec-kit">github/spec-kit</a></td><td style="text-align:left">⭐131,668</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">MIT</td></tr></tbody></table>
+<p>*star / push 为 gh 一手快照，采集 2026-08-27；无 stats 的项（商业闭源等）不列。*</p>
+<p>（本类开源项仅 spec-kit；OpenSpec 在观察名单。商业 SaaS（飞书/ChatPRD/Notion/Kiro/Productboard）无 stats，活跃度以官网迭代与评测时间衡量。spec-kit ⭐131,655、push 2026-08-26；OpenSpec ⭐66,338、push 2026-08-26——gh 2026-08-27 采集，待 refresh-stats 写入后由此表自动渲染。）</p>
+<h2>四、选型决策树</h2>
+<pre><code class="lang-">要写 PRD
+│
+├── PRD 主要给谁读？
+│   ├── 给 AI（开发输入 spec）
+│   │   ├── 要流程纪律 + 可收敛校验 → Spec Kit（开源，装进现有 agent）
+│   │   ├── 愿换 IDE + AWS 栈 → Kiro（EARS + FastCheck + 审批门）
+│   │   └── 要轻量 / brownfield → OpenSpec（观察名单）
+│   ├── 给人（团队协作评审）
+│   │   ├── 中文团队 → 飞书文档 + 多维表格
+│   │   ├── 英文团队 → Notion + Notion AI（Business 档）
+│   │   └── PM 团队要标准 + 流转 → ChatPRD（Linear/Notion/Confluence）
+│   └── 给自己 + AI（独立开发者）
+│       └── Claude 直写：餐巾纸粗纲 10-15 分钟 → AI 展开 → 逐段迭代
+│           （承载按协作者生态选飞书或 repo；评审用多 persona 红队复刻）
+│
+└── 真正的痛点是「反馈太多理不出 roadmap」？
+    └── 证据聚合赛道（Productboard / Enterpret / BuildBetter）——先确认规模再付钱</code></pre>
+<p>务实组合（本库采纳，2026-08-26 会话定调）：<strong>Claude 生成 + 飞书承载（中文协作）+ repo 内 spec（agent 执行侧）</strong>——「给人读的 PRD」与「给 AI 执行的 spec」分层并存，而非一门工具打天下。模板层结论：Lenny 1-Pager 骨架 + SeatGeek Decision Journal（决策理由段，治「想清楚的东西会忘」）+ Linear Milestones 语义（PRD 先变、代码后动）。</p>
+<h2>五、观察名单（不建独立报告，含理由）</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">状态（观测 2026-08-27）</th><th style="text-align:left">备注</th></tr></thead><tbody><tr><td style="text-align:left">OpenSpec（Fission-AI）</td><td style="text-align:left">⭐66,338，MIT，push 2026-08-26（gh）</td><td style="text-align:left">轻量 spec-driven，brownfield 友好，<code>/opsx:propose</code> 工作流；spec-kit 的轻替代</td></tr><tr><td style="text-align:left">墨刀 AI（万兴科技）</td><td style="text-align:left">中文教程 2026-07-14 更新</td><td style="text-align:left">中文原型 + PRD 自动化一体；中文 PM 场景的候选，质量待实测</td></tr><tr><td style="text-align:left">Confluence + Rovo（Atlassian）</td><td style="text-align:left">2026 横评常客</td><td style="text-align:left">Jira PD + Rovo 组合面向 Atlassian 标准化团队（BuildBetter 2026）</td></tr><tr><td style="text-align:left">Enterpret / BuildBetter / Dovetail</td><td style="text-align:left">Enterpret 指南 2026-07-29</td><td style="text-align:left">「证据聚合」赛道：反馈→PRD 的上下文供给侧</td></tr><tr><td style="text-align:left">PRDKit</td><td style="text-align:left">Telos 对比 2026-02 收录</td><td style="text-align:left">唯一主打文档+线框图/流程图并出的工具</td></tr><tr><td style="text-align:left">TicNote Cloud / Telos / Productly</td><td style="text-align:left">各自博客 2026</td><td style="text-align:left">新一批「startup COO」型工具，自评口径为主，独立评测缺</td></tr><tr><td style="text-align:left">GitHub Copilot Workspace</td><td style="text-align:left">$10/mo（TicNote 2026）</td><td style="text-align:left">repo 感知的技术规格（API 契约/数据模型），业务上下文弱</td></tr><tr><td style="text-align:left">vibe-coding-prompt-template（KhazP）</td><td style="text-align:left">⭐2,872，push 2026-08-21（gh）</td><td style="text-align:left">PRD/Tech Design/MVP 提示词模板集，模板层而非工具层</td></tr><tr><td style="text-align:left">Hustle Badger PRD Reviewer</td><td style="text-align:left">方案页（2026）</td><td style="text-align:left">Claude Code 多 persona 红队评审，本地复刻 ChatPRD CPO Coaching</td></tr></tbody></table>
+<h2>六、模板层速览（会话沉淀，与工具正交）</h2>
+<p>2026 趋势是模板变薄：从 20 页 Word 转向 <strong>1-pager + AI 起草 + 持续迭代</strong>；核心分节收敛为「背景与问题 → 目标与度量 → 范围（做/不做什么）→ 方案概述 → 里程碑 → 开放问题」。代表模板按轻重光谱：Intercom Intermission（一页铁律）→ Linear 三段式 → Lenny 1-Pager → Kevin Yien 五阶段 → Shape Up（Appetite）→ ChatPRD 官方十段 → Amazon PR/FAQ（逆向工作法）→ SeatGeek Decision Journal（决策日志）。完整版存于飞书两篇（2026-08-26 会话由 agent 写入）：<a href="https://icnk3gqknrte.feishu.cn/docx/M72Od0wGRo9kQyxkPtPcR977nye">PRD 工具与模板全景研究</a>、<a href="https://icnk3gqknrte.feishu.cn/docx/XWIPdnvcWotjr0xa7gNcZo6Qnme">PRD 模板库 · 十一套可复制模板</a>。</p>
+<h2>数据时间说明</h2>
+<p>本页价格均注查询日期（ChatPRD/飞书 2026-08-27，Kiro 2026-07 口径，Notion/Productboard/Claude 为 2026 年评测方口径）；评测结论均注评测方与时间（Fireside PM 2025-12、Enterpret 2026-07、Storyflow/BuildBetter/IdeaPlan/TicNote 2026）；star/push 为 gh 2026-08-27 采集快照。复用前先核对时效（RULES.md 第 3 节）。</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

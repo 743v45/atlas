@@ -1,0 +1,34 @@
+{
+  "name": "fireredasr-ui",
+  "repo": "https://github.com/jianchang512/fireredasr-ui",
+  "license": "Apache-2.0",
+  "verdict": "hold",
+  "summary": "FireRedASR 的第三方一键 WebUI+OpenAI 兼容 API 封装：本机部署的原型，但上游 2025-02 起停更 18 个月、不支持 v2——已被本地深度改造（队列/缓存/看门狗）接管，新项目勿直接采用上游原版。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/jianchang512/fireredasr-ui",
+    "https://github.com/FireRedTeam/FireRedASR2S",
+    "https://open-llm-vtuber.github.io/en/docs/user-guide/backend/asr/"
+  ],
+  "tags": [
+    "webui",
+    "fireredasr",
+    "wrapper",
+    "openai-api"
+  ],
+  "stats": {
+    "source_repo": "jianchang512/fireredasr-ui",
+    "stars": 88,
+    "pushed_at": "2025-02-24",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "WebUI（Flask/Gradio）",
+    "中文支持": "继承 FireRedASR v1",
+    "本地部署": "✅（本机实测）",
+    "速度": "中（CPU）",
+    "许可": "Apache-2.0"
+  }
+}

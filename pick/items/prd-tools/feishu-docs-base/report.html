@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>飞书文档+多维表格 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>PRD 工具</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../claude/report.html">← Claude（Agent 直写）</a><span class="sep">·</span><a href="../kiro/report.html">Kiro（AWS） →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>飞书文档+多维表格</h1>
+<blockquote><strong>TL;DR</strong>：中文团队 PRD 协作的默认底座：文档写 PRD、多维表格管需求跟踪，评论/@/审批原生，AI 智能伙伴可生成 PRD 与一键搭表，Claude 经 lark-doc/lark-base 直读直写——英文生态外的最优路径。</blockquote>
+<ul><li><strong>结论</strong>：adopt（推荐）</li><li><strong>核实日期</strong>：2026-08-27（自 2026-08-26 会话结论 + 官网核实）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">SaaS：云文档（Docx/Wiki）+ 多维表格（Base）</td><td style="text-align:left">[1][4]</td></tr><tr><td style="text-align:left">AI 能力</td><td style="text-align:left">AI 智能伙伴 / 多维表格 AI（智能搭建、字段 AI、智能体）</td><td style="text-align:left">[1][3][4]</td></tr><tr><td style="text-align:left">价格</td><td style="text-align:left">免费档 + 商业版订阅；AI 能力按版本权益 + 额度计费（官方额度规则，2026-08-27 查询）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">协作</td><td style="text-align:left">评论、@人、审批流、版本历史（飞书生态原生）</td><td style="text-align:left">[5]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ul><li><strong>协作闭环开箱即用</strong>：PRD 正文在云文档（评论、@人、版本历史），需求跟踪放多维表格（状态流转、优先级、负责人），评审走飞书审批——中文团队的协作全在同一个生态里发生，不需要为 PRD 另购工具 [5]。</li><li><strong>AI 能力已进 PRD 场景</strong>：2026-03 飞书发布企业级 Agent，自然语言描述需求即可由智能伙伴生成完整 PRD 并同步到飞书文档（量子位 2026-03-19）[3]；多维表格 AI 支持一句话搭建业务系统（官方 2025-12-26 教程）[1]；多维表格智能体可按权限回答业务数据问题（官方 2026-07-02）[4]。</li><li><strong>Agent 可直读直写（本库核心命题）</strong>：Claude 经 lark-doc / lark-base skill 直接读写文档与表格——「AI 起草 + 开发时 AI 消费」的双向工作流已被实际跑通（2026-08-26 会话实证：PRD 研究报告与模板库两篇文档由 agent 写入飞书）[5][6][7]。</li><li><strong>中文原生</strong>：界面、AI、模板、协作语境全部中文，无翻译损耗 [3][4]。</li></ul>
+<h2>对比</h2>
+<ul><li>与 Notion：协作能力同档，中文与本土生态是决定性差异；但 agent 批量 API 读写两者都不如裸 Markdown（见 <a href="../claude/report.md">claude</a> 与 <a href="../notion-ai/report.md">notion-ai</a>）。</li><li>与 spec-kit：飞书承载「给人读的 PRD」，spec-kit 承载「给 agent 执行的 spec」——两者是互补层而非竞争（见 <code>../comparison.md</code>）。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>AI 按额度计费</strong>：飞书 AI 能力有版本权益与额度消耗规则（如 PDF 智能解析每页 2 额度），重度使用需核算商业版成本（官方规则页，2026-08-27 查询）[2]。</li><li><strong>数据在云端</strong>：非本地文件，agent 自主全文检索不如裸 Markdown 顺手——PRD 若主要给 agent 当开发上下文，建议同步导出 Markdown 进 repo（2026-08-26 会话结论）[5]。</li><li><strong>锁定效应</strong>：文档与表格均在飞书云内，导出通道存在但双向同步要自己维护 [5]。</li></ul>
+<h2>来源</h2>
+<ol><li>多维表格 AI 功能介绍 — <a href="https://www.feishu.cn/hc/zh-CN/articles/519714421437">https://www.feishu.cn/hc/zh-CN/articles/519714421437</a>（访问 2026-08-27）</li><li>飞书 AI 版本权益与额度消耗规则说明 — <a href="https://www.feishu.cn/hc/zh-CN/articles/629644238181">https://www.feishu.cn/hc/zh-CN/articles/629644238181</a>（访问 2026-08-27）</li><li>飞书发布多款企业级 Agent 覆盖个人智能伙伴与业务系统 — 量子位 2026-03-19，<a href="https://www.qbitai.com/2026/03/389311.html">https://www.qbitai.com/2026/03/389311.html</a></li><li>多维表格智能体：让多维表格变成团队可用的 Team Agent — 飞书官网 2026-07-02，<a href="https://www.feishu.cn/content/article/7657782356450741223">https://www.feishu.cn/content/article/7657782356450741223</a></li><li>Claude 会话 d77eeed3（2026-08-26）「prd 最佳工具」——首选结论与 agent 写入实证</li><li>PRD 工具与模板全景研究 — 飞书文档（agent 写入，2026-08-26），<a href="https://icnk3gqknrte.feishu.cn/docx/M72Od0wGRo9kQyxkPtPcR977nye">https://icnk3gqknrte.feishu.cn/docx/M72Od0wGRo9kQyxkPtPcR977nye</a></li><li>PRD 模板库 · 十一套可复制模板 — 飞书文档（agent 写入，2026-08-26），<a href="https://icnk3gqknrte.feishu.cn/docx/XWIPdnvcWotjr0xa7gNcZo6Qnme">https://icnk3gqknrte.feishu.cn/docx/XWIPdnvcWotjr0xa7gNcZo6Qnme</a></li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录（历史会话结论 + 官网核实）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

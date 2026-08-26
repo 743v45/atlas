@@ -1,0 +1,37 @@
+{
+  "name": "TypeDoc",
+  "repo": "https://github.com/TypeStrong/TypeDoc",
+  "homepage": "https://typedoc.org",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "生成级代表：从 TS docstring 生成 API 文档，周下载 490 万、维护十年；作为组合方案在「API 参考」环节的补充直接可用——但不解决知识库/博客的叙述性文档关联。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/TypeStrong/TypeDoc",
+    "https://www.npmjs.com/package/typedoc",
+    "https://typedoc.org/documents/Overview.html",
+    "https://typedoc.org/documents/Changelog.html",
+    "https://typedoc-plugin-markdown.org/docs/CHANGELOG",
+    "Claude 历史会话（2026-08-25）——生成级定位与互补结论提取源"
+  ],
+  "tags": [
+    "生成级",
+    "typescript",
+    "api-docs"
+  ],
+  "matrix": {
+    "关联强度": "生成级",
+    "标识": "符号级(API 面)",
+    "单一事实源": "源码 docstring",
+    "CI 强制": "⚠️ 无内建卡点",
+    "形态": "CLI 生成器"
+  },
+  "stats": {
+    "source_repo": "TypeStrong/TypeDoc",
+    "stars": 8447,
+    "pushed_at": "2026-07-13",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  }
+}

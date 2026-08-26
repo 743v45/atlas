@@ -1,0 +1,32 @@
+{
+  "name": "botasaurus",
+  "repo": "https://github.com/omkarcloud/botasaurus",
+  "homepage": "https://github.com/omkarcloud/botasaurus",
+  "license": "MIT",
+  "verdict": "assess",
+  "summary": "一体化反检测爬虫框架：反检测、代理轮换、验证码求解、并发爬取打包；面向「写爬虫」而非「驱动浏览器」，要数据不要精细控制时选它。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/omkarcloud/botasaurus"
+  ],
+  "tags": [
+    "python",
+    "爬虫框架",
+    "一体化"
+  ],
+  "stats": {
+    "source_repo": "omkarcloud/botasaurus",
+    "stars": 5689,
+    "pushed_at": "2026-07-26",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "反检测层级": "一体化框架",
+    "AI 接入": "Python",
+    "许可": "MIT",
+    "成本": "免费",
+    "自托管": "✅"
+  }
+}

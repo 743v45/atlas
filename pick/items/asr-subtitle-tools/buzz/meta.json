@@ -1,0 +1,35 @@
+{
+  "name": "Buzz",
+  "repo": "https://github.com/chidiwilliams/buzz",
+  "homepage": "https://buzzcaptions.com/",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "开箱即用的开源桌面 GUI（Mac/Win/Linux）：拖文件出 SRT/VTT，零命令行门槛；后端 Whisper 使中文准确率一般，适合懒人快处理与非中文素材。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/chidiwilliams/buzz",
+    "https://speakhapi.com/blog/open-source-speech-to-text-mac",
+    "https://github.com/FireRedTeam/FireRedASR"
+  ],
+  "tags": [
+    "gui",
+    "whisper",
+    "desktop",
+    "srt"
+  ],
+  "stats": {
+    "source_repo": "chidiwilliams/buzz",
+    "stars": 21144,
+    "pushed_at": "2026-08-23",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "桌面 GUI",
+    "中文支持": "弱（Whisper 后端）",
+    "本地部署": "✅ 本地模型",
+    "速度": "中",
+    "许可": "MIT"
+  }
+}

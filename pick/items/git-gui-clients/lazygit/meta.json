@@ -1,0 +1,35 @@
+{
+  "name": "lazygit",
+  "repo": "https://github.com/jesseduffield/lazygit",
+  "homepage": "https://github.com/jesseduffield/lazygit",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "终端内零成本最高效：MIT 开源 TUI，81.7k star、月更活跃，重度终端用户的主战场，GUI 只补它不擅长的可视化。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/jesseduffield/lazygit",
+    "https://github.com/jesseduffield/lazygit/releases",
+    "https://www.reddit.com/r/git/comments/1inut0b/what_git_client_do_you_use"
+  ],
+  "tags": [
+    "git",
+    "tui",
+    "terminal",
+    "opensource"
+  ],
+  "matrix": {
+    "许可": "MIT 开源",
+    "价格": "免费",
+    "平台": "全平台 TUI",
+    "性能": "快（TUI）",
+    "大仓库": "好"
+  },
+  "stats": {
+    "source_repo": "jesseduffield/lazygit",
+    "stars": 81656,
+    "pushed_at": "2026-08-26",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  }
+}

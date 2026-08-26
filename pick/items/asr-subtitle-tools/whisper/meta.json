@@ -1,0 +1,34 @@
+{
+  "name": "OpenAI Whisper",
+  "repo": "https://github.com/openai/whisper",
+  "homepage": "https://openai.com/research/whisper",
+  "license": "MIT",
+  "verdict": "hold",
+  "summary": "多语言基线但中文明显掉队：官方口径 large-v3 普通话平均 CER 9.86%（约为 FireRedASR2 的 3.4 倍）、turbo 更差，字幕主力中文场景不建议新采用；价值在英文/小语种覆盖与庞大生态。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/openai/whisper",
+    "https://github.com/FireRedTeam/FireRedASR",
+    "https://cloud.tencent.com/developer/article/2642961"
+  ],
+  "tags": [
+    "asr",
+    "multilingual",
+    "baseline"
+  ],
+  "stats": {
+    "source_repo": "openai/whisper",
+    "stars": 107969,
+    "pushed_at": "2026-07-28",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "模型+PyTorch 库",
+    "中文支持": "弱 9.86%",
+    "本地部署": "✅",
+    "速度": "慢（large 自回归）",
+    "许可": "MIT"
+  }
+}

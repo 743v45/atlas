@@ -1,0 +1,33 @@
+{
+  "name": "网络图（wiki 双链）",
+  "repo": "https://github.com/743v45/taevasidian",
+  "homepage": "",
+  "license": "—（组织模式）",
+  "verdict": "trial",
+  "summary": "双链织网 + 图导航：无预设骨架、关联即结构（taevasidian 内容层已验证）——漫游强但无入口秩序，选型速查场景只作补充不作主导航。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/743v45/taevasidian（内容层落地实证）",
+    "https://en.wikipedia.org/wiki/Wiki（wiki 概念）"
+  ],
+  "tags": [
+    "双链",
+    "图",
+    "漫游"
+  ],
+  "matrix": {
+    "导航方式": "双链 + 图",
+    "层级深度": "0 层（图）",
+    "检索": "反链/全文",
+    "维护": "AI 织网可行",
+    "适配规模": "关联密集内容"
+  },
+  "stats": {
+    "source_repo": "743v45/taevasidian",
+    "stars": 0,
+    "pushed_at": "2026-08-26",
+    "license": "NOASSERTION",
+    "collected_at": "2026-08-27"
+  }
+}

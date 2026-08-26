@@ -1,0 +1,36 @@
+{
+  "name": "Spec Kit（GitHub）",
+  "repo": "https://github.com/github/spec-kit",
+  "homepage": "https://github.github.io/spec-kit/",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "spec-driven 开发的事实标准：GitHub 官方开源（⭐131,657k，MIT，2026-08-21 发布 1.0.0），constitution→specify→plan→tasks→implement→converge 把 PRD 变成 agent 可执行流程、30+ agent 通用；适合「PRD 主要给 AI 消费」的 repo 工作流，人类协作评审弱于文档平台。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/github/spec-kit",
+    "https://www.manorrock.com/blog/2026/08/21/spec_kit_turns_one.html",
+    "https://kiro.dev/docs/specs"
+  ],
+  "tags": [
+    "spec-driven",
+    "开源",
+    "cli",
+    "agent"
+  ],
+  "matrix": {
+    "形态": "CLI + slash 命令（开源）",
+    "AI 能力": "借宿主 agent 生成 spec",
+    "协作": "git/PR 评审",
+    "Agent 读写": "✅ Markdown 即上下文",
+    "价格": "免费开源",
+    "中文": "README 有中文版，流程英文"
+  },
+  "stats": {
+    "source_repo": "github/spec-kit",
+    "stars": 131668,
+    "pushed_at": "2026-08-26",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  }
+}

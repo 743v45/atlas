@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notion · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/knowledge-docs.html">知识与文档</a><span class="sep">·</span><span>个人知识库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../markdown-git-vault/report.html">← Markdown + Git 仓库工作流</a><span class="sep">·</span><a href="../obsidian/report.html">Obsidian →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>Notion</h1>
+<blockquote><strong>TL;DR</strong>：团队协作/权限/数据库视图最强——但 AI 批量读写走 API 很慢、共建体验差、数据不在本地；完整 AI 能力锁在 Business 档（$20/人/月，2026-08 查询），AI 共建个人知识库场景被否。</blockquote>
+<ul><li><strong>结论</strong>：hold（观望——场景外）</li><li><strong>核实日期</strong>：2026-08-27（定价当日核实）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">SaaS 协作知识库</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">定价（2026-08-27 查询）</td><td style="text-align:left">Free（个人、无限 blocks）/ Plus $10/人/月（年付）/ Business $20/人/月（年付）/ Enterprise 定制；AI credits 按 $10/1,000 credits 计费（官网价目）</td><td style="text-align:left">[1][3]</td></tr><tr><td style="text-align:left">AI 定价结构</td><td style="text-align:left">2025-05 起独立 AI add-on 取消：完整 AI（Notion Agent、Ask Notion、跨库 AI 搜索）并入 Business 档及以上（多方 2026 口径一致）</td><td style="text-align:left">[3][4]</td></tr></tbody></table>
+<h2>为什么（未 pick）</h2>
+<ul><li><strong>AI 共建体验差</strong>：批量读写走 API 很慢（2026-08-20 会话排除理由）[2]。</li><li><strong>数据不在本地</strong>：agent 操作受限，无文件系统原生访问权 [2]。</li><li><strong>AI 能力被档位锁</strong>：完整 agent 能力需 Business $20/人/月（2026-08-27 查询）——即便付费，通道仍是 API，慢的问题不解决 [1][3]。</li><li><strong>适用场景</strong>：团队协作 / 权限管理 / 数据库视图为主的知识库——那不是本选型的场景 [2]。2026 年它在「团队 + AI 搜索」位面仍是头部（The AI Rankings 2026 评其为团队共享知识 winner）[5]。</li></ul>
+<h2>对比</h2>
+<p>见 <code>../comparison.md</code>。与本选型的分野不是「AI 有无」而是<strong>通道形态</strong>：SaaS + API vs 文件直写。</p>
+<h2>风险与注意</h2>
+<ul><li>定价结构随 AI 能力演进频繁调整（2025-05 add-on 并档先例），长期成本可预期性差 [3][4]。</li><li>数据导出格式（md/csv）可用但链接结构与数据库视图不可完整还原（待验证：2026 导出器现状）。</li></ul>
+<h2>来源</h2>
+<ol><li>Notion Pricing — <a href="https://www.notion.com/pricing">https://www.notion.com/pricing</a>（访问 2026-08-27）</li><li>Claude 会话 99faa8a0（2026-08-20）「个人知识库，和 ai 共建，用什么工具管理」</li><li>Notion Pricing 2026: Free vs Plus vs Business — <a href="https://get-alfred.ai/blog/notion-pricing">https://get-alfred.ai/blog/notion-pricing</a>（访问 2026-08-27）</li><li>Notion pricing 2026: Which plan is actually worth it? — <a href="https://www.eesel.ai/blog/notion-pricing">https://www.eesel.ai/blog/notion-pricing</a>（访问 2026-08-27）；Forbes Notion Pricing Tiers &amp; Costs — <a href="https://www.forbes.com/advisor/business/notion-pricing">https://www.forbes.com/advisor/business/notion-pricing</a>（访问 2026-08-27）</li><li>Best AI Note Taking Apps in 2026 — <a href="https://theairankings.com/best-ai-note-taking-apps">https://theairankings.com/best-ai-note-taking-apps</a>（访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录（历史会话提取）</td></tr><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">hold</td><td style="text-align:left">高强度调研修订：补 2026 定价与 AI 并档结构（Business $20/人/月）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

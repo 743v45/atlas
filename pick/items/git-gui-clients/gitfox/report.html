@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitFox · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>Git 图形化客户端</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../fork/report.html">← Fork</a><span class="sep">·</span><a href="../github-desktop/report.html">GitHub Desktop →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#898781" title="评估"><i></i>评</span>
+<h1>GitFox</h1>
+<blockquote><strong>TL;DR</strong>：macOS 原生新秀：SwiftUI 编写、Fork 级功能对齐，€60/年订阅；v4.x 迭代快但生态年轻，值得观察再上车。</blockquote>
+<ul><li><strong>结论</strong>：assess 评估</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">App Store 显示 4.1.4 (11140)（2026-04-29）；官网首页仍标 4.0.0（首页版本号滞后）</td><td style="text-align:left">[3][1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">闭源（Pro 订阅：€60/年 含 VAT，或 €8/月；Team €144/年/2 席；30 天全功能试用免卡）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left">无公开仓库</td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">2026 年内 4.1.x 持续修复（Quick Look、线程池泄漏等）；Homebrew cask 上架分发</td><td style="text-align:left">[3][1]</td></tr></tbody></table>
+<h2>为什么进入候选（而非直接推荐）</h2>
+<ol><li><strong>真·macOS 原生，正中用户平台</strong>：SwiftUI 全量编写、无 Electron，diff/stage/分支/冲突全覆盖（官网口径，2026-08-27）[1]。对 darwin 用户是本类别唯一的现代原生实现。</li><li><strong>社区口碑对齐 Fork</strong>：作者在 r/macapps 发布时称「与 Fork 功能对等」（Reddit，2025-08 前后）[4]；早期定价约 €32 一次性，现行官网已是 €60/年订阅（2026-08-27 查询）[2]——定价模型变过一次，是观察点而非减分项本身。</li><li><strong>迭代速度快</strong>：一年多从 1.x 到 4.1.4，App Store 更新记录密集（含内存泄漏、线程池耗尽这类深水区修复）[3]。</li><li><strong>不确定项尚多，故 assess</strong>：大仓库性能无独立评测（官方与 Reddit 均未覆盖）；订阅制下长期持有成本高于 Fork 买断（€60/年 vs $59.99 一次）；单人/小团队产品，bus factor 与 Fork 同级但历史更短（待验证）。</li></ol>
+<h2>对比</h2>
+<p>vs Fork：同为轻快 mac 客户端，Fork $59.99 买断 + 10 年口碑 vs GitFox €60/年 + 原生 SwiftUI 新鲜感；vs Tower：都无 Linux，GitFox 更轻更快但功能深度不及。逐维度对比见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li>大仓库表现「待验证」——无第三方数据，本条是它卡在 assess 的主因。</li><li>订阅定价（€60/年 ≈ $65-70/年，含 VAT 口径）两年即超过 Fork 终身价。</li><li>仅 macOS；Windows 用户排除。</li></ul>
+<h2>来源</h2>
+<ol><li>Gitfox 官网（版本 4.0.0、原生宣传、brew cask） — <a href="https://www.gitfox.app">https://www.gitfox.app</a> （访问 2026-08-27）</li><li>Gitfox Plans（€60/年、€8/月、Team €144/年 2 席，Paddle 结算） — <a href="https://www.gitfox.app/plans">https://www.gitfox.app/plans</a> （访问 2026-08-27）</li><li>App Store: Gitfox 版本记录（4.1.4, 2026-04-29） — <a href="https://apps.apple.com/app/gitfox">https://apps.apple.com/app/gitfox</a> （访问 2026-08-27）</li><li>Reddit r/macapps: 作者发布帖（feature parity to Fork、早期 ~€32 定价） — <a href="https://www.reddit.com/r/macapps/comments/1munkvg/after_months_of_development_ive_completed_a">https://www.reddit.com/r/macapps/comments/1munkvg/after_months_of_development_ive_completed_a</a> （访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">assess</td><td style="text-align:left">首次记录（2026-07-28 会话未覆盖，本轮新增候选）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

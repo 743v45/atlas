@@ -1,0 +1,23 @@
+{
+  "name": "GitKraken",
+  "homepage": "https://www.gitkraken.com",
+  "license": "Proprietary",
+  "verdict": "hold",
+  "summary": "颜值与团队协作向：免费版仅本地+公开仓库，付费 $6.99/人/月起且偏重，个人用户不推荐，跨平台团队协作再考虑。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.gitkraken.com/pricing",
+    "https://help.gitkraken.com/notifications/desktop-performance/",
+    "https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd",
+    "https://getpi.bytestack.ai/blog/4-gui-git"
+  ],
+  "tags": ["git", "gui", "cross-platform", "subscription", "team"],
+  "matrix": {
+    "许可": "freemium 商业",
+    "价格": "$6.99/人/月起",
+    "平台": "macOS/Win/Linux",
+    "性能": "中（大仓库差）",
+    "大仓库": "差"
+  }
+}

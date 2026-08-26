@@ -1,0 +1,33 @@
+{
+  "name": "browser-use",
+  "repo": "https://github.com/browser-use/browser-use",
+  "homepage": "https://browser-use.com",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "最星标的开源 AI 浏览器 Agent 框架（⭐110,825、日更、MIT）：DOM 重构 + 交互元素标注喂给 LLM，WebVoyager 89.1%；自托管或云，可作执行引擎嵌入。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/browser-use/browser-use",
+    "https://aimultiple.com — Best 30+ Open Source Web Agents in 2026"
+  ],
+  "tags": [
+    "自治框架",
+    "python",
+    "llm"
+  ],
+  "stats": {
+    "source_repo": "browser-use/browser-use",
+    "stars": 110846,
+    "pushed_at": "2026-08-26",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "自治框架",
+    "常驻 token": "N/A",
+    "引擎覆盖": "Chromium",
+    "独占能力": "自治 89.1%",
+    "许可": "MIT"
+  }
+}

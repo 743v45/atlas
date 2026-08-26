@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>工作流工具 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .masthead { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .masthead .sub { color: var(--muted); font-size: .92rem; }
+  .masthead .figures { margin-left: auto; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+  #filter {
+    width: 100%; padding: .5rem .8rem; margin-bottom: .6rem; font-size: .95rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text);
+  }
+  .chips { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .chip {
+    padding: .1rem .7rem; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--card); color: var(--muted); cursor: pointer; font-size: .8rem; font-family: var(--font-body);
+  }
+  .chip.active { color: var(--chip-c); border-color: var(--chip-c); font-weight: 600; }
+  .category { margin-bottom: 2.1rem; animation: drawer .4s ease both; }
+  .category:nth-child(1) { animation-delay: .02s } .category:nth-child(2) { animation-delay: .07s }
+  .category:nth-child(3) { animation-delay: .12s } .category:nth-child(4) { animation-delay: .17s }
+  @keyframes drawer { from { opacity: 0; transform: translateY(7px) } to { opacity: 1; transform: none } }
+  @media (prefers-reduced-motion: reduce) { .category { animation: none } }
+  .category h2 { font-size: 1.32rem; margin: 0 0 .5rem; display: flex; align-items: center; gap: .65rem; }
+  .gan {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.75em; height: 1.75em; border: 1.5px solid var(--text); border-radius: 5px;
+    font-size: .82em; font-family: var(--font-display); line-height: 1; flex-shrink: 0;
+  }
+  .cmp { font-size: .8rem; font-weight: normal; margin-left: auto; font-family: var(--font-body); }
+  .idx-table { display: table; table-layout: fixed; }
+  .idx-table th {
+    font-size: .73rem; color: var(--muted); font-weight: 500; text-align: left; font-family: var(--font-body);
+    cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .idx-table th:focus-visible { outline-offset: -2px; }
+  .idx-table th.sorted-asc::after { content: " ↑"; color: var(--link); }
+  .idx-table th.sorted-desc::after { content: " ↓"; color: var(--link); }
+  .idx-table td { border-bottom: 1px solid var(--border); font-size: .82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .idx-table td:first-child { width: 7.5rem; }
+  .idx-table td.num, .idx-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-family: var(--font-mono); font-size: .78rem; }
+  .idx-table td.mx { color: var(--muted); }
+  .idx-table td.warn { color: var(--accent); }
+  .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
+  .idx-table .tool-name { font-weight: 600; }
+  .push-stale { color: var(--danger); }
+  .collected-note { color: var(--muted); font-size: .75rem; margin-top: .3rem; font-family: var(--font-mono); }
+  .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
+  /* 域列表（顶层索引）与域页 */
+  .domain {
+    margin-bottom: 1.3rem; padding: 1rem 1.2rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+  }
+  .domain h2 { margin: 0 0 .35rem; display: flex; align-items: center; gap: .65rem; font-size: 1.3rem; }
+  .domain h2 a { color: inherit; text-decoration: none; }
+  .domain h2 a:hover { color: var(--link); }
+  .domain .figures { margin-left: auto; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); font-weight: 400; }
+  .domain-desc { margin: .1rem 0 .7rem; color: var(--muted); font-size: .9rem; font-family: var(--font-body); }
+  .cat-chips { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .cat-chip {
+    display: inline-flex; align-items: baseline; gap: .4rem; padding: .18rem .8rem;
+    border: 1px solid var(--border); border-radius: 999px; background: var(--bg);
+    text-decoration: none; color: var(--text); font-size: .85rem; font-family: var(--font-body);
+  }
+  .cat-chip:hover { border-color: var(--link); color: var(--link); }
+  .cat-chip span { color: var(--muted); font-family: var(--font-mono); font-size: .72rem; }
+  .cat-count { font-size: .74rem; color: var(--muted); font-weight: 400; font-family: var(--font-mono); }
+  .kingdom-name {
+    font-size: 1.05rem; color: var(--muted); font-weight: 600; margin: 1.6rem 0 .6rem;
+    border-bottom: 1px dashed var(--border); padding-bottom: .3rem;
+  }
+  .omni-wrap { position: relative; margin-bottom: 1.4rem; }
+  #omni {
+    width: 100%; padding: .55rem .9rem; font-size: .98rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 9px; background: var(--card); color: var(--text);
+  }
+  .omni-results {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 10;
+    background: var(--card); border: 1px solid var(--border); border-radius: 9px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.10); overflow: hidden;
+  }
+  .omni-results a, .omni-none {
+    display: flex; align-items: baseline; gap: .6rem; padding: .45rem .9rem;
+    text-decoration: none; color: var(--text); font-size: .88rem; font-family: var(--font-body);
+  }
+  .omni-results a:hover { background: color-mix(in srgb, var(--link) 6%, transparent); }
+  .omni-results b { font-weight: 600; }
+  .omni-v { font-size: .74rem; color: var(--muted); }
+  .omni-d { margin-left: auto; font-size: .76rem; color: var(--muted); font-family: var(--font-mono); }
+  @media (max-width: 720px) {
+    body { padding: 1rem .7rem 2.5rem; }
+    .category { overflow-x: auto; }
+    .category h2 { font-size: 1.12rem; }
+    .masthead .figures { display: none; }
+    .idx-table { min-width: 640px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><span>工作流工具</span><span class="sep">·</span><span>4 类 23 条</span></nav>
+  <div class="masthead">
+    <h1>工作流工具</h1>
+    <span class="sub">写文档、看仓库、收通知、排字符——日常工具链的散件选型。</span>
+  </div>
+  <input id="filter" type="search" placeholder="按名称 / 结论 / 标签过滤…" autocomplete="off">
+  <div class="chips">
+    <button class="chip active" data-verdict="all">全部</button>
+    <button class="chip" data-verdict="adopt" style="--chip-c:#0ca30c">推荐</button><button class="chip" data-verdict="trial" style="--chip-c:#fab219">试用</button><button class="chip" data-verdict="assess" style="--chip-c:#898781">评估</button><button class="chip" data-verdict="hold" style="--chip-c:#d03b3b">观望</button>
+  </div>
+  <section class="category" id="prd-tools" data-search="prd 工具">
+    <h2>PRD 工具 <span class="cat-count">7 条</span> <a class="cmp" href="../items/prd-tools/comparison.html">横评 →</a></h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>形态</th><th>AI 能力</th><th>协作</th><th>Agent 读写</th><th>价格</th><th>中文</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="ChatPRD"
+          data-search="chatprd 最成熟的专用 ai prd 平台：起草+cpo 视角评审+linear/notion/confluence/mcp 流转一体（免费档 / pro $15/月 / teams $29/席/月，2026-08-27 查询）；生成质量已被通用 claude 追平甚至反超，付费理由收窄为 pm 团队标准化与流转集成。 ai pm saas 专用工具">
+        <td class="tool-name"><a href="../items/prd-tools/chatprd/report.html" title="最成熟的专用 AI PRD 平台：起草+CPO 视角评审+Linear/Notion/Confluence/MCP 流转一体（免费档 / Pro $15/月 / Teams $29/席/月，2026-08-27 查询）；生成质量已被通用 Claude 追平甚至反超，付费理由收窄为 PM 团队标准化与流转集成。">ChatPRD</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">SaaS AI PM 平台</td><td class="mx">起草+CPO 评审+gap 分析</td><td class="mx">Teams 版共享项目</td><td class="mx">MCP 集成（官网宣称）</td><td class="mx">免费档 / Pro $15 / Teams $29</td><td class="mx">❌ 英文</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="Claude（Agent 直写）"
+          data-search="claude（agent 直写） prd 写作质量横评第一（fireside pm 2025-12 实测：claude 胜 chatprd、gemini、chatgpt、grok）：口述→起草→红队评审→按模板写入飞书或 repo，零新增订阅；它只管生成，协作与承载交给宿主工具。 ai 起草 评审 零订阅">
+        <td class="tool-name"><a href="../items/prd-tools/claude/report.html" title="PRD 写作质量横评第一（Fireside PM 2025-12 实测：Claude 胜 ChatPRD、Gemini、ChatGPT、Grok）：口述→起草→红队评审→按模板写入飞书或 repo，零新增订阅；它只管生成，协作与承载交给宿主工具。">Claude（Agent 直写）</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">LLM 对话 / CLI（Claude Code）</td><td class="mx">横评第一的起草+评审</td><td class="mx">❌ 靠宿主工具承载</td><td class="mx">✅ 本身即 agent</td><td class="mx">订阅（Pro $20/月量级）</td><td class="mx">✅ 中英皆可</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="飞书文档+多维表格"
+          data-search="飞书文档+多维表格 中文团队 prd 协作的默认底座：文档写 prd、多维表格管需求跟踪，评论/@/审批原生，ai 智能伙伴可生成 prd 与一键搭表，claude 经 lark-doc/lark-base 直读直写——英文生态外的最优路径。 协作 中文 saas lark">
+        <td class="tool-name"><a href="../items/prd-tools/feishu-docs-base/report.html" title="中文团队 PRD 协作的默认底座：文档写 PRD、多维表格管需求跟踪，评论/@/审批原生，AI 智能伙伴可生成 PRD 与一键搭表，Claude 经 lark-doc/lark-base 直读直写——英文生态外的最优路径。">飞书文档+多维表格</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">SaaS 文档+多维表格</td><td class="mx">智能伙伴生成 PRD</td><td class="mx">评论/@/审批原生</td><td class="mx">✅ API+CLI（lark-doc/base）</td><td class="mx">免费档+订阅，AI 按额度</td><td class="mx">✅ 原生</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="Kiro（AWS）"
+          data-search="kiro（aws） aws 的 spec-driven ide：ears 句式需求→设计→任务→实现流水线，fastcheck 从需求生成性质测试，spec 审批门可做治理；与 spec-kit 同流派但绑定自家 ide 与 credits（free 50 credits / pro $20/月，2026-07 观测）——适合 aws 重度团队，已有 claude code 者换不动。 spec-driven ide aws">
+        <td class="tool-name"><a href="../items/prd-tools/kiro/report.html" title="AWS 的 spec-driven IDE：EARS 句式需求→设计→任务→实现流水线，FastCheck 从需求生成性质测试，spec 审批门可做治理；与 spec-kit 同流派但绑定自家 IDE 与 credits（Free 50 credits / Pro $20/月，2026-07 观测）——适合 AWS 重度团队，已有 Claude Code 者换不动。">Kiro（AWS）</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">spec-driven IDE（Web/CLI/桌面）</td><td class="mx">EARS 需求生成+FastCheck</td><td class="mx">spec 审批门+共享库</td><td class="mx">IDE 内置自家 agent</td><td class="mx">Free 50 credits / Pro $20/月</td><td class="mx">❌ 英文</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="Notion + Notion AI"
+          data-search="notion + notion ai 英文协作团队的默认 prd 落点：notion ai 内联起草+数据库跟踪，协作最强一档；但 ai 需 business 档（$20/席/月，2026）且 agent 批量读写慢、数据不在本地——协作优先选它，ai 共建优先选别的。 协作 英文 saas">
+        <td class="tool-name"><a href="../items/prd-tools/notion-ai/report.html" title="英文协作团队的默认 PRD 落点：Notion AI 内联起草+数据库跟踪，协作最强一档；但 AI 需 Business 档（$20/席/月，2026）且 agent 批量读写慢、数据不在本地——协作优先选它，AI 共建优先选别的。">Notion + Notion AI</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">SaaS 协作知识库</td><td class="mx">Notion AI 内联起草</td><td class="mx">强（数据库视图/权限）</td><td class="mx">API 可用但批量慢</td><td class="mx">Business $20/席/月含 AI</td><td class="mx">界面支持中文</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="-1"
+          data-push="" data-name="Productboard"
+          data-search="productboard 面向「大量用户反馈聚类成 roadmap」的需求管理平台：ai 聚类反馈强、prd 起草弱（essentials $19 / pro $59 per maker/月，2026）；个人与小团队为此付费不值——它解决的是你没遇到的反馈规模问题。 需求管理 roadmap 企业 落选">
+        <td class="tool-name"><a href="../items/prd-tools/productboard/report.html" title="面向「大量用户反馈聚类成 roadmap」的需求管理平台：AI 聚类反馈强、PRD 起草弱（Essentials $19 / Pro $59 per maker/月，2026）；个人与小团队为此付费不值——它解决的是你没遇到的反馈规模问题。">Productboard</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">SaaS 需求管理平台</td><td class="mx">反馈聚类+AI 起草（弱）</td><td class="mx">门户+路线图+权限</td><td class="mx">❌ 无公开 agent 通道</td><td class="mx">Essentials $19 / Pro $59 per maker</td><td class="mx">界面多语言（待验证）</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="131668"
+          data-push="2026-08-26" data-name="Spec Kit（GitHub）"
+          data-search="spec kit（github） spec-driven 开发的事实标准：github 官方开源（⭐131,657k，mit，2026-08-21 发布 1.0.0），constitution→specify→plan→tasks→implement→converge 把 prd 变成 agent 可执行流程、30+ agent 通用；适合「prd 主要给 ai 消费」的 repo 工作流，人类协作评审弱于文档平台。 spec-driven 开源 cli agent">
+        <td class="tool-name"><a href="../items/prd-tools/spec-kit/report.html" title="spec-driven 开发的事实标准：GitHub 官方开源（⭐131,657k，MIT，2026-08-21 发布 1.0.0），constitution→specify→plan→tasks→implement→converge 把 PRD 变成 agent 可执行流程、30+ agent 通用；适合「PRD 主要给 AI 消费」的 repo 工作流，人类协作评审弱于文档平台。">Spec Kit（GitHub）</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">CLI + slash 命令（开源）</td><td class="mx">借宿主 agent 生成 spec</td><td class="mx">git/PR 评审</td><td class="mx">✅ Markdown 即上下文</td><td class="mx">免费开源</td><td class="mx">README 有中文版，流程英文</td>
+        <td class="num">131.7k</td>
+        <td class="num">08-26</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="collected-note">star / push 为 gh 快照，采集 2026-08-27；红色 push 表示停滞超 180 天；条目名悬停看一句话结论。</p>
+  </section>
+  <section class="category" id="git-gui-clients" data-search="git 图形化客户端">
+    <h2>Git 图形化客户端 <span class="cat-count">9 条</span> <a class="cmp" href="../items/git-gui-clients/comparison.html">横评 →</a></h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>许可</th><th>价格</th><th>平台</th><th>性能</th><th>大仓库</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="Fork"
+          data-search="fork 买断制里体验最好：$59.99 一次付费终身用，轻快稳定，macos 重度终端用户的首选 gui 辅助。 git gui macos paid-once">
+        <td class="tool-name"><a href="../items/git-gui-clients/fork/report.html" title="买断制里体验最好：$59.99 一次付费终身用，轻快稳定，macOS 重度终端用户的首选 GUI 辅助。">Fork</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">闭源买断</td><td class="mx">$59.99 一次性</td><td class="mx">macOS/Win</td><td class="mx">轻快</td><td class="mx">好</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="GitFox"
+          data-search="gitfox macos 原生新秀：swiftui 编写、fork 级功能对齐，€60/年订阅；v4.x 迭代快但生态年轻，值得观察再上车。 git gui macos native subscription new-entrant">
+        <td class="tool-name"><a href="../items/git-gui-clients/gitfox/report.html" title="macOS 原生新秀：SwiftUI 编写、Fork 级功能对齐，€60/年订阅；v4.x 迭代快但生态年轻，值得观察再上车。">GitFox</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">闭源订阅</td><td class="mx">€60/年</td><td class="mx">仅 macOS</td><td class="mx">快（SwiftUI 原生）</td><td class="mx">待验证</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="21792"
+          data-push="2026-08-26" data-name="GitHub Desktop"
+          data-search="github desktop 官方免费入门款：界面最简洁但功能基础、electron 在大仓库吃力，适合 github 重度用户轻量使用。 git gui github opensource free">
+        <td class="tool-name"><a href="../items/git-gui-clients/github-desktop/report.html" title="官方免费入门款：界面最简洁但功能基础、Electron 在大仓库吃力，适合 GitHub 重度用户轻量使用。">GitHub Desktop</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">MIT 开源</td><td class="mx">免费</td><td class="mx">macOS/Win</td><td class="mx">中（Electron）</td><td class="mx">差</td>
+        <td class="num">21.8k</td>
+        <td class="num">08-26</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="-1"
+          data-push="" data-name="GitKraken"
+          data-search="gitkraken 颜值与团队协作向：免费版仅本地+公开仓库，付费 $6.99/人/月起且偏重，个人用户不推荐，跨平台团队协作再考虑。 git gui cross-platform subscription team">
+        <td class="tool-name"><a href="../items/git-gui-clients/gitkraken/report.html" title="颜值与团队协作向：免费版仅本地+公开仓库，付费 $6.99/人/月起且偏重，个人用户不推荐，跨平台团队协作再考虑。">GitKraken</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">freemium 商业</td><td class="mx">$6.99/人/月起</td><td class="mx">macOS/Win/Linux</td><td class="mx">中（大仓库差）</td><td class="mx">差</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="81656"
+          data-push="2026-08-26" data-name="lazygit"
+          data-search="lazygit 终端内零成本最高效：mit 开源 tui，81.7k star、月更活跃，重度终端用户的主战场，gui 只补它不擅长的可视化。 git tui terminal opensource">
+        <td class="tool-name"><a href="../items/git-gui-clients/lazygit/report.html" title="终端内零成本最高效：MIT 开源 TUI，81.7k star、月更活跃，重度终端用户的主战场，GUI 只补它不擅长的可视化。">lazygit</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">MIT 开源</td><td class="mx">免费</td><td class="mx">全平台 TUI</td><td class="mx">快（TUI）</td><td class="mx">好</td>
+        <td class="num">81.7k</td>
+        <td class="num">08-26</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="SmartGit"
+          data-search="smartgit 跨平台功能派：非商业免费、商业 $5/人/月起，含 linux；界面老派但企业集成最全，教育/开源人群的直接免费项。 git gui cross-platform freemium enterprise">
+        <td class="tool-name"><a href="../items/git-gui-clients/smartgit/report.html" title="跨平台功能派：非商业免费、商业 $5/人/月起，含 Linux；界面老派但企业集成最全，教育/开源人群的直接免费项。">SmartGit</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">商业（非商业免费）</td><td class="mx">$5/人/月起</td><td class="mx">macOS/Win/Linux</td><td class="mx">好</td><td class="mx">好</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Sourcetree"
+          data-search="sourcetree 免费且功能全的参照系：atlassian 出品但更新偏慢、大仓库卡顿报告多，已在用可继续，新装建议先试 fork。 git gui atlassian free">
+        <td class="tool-name"><a href="../items/git-gui-clients/sourcetree/report.html" title="免费且功能全的参照系：Atlassian 出品但更新偏慢、大仓库卡顿报告多，已在用可继续，新装建议先试 Fork。">Sourcetree</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">免费闭源</td><td class="mx">免费</td><td class="mx">macOS/Win</td><td class="mx">中（有卡顿报告）</td><td class="mx">差</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Sublime Merge"
+          data-search="sublime merge $99 买断的性能标杆：自研 git 读库极快、行级暂存精细，2026 年仍在活跃更新，大仓库场景首选。 git gui performance paid-once cross-platform">
+        <td class="tool-name"><a href="../items/git-gui-clients/sublime-merge/report.html" title="$99 买断的性能标杆：自研 Git 读库极快、行级暂存精细，2026 年仍在活跃更新，大仓库场景首选。">Sublime Merge</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">闭源买断</td><td class="mx">$99 一次性</td><td class="mx">macOS/Win/Linux</td><td class="mx">极快</td><td class="mx">好</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="-1"
+          data-push="" data-name="Tower"
+          data-search="tower 功能最全的订阅制老牌：$69–149/年，独有全操作撤销等能力，但个人用户的性价比明显低于 fork 买断。 git gui subscription enterprise veteran">
+        <td class="tool-name"><a href="../items/git-gui-clients/tower/report.html" title="功能最全的订阅制老牌：$69–149/年，独有全操作撤销等能力，但个人用户的性价比明显低于 Fork 买断。">Tower</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">闭源订阅</td><td class="mx">$69/年起</td><td class="mx">macOS/Win</td><td class="mx">中上</td><td class="mx">好</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="collected-note">star / push 为 gh 快照，采集 2026-08-27；红色 push 表示停滞超 180 天；条目名悬停看一句话结论。</p>
+  </section>
+  <section class="category" id="ios-push-notify" data-search="iphone webhook 通知">
+    <h2>iPhone Webhook 通知 <span class="cat-count">6 条</span> <a class="cmp" href="../items/ios-push-notify/comparison.html">横评 →</a></h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>形态</th><th>自托管</th><th>免费额度</th><th>iOS 体验</th><th>延迟</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="adopt" data-stars="8947"
+          data-push="2026-08-18" data-name="Bark"
+          data-search="bark ios 专属推送 app，完全免费、装好即得一个 url，任何脚本 curl 一下就弹锁屏通知；官方服务器即开即用，有 nas 可 docker 自建 bark-server + e2e 加密把业务数据留在内网——「脚本→iphone 弹通知」的默认答案。 ios 推送 免费 自托管 webhook">
+        <td class="tool-name"><a href="../items/ios-push-notify/bark/report.html" title="iOS 专属推送 App，完全免费、装好即得一个 URL，任何脚本 curl 一下就弹锁屏通知；官方服务器即开即用，有 NAS 可 Docker 自建 bark-server + E2E 加密把业务数据留在内网——「脚本→iPhone 弹通知」的默认答案。">Bark</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">iOS App + URL</td><td class="mx">✅ bark-server(Docker)</td><td class="mx">完全免费</td><td class="mx">原生锁屏+重要警告+加密</td><td class="mx">APNs 秒级</td>
+        <td class="num">8.9k</td>
+        <td class="num">08-18</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="飞书群自定义机器人"
+          data-search="飞书群自定义机器人 飞书群里加「自定义机器人」即得 webhook：免费、免管理员审核、限流 100 条/分钟，富文本/卡片直进已装的飞书 app——重度飞书用户（本库环境即如此）的零成本补充通道，适合工作流告警与 bark 并存；代价是内容经飞书云、呈现受飞书 app 通知策略约束。 飞书 lark webhook 免费 推送">
+        <td class="tool-name"><a href="../items/ios-push-notify/lark-webhook/report.html" title="飞书群里加「自定义机器人」即得 webhook：免费、免管理员审核、限流 100 条/分钟，富文本/卡片直进已装的飞书 App——重度飞书用户（本库环境即如此）的零成本补充通道，适合工作流告警与 Bark 并存；代价是内容经飞书云、呈现受飞书 App 通知策略约束。">飞书群自定义机器人</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">群机器人 webhook</td><td class="mx">❌ SaaS</td><td class="mx">免费 100 条/分</td><td class="mx">经飞书 App 通知</td><td class="mx">秒级（待验证）</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="33773"
+          data-push="2026-08-25" data-name="ntfy"
+          data-search="ntfy 开源 http pub-sub 推送全家桶（ios/android/web，apache-2.0，⭐33,772.8k 高活跃），多端告警场景最强；硬伤在 ios：自建服务器的即时推送必须经官方 ntfy.sh 转发 poll_request，不配 upstream 则退化为分钟级轮询（几分钟～约 20 分钟一档）——iphone 单机场景让位 bark，多端场景值得试用。 推送 免费 自托管 pub-sub 多端">
+        <td class="tool-name"><a href="../items/ios-push-notify/ntfy/report.html" title="开源 HTTP pub-sub 推送全家桶（iOS/Android/Web，Apache-2.0，⭐33,772.8k 高活跃），多端告警场景最强；硬伤在 iOS：自建服务器的即时推送必须经官方 ntfy.sh 转发 poll_request，不配 upstream 则退化为分钟级轮询（几分钟～约 20 分钟一档）——iPhone 单机场景让位 Bark，多端场景值得试用。">ntfy</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">App + HTTP pub-sub</td><td class="mx warn">⚠️ iOS 需 upstream</td><td class="mx">250 条/天(ntfy.sh)</td><td class="mx">原生(官方服务器)</td><td class="mx warn">⚠️ 自建无 upstream 分钟级轮询</td>
+        <td class="num">33.8k</td>
+        <td class="num">08-25</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="-1"
+          data-push="" data-name="Pushover"
+          data-search="pushover 体验口碑最佳的商业推送：$4.99/平台一次性买断、终身有效、30 天全功能试用（2026-08-27 官网报价），但试用后必付费且闭源不可自托管——与「免费」硬约束直接冲突；哪天愿意付这 5 美元它就是体验上限。 推送 商业 买断制">
+        <td class="tool-name"><a href="../items/ios-push-notify/pushover/report.html" title="体验口碑最佳的商业推送：$4.99/平台一次性买断、终身有效、30 天全功能试用（2026-08-27 官网报价），但试用后必付费且闭源不可自托管——与「免费」硬约束直接冲突；哪天愿意付这 5 美元它就是体验上限。">Pushover</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">商业 SaaS App</td><td class="mx">❌ 闭源</td><td class="mx">试用 30 天→$4.99 买断</td><td class="mx">原生（口碑最佳）</td><td class="mx">秒级</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="-1"
+          data-push="" data-name="Telegram Bot"
+          data-search="telegram bot bot api 免费强大、客户端成熟，但大陆网络 telegram 全线被墙：发送端服务器要可达 api.telegram.org、接收端 iphone 都需常驻代理，把一个通知通道变成两个外部依赖——不推荐新采用，网络环境变化再重评。 telegram 推送 免费 webhook">
+        <td class="tool-name"><a href="../items/ios-push-notify/telegram-bot/report.html" title="Bot API 免费强大、客户端成熟，但大陆网络 Telegram 全线被墙：发送端服务器要可达 api.telegram.org、接收端 iPhone 都需常驻代理，把一个通知通道变成两个外部依赖——不推荐新采用，网络环境变化再重评。">Telegram Bot</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">IM 机器人 API</td><td class="mx">❌ 依赖 TG 云</td><td class="mx">完全免费</td><td class="mx">原生（需代理）</td><td class="mx">秒级（需代理）</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="Web Push + PWA（自建）"
+          data-search="web push + pwa（自建） 唯一证书完全自控的路线：自生成 vapid 密钥、不依赖任何 app 开发者的推送证书，ios 16.4+ 主屏幕 pwa 可收锁屏通知；但无静默推送、自定义声音 ios 17 才补齐、订阅页面与推送服务全要自己搭——彻底自持者再评估，暂不结论。 pwa web-push vapid 自托管 ios">
+        <td class="tool-name"><a href="../items/ios-push-notify/web-push-pwa/report.html" title="唯一证书完全自控的路线：自生成 VAPID 密钥、不依赖任何 App 开发者的推送证书，iOS 16.4+ 主屏幕 PWA 可收锁屏通知；但无静默推送、自定义声音 iOS 17 才补齐、订阅页面与推送服务全要自己搭——彻底自持者再评估，暂不结论。">Web Push + PWA（自建）</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">PWA + VAPID</td><td class="mx">✅ 全自持</td><td class="mx">完全免费</td><td class="mx warn">⚠️ 无声/受限</td><td class="mx">及时，有节流风险</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="collected-note">star / push 为 gh 快照，采集 2026-08-27；红色 push 表示停滞超 180 天；条目名悬停看一句话结论。</p>
+  </section>
+  <section class="category" id="typography" data-search="排版基础">
+    <h2>排版基础 <span class="cat-count">1 条</span> </h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>层级</th><th>覆盖</th><th>适用</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="字符表现形式"
+          data-search="字符表现形式 混排对齐只需记四类——数字右对齐(网页开 tabular-nums)、中文左对齐天然等宽、英文左对齐、emoji 独占一列;完整图谱 16 类,差异全部挂在宽度、呈现、方向、可见性四条轴上。 unicode typography 表格排版">
+        <td class="tool-name"><a href="../items/typography/char-forms/report.html" title="混排对齐只需记四类——数字右对齐(网页开 tabular-nums)、中文左对齐天然等宽、英文左对齐、Emoji 独占一列;完整图谱 16 类,差异全部挂在宽度、呈现、方向、可见性四条轴上。">字符表现形式</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">常用+全量双层</td><td class="mx">16 类字符</td><td class="mx">混排表格与终端排版</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      </tbody>
+    </table>
+    
+  </section>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
+</main>
+<script>
+  // 文本过滤 + verdict chips + 表头排序（类别内，点击切换升降序）
+  const VERDICT_ORDER = {"adopt": 0, "trial": 1, "assess": 2, "hold": 3};
+  const input = document.getElementById('filter');
+  let verdictF = 'all';
+  const chips = [...document.querySelectorAll('.chip')];
+
+  function applyFilter() {
+    document.querySelectorAll('.category').forEach(sec => {
+      let visible = 0;
+      sec.querySelectorAll('tbody tr').forEach(tr => {
+        const q = input.value.trim().toLowerCase();
+        const hitText = !q || tr.dataset.search.includes(q) || sec.dataset.search.includes(q);
+        const hitVerdict = verdictF === 'all' || tr.dataset.verdict === verdictF;
+        const hit = hitText && hitVerdict;
+        tr.classList.toggle('hidden', !hit);
+        if (hit) visible++;
+      });
+      sec.classList.toggle('hidden', visible === 0);
+    });
+  }
+  input.addEventListener('input', applyFilter);
+  chips.forEach(ch => ch.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    ch.classList.add('active');
+    verdictF = ch.dataset.verdict;
+    applyFilter();
+  }));
+
+  document.querySelectorAll('.idx-table th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const table = th.closest('table');
+      const tbody = table.querySelector('tbody');
+      const key = th.dataset.sort;
+      const asc = !th.classList.contains('sorted-asc');
+      table.querySelectorAll('th').forEach(t => t.classList.remove('sorted-asc', 'sorted-desc'));
+      th.classList.add(asc ? 'sorted-asc' : 'sorted-desc');
+      [...tbody.querySelectorAll('tr')].sort((a, b) => {
+        let va = a.dataset[key], vb = b.dataset[key];
+        if (key === 'stars') return (Number(va) - Number(vb)) * (asc ? 1 : -1);
+        if (key === 'verdict') return ((VERDICT_ORDER[va] ?? 9) - (VERDICT_ORDER[vb] ?? 9)) * (asc ? 1 : -1);
+        if (key === 'push') return String(va).localeCompare(String(vb)) * (asc ? 1 : -1);
+        return va.localeCompare(vb, 'zh') * (asc ? 1 : -1);
+      }).forEach(tr => tbody.appendChild(tr));
+    });
+  });
+</script>
+</body>
+</html>

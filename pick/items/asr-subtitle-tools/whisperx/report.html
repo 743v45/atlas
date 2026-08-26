@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WhisperX · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/speech-content.html">语音与内容</a><span class="sep">·</span><span>字幕/语音识别工具</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../whisper-cpp/report.html">← whisper.cpp</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>WhisperX</h1>
+<blockquote><strong>TL;DR</strong>：基于 faster-whisper 的研究级框架：词级时间戳强制对齐 + 说话人分离一步到位，是「字幕轴精修/多人访谈」的独占能力；中文准确率继承 Whisper 上限，速度换精度。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用（词级时间轴 + 说话人分离的刚需场景）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">持续发版（仓库最近推送 2026-07-13）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">BSD-2-Clause</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/m-bain/whisperX">https://github.com/m-bain/whisperX</a>（⭐23,761，gh 2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">活跃（年内有推送；学术出身，社区驱动）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么值得试用</h2>
+<ol><li><strong>phoneme 级强制对齐</strong>：转写后用 wav2vec2 对齐产出<strong>词级时间戳</strong>——字幕断句/轴精修、剪辑对齐的刚需，原生 Whisper 只有段级不稳定时间戳（官方 README 主张，2026-07 快照）[1]。</li><li><strong>说话人分离一步到位</strong>：集成 pyannote，多人访谈/会议素材直接出「谁在何时说了什么」[1]。</li><li><strong>批处理效率</strong>：faster-whisper 底座（GPU 服务器向）+ 批量推理，长音频吞吐好（2026 年速度测试口径）[3]。</li></ol>
+<h2>为什么不是 adopt</h2>
+<ul><li><strong>中文准确率继承 Whisper 上限</strong>（普通话平均 9.86%，见 <a href="../whisper/report.md">whisper</a>）——中文素材它只是「时间轴工具」，文字质量不如 FireRedASR2/SenseVoice。</li><li><strong>对齐质量以源转写质量为上限</strong>：转写错了，对齐也锁死在错的词上。</li><li>依赖链长（faster-whisper + pyannote + wav2vec2 模型），与 faster-whisper 的维护状态连带（见 <a href="../faster-whisper/report.md">faster-whisper</a>）[2]。</li></ul>
+<h2>对比</h2>
+<p>独占位是「Whisper 系模型 + 词级轴 + 说话人」三合一；FireRedASR2-AED 现已原生词级时间戳（中文更准，见 <a href="../fireredasr/report.md">fireredasr</a>），Qwen3-ForcedAligner 提供另一种对齐路线——中文场景下这两者是更强替代。逐维度见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li>pyannote 说话人模型需接受其许可条款（非商用条款随版本变化）——商用前核验，<strong>待验证</strong>。</li><li>GPU 服务器路径成熟；Mac 本地（CPU faster-whisper 底座）速度受限（Speakhapi 2026）[2 引述口径]。</li></ul>
+<h2>来源</h2>
+<ol><li>WhisperX 官方仓库 — <a href="https://github.com/m-bain/whisperX">https://github.com/m-bain/whisperX</a>（访问 2026-08-27）</li><li>faster-whisper 官方仓库（依赖关系）— <a href="https://github.com/SYSTRAN/faster-whisper">https://github.com/SYSTRAN/faster-whisper</a>（访问 2026-08-27）</li><li>Whisper.cpp vs faster-whisper 2026: STT Speed Test（PromptQuorum，2026）— <a href="https://www.promptquorum.com/power-local-llm/local-whisper-stt-comparison-2026">https://www.promptquorum.com/power-local-llm/local-whisper-stt-comparison-2026</a>（访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：词级时间轴+说话人分离独占位</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

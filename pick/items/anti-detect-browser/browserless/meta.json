@@ -1,0 +1,33 @@
+{
+  "name": "Browserless",
+  "repo": "https://github.com/browserless/browserless",
+  "homepage": "https://browserless.io",
+  "license": "NOASSERTION（自定义许可）",
+  "verdict": "trial",
+  "summary": "老牌 headless 浏览器基础设施：BaaS v2 / BrowserQL / REST 多 API、可 Docker 自托管；自托管路线的稳健备选，反检测不是主打。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/browserless/browserless",
+    "https://scrapfly.io — Vercel Agent Browser + Cloud Browser Integration"
+  ],
+  "tags": [
+    "云",
+    "自托管",
+    "docker"
+  ],
+  "stats": {
+    "source_repo": "browserless/browserless",
+    "stars": 13635,
+    "pushed_at": "2026-08-25",
+    "license": "NOASSERTION",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "反检测层级": "云基础设施",
+    "AI 接入": "REST/BQL",
+    "许可": "自定义 ⚠",
+    "成本": "免费(云)",
+    "自托管": "✅ 云"
+  }
+}

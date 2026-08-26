@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buzz · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/speech-content.html">语音与内容</a><span class="sep">·</span><span>字幕/语音识别工具</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../faster-whisper/report.html">faster-whisper →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Buzz</h1>
+<blockquote><strong>TL;DR</strong>：开箱即用的开源桌面 GUI（Mac/Win/Linux）：拖文件出 SRT/VTT，零命令行门槛；后端 Whisper 使中文准确率一般，适合懒人快处理与非中文素材。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用（GUI 懒人路线 / 非中文素材）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">持续发版（仓库最近推送 2026-08-23）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/chidiwilliams/buzz">https://github.com/chidiwilliams/buzz</a>（⭐21,143，gh 2026-08-27）；官网 buzzcaptions.com（Mac App Store 亦有分发）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">活跃（本月有推送）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么值得试用</h2>
+<ol><li><strong>零门槛</strong>：Mac 上装 App、拖文件、出 SRT/VTT/TXT——历史调研中被列为「图形界面懒人」首选（2026-08-24 会话结论）[2 引述口径]。</li><li><strong>本地模型</strong>：识别在本地跑，隐私可控，支持 whisper.cpp 引擎与任务队列批处理 [1]。</li><li><strong>开源 GUI 里体量最大</strong>：⭐21,143（gh 2026-08-27），跨三平台，2026 年 Mac 开源 STT 对比收录 [2]。</li></ol>
+<h2>为什么不是 adopt</h2>
+<ul><li><strong>中文准确率受 Whisper 后端拖累</strong>（普通话平均 9.86%，见 <a href="../whisper/report.md">whisper</a> 与 [3]）——历史调研同样给出「中文一般」的结论（2026-08-24）。</li><li>GUI 形态不可编程：进不了流水线/队列/API（本项目场景需要 API 化，见 <a href="../fireredasr-ui/report.md">fireredasr-ui</a> 的路线对比）。</li></ul>
+<h2>对比</h2>
+<p>中文优先的 GUI 路线，本机实践最终走了「fireredasr-ui（WebUI）」而非 Buzz——准确率优先使然（2026-08-24 会话决策链）。逐维度见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li>Mac App Store 版与 GitHub 版功能可能有滞后——<strong>待验证</strong>。</li><li>大模型档在无 GPU Mac 上速度一般（Speakhapi 2026 对 Whisper 系 Mac 表现的综合口径）[2]。</li></ul>
+<h2>来源</h2>
+<ol><li>Buzz 官方仓库 — <a href="https://github.com/chidiwilliams/buzz">https://github.com/chidiwilliams/buzz</a>（访问 2026-08-27）</li><li>Open Source Speech to Text on Mac: 2026 Comparison（Speakhapi，2026）— <a href="https://speakhapi.com/blog/open-source-speech-to-text-mac">https://speakhapi.com/blog/open-source-speech-to-text-mac</a>（访问 2026-08-27）</li><li>FireRedASR v1 官方评测表（Whisper-Large-v3 中文 9.86%）— <a href="https://github.com/FireRedTeam/FireRedASR">https://github.com/FireRedTeam/FireRedASR</a>（访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：GUI 懒人路线代表</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

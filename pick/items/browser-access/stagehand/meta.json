@@ -1,0 +1,33 @@
+{
+  "name": "Stagehand",
+  "repo": "https://github.com/browserbase/stagehand",
+  "homepage": "https://stagehand.dev",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "Browserbase 官方开源的 AI 浏览器 SDK：act / extract / observe 三原语抽象页面操作，介于「裸通道」与「全自治 Agent」之间的原语层代表；⭐24,066、日更。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/browserbase/stagehand"
+  ],
+  "tags": [
+    "sdk",
+    "原语层",
+    "typescript",
+    "python"
+  ],
+  "stats": {
+    "source_repo": "browserbase/stagehand",
+    "stars": 24066,
+    "pushed_at": "2026-08-26",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "SDK (TS/Py)",
+    "常驻 token": "N/A",
+    "引擎覆盖": "三引擎 (PW)",
+    "独占能力": "act/extract/observe",
+    "许可": "MIT"
+  }
+}

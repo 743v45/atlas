@@ -1,0 +1,24 @@
+{
+  "name": "TODO 工具显示名",
+  "repo": "https://github.com/example/repo",
+  "homepage": "https://example.com",
+  "license": "MIT",
+  "verdict": "assess",
+  "summary": "TODO 一句话结论，必须与 report.md 的 TL;DR 完全一致",
+  "updated": "1970-01-01",
+  "verified": "1970-01-01",
+  "sources": [
+    "TODO 至少一条来源 URL，与报告文末来源列表对应"
+  ],
+  "tags": [],
+  "matrix": {
+    "TODO 维度名": "须与类别 _meta.json 的 columns 对应，值为词组级短词"
+  },
+  "stats": {
+    "source_repo": "example/repo",
+    "stars": 0,
+    "pushed_at": "1970-01-01",
+    "license": "MIT",
+    "collected_at": "1970-01-01"
+  }
+}

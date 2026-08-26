@@ -1,0 +1,81 @@
+
+===== USER =====
+iphone 有没有webhooks 工具，免费的。接收通知
+
+===== ASSISTANT =====
+有几个不错的选择，最推荐 **Bark**：
+
+## 1. Bark(最推荐)
+- iOS 专属，App Store 免费下载，开源
+- 装好后拿到一个 URL,任何地方 curl 一下就能推送到 iPhone:
+
+```bash
+curl "https://api.day.app/你的key/标题/内容"
+# 或 POST JSON
+curl -X POST https://api.day.app/push \
+  -H 'Content-Type: application/json' \
+  -d '{"body": "任务完成", "device_key": "你的key"}'
+```
+
+- 支持自定义铃声、跳转 URL、加密、自动复制等
+- 官方服务器免费；有服务器的话也可以用 Docker 自建 `bark-server`,不限量更稳
+
+## 2. ntfy.sh
+- 免费开源，iOS/Android/网页都有
+- 订阅一个 topic,往 `https://ntfy.sh/你的topic` POST 就能收通知
+- 适合多设备场景；自建也只要一个 Docker 容器
+
+## 3. 飞书群机器人(你已有飞书)
+- 你环境里已经在用飞书——建个只有自己的群，加个「自定义机器人」拿到 webhook 地址，iPhone 上的飞书 App 直接收通知
+- 免费额度足够个人用，还能富文本/卡片
+
+## 其他
+- **Telegram Bot**:免费、无门槛，但国内网络要处理
+- **Pushover**:体验最好但要一次性 $5,不符合免费要求
+
+**建议**：如果只是“脚本跑完/CI/服务器告警 → iPhone 弹通知”，装 Bark 就够了，一个 URL 搞定；想跟你的飞书工作流合在一起就用群机器人。要不要我帮你写个通用的通知脚本(比如给 Claude Code 的 hook 或者定时任务用)？
+
+===== USER =====
+自建，绕过的方案有没有
+
+===== ASSISTANT =====
+可以，但先说清一个硬限制：**iOS 锁屏通知的最后一跳必须走 Apple 的 APNs,这个绕不过**(iOS 系统层设计)。所以“绕过”的实际含义是：业务数据不经过任何第三方服务器，只有加密后的推送指令经过 Apple。能做的方案按彻底程度排：
+
+## 方案 1:自建 bark-server(推荐，最省事)
+
+```bash
+docker run -dt --name bark-server \
+  -p 8080:8080 \
+  -v /your/path/bark-data:/data \
+  finabs/bark-server
+```
+
+- 镜像里内置了 Bark App 的 APNs 证书，你自己的服务器直连 Apple 推送
+- 数据不出你的机器；还能开端到端加密(`payload` 加密)，APNs 上全是密文
+- iPhone 的 Bark App → 设置 → 服务器地址，填 `https://你的域名`
+- 内网/测试可直接填 `http://内网IP:8080`;公网建议 Caddy/nginx 套一层 TLS(你有 Docker 经验，Caddy 两行搞定自动证书)
+
+调用和原来一样:`curl http://你的服务器:8080/你的key/标题/内容`
+
+## 方案 2:自建 ntfy ⚠️ iOS 有坑
+
+Docker 自建很简单，但 **iOS App 连自建服务器时是轮询模式(默认几分钟一次)，不是即时推送**——ntfy 的 iOS 即时推送依赖官方服务器。Android 上自建 ntfy 是完美方案，iPhone 上不推荐当主力。
+
+## 方案 3:Web Push + PWA(最彻底的自持)
+
+iOS 16.4+ 支持给“添加到主屏幕”的网页发 Web Push:
+
+- 自己生成 VAPID 密钥对(不依赖任何 App 开发者的推送证书，这是你唯一完全自控证书的路线)
+- 服务器跑个小页面(几十行)让 iPhone 订阅，之后用 `web-push` 库推
+- 通知呈现效果和原生 App 接近，锁屏能弹
+- 代价：自己搭、自己维护，且 PWA 通知在某些 iOS 版本上优先级略低
+
+## 方案 4:Home Assistant(如果你顺便想要智能家居)
+
+HA 官方 iOS App 推送很稳，`notify.mobile_app_xxx` 一个服务调用就到手机，还支持_critical alerts_(穿透勿扰模式)。但为了通知装 HA 太重，除非你本来就想玩。
+
+---
+
+**建议**：你的场景(自托管 Outline、脚本、CI 告警)直接上**方案 1**,10 分钟搞定，业务数据全在自己手里。要彻底摆脱对 Bark 证书的依赖才考虑方案 3。
+
+要我直接帮你把 bark-server 的 docker-compose + Caddy 反代配置写出来吗？

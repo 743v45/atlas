@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude（Agent 直写） · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>PRD 工具</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../chatprd/report.html">← ChatPRD</a><span class="sep">·</span><a href="../feishu-docs-base/report.html">飞书文档+多维表格 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>Claude（Agent 直写）</h1>
+<blockquote><strong>TL;DR</strong>：PRD 写作质量横评第一（Fireside PM 2025-12 实测：Claude 胜 ChatPRD、Gemini、ChatGPT、Grok）：口述→起草→红队评审→按模板写入飞书或 repo，零新增订阅；它只管生成，协作与承载交给宿主工具。</blockquote>
+<ul><li><strong>结论</strong>：adopt（推荐）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">LLM 对话（claude.com）/ 终端 agent（Claude Code）/ Projects 长上下文</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">价格</td><td style="text-align:left">Pro 档 $20/月量级（TicNote 与 BuildBetter 2026 口径，均指向 Claude Projects $20/mo）；有免费档</td><td style="text-align:left">[3][6]</td></tr><tr><td style="text-align:left">横评战绩</td><td style="text-align:left">五工具 PRD 写作横评第 1（Fireside PM，2025-12-08 发布）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ul><li><strong>质量第一有实测背书</strong>：Tom Leung（Fireside PM）对 ChatGPT / Claude / Gemini / Grok / ChatPRD 五工具同题实测，排名：①Claude（最佳整体质量、最有说服力的 mockup、战略思考最强）②ChatPRD（结构最规范、「最像人写的」）③Gemini ④ChatGPT（可靠但平庸）⑤Grok（落后 1-2 年）；TLDR 原文「It was Claude :-)」（2025-12-08）[1]。注意：搜索摘要常误传为 ChatPRD 胜出，读原文可纠正 [1][5]。</li><li><strong>2026 年的独立评测延续同一结论</strong>：Storyflow《12 Best AI Tools for PM 2026 (Tested)》：「Claude is strongest for PRDs and specs」——纯对话 AI 里 specs 阶段的最强选择 [2]。Aakash Gupta 的对撞测试中 Claude 与 ChatPRD 打平（均 B+），Claude 战略思考得分更高（IdeaPlan 2026 引述）[4]。</li><li><strong>零新增订阅</strong>：已在 Claude 订阅 / Claude Code 里，横评第一名就是日常工具——专用 PRD 工具（ChatPRD 等）对独立开发者的增量主要剩团队标准化与流转集成，不在生成质量（2026-08-26 会话结论）[5]。</li><li><strong>工作流可闭环</strong>：「餐巾纸背面」方法论——人先花 10-15 分钟写粗纲（Why / Target User / Problem / Key Elements / Success Metrics），交给 Claude 展开再逐段迭代；差的 prompt + Claude &gt; 好的 prompt + 弱工具（Fireside PM 2025-12）[1]。多 persona 红队评审（工程 lead、CEO 视角打分）可用 Claude Code 本地复刻（Hustle Badger 方案）[7]。闭环实证：本工作流的两篇产出（全景研究 + 模板库）即由该会话的 agent 直接写入飞书（2026-08-26）[8]。</li></ul>
+<h2>对比</h2>
+<ul><li>与 ChatPRD：生成质量 Claude ≥ ChatPRD（两处独立评测）[1][4]；ChatPRD 赢在 PM 模板库、Linear/Notion/Confluence 流转与团队空间——PM 团队标准化场景才值得付费，见 <a href="../chatprd/report.md">chatprd</a>。</li><li>与 spec-kit：Claude 产 PRD 文本，spec-kit 定义「spec→plan→tasks」的可执行流程并把任意 agent 装进去；spec-kit 的 constitution/任务分解可视为给 Claude 直写加纪律（见 <code>../comparison.md</code>）。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>没有协作层</strong>：评论、@人、审批、版本历史一概没有——PRD 的承载与评审必须交给飞书 / Notion / repo（本库方案：Claude 生成 + 飞书承载）[5]。</li><li><strong>上下文不持久</strong>：纯对话形态跨长周期会丢项目上下文（Storyflow 2026：「chat substrate still loses project context across long cycles」）[2]——用 Projects / CLAUDE.md / spec 文件兜底。</li><li><strong>输入质量决定输出质量</strong>：一句话生成的 PRD 是「任何产品都能用的平均值」，粗纲纪律不可省（Fireside PM 2025-12）[1]。</li></ul>
+<h2>来源</h2>
+<ol><li>I Tested 5 AI Tools to Write a PRD—Here's the Winner — Tom Leung / Fireside PM，2025-12-08，<a href="https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres">https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres</a></li><li>The 12 Best AI Tools for Product Managers in 2026 (Tested) — Storyflow 2026，<a href="https://storyflow.so/blog/best-ai-tools-for-product-managers-2026">https://storyflow.so/blog/best-ai-tools-for-product-managers-2026</a></li><li>Best AI PRD Generators for Startups (2026) — TicNote 2026，<a href="https://ticnote.com/en/blog/ai-prd-generator">https://ticnote.com/en/blog/ai-prd-generator</a></li><li>AI PRD Generator: 6 Free Tools Tested vs ChatPRD 2026 — IdeaPlan 2026（引 Aakash Gupta 实测），<a href="https://www.ideaplan.io/blog/best-free-ai-prd-generators-2026">https://www.ideaplan.io/blog/best-free-ai-prd-generators-2026</a></li><li>Claude 会话 d77eeed3（2026-08-26）「prd 最佳工具」——横评修正与工作流结论</li><li>Best ChatPRD Alternatives in 2026: 8 AI PRD Tools Ranked — BuildBetter 2026，<a href="https://blog.buildbetter.ai/best-chatprd-alternatives-in-2026-ai-prd-generators-for-product-teams">https://blog.buildbetter.ai/best-chatprd-alternatives-in-2026-ai-prd-generators-for-product-teams</a></li><li>13x PRD Examples including Real PRD Templates（Claude Code PRD Reviewer）— Hustle Badger，<a href="https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/">https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/</a></li><li>PRD 工具与模板全景研究 — 飞书文档（本工作流产物，agent 写入 2026-08-26），<a href="https://icnk3gqknrte.feishu.cn/docx/M72Od0wGRo9kQyxkPtPcR977nye">https://icnk3gqknrte.feishu.cn/docx/M72Od0wGRo9kQyxkPtPcR977nye</a></li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录（历史会话结论 + 双评测核实）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

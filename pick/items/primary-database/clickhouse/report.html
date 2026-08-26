@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClickHouse · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/data-storage.html">数据与存储</a><span class="sep">·</span><span>主数据库选型</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../cockroachdb/report.html">CockroachDB →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>ClickHouse</h1>
+<blockquote><strong>TL;DR</strong>：列式 OLAP 王者：亿级大宽表聚合碾压行式数据库，2026 年按月历法版本滚动发布；但它不是 OLTP 主库——海量分析场景引入它，事务点查仍归 PostgreSQL。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用——海量日志/数仓/实时大盘场景引入）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">历法版本号按月滚动：26.3 LTS（2026-03-26）、26.6（2026-06）、26.7（2026-07-22）；LTS 线最新 v26.3.23.7-lts（2026-08-26）</td><td style="text-align:left">[1][6]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[6]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/ClickHouse/ClickHouse">https://github.com/ClickHouse/ClickHouse</a>（⭐49,464，push 2026-08-26，gh 2026-08-27）——本横评 star 最高的条目</td><td style="text-align:left">[6]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">月度大版本 + 每周小版本，4 条支持线并行（26.7/26.6/26.3 LTS 等）</td><td style="text-align:left">[1][7]</td></tr><tr><td style="text-align:left">流行度</td><td style="text-align:left">DB-Engines 第 26（24.95 分，2026-08 快照），OLAP 专库中排名最高之一</td><td style="text-align:left">[3]</td></tr><tr><td style="text-align:left">托管</td><td style="text-align:left">ClickHouse Cloud：Development 档 ≈$67/月起（计算 $0.22–0.75/CU 时 + 存储 $25.30–50/TB 月；查询 2026-08-27）</td><td style="text-align:left">[2][4]</td></tr></tbody></table>
+<h2>为什么选（在其领域）</h2>
+<ul><li><strong>大宽表聚合无可匹敌</strong>：列式存储 + 向量化执行 + 多核并行，亿级行聚合/日志分析/实时大盘显著快于行式数据库（taevasidian 底稿 2026-08）[5]。</li><li><strong>压缩比高</strong>：列式编码 + 专用编解码（Delta/ZSTD 等），日志类数据存储成本远低于行库 [5]。</li><li><strong>真开源 + 迭代凶猛</strong>：Apache-2.0；月度版本节奏，2026 年内已发 26.3→26.7 五个大版（官方 changelog，访问 2026-08-27）[1]。</li><li><strong>生态渗透广</strong>：可观测性（日志/指标/trace）、BI、特征平台大量采用；DB-Engines 第 26 且为 OLAP 专库头部（2026-08）[3]。</li></ul>
+<h2>为什么不选（做主库）</h2>
+<ul><li><strong>不是 OLTP</strong>：点查/事务/高频单行更新非其设计目标——它是分析引擎，不是交易引擎（taevasidian 底稿 2026-08）[5]。</li><li><strong>自托管运维重</strong>：分布式部署、资源配额、合并调度调优门槛高；多数团队走 ClickHouse Cloud（查询 2026-08-27）[2][4]。</li><li><strong>SQL 方言自成一体</strong>：与 PG/MySQL 语法有差异，JOIN 语义与物化视图模型需要学习成本 [5]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs <strong>PostgreSQL</strong>：PG 是行式 OLTP，ClickHouse 是列式 OLAP——HTAP 不要指望单机 PG，也不要指望 ClickHouse 做交易库；常见组合是 PG（交易）+ ClickHouse（分析）双写或 CDC 同步（taevasidian 底稿 2026-08）[5]。逐维度见 <code>../comparison.md</code>。</li><li>vs <strong>TiDB</strong>：TiDB 走 HTAP 路线（TiFlash 列存副本），一体但要 NewSQL 全家桶；ClickHouse 纯分析但更极致（见 <code>../tidb/report.md</code>）[5]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>版本滚动极快（月度大版），跟随升级策略要预先定好（LTS 线 vs 最新线）[1]。</li><li>云成本模型按 CU 时计费，闲置计算也计费，长期跑批任务需估准（查询 2026-08-27）[2][4]。</li><li>「最终一致」的复制模型（ReplicatedMergeTree 异步复制），强一致读需求要显式处理 [5]。</li><li>JOIN 是弱项：星型/雪花尚可，复杂多表 JOIN 需宽表化或物化视图预聚合；UPDATE/DELETE 走异步 mutation、代价高（taevasidian 底稿 2026-08）[5]。</li></ul>
+<h2>来源</h2>
+<ol><li>ClickHouse Changelog 2026（26.3 LTS 2026-03-26、26.6、26.7）— <a href="https://clickhouse.com/docs/resources/changelogs/oss/2026">https://clickhouse.com/docs/resources/changelogs/oss/2026</a> （访问 2026-08-27）</li><li>ClickHouse Cloud · Billing Overview — <a href="https://clickhouse.com/docs/products/cloud/reference/billing/billing-overview">https://clickhouse.com/docs/products/cloud/reference/billing/billing-overview</a> （查询 2026-08-27）</li><li>DB-Engines Ranking（2026-08 快照，采集 2026-08-27）— <a href="https://db-engines.com/en/ranking">https://db-engines.com/en/ranking</a></li><li>ClickHouse Pricing Models and Cost Analysis for 2026（improvado，2026）— <a href="https://improvado.io/blog/clickhouse-warehousing-pricing">https://improvado.io/blog/clickhouse-warehousing-pricing</a></li><li>taevasidian《ClickHouse · 列式 OLAP 数据库选型报告》（2026-08 导出；2026-08-06 会话调研底稿）</li><li>gh repos/ClickHouse/ClickHouse（star/push/license/release v26.3.23.7-lts 采集 2026-08-27）</li><li>ClickHouse EOL/EOS 汇总（endoflife.date，访问 2026-08-27）— <a href="https://endoflife.date/clickhouse">https://endoflife.date/clickhouse</a></li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial（初始）</td><td style="text-align:left">首次记录：26.3 LTS 线 + 月度滚动；⭐49,464 为本横评最高</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

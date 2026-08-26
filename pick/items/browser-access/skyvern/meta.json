@@ -1,0 +1,33 @@
+{
+  "name": "Skyvern",
+  "repo": "https://github.com/Skyvern-AI/skyvern",
+  "homepage": "https://www.skyvern.com",
+  "license": "AGPL-3.0",
+  "verdict": "trial",
+  "summary": "视觉模型 + DOM 解析混合驱动的浏览器 Agent：强项是页面结构常变的场景（表单、RPA 式流程）；自托管或云 API；AGPL-3.0 注意传染。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/Skyvern-AI/skyvern"
+  ],
+  "tags": [
+    "自治框架",
+    "视觉",
+    "rpa",
+    "agpl"
+  ],
+  "stats": {
+    "source_repo": "Skyvern-AI/skyvern",
+    "stars": 22851,
+    "pushed_at": "2026-08-26",
+    "license": "AGPL-3.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "自治框架",
+    "常驻 token": "N/A",
+    "引擎覆盖": "Chromium",
+    "独占能力": "视觉+DOM",
+    "许可": "AGPL-3.0 ⚠"
+  }
+}

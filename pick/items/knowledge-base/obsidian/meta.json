@@ -1,0 +1,26 @@
+{
+  "name": "Obsidian",
+  "repo": "",
+  "homepage": "https://obsidian.md",
+  "license": "商业（个人免费）",
+  "verdict": "adopt",
+  "summary": "被 pick 为 taevasidian 的阅读器层：本地纯 Markdown、[[双链]] 是文件层面机制、反链/图谱为核心功能——只当阅读器用（随时可换），不做写入通道；2026 年官方 CLI 与 agent skills 落地，这一架构方向获官方背书。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://obsidian.md/pricing（定价，访问 2026-08-27）",
+    "https://obsidian.md/roadmap（版本线，访问 2026-08-27）",
+    "https://help.obsidian.md/cli（官方 CLI 文档，访问 2026-08-27）",
+    "https://github.com/kepano/obsidian-skills（官方 agent skills，gh 2026-08-27）",
+    "https://github.com/743v45/taevasidian（落地实证仓库）",
+    "Claude 会话 be457b46（2026-08-25）——本报告提取源"
+  ],
+  "tags": ["阅读器", "双链", "本地"],
+  "matrix": {
+    "数据形态": "纯 Markdown",
+    "双链": "[[文件层]]",
+    "AI 写入": "官方 CLI + Skills",
+    "自托管": "✅ 本地",
+    "成本": "免费（同步 $4/月）"
+  }
+}

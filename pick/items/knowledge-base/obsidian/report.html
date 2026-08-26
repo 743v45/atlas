@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obsidian · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/knowledge-docs.html">知识与文档</a><span class="sep">·</span><span>个人知识库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../notion/report.html">← Notion</a><span class="sep">·</span><a href="../outline/report.html">Outline →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>Obsidian</h1>
+<blockquote><strong>TL;DR</strong>：被 pick 为 taevasidian 的阅读器层：本地纯 Markdown、[[双链]] 是文件层面机制、反链/图谱为核心功能——只当阅读器用（随时可换），不做写入通道；2026 年官方 CLI 与 agent skills 落地，这一架构方向获官方背书。</blockquote>
+<ul><li><strong>结论</strong>：adopt（推荐——限定阅读器角色）</li><li><strong>核实日期</strong>：2026-08-27（官网定价/路线图/CLI 文档当日核实）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">桌面 / 移动阅读器 + 编辑器</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可与价格</td><td style="text-align:left">本体免费无限制、无需注册；Commercial $50/人/年<strong>可选</strong>（「Obsidian is now free for work」）；Sync $4/人/月（年付，$5 月付）；Publish $8/站/月（年付）（2026-08-27 官网查询）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">版本线</td><td style="text-align:left">1.9（2025-08-18 公测版）引入 Bases 核心插件 → 1.10 Bases API → 1.12（2026 年中）官方 CLI → 1.13（2026-07）；2026 路线图已落地 Airtable 导入（2026-08）、iOS Share Sheet（2026-07）等</td><td style="text-align:left">[2][3][4]</td></tr><tr><td style="text-align:left">开源参考</td><td style="text-align:left">本体闭源；官方帮助库 obsidianmd/obsidian-help ⭐1,893、push 2026-08-25（gh 2026-08-27 采集，仅作维护活跃参考）</td><td style="text-align:left">[5]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ul><li><strong>不锁格式、不建数据库</strong>：打开同一目录即可，纯 Markdown 文件——这是它胜出的根本 [6]。</li><li><strong>双链是文件层机制</strong>：<code>[[wiki链接]]</code> + 反链面板 / 图谱为核心功能不靠插件；双链只写一次，反链自动算 [6]。</li><li><strong>Bases 不破坏纯文本形态</strong>：数据库视图（表格/卡片）由 <code>.base</code> 文件 + 笔记 YAML 属性驱动，「所有数据仍由本地 Markdown 文件与 YAML 属性承载」（官方 1.9 发布说明）——表里如一的本地优先 [3]。</li><li><strong>生态最大</strong>：插件层（Dataview 等）可加不强求；2026-05 上线新社区目录与自动审核，插件上架缩短至 24 小时内（kepano，2026-05-12）[2][7]。</li><li><strong>角色边界</strong>（架构核心保险）：Obsidian 只是阅读器，Claude Code 是写入口——阅读器随时可换、数据零迁移 [6]。</li></ul>
+<h2>2026 年的关键变化：官方拥抱 agent</h2>
+<ul><li><strong>官方 agent skills</strong>：CEO kepano 2026-01 发布 <a href="https://github.com/kepano/obsidian-skills">obsidian-skills</a>（MIT，⭐47,329，gh 2026-08-27 采集），教 Claude Code / Codex / OpenCode 等 agent 使用 Obsidian 风格 Markdown、Bases、JSON Canvas 与 Obsidian CLI [4]。</li><li><strong>官方 CLI</strong>：1.12 起 101 条命令可程序化操作 vault（含 bases 命令组），Catalyst 早享首发 [4]。</li><li><strong>Headless 同步客户端</strong>：2026-02 路线图落地，CLI 下无桌面端同步 vault（obsidianmd/obsidian-headless，gh 2026-08-27 采集确认存在）[2]。</li><li>含义：本选型「Claude Code 写文件、Obsidian 只读」的分工，从民间用法变成了官方支持的方向——阅读器层的长期风险显著下降。</li></ul>
+<h2>对比</h2>
+<p>vs Logseq / 思源 / Trilium / Outline / Notion：见 <code>../comparison.md</code>。核心分野是<strong>数据形态</strong>（纯 Markdown vs 应用自管数据库）与 <strong>AI 写入通道</strong>。</p>
+<h2>风险与注意</h2>
+<ul><li>官方同步收费且未采用——同步走自建（git / SynologyDrive），有踩坑（见 <a href="../markdown-git-vault/report.md">markdown-git-vault</a>）。</li><li>商业闭源软件：本体免费 + 商业许可可选的现行政策（2026-08-27 查询）缓解了成本风险，但闭源演进方向仍不可控——这正是「只当阅读器、随时可换」保险存在的原因。</li><li>CLI / agent skills 为 2026 新能力，接口仍在快速迭代（early access 起步），生产使用需盯版本（待验证：CLI 正式版覆盖面）。</li></ul>
+<h2>来源</h2>
+<ol><li>Obsidian Pricing — <a href="https://obsidian.md/pricing">https://obsidian.md/pricing</a>（访问 2026-08-27）</li><li>Obsidian Roadmap — <a href="https://obsidian.md/roadmap">https://obsidian.md/roadmap</a>（访问 2026-08-27）</li><li>Obsidian 1.9.0 / 1.9.10 Changelog — <a href="https://obsidian.md/changelog/2025-08-18-desktop-v1.9.10">https://obsidian.md/changelog/2025-08-18-desktop-v1.9.10</a>（访问 2026-08-27）</li><li>kepano/obsidian-skills — <a href="https://github.com/kepano/obsidian-skills">https://github.com/kepano/obsidian-skills</a>（gh 2026-08-27 采集）；Obsidian CLI — <a href="https://help.obsidian.md/cli">https://help.obsidian.md/cli</a> 与 <a href="https://artemxtech.substack.com/p/obsidian-cli-changed-how-my-agent">https://artemxtech.substack.com/p/obsidian-cli-changed-how-my-agent</a>（访问 2026-08-27）</li><li>obsidianmd/obsidian-help — <a href="https://github.com/obsidianmd/obsidian-help">https://github.com/obsidianmd/obsidian-help</a>（gh 2026-08-27 采集）</li><li>Claude 会话 be457b46（2026-08-25）——14+9 问设计树遍历与落地执行记录</li><li>kepano on X（Obsidian Community 发布）— <a href="https://x.com/kepano/status/2054287387199754246">https://x.com/kepano/status/2054287387199754246</a>（2026-05-12，访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录（历史会话提取）</td></tr><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">高强度调研修订：核实 2026 定价（商业许可可选化）、Bases 版本线、官方 CLI 与 agent skills；TL;DR 同步更新</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>语音与内容 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .masthead { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .masthead .sub { color: var(--muted); font-size: .92rem; }
+  .masthead .figures { margin-left: auto; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+  #filter {
+    width: 100%; padding: .5rem .8rem; margin-bottom: .6rem; font-size: .95rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text);
+  }
+  .chips { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .chip {
+    padding: .1rem .7rem; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--card); color: var(--muted); cursor: pointer; font-size: .8rem; font-family: var(--font-body);
+  }
+  .chip.active { color: var(--chip-c); border-color: var(--chip-c); font-weight: 600; }
+  .category { margin-bottom: 2.1rem; animation: drawer .4s ease both; }
+  .category:nth-child(1) { animation-delay: .02s } .category:nth-child(2) { animation-delay: .07s }
+  .category:nth-child(3) { animation-delay: .12s } .category:nth-child(4) { animation-delay: .17s }
+  @keyframes drawer { from { opacity: 0; transform: translateY(7px) } to { opacity: 1; transform: none } }
+  @media (prefers-reduced-motion: reduce) { .category { animation: none } }
+  .category h2 { font-size: 1.32rem; margin: 0 0 .5rem; display: flex; align-items: center; gap: .65rem; }
+  .gan {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.75em; height: 1.75em; border: 1.5px solid var(--text); border-radius: 5px;
+    font-size: .82em; font-family: var(--font-display); line-height: 1; flex-shrink: 0;
+  }
+  .cmp { font-size: .8rem; font-weight: normal; margin-left: auto; font-family: var(--font-body); }
+  .idx-table { display: table; table-layout: fixed; }
+  .idx-table th {
+    font-size: .73rem; color: var(--muted); font-weight: 500; text-align: left; font-family: var(--font-body);
+    cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .idx-table th:focus-visible { outline-offset: -2px; }
+  .idx-table th.sorted-asc::after { content: " ↑"; color: var(--link); }
+  .idx-table th.sorted-desc::after { content: " ↓"; color: var(--link); }
+  .idx-table td { border-bottom: 1px solid var(--border); font-size: .82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .idx-table td:first-child { width: 7.5rem; }
+  .idx-table td.num, .idx-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-family: var(--font-mono); font-size: .78rem; }
+  .idx-table td.mx { color: var(--muted); }
+  .idx-table td.warn { color: var(--accent); }
+  .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
+  .idx-table .tool-name { font-weight: 600; }
+  .push-stale { color: var(--danger); }
+  .collected-note { color: var(--muted); font-size: .75rem; margin-top: .3rem; font-family: var(--font-mono); }
+  .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
+  /* 域列表（顶层索引）与域页 */
+  .domain {
+    margin-bottom: 1.3rem; padding: 1rem 1.2rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+  }
+  .domain h2 { margin: 0 0 .35rem; display: flex; align-items: center; gap: .65rem; font-size: 1.3rem; }
+  .domain h2 a { color: inherit; text-decoration: none; }
+  .domain h2 a:hover { color: var(--link); }
+  .domain .figures { margin-left: auto; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); font-weight: 400; }
+  .domain-desc { margin: .1rem 0 .7rem; color: var(--muted); font-size: .9rem; font-family: var(--font-body); }
+  .cat-chips { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .cat-chip {
+    display: inline-flex; align-items: baseline; gap: .4rem; padding: .18rem .8rem;
+    border: 1px solid var(--border); border-radius: 999px; background: var(--bg);
+    text-decoration: none; color: var(--text); font-size: .85rem; font-family: var(--font-body);
+  }
+  .cat-chip:hover { border-color: var(--link); color: var(--link); }
+  .cat-chip span { color: var(--muted); font-family: var(--font-mono); font-size: .72rem; }
+  .cat-count { font-size: .74rem; color: var(--muted); font-weight: 400; font-family: var(--font-mono); }
+  .kingdom-name {
+    font-size: 1.05rem; color: var(--muted); font-weight: 600; margin: 1.6rem 0 .6rem;
+    border-bottom: 1px dashed var(--border); padding-bottom: .3rem;
+  }
+  .omni-wrap { position: relative; margin-bottom: 1.4rem; }
+  #omni {
+    width: 100%; padding: .55rem .9rem; font-size: .98rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 9px; background: var(--card); color: var(--text);
+  }
+  .omni-results {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 10;
+    background: var(--card); border: 1px solid var(--border); border-radius: 9px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.10); overflow: hidden;
+  }
+  .omni-results a, .omni-none {
+    display: flex; align-items: baseline; gap: .6rem; padding: .45rem .9rem;
+    text-decoration: none; color: var(--text); font-size: .88rem; font-family: var(--font-body);
+  }
+  .omni-results a:hover { background: color-mix(in srgb, var(--link) 6%, transparent); }
+  .omni-results b { font-weight: 600; }
+  .omni-v { font-size: .74rem; color: var(--muted); }
+  .omni-d { margin-left: auto; font-size: .76rem; color: var(--muted); font-family: var(--font-mono); }
+  @media (max-width: 720px) {
+    body { padding: 1rem .7rem 2.5rem; }
+    .category { overflow-x: auto; }
+    .category h2 { font-size: 1.12rem; }
+    .masthead .figures { display: none; }
+    .idx-table { min-width: 640px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><span>语音与内容</span><span class="sep">·</span><span>1 类 11 条</span></nav>
+  <div class="masthead">
+    <h1>语音与内容</h1>
+    <span class="sub">语音 / 字幕的识别与内容处理：中文准确率优先，本地可部署。</span>
+  </div>
+  <input id="filter" type="search" placeholder="按名称 / 结论 / 标签过滤…" autocomplete="off">
+  <div class="chips">
+    <button class="chip active" data-verdict="all">全部</button>
+    <button class="chip" data-verdict="adopt" style="--chip-c:#0ca30c">推荐</button><button class="chip" data-verdict="trial" style="--chip-c:#fab219">试用</button><button class="chip" data-verdict="assess" style="--chip-c:#898781">评估</button><button class="chip" data-verdict="hold" style="--chip-c:#d03b3b">观望</button>
+  </div>
+  <section class="category" id="asr-subtitle-tools" data-search="字幕/语音识别工具">
+    <h2>字幕/语音识别工具 <span class="cat-count">11 条</span> <a class="cmp" href="../items/asr-subtitle-tools/comparison.html">横评 →</a></h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>形态</th><th>中文支持</th><th>本地部署</th><th>速度</th><th>许可</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="trial" data-stars="21144"
+          data-push="2026-08-23" data-name="Buzz"
+          data-search="buzz 开箱即用的开源桌面 gui（mac/win/linux）：拖文件出 srt/vtt，零命令行门槛；后端 whisper 使中文准确率一般，适合懒人快处理与非中文素材。 gui whisper desktop srt">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/buzz/report.html" title="开箱即用的开源桌面 GUI（Mac/Win/Linux）：拖文件出 SRT/VTT，零命令行门槛；后端 Whisper 使中文准确率一般，适合懒人快处理与非中文素材。">Buzz</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">桌面 GUI</td><td class="mx">弱（Whisper 后端）</td><td class="mx">✅ 本地模型</td><td class="mx">中</td><td class="mx">MIT</td>
+        <td class="num">21.1k</td>
+        <td class="num">08-23</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="25098"
+          data-push="2025-11-19" data-name="faster-whisper"
+          data-search="faster-whisper ctranslate2 加速的 whisper python 实现：gpu 服务器上快且省内存，但 macos 只能 cpu 且比 whisper.cpp 慢约 3 倍，仓库已 9 个月无提交（gh 2026-08-27）——新项目不建议入。 whisper runtime python ct2">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/faster-whisper/report.html" title="CTranslate2 加速的 Whisper Python 实现：GPU 服务器上快且省内存，但 macOS 只能 CPU 且比 whisper.cpp 慢约 3 倍，仓库已 9 个月无提交（gh 2026-08-27）——新项目不建议入。">faster-whisper</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">Python（CTranslate2）</td><td class="mx">弱（同 Whisper）</td><td class="mx">✅（Mac 仅 CPU）</td><td class="mx">快（GPU）/Mac 慢 3x</td><td class="mx">MIT</td>
+        <td class="num">25.1k</td>
+        <td class="num push-stale">2025-11-19</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="653"
+          data-push="2026-06-02" data-name="FireRedASR"
+          data-search="fireredasr 小红书开源的中文 asr 准确率冠军：v2（fireredasr2s，2026-02）普通话平均 cer 2.89% 且原生支持中英混杂与词级时间戳，v1-aed 已在本机 16gb mac 部署实测（纯中文近零错）；无官方 webui、自配门槛偏高。 asr chinese sota local">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/fireredasr/report.html" title="小红书开源的中文 ASR 准确率冠军：v2（FireRedASR2S，2026-02）普通话平均 CER 2.89% 且原生支持中英混杂与词级时间戳，v1-AED 已在本机 16GB Mac 部署实测（纯中文近零错）；无官方 WebUI、自配门槛偏高。">FireRedASR</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">模型+官方 CLI</td><td class="mx">SOTA 2.89%</td><td class="mx">✅ CPU 实测</td><td class="mx">中等（CPU）</td><td class="mx">Apache-2.0</td>
+        <td class="num">653</td>
+        <td class="num">06-02</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="88"
+          data-push="2025-02-24" data-name="fireredasr-ui"
+          data-search="fireredasr-ui fireredasr 的第三方一键 webui+openai 兼容 api 封装：本机部署的原型，但上游 2025-02 起停更 18 个月、不支持 v2——已被本地深度改造（队列/缓存/看门狗）接管，新项目勿直接采用上游原版。 webui fireredasr wrapper openai-api">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/fireredasr-ui/report.html" title="FireRedASR 的第三方一键 WebUI+OpenAI 兼容 API 封装：本机部署的原型，但上游 2025-02 起停更 18 个月、不支持 v2——已被本地深度改造（队列/缓存/看门狗）接管，新项目勿直接采用上游原版。">fireredasr-ui</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">WebUI（Flask/Gradio）</td><td class="mx">继承 FireRedASR v1</td><td class="mx">✅（本机实测）</td><td class="mx">中（CPU）</td><td class="mx">Apache-2.0</td>
+        <td class="num">88</td>
+        <td class="num push-stale">2025-02-24</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="20035"
+          data-push="2026-08-26" data-name="FunASR"
+          data-search="funasr 达摩院语音工具链事实标准（⭐20,035、日更）：一个 automodel 串起 vad/asr/标点/说话人并直出 srt，自带 docker 服务与 openai 兼容端点，中文靠 sensevoice/paraformer 模型撑起第一梯队——「要开箱即用的字幕服务」的默认起点。 asr toolkit chinese docker srt">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/funasr/report.html" title="达摩院语音工具链事实标准（⭐20,035、日更）：一个 AutoModel 串起 VAD/ASR/标点/说话人并直出 SRT，自带 Docker 服务与 OpenAI 兼容端点，中文靠 SenseVoice/Paraformer 模型撑起第一梯队——「要开箱即用的字幕服务」的默认起点。">FunASR</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">工具链+Docker 服务</td><td class="mx">强（模型第一梯队）</td><td class="mx">✅ pip/Docker</td><td class="mx">快（非自回归模型）</td><td class="mx">MIT</td>
+        <td class="num">20.0k</td>
+        <td class="num">08-26</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="3422"
+          data-push="2026-06-26" data-name="Qwen3-ASR"
+          data-search="qwen3-asr 2026-01 新秀：1.7b 即达普通话平均 cer 3.76%，覆盖 30 语言+22 中文方言，transformers 原生/vllm 部署还带 forcedaligner 时间戳模型；mac 本地路径未经验证，适合先试用再定。 asr qwen multilingual model">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/qwen3-asr/report.html" title="2026-01 新秀：1.7B 即达普通话平均 CER 3.76%，覆盖 30 语言+22 中文方言，transformers 原生/vLLM 部署还带 ForcedAligner 时间戳模型；Mac 本地路径未经验证，适合先试用再定。">Qwen3-ASR</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">模型（transformers/vLLM）</td><td class="mx">强 3.76%+22 方言</td><td class="mx">✅（服务器向）/Mac 待验证</td><td class="mx">快（0.6B 高吞吐）</td><td class="mx">Apache-2.0</td>
+        <td class="num">3.4k</td>
+        <td class="num">06-26</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="豆包 Seed-ASR（火山引擎 API）"
+          data-search="豆包 seed-asr（火山引擎 api） 字节豆包 seed-asr 云 api：普通话平均 cer 3.69% 的闭源顶配（fireredasr2 官方对比口径），录音文件 1.8 元/小时还带热词/替换词杠杆；无本地权重，隐私敏感场景出局。 asr cloud-api doubao commercial">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/seed-asr/report.html" title="字节豆包 Seed-ASR 云 API：普通话平均 CER 3.69% 的闭源顶配（FireRedASR2 官方对比口径），录音文件 1.8 元/小时还带热词/替换词杠杆；无本地权重，隐私敏感场景出局。">豆包 Seed-ASR（火山引擎 API）</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">云 API</td><td class="mx">顶配 3.69%</td><td class="mx">❌ 无权重</td><td class="mx">快（极速版另有档）</td><td class="mx">商业（按量计费）</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="9150"
+          data-push="2026-08-18" data-name="SenseVoice"
+          data-search="sensevoice 通义 234m 非自回归小模型：10 秒音频 70ms 出结果（官方口径比 whisper-large 快 15 倍），中粤英日韩五语+情感/事件检测，2026-06 起有 llama.cpp 单文件 gguf 运行时（q8 仅 254mb）——轻量本地字幕/实时场景首选模型。 asr model chinese lightweight gguf">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/sensevoice/report.html" title="通义 234M 非自回归小模型：10 秒音频 70ms 出结果（官方口径比 Whisper-Large 快 15 倍），中粤英日韩五语+情感/事件检测，2026-06 起有 llama.cpp 单文件 GGUF 运行时（q8 仅 254MB）——轻量本地字幕/实时场景首选模型。">SenseVoice</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">模型（GGUF/ONNX）</td><td class="mx">强（含粤语）</td><td class="mx">✅ 单文件二进制</td><td class="mx">15x Whisper-Large</td><td class="mx">MIT</td>
+        <td class="num">9.2k</td>
+        <td class="num">08-18</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="107969"
+          data-push="2026-07-28" data-name="OpenAI Whisper"
+          data-search="openai whisper 多语言基线但中文明显掉队：官方口径 large-v3 普通话平均 cer 9.86%（约为 fireredasr2 的 3.4 倍）、turbo 更差，字幕主力中文场景不建议新采用；价值在英文/小语种覆盖与庞大生态。 asr multilingual baseline">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/whisper/report.html" title="多语言基线但中文明显掉队：官方口径 large-v3 普通话平均 CER 9.86%（约为 FireRedASR2 的 3.4 倍）、turbo 更差，字幕主力中文场景不建议新采用；价值在英文/小语种覆盖与庞大生态。">OpenAI Whisper</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">模型+PyTorch 库</td><td class="mx">弱 9.86%</td><td class="mx">✅</td><td class="mx">慢（large 自回归）</td><td class="mx">MIT</td>
+        <td class="num">108.0k</td>
+        <td class="num">07-28</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="53196"
+          data-push="2026-08-25" data-name="whisper.cpp"
+          data-search="whisper.cpp c/c++ whisper 运行时、apple silicon 速度冠军（metal/coreml，2026 年 mac 横评 large-v3 约 10x 实时）：追求 mac 本地批量转写速度的壳，中文准确率仍受 whisper 模型上限拖累。 whisper runtime mac cpp">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/whisper-cpp/report.html" title="C/C++ Whisper 运行时、Apple Silicon 速度冠军（Metal/CoreML，2026 年 Mac 横评 large-v3 约 10x 实时）：追求 Mac 本地批量转写速度的壳，中文准确率仍受 Whisper 模型上限拖累。">whisper.cpp</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">C/C++ 运行时</td><td class="mx">弱（同 Whisper）</td><td class="mx">✅ Metal/CoreML</td><td class="mx">Mac 最快（~10x 实时）</td><td class="mx">MIT</td>
+        <td class="num">53.2k</td>
+        <td class="num">08-25</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="23762"
+          data-push="2026-07-13" data-name="WhisperX"
+          data-search="whisperx 基于 faster-whisper 的研究级框架：词级时间戳强制对齐 + 说话人分离一步到位，是「字幕轴精修/多人访谈」的独占能力；中文准确率继承 whisper 上限，速度换精度。 whisper alignment diarization subtitle">
+        <td class="tool-name"><a href="../items/asr-subtitle-tools/whisperx/report.html" title="基于 faster-whisper 的研究级框架：词级时间戳强制对齐 + 说话人分离一步到位，是「字幕轴精修/多人访谈」的独占能力；中文准确率继承 Whisper 上限，速度换精度。">WhisperX</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">Python 框架</td><td class="mx">弱（同 Whisper）</td><td class="mx">✅</td><td class="mx">快+对齐开销</td><td class="mx">BSD-2-Clause</td>
+        <td class="num">23.8k</td>
+        <td class="num">07-13</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="collected-note">star / push 为 gh 快照，采集 2026-08-27；红色 push 表示停滞超 180 天；条目名悬停看一句话结论。</p>
+  </section>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
+</main>
+<script>
+  // 文本过滤 + verdict chips + 表头排序（类别内，点击切换升降序）
+  const VERDICT_ORDER = {"adopt": 0, "trial": 1, "assess": 2, "hold": 3};
+  const input = document.getElementById('filter');
+  let verdictF = 'all';
+  const chips = [...document.querySelectorAll('.chip')];
+
+  function applyFilter() {
+    document.querySelectorAll('.category').forEach(sec => {
+      let visible = 0;
+      sec.querySelectorAll('tbody tr').forEach(tr => {
+        const q = input.value.trim().toLowerCase();
+        const hitText = !q || tr.dataset.search.includes(q) || sec.dataset.search.includes(q);
+        const hitVerdict = verdictF === 'all' || tr.dataset.verdict === verdictF;
+        const hit = hitText && hitVerdict;
+        tr.classList.toggle('hidden', !hit);
+        if (hit) visible++;
+      });
+      sec.classList.toggle('hidden', visible === 0);
+    });
+  }
+  input.addEventListener('input', applyFilter);
+  chips.forEach(ch => ch.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    ch.classList.add('active');
+    verdictF = ch.dataset.verdict;
+    applyFilter();
+  }));
+
+  document.querySelectorAll('.idx-table th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const table = th.closest('table');
+      const tbody = table.querySelector('tbody');
+      const key = th.dataset.sort;
+      const asc = !th.classList.contains('sorted-asc');
+      table.querySelectorAll('th').forEach(t => t.classList.remove('sorted-asc', 'sorted-desc'));
+      th.classList.add(asc ? 'sorted-asc' : 'sorted-desc');
+      [...tbody.querySelectorAll('tr')].sort((a, b) => {
+        let va = a.dataset[key], vb = b.dataset[key];
+        if (key === 'stars') return (Number(va) - Number(vb)) * (asc ? 1 : -1);
+        if (key === 'verdict') return ((VERDICT_ORDER[va] ?? 9) - (VERDICT_ORDER[vb] ?? 9)) * (asc ? 1 : -1);
+        if (key === 'push') return String(va).localeCompare(String(vb)) * (asc ? 1 : -1);
+        return va.localeCompare(vb, 'zh') * (asc ? 1 : -1);
+      }).forEach(tr => tbody.appendChild(tr));
+    });
+  });
+</script>
+</body>
+</html>

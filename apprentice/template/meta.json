@@ -1,0 +1,11 @@
+{
+  "name": "TODO 课名",
+  "question": "TODO 这课回答的问题,一句话",
+  "status": "settled",
+  "date": "1970-01-01",
+  "verified": "1970-01-01",
+  "model": "TODO 模型标识,如 Claude Opus 4.8 · claude-code",
+  "symptoms": ["TODO 至少一个症状词——写用户真会搜的,不写术语黑话"],
+  "source": "TODO 原始对话存档(日期+会话标识;未归档标「待归档」)",
+  "artifacts": []
+}

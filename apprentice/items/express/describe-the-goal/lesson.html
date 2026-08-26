@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>把目标说清楚:Z 三要素 · apprentice</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .lesson-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .lesson-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lesson-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><span>表达</span></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="定案"><i></i>定</span>
+<h1>把目标说清楚:Z 三要素</h1>
+<blockquote><strong>TL;DR</strong>:AI 给的结果不对,九成不是它走错了,是你的 Z 没说清。产出形态、判据、保真度,三样补齐,大部分「返工」会直接消失。</blockquote>
+<ul><li><strong>状态</strong>:settled(定案)</li><li><strong>回答的问题</strong>:为什么 AI 给的结果总不是我想要的?</li><li><strong>验证</strong>:2026-08-27 · Claude Opus 4.8 · claude-code</li></ul>
+<h2>两种雾:先判断你在哪一种里</h2>
+<ul><li><strong>路不清</strong>:知道要去哪,不知道怎么走——可以勘察、试探,靠走能解决。</li><li><strong>Z 不清</strong>:连要去哪都没说清——走再快都没用,只能先把 Z 说清。</li></ul>
+<p>结果不对时先归位:多数人误把第二种当第一种,埋头赶路。判据:如果你自己一句话写不出「要什么」,是 Z 不清;写得出现是路不清。</p>
+<h2>方法:Z 三要素</h2>
+<ol><li><strong>产出形态</strong>:提取出来是什么?一张清单、一篇结构笔记、一组结论。「帮我提取重点」是最差的描述——「重点」是形容词,雾。</li><li><strong>判据,用例子给</strong>:贴一段「就是这个」的正例 + 一段「这种不要」的反例。例子比形容词有效十倍——给正反例,本质是把自己的评价函数演示给 AI 看。</li><li><strong>保真度</strong>:原文摘录还是允许改写?每条要不要标出处?要标——这是事后验证它没在雾里编路的唯一手段。</li></ol>
+<p>配套动作——<strong>先复述再执行</strong>:指令末尾加一句「开工前先复述你理解的目标和判据,我确认后再动手」。把理解漂移暴露在出发前,而不是到达后。</p>
+<h2>验证</h2>
+<ul><li><strong>复述关</strong>:AI 复述的目标 / 判据与你要的是否一致?不一致 = Z 还有雾,继续补,别放行。</li><li><strong>同输入对比</strong>:同一段固定输入跑两次,输出差异大的地方 = 判据软肋,往那里补正反例。把「感觉漂了」变成可测量。</li><li><strong>格式锚点</strong>:输出里放不变结构(固定列名、固定小节)。格式是最灵敏的漂移探测器——内容漂了要细看才发现,列名歪了一眼就看见。</li></ul>
+<h2>翻车记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">翻车</th><th style="text-align:left">修正</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">「我是希望从数据里面提取我想要的」——「我想要的」四个字全是雾,AI 无从下剪,只能瞎猜</td><td style="text-align:left">补齐三要素:产出 = 带出处的清单;判据 = 正反例;保真 = 原文摘录。指令随即变得可直接执行</td></tr></tbody></table>
+<h2>时效</h2>
+<ul><li>验证于:Claude Opus 4.8(claude-code),2026-08-27。</li><li>预期:模型变强后,细粒度的判据描述可能不再必要(模型自行推断);「Z 三要素 + 先复述」的原则预期长期稳定。重验条件:换模型后首次感到「不用写这么细也行」。</li></ul>
+<h2>沉淀为</h2>
+<p>暂无。待字幕提取三段指令模板(勘察 → 带理由剪枝 → 全读提取)实际落地为文件后,链接至此。</p>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">状态</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">settled</td><td style="text-align:left">首次沉淀,源自当日 Claude Code 会话</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

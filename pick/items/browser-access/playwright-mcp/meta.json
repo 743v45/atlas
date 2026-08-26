@@ -1,0 +1,33 @@
+{
+  "name": "Playwright MCP",
+  "repo": "https://github.com/microsoft/playwright-mcp",
+  "homepage": "https://github.com/microsoft/playwright-mcp",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "微软官方 MCP、唯一成熟的跨引擎选项（Chromium/Firefox/WebKit），a11y 快照驱动；但 schema ≈13.7k 常驻、多步任务运行时成本反超，且微软投入正向 CLI 迁移。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/microsoft/playwright-mcp",
+    "https://www.trackingplan.com — Chrome DevTools MCP vs Playwright MCP（2026）"
+  ],
+  "tags": [
+    "mcp",
+    "microsoft",
+    "跨浏览器"
+  ],
+  "stats": {
+    "source_repo": "microsoft/playwright-mcp",
+    "stars": 36495,
+    "pushed_at": "2026-08-21",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "MCP",
+    "常驻 token": "≈13.7k",
+    "引擎覆盖": "三引擎",
+    "独占能力": "跨引擎测试",
+    "许可": "Apache-2.0"
+  }
+}

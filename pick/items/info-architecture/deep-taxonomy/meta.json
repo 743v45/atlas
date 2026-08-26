@@ -1,0 +1,22 @@
+{
+  "name": "深分类学树",
+  "repo": "",
+  "homepage": "",
+  "license": "—（组织模式）",
+  "verdict": "assess",
+  "summary": "界门纲目科属种式深树：单一路径、严谨、层级无上限——适合千级且天然单亲的标本型集合（物种、杜威十进法）；层级税高，选型场景被浅层+宽表吸收。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://en.wikipedia.org/wiki/Taxonomic_rank（分类阶元）",
+    "https://en.wikipedia.org/wiki/Dewey_Decimal_Classification（杜威十进分类法）"
+  ],
+  "tags": ["层级", "单亲归类"],
+  "matrix": {
+    "导航方式": "树形目录",
+    "层级深度": "5–8 层",
+    "检索": "路径即地址",
+    "维护": "归类争议频繁",
+    "适配规模": "万级异质条目"
+  }
+}

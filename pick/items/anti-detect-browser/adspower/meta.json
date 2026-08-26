@@ -1,0 +1,27 @@
+{
+  "name": "AdsPower",
+  "repo": "",
+  "homepage": "https://www.adspower.com",
+  "license": "商业（订阅）",
+  "verdict": "hold",
+  "summary": "商业指纹浏览器（多账号矩阵场景标配）：本地 REST API 启动 Profile 返回 debug 端口供 Selenium/Playwright 接管；中文与性价比占优；个人 Agent 开发一般用不上。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://localapi-doc-en.adspower.com/docs/FFMFMf",
+    "https://www.adspower.com/local-api/",
+    "https://www.bright.cn — 2026 年 AdsPower 与 Multilogin 对比"
+  ],
+  "tags": [
+    "商业",
+    "指纹浏览器",
+    "多账号"
+  ],
+  "matrix": {
+    "反检测层级": "商业指纹库",
+    "AI 接入": "REST→端口",
+    "许可": "商业",
+    "成本": "订阅",
+    "自托管": "桌面端"
+  }
+}

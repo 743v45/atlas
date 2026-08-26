@@ -1,0 +1,23 @@
+{
+  "name": "Notion",
+  "repo": "",
+  "homepage": "https://www.notion.com",
+  "license": "商业 SaaS",
+  "verdict": "hold",
+  "summary": "团队协作/权限/数据库视图最强——但 AI 批量读写走 API 很慢、共建体验差、数据不在本地；完整 AI 能力锁在 Business 档（$20/人/月，2026-08 查询），AI 共建个人知识库场景被否。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.notion.com/pricing（访问 2026-08-27）",
+    "https://www.forbes.com/advisor/business/notion-pricing（Forbes 2026 定价梳理）",
+    "Claude 会话 99faa8a0（2026-08-20）——本报告提取源"
+  ],
+  "tags": ["saas", "协作", "落选"],
+  "matrix": {
+    "数据形态": "SaaS",
+    "双链": "反链弱",
+    "AI 写入": "API 慢",
+    "自托管": "❌",
+    "成本": "完整AI $20/人/月"
+  }
+}

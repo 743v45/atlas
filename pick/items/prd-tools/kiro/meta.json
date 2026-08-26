@@ -1,0 +1,26 @@
+{
+  "name": "Kiro（AWS）",
+  "repo": "",
+  "homepage": "https://kiro.dev",
+  "license": "商业 SaaS（闭源 IDE）",
+  "verdict": "assess",
+  "summary": "AWS 的 spec-driven IDE：EARS 句式需求→设计→任务→实现流水线，FastCheck 从需求生成性质测试，spec 审批门可做治理；与 spec-kit 同流派但绑定自家 IDE 与 credits（Free 50 credits / Pro $20/月，2026-07 观测）——适合 AWS 重度团队，已有 Claude Code 者换不动。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://kiro.dev",
+    "https://kiro.dev/docs/specs",
+    "https://kiro.dev/pricing",
+    "https://www.morphllm.com/kiro-pricing",
+    "https://blog.vibecoder.me/amazon-kiro-spec-driven-development-reviewed"
+  ],
+  "tags": ["spec-driven", "ide", "aws"],
+  "matrix": {
+    "形态": "spec-driven IDE（Web/CLI/桌面）",
+    "AI 能力": "EARS 需求生成+FastCheck",
+    "协作": "spec 审批门+共享库",
+    "Agent 读写": "IDE 内置自家 agent",
+    "价格": "Free 50 credits / Pro $20/月",
+    "中文": "❌ 英文"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "whisper.cpp",
+  "repo": "https://github.com/ggerganov/whisper.cpp",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "C/C++ Whisper 运行时、Apple Silicon 速度冠军（Metal/CoreML，2026 年 Mac 横评 large-v3 约 10x 实时）：追求 Mac 本地批量转写速度的壳，中文准确率仍受 Whisper 模型上限拖累。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/ggerganov/whisper.cpp",
+    "https://speakhapi.com/blog/open-source-speech-to-text-mac"
+  ],
+  "tags": [
+    "whisper",
+    "runtime",
+    "mac",
+    "cpp"
+  ],
+  "stats": {
+    "source_repo": "ggerganov/whisper.cpp",
+    "stars": 53196,
+    "pushed_at": "2026-08-25",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "C/C++ 运行时",
+    "中文支持": "弱（同 Whisper）",
+    "本地部署": "✅ Metal/CoreML",
+    "速度": "Mac 最快（~10x 实时）",
+    "许可": "MIT"
+  }
+}

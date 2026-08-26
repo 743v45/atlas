@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markdown + Git 仓库工作流 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/knowledge-docs.html">知识与文档</a><span class="sep">·</span><span>个人知识库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../logseq/report.html">← Logseq</a><span class="sep">·</span><a href="../notion/report.html">Notion →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>Markdown + Git 仓库工作流</h1>
+<blockquote><strong>TL;DR</strong>：被实际 pick 的方案：纯 Markdown + Git 仓库 + agent CLI（Claude Code）直写 + INDEX 索引驱动——AI 共建的本质是 AI 对存储层的原生访问权，本地纯文本是唯一没有中间商的形态。</blockquote>
+<ul><li><strong>结论</strong>：adopt（推荐——已生产落地）</li><li><strong>核实日期</strong>：2026-08-27（自 2026-08-20/25 两次会话提取，2026-08-27 高强度调研复核）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">方案（非产品）：Git 仓库 + CLAUDE.md 规则 + INDEX.md 索引 + 原子化笔记</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">落地实例</td><td style="text-align:left">taevasidian：272 篇 md、重名 0、孤儿链接 0、三通道备份；仓库 2026-08-26 仍有推送（gh 2026-08-27 采集）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">调研时间</td><td style="text-align:left">2026-08-20（选型）、2026-08-25（落地）、2026-08-27（复核）</td><td style="text-align:left">[1][2][3]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ul><li><strong>原生访问权</strong>：AI 对文件系统读写 / 搜索 / 批量重构无门槛；Notion 类走 API 批量读写很慢，共建体验差 [1]。</li><li><strong>共建历史可回溯</strong>：Git 天然记录「人和 AI 各自改了什么」[1]。</li><li><strong>token 效率</strong>：索引驱动（会话开始只读 INDEX、按需读文件），比全量塞库或 RAG 黑盒高效；千条以内 ripgrep 就够，RAG 被否（黑盒检索、token 效率低）[1]。</li><li><strong>维护机制</strong>（taevasidian 实例）：AI 写入自动织 <code>[[链接]]</code>（反链由阅读器自动算）+ 定期审计（AI 合并重复 / 归档过时 / 补链接）[2]。</li></ul>
+<h2>2026 年的行业验证</h2>
+<p>这套「agent 直接操作本地 Markdown 仓库」的架构在 2026 年获得了<strong>官方级背书</strong>，不再是民间 hack：</p>
+<ul><li>Obsidian CEO（kepano）2026-01 发布官方 agent skills 仓库（obsidian-markdown / obsidian-bases / obsidian-cli 等，MIT，⭐0，gh 2026-08-27 采集），明确定位「教你的 agent 使用 Obsidian CLI 与开放格式（Markdown、Bases、JSON Canvas）」[3]。</li><li>Obsidian 1.12（2026 年中）内置官方 CLI（101 条命令，初为 Catalyst 早享），程序化操作 vault 成为官方能力 [4]。</li><li>第三方综述将「笔记即 agent 上下文」（notes as agent context）列为 2026 年笔记赛道的<strong>新竞争轴线</strong>：Bear 2.8 带 CLI + MCP server、新秀 ZenNotes MCP 原生（Ry Walker Research 2026）[5]。</li><li>连数据库型选手也在跟进：思源 v3.8.0（2026-08）内置 MCP 与智能体，仓库描述改为「让人与智能体在此协作」（gh 2026-08-27 采集）[6]。</li></ul>
+<p>即：2026 年全行业向「AI 直写存储层」收敛，本方案 2026-08 就已生产验证，属于提前踩中了方向。</p>
+<h2>对比</h2>
+<p>与「Obsidian 单独用」的区别：Obsidian 只是这个方案之上的<strong>阅读器层</strong>（见 <a href="../obsidian/report.md">Obsidian</a>），随时可换、数据零迁移——这是架构核心保险 [2]。完整属性对比见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li>纯手工（无产品功能）：搜索 / 图谱 / 同步全靠自建组合（git + SynologyDrive）。</li><li>踩坑实录：SynologyDrive 会吃掉 <code>.git</code> 空目录（发生两次），解法已记入 taevasidian 库宪法 [2]。</li><li>taevasidian 为私有仓库（⭐0），其经验对外部读者无直接可复制性——复制的是<strong>架构</strong>而非仓库本身（gh 2026-08-27 采集确认存在与活跃）。</li></ul>
+<h2>来源</h2>
+<ol><li>Claude 会话 99faa8a0（2026-08-20）「个人知识库，和 ai 共建，用什么工具管理」——选型推理</li><li>Claude 会话 be457b46（2026-08-25）——落地执行记录；远端 <a href="https://github.com/743v45/taevasidian">https://github.com/743v45/taevasidian</a>（gh 2026-08-27 采集：pushed 2026-08-26）</li><li>kepano/obsidian-skills — <a href="https://github.com/kepano/obsidian-skills">https://github.com/kepano/obsidian-skills</a>（gh 2026-08-27 采集：⭐0、MIT、创建 2026-01-02；README 定位原文）</li><li>OpenClaw + Obsidian CLI（Obsidian 1.12 CLI 101 命令）— <a href="https://artemxtech.substack.com/p/obsidian-cli-changed-how-my-agent">https://artemxtech.substack.com/p/obsidian-cli-changed-how-my-agent</a>（访问 2026-08-27）；官方文档 <a href="https://help.obsidian.md/cli">https://help.obsidian.md/cli</a>（访问 2026-08-27）</li><li>Minimalist Markdown Note Apps — <a href="https://rywalker.com/research/minimalist-markdown-mac-notes">https://rywalker.com/research/minimalist-markdown-mac-notes</a>（Ry Walker Research 2026，访问 2026-08-27）</li><li>思源笔记 v3.8.0 发布帖（内置 MCP 和 Agent）— <a href="https://ld246.com/tag/siyuan/good">https://ld246.com/tag/siyuan/good</a>（访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录（自历史会话提取，方案已生产验证）</td></tr><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">高强度调研修订：补 2026 行业验证节（官方 CLI/skills/竞品 MCP 化）与 gh 采集数据</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

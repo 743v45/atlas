@@ -1,0 +1,34 @@
+{
+  "name": "Chrome DevTools MCP",
+  "repo": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+  "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+  "license": "Apache-2.0",
+  "verdict": "adopt",
+  "summary": "Google 官方、直连活跃 Chrome 实例，performance trace / insight / 网络瀑布 / console 能力独占——前端调试与性能场景无可替代；代价是 schema 最重（≈18k token）。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+    "https://www.trackingplan.com — Chrome DevTools MCP vs Playwright MCP（2026）"
+  ],
+  "tags": [
+    "mcp",
+    "google",
+    "调试",
+    "性能"
+  ],
+  "stats": {
+    "source_repo": "ChromeDevTools/chrome-devtools-mcp",
+    "stars": 49751,
+    "pushed_at": "2026-08-26",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "MCP",
+    "常驻 token": "≈18k",
+    "引擎覆盖": "Chromium 系",
+    "独占能力": "trace/网络/console",
+    "许可": "Apache-2.0"
+  }
+}

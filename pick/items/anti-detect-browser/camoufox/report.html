@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camoufox · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/browser-agents.html">AI × 浏览器</a><span class="sep">·</span><span>反检测浏览器</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../browserless/report.html">← Browserless</a><span class="sep">·</span><a href="../clawbrowser/report.html">Clawbrowser →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Camoufox</h1>
+<blockquote><strong>TL;DR</strong>：引擎级改造 Firefox（C++ 源码层伪造指纹），指纹一致性理论最强；2025 年有约一年维护断层、2026-08 已恢复日更，README 警告未撤，选它要盯紧维护公告。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">star</td><td style="text-align:left">⭐11,450（gh 采集 2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">最后 push</td><td style="text-align:left">2026-08-26（日更节奏）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">MPL-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">形态</td><td style="text-align:left">定制 Firefox 浏览器 + Python 库（Playwright API 驱动）</td><td style="text-align:left">[1][2]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ul><li><strong>原理</strong>：编译期修改 Firefox C++ 源码，<code>navigator</code>、WebGL、screen、fonts、WebRTC 等所有指纹在引擎实现层拦截伪造，借鉴 Tor / Arkenfox / CreepJS 研究 [1][2]。</li><li><strong>一致性优势</strong>：指纹从引擎层「长」出来，天然自洽——JS 注入式伪装（老 playwright-stealth 路线）只改表层属性，容易自相矛盾 [2]。</li><li><strong>注入隔离</strong>：Playwright 的注入操作（如 <code>window.__playwright__binding__</code>）被移到页面外的独立作用域，页面探测不到 [2]。</li></ul>
+<h2>对比</h2>
+<p>补丁派（Patchright/nodriver）修 Chromium 痕迹、迁移成本低；Camoufox 引擎派一致性最强但要接受 Firefox 引擎差异。见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li><strong>维护断层史</strong>：README 官方警告——作者个人原因曾有约一年维护断层，基础 Firefox 版本老化 + 新发现指纹不一致问题导致对抗性能下滑（2025 年状态描述）[1]。</li><li><strong>当前状态</strong>（gh 2026-08-27）：push 2026-08-26，已恢复日更；但 README 警告未撤，建议持续盯指纹一致性公告。</li><li>Firefox 引擎：个别对 Chromium 行为有依赖的站点兼容性需自测。</li></ul>
+<h2>来源</h2>
+<ol><li>Camoufox — <a href="https://github.com/daijro/camoufox">https://github.com/daijro/camoufox</a>（gh 一手数据 2026-08-27；README 状态警告为 2025 年内容）</li><li>Stealth Overview — <a href="https://camoufox.com">https://camoufox.com</a>（访问 2026-08-27）</li><li>The 6 best Patchright alternatives in 2026 — roundproxies.com（2026）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录；断层已恢复但警告未撤，不升 adopt</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

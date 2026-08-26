@@ -1,0 +1,18 @@
+{
+  "name": "字符表现形式",
+  "verdict": "adopt",
+  "summary": "混排对齐只需记四类——数字右对齐(网页开 tabular-nums)、中文左对齐天然等宽、英文左对齐、Emoji 独占一列;完整图谱 16 类,差异全部挂在宽度、呈现、方向、可见性四条轴上。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.unicode.org/reports/tr11/",
+    "https://www.unicode.org/reports/tr51/",
+    "https://www.unicode.org/reports/tr9/"
+  ],
+  "tags": ["unicode", "typography", "表格排版"],
+  "matrix": {
+    "层级": "常用+全量双层",
+    "覆盖": "16 类字符",
+    "适用": "混排表格与终端排版"
+  }
+}

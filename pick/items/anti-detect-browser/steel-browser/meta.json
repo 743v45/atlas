@@ -1,0 +1,34 @@
+{
+  "name": "Steel Browser",
+  "repo": "https://github.com/steel-dev/steel-browser",
+  "homepage": "https://steel.dev",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "把浏览器 API 做成开源基础设施、可自托管，自托管云浏览器首选之一；AIMultiple 2026 速度分 99 但功能分 45，功能面弱于商业云。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/steel-dev/steel-browser",
+    "https://apiscout.dev — Browserbase vs Steel vs Hyperbrowser（2026）",
+    "https://aimultiple.com — Remote Browsers Compared（2026）"
+  ],
+  "tags": [
+    "云",
+    "开源",
+    "自托管"
+  ],
+  "stats": {
+    "source_repo": "steel-dev/steel-browser",
+    "stars": 7543,
+    "pushed_at": "2026-08-25",
+    "license": "Apache-2.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "反检测层级": "云基础设施",
+    "AI 接入": "REST/SDK",
+    "许可": "Apache-2.0",
+    "成本": "免费(云)",
+    "自托管": "✅ 云"
+  }
+}

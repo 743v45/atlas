@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ntfy · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>iPhone Webhook 通知</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../lark-webhook/report.html">← 飞书群自定义机器人</a><span class="sep">·</span><a href="../pushover/report.html">Pushover →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>ntfy</h1>
+<blockquote><strong>TL;DR</strong>：开源 HTTP pub-sub 推送全家桶（iOS/Android/Web，Apache-2.0，⭐33,772.8k 高活跃），多端告警场景最强；硬伤在 iOS：自建服务器的即时推送必须经官方 ntfy.sh 转发 poll_request，不配 upstream 则退化为分钟级轮询（几分钟～约 20 分钟一档）——iPhone 单机场景让位 Bark，多端场景值得试用。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用——多端场景在非关键路径试用；iPhone 单机不推荐当主力）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">HTTP pub-sub：<code>curl -d "内容" ntfy.sh/你的topic</code> 即推，iOS/Android/Web 客户端订阅</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left">github.com/binwiederhier/ntfy ⭐33,772、push 2026-08-25（gh 2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">官方服务</td><td style="text-align:left">ntfy.sh 免费托管：每 visitor 250 条/天，另有并发限流（60 并发、每 5 秒回填 1 次；docs 配置口径，访问 2026-08-27）</td><td style="text-align:left">[2][3]</td></tr><tr><td style="text-align:left">iOS App</td><td style="text-align:left">App Store 免费（© 2026 Philipp Heckel，访问 2026-08-27）</td><td style="text-align:left">[7]</td></tr></tbody></table>
+<h2>为什么（trial 而非 adopt）</h2>
+<ul><li><strong>多端与生态是它最强的地方</strong>：一个 topic 语法覆盖 iOS/Android/桌面 Web，Docker 一行自建，社区热度远超同类（⭐33,772，gh 2026-08-27；对比 Gotify ⭐33,772、bark-server ⭐33,772）[1]。会话（2026-08-25）将其列为免费方案第二顺位 [6]。</li><li><strong>iOS 是结构性短板，不是 bug</strong>：官方文档明说——iOS 严格限制后台处理，自建服务器<strong>不可能</strong>不经中央服务器实现即时推送；要做即时，必须把 <code>poll_request</code> 转发到官方 ntfy.sh（或任何 APNs/Firebase 连接的 upstream），由它唤醒 iOS App 再回头拉取（docs.ntfy.sh/config，访问 2026-08-27）[2]。也就是说自建 ntfy 的 iOS 即时推送仍依赖官方基础设施——与「自建绕过第三方」的目标相悖（会话方案 2 的 ⚠️ 判定）[6]。</li><li><strong>不配 upstream 的退化行为</strong>：iOS App 退回周期性轮询（会话口径默认几分钟一次 [6]，社区记录可达约 20 分钟一档 [4][5]）+ 只显示「New message」占位，需手动刷新才见内容（2018 起 issue #363 讨论、2025-03 issue #1305 仍有「无推送、下拉才出现」报告）[4][5][8]。</li><li><strong>隐私面</strong>：upstream 转发的 poll_request 只含消息 ID 不含内容，消息正文留在自建服务器 [2]——比全量过云好，但元数据（何时推、推给哪个 topic）仍经 ntfy.sh。</li></ul>
+<h2>对比</h2>
+<ul><li>与 Bark：Bark 自建后<strong>完全不经第三方服务器</strong>（镜像内置 APNs 证书直连 Apple），ntfy 自建 iOS 必须挂官方 upstream；Android 上 ntfy 是完美方案、iPhone 上不推荐当主力（会话 2026-08-25 同口径）[6]，见 <code>../bark/report.md</code>。</li><li>官方 ntfy.sh 托管则无此问题（即时、免费），代价是 250 条/天限额 + 内容过官方服务器 [2][3]。</li><li>逐维度对比见 <code>../comparison.md</code>。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><code>base-url</code> 必须与 iOS App 里填的 Default Server <strong>完全一致</strong>，否则 iOS 只见「New message」（官方 known-issues，访问 2026-08-27）[8]——自建排查时先核对这个。</li><li>iOS 上游链路依赖 Firebase/APNs，官方文档自述「weird and buggy」，偶发掉订阅需重加 topic [8]。</li><li>免费 250 条/天对个人告警足够，但脚本风暴（如 for 循环里逐条推）会触顶 [3]。</li></ul>
+<h2>来源</h2>
+<ol><li>binwiederhier/ntfy — <a href="https://github.com/binwiederhier/ntfy">https://github.com/binwiederhier/ntfy</a>（访问 2026-08-27）</li><li>ntfy Configuration 文档（iOS instant notifications / upstream-base-url）— <a href="https://docs.ntfy.sh/config">https://docs.ntfy.sh/config</a>（访问 2026-08-27）</li><li>ntfy Sending messages 文档（rate limits / 250 条/天）— <a href="https://docs.ntfy.sh/publish">https://docs.ntfy.sh/publish</a>（访问 2026-08-27）</li><li>Self-Hosted Push Notifications with Ntfy on iOS（Noted，实测 walkthrough）— <a href="https://noted.lol/ntfy">https://noted.lol/ntfy</a>（访问 2026-08-27）</li><li>binwiederhier/ntfy issue #1305（2025-03-30：iOS 自建无推送、仅手动刷新可见）— <a href="https://github.com/binwiederhier/ntfy/issues/1305">https://github.com/binwiederhier/ntfy/issues/1305</a></li><li>Claude 会话 13bf0e5c（2026-08-25）——候选与「iOS 有坑」判定来源</li><li>ntfy（App Store）— <a href="https://apps.apple.com/us/app/ntfy/id1625396347">https://apps.apple.com/us/app/ntfy/id1625396347</a>（访问 2026-08-27）</li><li>ntfy Known issues（base-url 匹配 / New message / Firebase 抖动）— <a href="https://docs.ntfy.sh/known-issues">https://docs.ntfy.sh/known-issues</a>（访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（2026-08-25 会话候选 + 官方文档核验 iOS upstream 限制）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

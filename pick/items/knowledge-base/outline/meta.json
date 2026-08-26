@@ -1,0 +1,34 @@
+{
+  "name": "Outline",
+  "repo": "https://github.com/outline/outline",
+  "homepage": "https://www.getoutline.com",
+  "license": "Business Source License 1.1",
+  "verdict": "hold",
+  "summary": "用户曾自托管的存量方案，已废弃：无 [[式双链（只有文档间跳转）补不上需求——落选理由是功能缺口而非质量；团队知识库场景仍是合格选项（2026 云版 $10/月起、自托管社区版免费）。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/outline/outline（gh 2026-08-27 采集）",
+    "https://www.getoutline.com/pricing（定价，访问 2026-08-27）",
+    "Claude 会话 be457b46（2026-08-25）——迁移执行记录"
+  ],
+  "tags": [
+    "自托管",
+    "wiki",
+    "已废弃"
+  ],
+  "stats": {
+    "source_repo": "outline/outline",
+    "stars": 40339,
+    "pushed_at": "2026-08-26",
+    "license": "NOASSERTION",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "数据形态": "Postgres + 自管",
+    "双链": "无 [[]]",
+    "AI 写入": "API 慢",
+    "自托管": "✅ Docker",
+    "成本": "自托管免费/云$10起"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Web Push + PWA（自建）",
+  "homepage": "https://www.magicbell.com/blog/pwa-ios-limitations-safari-support-complete-guide",
+  "license": "平台能力（W3C Web Push，自选栈）",
+  "verdict": "assess",
+  "summary": "唯一证书完全自控的路线：自生成 VAPID 密钥、不依赖任何 App 开发者的推送证书，iOS 16.4+ 主屏幕 PWA 可收锁屏通知；但无静默推送、自定义声音 iOS 17 才补齐、订阅页面与推送服务全要自己搭——彻底自持者再评估，暂不结论。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.mobiloud.com/blog/progressive-web-apps-ios",
+    "https://www.magicbell.com/blog/pwa-ios-limitations-safari-support-complete-guide",
+    "https://docs.ntfy.sh/known-issues",
+    "Claude 会话 13bf0e5c（2026-08-25）——方案 3（最彻底自持）定位来源"
+  ],
+  "tags": ["pwa", "web-push", "vapid", "自托管", "ios"],
+  "matrix": {
+    "形态": "PWA + VAPID",
+    "自托管": "✅ 全自持",
+    "免费额度": "完全免费",
+    "iOS 体验": "⚠️ 无声/受限",
+    "延迟": "及时，有节流风险"
+  }
+}

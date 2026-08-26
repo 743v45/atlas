@@ -1,0 +1,11 @@
+{
+  "name": "把目标说清楚:Z 三要素",
+  "question": "为什么 AI 给的结果总不是我想要的?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-27",
+  "model": "Claude Opus 4.8 · claude-code",
+  "symptoms": ["结果不是我想要的", "AI 理解偏了", "需求说不清", "反复改描述", "返工多"],
+  "source": "2026-08-27 Claude Code 会话(待归档)",
+  "artifacts": []
+}

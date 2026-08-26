@@ -1,0 +1,536 @@
+
+===== USER =====
+prd 最佳工具
+
+===== ASSISTANT =====
+结合你的技术栈(Lark 重度用户 + 自托管 Outline)和 2026 年的现状，直接给推荐：
+
+## 最佳工具
+
+**首选:飞书文档 + 多维表格** — 你已深度在飞书生态里，PRD 写在飞书文档(实时协作、评论、@人、版本历史)，需求跟踪放多维表格(状态流转、优先级、负责人)，且我可以直接帮你读写(lark-doc / lark-base)。这是你成本最低、协作最顺的方案。
+
+**AI 辅助(2026 年主流做法)**：
+- [ChatPRD](https://www.chatprd.ai/) — 目前口碑最好的专用 AI PRD 工具，在 [与 ChatGPT/Claude/Gemini/Grok 的横评](https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres)中胜出
+- 其实直接让我写也行——你口述需求，我起草 PRD 并直接写入飞书或 Outline,省一个订阅
+
+**其他场景**:
+- 团队在 Notion 上 → Notion + [Notion AI](https://medium.com/@rahul.sikder3/we-used-ai-tools-to-write-our-prd-here-are-the-results-8c6043014a9b)(实测起草快约 80%)
+- 纯开发团队、PRD 要进版本控制 → Markdown + git(和你 Hugo 博客同一工作流)
+- 内部技术设计文档 → 你现有的 Outline 就够
+
+**产品管理专用平台**(Productboard、Enterpret 等)适合有大量用户反馈数据要做需求聚合的团队，个人/小团队不建议为此付费。
+
+## 最佳模板
+
+**1. Lenny's PRD 模板** — 公认最实用的简洁派，三个步骤：问题 → 方案 → 度量。有 [Confluence 官方版](https://www.atlassian.com/software/confluence/templates/lennys-product-requirements)和 [Notion 版](https://www.notion.com/templates/product-1-pager-template),他的[模板合集](https://www.lennysnewsletter.com/p/my-favorite-templates-issue-37)里还有 1-pager 变体。
+
+**2. Amazon PR-FAQ / 6-pager** — 「逆向工作法」：先写新闻稿再写产品。适合从 0 到 1 的重要项目，逼你想清楚价值主张。[prodmgmt.world 的模板指南](https://www.prodmgmt.world/blog/prd-template-guide)收录了 Amazon、Figma、Intercom 的 15 个可复制模板。
+
+**3. ChatPRD 2026 版指南** — [完整的分节结构 + 常见错误](https://www.chatprd.ai/learn/prd-template),反映当前 AI 时代的写法。
+
+**4. 真实案例参考** — [12 个大厂真实 PRD(2026)](https://pmprompt.com/blog/prd-examples)(Google、Amazon、Linear)和 [Hustle Badger 的 13 个例子](https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/)。
+
+**2026 年的趋势**：模板在变薄——从 20 页 Word 文档转向 1-pager + AI 起草 + 持续迭代。核心分节收敛为：**背景与问题 → 目标与度量(怎么算成功)→ 范围(做什么/不做什么)→ 方案概述 → 里程碑 → 开放问题**。
+
+需要的话，我可以把 Lenny 模板(或融合版)直接建成一份飞书文档模板，或者写进你的 Outline「技术设计」collection,以后写 PRD 直接复用——说一声即可。
+
+Sources:
+- [I Tested 5 AI Tools to Write a PRD](https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres)
+- [ChatPRD](https://www.chatprd.ai/)
+- [ChatPRD PRD Template Guide](https://www.chatprd.ai/learn/prd-template)
+- [Lenny's Product Requirements Template (Confluence)](https://www.atlassian.com/software/confluence/templates/lennys-product-requirements)
+- [Product 1-Pager Template (Notion)](https://www.notion.com/templates/product-1-pager-template)
+- [Lenny's Favorite PM Templates](https://www.lennysnewsletter.com/p/my-favorite-templates-issue-37)
+- [Complete PRD Template Guide - prodmgmt.world](https://www.prodmgmt.world/blog/prd-template-guide)
+- [12 PRD Examples From Top Tech Companies (2026)](https://pmprompt.com/blog/prd-examples)
+- [13x PRD Examples - Hustle Badger](https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/)
+- [Enterpret 2026 AI PRD Tools Guide](https://www.enterpret.com/guides/the-6-best-ai-tools-for-writing-a-prd-grounded-in-customer-evidence-in-2026-fgpsr)
+
+===== USER =====
+Base directory for this skill: /Users/taevas/.claude/skills/grill-me
+
+Call the Skill tool with "grilling".
+
+
+===== USER =====
+Base directory for this skill: /Users/taevas/.claude/skills/grilling
+
+Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
+
+Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.
+
+Format a round like so:
+
+```
+❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+
+➡️ <your recommended answer>
+
+---
+
+❓ **Q2** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+
+➡️ <your recommended answer>
+```
+
+Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
+
+Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
+
+The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.
+
+
+===== ASSISTANT =====
+好——那我们就把「PRD 工具 + 模板」这件事彻底盘清楚。我会一轮一轮问，每题都带上我的推荐答案;你答完一轮我再问下一轮。
+
+先说我在查的事实(不用你操心):我派了一个探查 agent 去看你的 `taevas-plugins`、`di4urp` 仓库和 Outline「技术设计」collection 里有没有已存在的 PRD/spec/模板类文档。这会影响后面的模板决策，但不阻塞第一轮。
+
+===== ASSISTANT =====
+收到,不查现状,直接开烤。第一轮只问**根上的三个决定**——工具选型、模板分节、落地动作全都挂在这三个答案下面,等它们定了才轮到。
+
+---
+
+❓ **Q1** - **PRD 到底给谁读**:一份 PRD 的价值取决于读者。你写 PRD 的主要受众是哪种?
+(a) **自己 + AI** —— 开发前把需求想透,PRD 是给 Claude/agent 的开发输入 spec
+(b) **小团队协作者** —— 需要评论、@人、评审流程
+(c) **业务方/老板/客户** —— 需要正式、可审批、有版本承诺
+(d) 以上组合
+
+➡️ 推荐 **(a)**。你是独立开发者(插件市场 + 博客)，没有证据显示你有需要评审 PRD 的团队。独立开发者的 PRD 本质是「逼自己把问题想清楚 + 给 AI 当上下文」，这个判断会砍掉一半工具候选(协作型平台的付费理由直接消失)。
+
+---
+
+❓ **Q2** - **要的是一份 PRD 还是一套体系**:这次的目标是哪个?
+(a) 手头有个具体项目，为它写一份 PRD
+(b) 建一套可复用的 PRD 模板/流程，以后所有项目都用
+(c) 先建模板，马上拿一个真实项目跑通验证
+
+➡️ 推荐 **(c)**。空模板没有经过真实项目检验就是摆设；纯写一份 PRD 又浪费了沉淀机会。符合你的「强制优于记忆」方法论——把决策固化成可复用的结构，而不是每次现想。
+
+---
+
+❓ **Q3** - **触发点是什么**:为什么是现在?哪个痛点让你问「PRD 最佳工具」?
+(a) 马上有个项目要开工，需要先立需求
+(b) AI 开发老跑偏，缺一份 spec 来约束它
+(c) 之前想清楚的东西到开发时又忘了，需要文档承载
+(d) 系统性补流程，没什么急事
+
+➡️ 推荐 **(b)**。你装了一整套 lark/AI 工具链、方法论是「强制优于记忆」——这个画像的人问 PRD,最常见的原因是 agent 开发时自由度太大，需要一份写下来的需求文档当锚。但这是我猜的，你说了算。
+
+---
+
+答完这三个，下一轮就能问：工具落点(飞书 vs Outline vs Markdown+git)、模板分节(Lenny 派 vs 1-pager 派 vs 融合)、语言、以及 AI 在工作流里的角色。
+
+===== USER =====
+Q1 a+b Q2 c Q3 c
+
+===== ASSISTANT =====
+好，三个根节点定了：**读者是自己+AI+协作者、目标是模板体系+真实项目验证、核心痛点是想清楚的东西会忘**。这解锁了下一层。工具落点本身还锁着——它主要取决于 Q4 的答案，放第三轮。
+
+---
+
+❓ **Q4** - **协作者在哪个生态**:你说有小团队协作者需要评论/讨论。他们的日常工具是?
+(a) **飞书** —— 评论、@人都在飞书里发生
+(b) **git/GitHub** —— 开发伙伴，PR 里讨论就行
+(c) 混合，没固定
+(d) 其实主要还是我自己看，偶尔分享给别人
+
+➡️ 推荐 **(a)**。你装了全套 lark skills,日常工作流显然在飞书。如果协作者在飞书，PRD 落飞书文档的评论/评审能力就是现成的。
+
+---
+
+❓ **Q5** - **模板分节走哪个流派**:PRD 模板有两大流派：
+(a) **轻量 Lenny 派** —— 背景与问题 → 目标与度量 → 范围(做/不做)→ 方案概述 → 开放问题，1-2 页
+(b) **完整大模板** —— 上面全部 + 用户故事、竞品分析、里程碑、风险、验收标准，5-10 页
+(c) **Lenny + 决策记录段** —— (a) 的基础上加一段「关键决策及理由」(ADR 风格：为什么选 X 不选 Y)
+
+➡️ 推荐 **(c)**。你的痛点是「想清楚的东西到开发时忘了」——会忘的不是功能列表(代码里有)，是**决策理由**(为什么这么做、为什么不那么做，这些只存在于你脑子里)。功能清单会过时，决策记录不会。纯 Lenny 模板缺这块。
+
+---
+
+❓ **Q6** - **AI 在 PRD 工作流里扮演什么角色**:
+(a) 只当读者 —— PRD 写好后喂给 Claude Code 当开发上下文
+(b) 只当写手 —— 你口述需求，AI 起草，你改
+(c) **双向** —— AI 起草 + 开发时 AI 消费
+
+➡️ 推荐 **(c)**。双向成本最低收益最高。但注意:选 (c) 或 (a) 有个隐藏约束——**格式必须 agent 友好**(纯文本 Markdown、清晰标题层级、可全文检索)，这会直接影响第三轮的工具落点。飞书文档我能读写，但 agent 自主检索时不如裸 Markdown 顺手。
+
+---
+
+❓ **Q7** - **PRD 写完之后怎么活**:开发中需求变了，PRD 怎么办?
+(a) **活文档 + 底部 changelog** —— 每次变更回写 PRD 并记一行变更理由，开发中“PRD 先变、代码后动”
+(b) 冻结快照 —— 签字后不动，变更另开新文档
+(c) 随缘 —— 写完就归档，实际以聊天记录/脑子为准
+
+➡️ 推荐 **(a)**,而且我认为这是你这三个答案里最该坚持的一个。「强制优于记忆」的完整形态不是「写一次」，是「变了就回写」——否则三个月后 PRD 和代码各说各话，文档信用破产，你会回到 Q3c 的原点。模板里要预留 changelog 段。(c) 是你现在的默认状态，正是要治的病。
+
+---
+
+❓ **Q8** - **第一个拿去跑通的真实项目是哪个**:Q2 说了要拿真实项目验证模板。第一个是什么?
+(a) taevas-plugins 的某个新功能
+(b) di4urp 博客的某个改造
+(c) 还没有明确的，先建模板等下一个项目
+(d) 其他(说出来)
+
+➡️ 推荐 **(a)**——活跃度最高的项目，验证反馈最快。但具体功能你最清楚，这题没有事实可查，只能你定。
+
+---
+
+答完这五个，第三轮就剩最后一层：工具落点(飞书 vs Outline vs Markdown+git vs 组合)、语言细节、以及具体落地动作(建几份、建在哪、谁来建)。
+
+===== USER =====
+前面的处理不要了。前面的模板信息，以及 ChatPRD 再丰富丰富。
+
+===== ASSISTANT =====
+好，盘问打住，回到内容本身。我去把 ChatPRD 和各家模板的一手资料抓下来，给你一份可以直接抄的丰富版。
+
+===== ASSISTANT =====
+WebFetch 被域名验证挡了，换 web reader 抓：
+
+===== ASSISTANT =====
+**🌐 Z.ai Built-in Tool: webReader**
+
+**Input:**
+```json
+{"url":"https://www.chatprd.ai/"}
+```
+*Executing on server...*
+
+
+===== ASSISTANT =====
+**🌐 Z.ai Built-in Tool: webReader**
+
+**Input:**
+```json
+{"url":"https://www.chatprd.ai/learn/prd-template"}
+```
+*Executing on server...*
+
+
+===== ASSISTANT =====
+**🌐 Z.ai Built-in Tool: webReader**
+
+**Input:**
+```json
+{"url":"https://www.atlassian.com/software/confluence/templates/lennys-product-requirements"}
+```
+*Executing on server...*
+
+
+===== ASSISTANT =====
+**🌐 Z.ai Built-in Tool: webReader**
+
+**Input:**
+```json
+{"url":"https://www.prodmgmt.world/blog/prd-template-guide"}
+```
+*Executing on server...*
+
+
+===== ASSISTANT =====
+**🌐 Z.ai Built-in Tool: webReader**
+
+**Input:**
+```json
+{"url":"https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres"}
+```
+*Executing on server...*
+
+
+===== ASSISTANT =====
+**Output:**
+**webReader_result_summary:** [{"text": "MCP error -429: {\"error\":{\"code\":\"1302\",\"message\":\"Rate limit reached for requests\"}}", "type": "text"}]
+                                                
+
+===== ASSISTANT =====
+**Output:**
+**webReader_result_summary:** [{"text": {"title": "ChatPRD - The #1 AI Platform for Product Managers", "description": "ChatPRD is the AI product manager for your entire team. Write great product docs in minutes, get expert coaching, and integrate with your workflow. Trusted by 100,000+ PMs.", "url": "https://www.chatprd.ai/", "c...
+                                                
+
+===== ASSISTANT =====
+**Output:**
+**webReader_result_summary:** [{"text": {"title": "The Complete PRD Template Guide: 15 Templates From Top Product Teams", "description": "Get 15 copyable PRD templates from Amazon, Figma, and Intercom. Includes real-world formats for Notion and Google Docs to streamline your product specs.", "url": "https://www.prodmgmt.world/bl...
+                                                
+
+===== ASSISTANT =====
+**Output:**
+**webReader_result_summary:** [{"text": {"title": "I Tested 5 AI Tools to Write a PRD—Here's the Winner", "description": "Why your choice of AI assistant matters more than you think for product work", "url": "https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres", "content": "I Tested 5 AI Tools to Write a PR...
+                                                
+
+===== ASSISTANT =====
+**Output:**
+**webReader_result_summary:** [{"text": {"title": "Lenny's Product Requirements template | Confluence", "description": "All of your product requirements on one page to accomplish more.", "url": "https://www.atlassian.com/software/confluence/templates/lennys-product-requirements", "content": "![Image 1](https://images.ctfassets.n...
+                                                
+
+===== ASSISTANT =====
+**🌐 Z.ai Built-in Tool: webReader**
+
+**Input:**
+```json
+{"url":"https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/"}
+```
+*Executing on server...*
+
+
+===== ASSISTANT =====
+**Output:**
+**webReader_result_summary:** [{"text": {"title": "13x PRD Examples including Real PRD Templates - Hustle Badger", "description": "Real PRD templates & examples from Figma | Amazon | Linear | Intercom | Lenny | Asana, & a Claude Code PRD reviewer.Free PRD Miro Board.", "url": "https://www.hustlebadger.com/what-do-product-teams-d...
+                                                
+
+===== ASSISTANT =====
+**🌐 Z.ai Built-in Tool: webReader**
+
+**Input:**
+```json
+{"url":"https://www.chatprd.ai/learn/prd-template"}
+```
+*Executing on server...*
+
+
+===== ASSISTANT =====
+**Output:**
+**webReader_result_summary:** [{"text": {"title": "PRD Template: Complete Product Requirements Document for 2026", "description": "Discover the ultimate PRD template for 2026. Learn essential sections, customization tips, and avoid common mistakes with our product requirements document.", "url": "https://www.chatprd.ai/learn/prd...
+                                                
+
+===== ASSISTANT =====
+一手资料都抓下来了。先**修正一个重要错误**，再给你丰富版。
+
+## ⚠️ 修正：横评真正的赢家是 Claude,不是 ChatPRD
+
+我上一条消息说 ChatPRD 在横评中胜出——读了 [Tom Leung 横评全文](https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres)后发现那是搜索摘要的误导。他的原文 TLDR 是 **"TLDR: It was Claude :-)"**。真实排名：
+
+1. **Claude** — 战略深度最强，指标会想到 "concept mastery rate" 这种具体概念；HTML 原型接近 Lovable 水准
+2. **ChatPRD** — 结构最规范，"感觉像人写的”
+3. **Gemini** — B+,Google 生态集成好，mockup 像库存照片
+4. **ChatGPT** — 可靠但平庸，“任何产品的平均值”
+5. **Grok** — 落后 1-2 年
+
+**这对你有直接意义：你就在 Claude Code 里，横评第一名已经是你的日常工具。** ChatPRD 对你的增量价值不在生成质量，而在下面这些。
+
+---
+
+## ChatPRD 完整画像
+
+### 四大功能块
+
+| 功能块 | 具体能力 |
+|---|---|
+| **AI Documentation** | 粗想法/会议记录 → 完整 PRD、one-pager、user stories、技术 spec、GTM brief;按你团队标准定制模板；自动 gap 分析和边界情况检测 |
+| **AI Coaching** | 以 CPO 视角评审文档：找战略盲区、质疑假设、打分(scorecard);按你的产品领域个性化 |
+| **Integrations** | 一键导出到 Linear/Notion/Confluence/Google Docs;PRD 直接流转成 Linear ticket;Slack 分享；**MCP 集成**(可接 IDE 和 AI 桌面应用)；用 v0/Lovable/bolt.new 从 PRD 直接生成原型；GitHub、Granola、Replit |
+| **Team** | 共享项目空间(团队上下文和历史)；自定义 AI persona;agentic PM(帮工程师写 spec、帮设计师生成需求)；企业级权限 |
+
+企业侧：SOC 2 Type II、SSO、BYO LLM(自带模型)、角色权限。号称 10 万+ PM 用户，Fortune 500 到 seed 团队都在用。免费起步无需信用卡(具体付费档官网没标数字，不瞎编)。
+
+### 对你的判断
+
+ChatPRD 的核心付费理由是**团队场景**：给没有 PM 的团队配“AI PM"、统一文档标准、PRD→Linear 流转。你是独立开发者+已有 Claude Code,横评里 Claude 生成质量还更强——**ChatPRD 对你基本没有付费必要**。唯一值得偷的是它的思路：CPO 视角评审(这个可以用 Hustle Badger 的 Claude Code PRD Reviewer 方案在本地复刻，见文末)。
+
+### 横评里最值钱的元洞察
+
+> 输入质量决定输出质量，但**工具基线决定上限**。差的 prompt + Claude > 好的 prompt + 弱工具。
+
+他的工作流："back of the napkin"——先花 10-15 分钟人脑写粗纲(**Why / Target User(要具体到“成绩中间 80% 的高中生”这种粒度)/ Problem / Key Elements / Success Metrics**),再丢给 AI 展开，然后逐段迭代 5-10 轮。直接一句话生成的 PRD 都是“给任何产品都能用的平均值”。
+
+---
+
+## 模板库丰富版：9 家真实结构，按轻重光谱排列
+
+### 🪶 极简派(一页纸)
+
+**Intercom「Intermission」** — 最极端，硬约束“必须打印后放得下一张 A4":
+- Project Name
+- **Problem Statement**(含客户访谈/研究链接)
+- **Job Stories**:`When __, I want to be able to __, so I can __`
+- **Success Criteria**(定性+定量)
+- **Scope**(设计定稿后才填：in/out、beta 日期)
+- 铁律:*"Do not add the solution here"*(方案不许写，放 Figma 里)、*用大白话，禁止术语和代号*、打印贴在团队墙上
+
+**Linear(Nan Yu)** — 三段式，配三条写作原则：
+- **Context** — 为什么做，面向所有人，永不过时
+- **Usage Scenarios** — 真实发生过的使用叙事
+- **Milestones** — 分阶段、先去风险；唯一“活”的部分，团队靠它对齐
+- 原则：*从最高层写到细节；从最宽受众写到最窄；从最不会变的写到最会变的*
+
+**Lenny's 1-Pager** — 最广为采用的格式：
+- **Problem Statement**(最重要的段落：什么问题、谁有、怎么知道是真的)
+- **Solution**(方案 + 为什么选它而不是替代方案)
+- **Success Metrics**
+- **Scope**(做什么 + **明确不做什么**)
+- **Timeline** / **Open Questions**
+
+### ⚖️ 中量派(2-5 页，带流程)
+
+**Kevin Yien(Square→Stripe)** — 五阶段工作流，防“没对齐就跳到方案":
+- 头部：贡献者(PM/设计/工程/数据)+ 状态追踪 **Draft → Problem Review → Solution Review → Launch Review → Launched** + 最后更新日期
+- **Part 1 Problem Alignment**:问题描述、为什么重要、客户洞察、干系人签字栏
+- **Part 2 Solution Alignment**:方案概述、目标、**Non-Goals**、关键流程、mockup、边界情况、签字栏
+- **Part 3 Execution**:launch plan、度量、rollout 策略
+- **Part 4 Appendix**:changelog、FAQ、依赖
+- 灵魂：*"画解决方案空间的周界——把边界画出来，让团队专注于怎么填满它"*
+
+**Basecamp Shape Up Pitch** — 独创 "Appetite" 概念：
+1. **Problem** 2. **Appetite**(先定时间预算：“我们给这事 2 周而不是 2 个月”)
+3. **Solution**(只到宏观层面) 4. **Rabbit Holes**(预判的坑) 5. **No Gos**
+
+### 📋 全面派(完整 10 段)
+
+**ChatPRD 官方 2026 模板** — 传统全面型的当代标准(和它产品倡导的恰好是两个流派)：
+1. Overview / Problem Statement
+2. Goals & Success Metrics
+3. User Stories & Use Cases
+4. Functional Requirements("The system shall…"句式)
+5. Non-Functional Requirements(性能/安全/合规)
+6. Design Considerations
+7. Technical Considerations
+8. Timeline & Milestones
+9. Open Questions & Risks
+10. Appendix
+
+并按项目类型给定制建议：新功能→重 user stories;平台迁移→重技术+回滚策略;API→重端点/认证/限流；移动端→重离线和电量。常见错误五连：*细节过载、没拉干系人、跳过度量、写完就冻结、模糊语言(“要好用”这种)*。
+
+**Figma(Yuhki Yamashita,Coda 版)** — 活文档枢纽：内嵌实时 Figma 设计稿(改稿文档自动更新)、交互式里程碑表、launch checklist。
+
+**Uber** — 企业合规型：PRD Checklist + 跨产品线影响矩阵(Rider/Driver/Eats/Fleet)+ Legal/Privacy 审批字段。
+
+### 🎯 特殊流派
+
+**Amazon PR/FAQ(Working Backwards)** — 从结局倒写：
+- **Press Release**(一页内)：标题套公式 `[公司] 发布 [产品],让 [客户] 能够 [受益]` + 假想发布日期 + 客户喜悦引言 + 高管引言
+- **External FAQ**(客户和媒体会问什么)+ **Internal FAQ**(TAM、定价、竞争、技术可行性、资源)
+- 特性：写作极重(数天到数周)，**大多数 PR/FAQ 被毙掉是功能不是 bug**——最便宜的想法过滤器。AWS、Kindle 都这么出来的。
+
+**Adam Waxman(SeatGeek)** — 唯一带 **Decision Journal** 的：explored directions(探索过哪些方向)→ decided direction(定了哪个)+ 为什么。专为“干系人绕圈重翻旧账”设计——**这正好治你说的‘想清楚的东西后来忘了’**。
+
+### 各家文化的注脚
+
+- **Stripe**:shaping 先于 spec,工程师/PM/BD 人人写文档，“最好的想法赢，不是最响的人赢”
+- **Linear**:50+ 员工只有 1 个 PM 头衔；不做 A/B 测试，“taste 驱动决策，而不是测试驱动决策”
+- **Spotify DIBB**:Data → Insight → Belief → Bet,每个 bet 配两页文档
+- **Meta**:PM 一年零 ticket,工程师自己管项目
+
+---
+
+## 给你的组合建议(呼应你之前说的痛点)
+
+你的场景(独立开发者 + AI 消费 + “想清楚的东西会忘”)，从各家各偷一件：
+
+- 骨架用 **Lenny 1-Pager**(六段，低成本可坚持)
+- 加 **SeatGeek 的 Decision Journal** 段(决策 + 理由，治遗忘)
+- 加 **Linear 的 Milestones 语义**(只有这段是活的，PRD 先变代码后动)
+- 约束偷 **Intercom**:一页以内、大白话、方案细节不塞进 PRD(留给代码和设计稿)
+
+另外发现一个好东西：Hustle Badger 有个 [Claude Code PRD Reviewer 项目](https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/)——用多 persona(工程 lead、CEO 等)在 Claude Code 里红队评审你的 PRD。等于把 ChatPRD 的 "CPO Coaching" 功能本地复刻了。想要的话我可以直接帮你搭一个这样的 reviewer agent + 上面那套融合模板。
+
+Sources: [ChatPRD 官网](https://www.chatprd.ai/) · [ChatPRD 模板指南](https://www.chatprd.ai/learn/prd-template) · [Fireside PM 横评](https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres) · [prodmgmt.world 15 模板指南](https://www.prodmgmt.world/blog/prd-template-guide) · [Hustle Badger 13 例](https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/) · [Lenny's Confluence 模板](https://www.atlassian.com/software/confluence/templates/lennys-product-requirements)
+
+===== USER =====
+写进飞书
+
+===== USER =====
+Base directory for this skill: /Users/taevas/.claude/skills/lark-doc
+
+# docs
+
+## 场景与 Shortcut 路由
+
+**CRITICAL：先判断场景，再读取该场景的参考文件；不要在任务开始时一次性读取全部参考文件。每个文件只在首次进入对应阶段时读取一次。**
+
+**身份：文档操作推荐显式指定 `--as user`。**
+
+**所有表示本地文件的 `@path` 均使用 `@./xxx` 形式的相对路径，并以运行 `lark-cli` 时的当前工作目录（CWD）为基准。**
+
+### 文档内容
+
+- **读取 / 摘要 — [`+fetch`](references/lark-doc-fetch.md)**：先读参考再获取文档。
+- **从零创作 — [`创建工作流`](references/lark-doc-create-workflow.md)**：先完整执行创建工作流，**简单任务不是跳过的理由**；
+- **导入 / 空文档 — [`+create`](references/lark-doc-create.md)**：仅创建空文档或原样导入用户提供的完整内容时，跳过创建工作流。
+- **编辑 / block 直达链接 — [`+update`](references/lark-doc-update.md)**：语义改写、润色、重组、补写或排版均按 update 参考完成。
+
+### 辅助能力
+
+- **草稿初始化、解析与统计 — [`+script`](references/lark-doc-script.md)**：支持解析文档 URL / token 与本地 XML，统计字数并返回字符诊断；不支持 Markdown 输入。
+- **历史版本 — [`+history-list` / `+history-revert` / `+history-revert-status`](references/lark-doc-history.md)**：查询、回滚文档历史版本或检查回滚任务状态。
+
+### 资源、画板与思维笔记
+
+- **插入本地素材 — [`+media-insert`](references/lark-doc-media-insert.md)**：在文末插入本地图片或文件。
+- **预览素材 — [`+media-preview`](references/lark-doc-media-preview.md)**：预览文档或评论中的图片、附件或素材。
+- **下载素材 — [`+media-download`](references/lark-doc-media-download.md)**：下载文档中的图片、附件、素材或画板缩略图。
+- **Docx 封面 — [`+resource-download` / `+resource-update` / `+resource-delete`](references/lark-doc-resource-cover.md)**：下载、更新或删除 Docx 封面。
+- **画板 — [`画板工作流`](references/lark-doc-whiteboard.md)**：创建或更新画板时先读取工作流；更新已有画板必须复用现有 token，禁止新建空白画板；使用 [`whiteboard +update`](../lark-whiteboard/references/lark-whiteboard-update.md) 写入。
+- **思维笔记 — `mindnotes`**：已有思维笔记走 [`思维笔记链路`](references/lark-doc-mindnote.md)；新建思维笔记走 [`lark-doc-whiteboard`](references/lark-doc-whiteboard.md)。
+
+### 认证与 Scope
+
+执行 Shortcut 时，不预读 [`lark-shared`](../lark-shared/SKILL.md) 或预跑 `auth status --verify`；仅遇到未认证、token / 身份或 scope 错误时读取该 Skill，修复后重试。认证、身份或 scope 管理请求则直接使用该 Skill。
+
+## 不在本 Skill 范围
+
+- **Drive 文件级操作**：找文档、导入导出、云空间文件上传 / 下载 / 权限管理 → [`lark-drive`](../lark-drive/SKILL.md)。复制文档、创建副本或另存为副本时，按其指引使用 `lark-cli drive files copy`；不要用 `docs +fetch` + `docs +create` 重建正文。
+- **独立评论操作**：添加、分页查看、回复评论或增删 reaction → [`lark-drive`](../lark-drive/SKILL.md)；只需紧凑评论上下文时，直接使用默认 JSON 响应的 `docs +fetch`。
+
+
+ARGUMENTS: 创建一篇新文档,内容是 PRD 工具与模板研究
+
+===== ASSISTANT =====
+Genre 确认:`report.white_paper`(技术/行业 landscape 型,面向系统理解与评估)。资料已齐,表达机会以对比表格为主,无需图片/画板。初始化草稿:
+
+===== ASSISTANT =====
+XML 规则已明确。生成 release candidate:
+
+===== ASSISTANT =====
+Profile Check 已通过（2914 字，224 个块，结构均衡）。读取创建参考：
+
+===== ASSISTANT =====
+创建成功。回查验证 + 清理工作区：
+
+===== ASSISTANT =====
+已写入飞书 ✅
+
+📄 **[PRD 工具与模板全景研究](https://icnk3gqknrte.feishu.cn/docx/M72Od0wGRo9kQyxkPtPcR977nye)**
+
+文档结构：
+1. **结论速览** — 四条核心判断(含横评修正：Claude 第一)
+2. **AI 工具横评** — 五工具排名表 + 「餐巾纸背面」方法论 + 元洞察
+3. **ChatPRD 深度画像** — 四大功能块表格 + 适配判断(独立开发者无需付费)
+4. **模板库十家** — 按轻重光谱总览表 + 极简/中量/全面/特殊四派逐一拆解 + 顶级团队文化注脚
+5. **组合建议** — 融合模板七分节草案(Lenny 骨架 + Decision Journal + 活 Milestones)+ 本地复刻 CPO 评审的思路
+6. **来源** — 六个参考文献链接
+
+已回查确认正文完整，草稿工作区已清理。
+
+后续如果要把第 5 节的融合模板落成一份可直接复制的空白模板(或者搭那个 Claude Code PRD Reviewer agent),说一声即可。
+
+===== USER =====
+每个模板也要
+
+===== ASSISTANT =====
+十套模板的可复制完整版，写成一篇「PRD 模板库」文档。走创建工作流：
+
+===== ASSISTANT =====
+配置检查已通过。正在创建文档：
+
+===== ASSISTANT =====
+模板库已写入 ✅
+
+📄 **[PRD 模板库 · 十一套可复制模板](https://icnk3gqknrte.feishu.cn/docx/XWIPdnvcWotjr0xa7gNcZo6Qnme)**
+
+内容：
+- **选型速查表** — 11 套模板 × 适用场景 × 篇幅，不确定选哪套先看这张表
+- **十一套完整模板**，每套含「适用场景一句话 + 可直接复制的模板本体(【】占位 + 引导问题)+ 使用铁律」：
+  1. Intercom Intermission(含 Job Story 句式)
+  2. Linear 三段式
+  3. Lenny 1-Pager
+  4. Kevin Yien 五阶段(含 checkbox 签字栏，勾选即可用)
+  5. Basecamp Shape Up(Appetite 约束)
+  6. ChatPRD 官方十段(含示例句式)
+  7. Figma Coda 版(含里程碑表格)
+  8. Uber(含跨产品影响矩阵 + 合规自查 checkbox)
+  9. Amazon PR/FAQ(新闻稿逐段公式 + 内外 FAQ)
+  10. SeatGeek 决策日志(含 Decision Journal 表格)
+  11. **融合自用版**(压轴推荐，含 Changelog 表)
+
+用法：选中所需模板的整个分节 → 复制 → 替换【】占位即可。已回查确认完整，工作区已清理。
+
+现在飞书里是配套的两篇：《全景研究》(为什么)+《模板库》(直接用)。

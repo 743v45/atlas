@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChatPRD · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>PRD 工具</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../claude/report.html">Claude（Agent 直写） →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>ChatPRD</h1>
+<blockquote><strong>TL;DR</strong>：最成熟的专用 AI PRD 平台：起草+CPO 视角评审+Linear/Notion/Confluence/MCP 流转一体（免费档 / Pro $15/月 / Teams $29/席/月，2026-08-27 查询）；生成质量已被通用 Claude 追平甚至反超，付费理由收窄为 PM 团队标准化与流转集成。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用——PM 团队标准化场景值得付费，独立开发者无需）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">SaaS（app.chatprd.ai），面向产品经理的 AI 平台</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">价格</td><td style="text-align:left">Free $0（3 chats）；Pro $15/月（年付 $179）；Teams $29/席/月（年付 $349/席）（官网 pricing，2026-08-27 查询）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">用户规模</td><td style="text-align:left">官网宣称 100,000+ PM、Fortune 500 到 seed 团队（2026-08-26 会话读官网）</td><td style="text-align:left">[2][5]</td></tr><tr><td style="text-align:left">合规</td><td style="text-align:left">SOC 2 Type II、SSO、BYO LLM（官网宣称，2026-08-26）</td><td style="text-align:left">[5]</td></tr></tbody></table>
+<h2>为什么试用</h2>
+<ul><li><strong>专用工具里最成熟</strong>：四大功能块——AI Documentation（粗想法/会议记录→PRD、one-pager、user stories、技术 spec、GTM brief，自动 gap 分析）、AI Coaching（CPO 视角评审+打分）、Integrations（Linear/Notion/Confluence/Google Docs 导出、PRD→Linear ticket、Slack、MCP、v0/Lovable 生成原型）、Team（共享项目空间、自定义 persona）（2026-08-26 会话读官网）[2][5]。</li><li><strong>结构化输出是强项</strong>：Fireside PM 横评第 2 名，「结构最规范、最像人写的」（2025-12-08）[3]；Aakash Gupta 对撞测试与 Claude 打平（均 B+）（IdeaPlan 2026 引述）[6]。</li><li><strong>生成器同质化是行业共识</strong>：各家生成器用同样的底层模型，输出质量在收敛，差异在进上下文的东西与流转集成（Enterpret 2026-07-29）[4]——ChatPRD 的护城河正是 PM 工作流集成那一侧。</li></ul>
+<h2>为什么不是 adopt</h2>
+<ul><li><strong>生成质量不占优</strong>：同题实测输给通用 Claude（Fireside PM 2025-12：Claude 第 1、ChatPRD 第 2）[3]；Storyflow 2026 也将 Claude 评为 specs 阶段最强 [7]。已有 Claude 订阅者，为「生成」付费的理由消失。</li><li><strong>独立开发者场景结论</strong>：核心付费理由是团队场景——给没有 PM 的团队配「AI PM」、统一文档标准、PRD→Linear 流转；独立开发者 + 已有 Claude Code 基本没有付费必要（2026-08-26 会话结论）[5]。CPO 评审可用 Hustle Badger 的 Claude Code PRD Reviewer 方案本地复刻 [8]。</li></ul>
+<h2>对比</h2>
+<ul><li>与 Claude 直写：见 <a href="../claude/report.md">claude</a>——质量 Claude ≥ ChatPRD，ChatPRD 赢模板库与流转。</li><li>与 Notion AI：ChatPRD 是「文档生成器」，Notion AI 是「文档平台的内联 AI」——前者重 PM 深度，后者重协作承载（Enterpret 2026 [4]、BuildBetter 2026 [9]）。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>英文产品</strong>：界面、模板、AI 输出以英文为主，中文 PRD 场景体验待验证。</li><li><strong>底层模型依赖</strong>：BYO LLM 是 Teams/企业能力，Pro 档模型选择受平台控制 [5]。</li><li><strong>Lenny 订阅者福利</strong>：Lenny's Newsletter 年度订阅者可领一年 Pro（到期按 $180/年续）——符合条件者可零成本试用（官网 /lenny 页，2026-08-27 查询）[10]。</li></ul>
+<h2>来源</h2>
+<ol><li>ChatPRD Pricing — <a href="https://www.chatprd.ai/pricing">https://www.chatprd.ai/pricing</a>（查询 2026-08-27）</li><li>ChatPRD 官网 — <a href="https://www.chatprd.ai/">https://www.chatprd.ai/</a>（访问 2026-08-26 会话 / 2026-08-27）</li><li>I Tested 5 AI Tools to Write a PRD — Fireside PM 2025-12-08，<a href="https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres">https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres</a></li><li>The 6 Best AI Tools for Writing a PRD Grounded in Customer Evidence — Enterpret 2026-07-29，<a href="https://www.enterpret.com/guides/the-6-best-ai-tools-for-writing-a-prd-grounded-in-customer-evidence-in-2026-fgpsr">https://www.enterpret.com/guides/the-6-best-ai-tools-for-writing-a-prd-grounded-in-customer-evidence-in-2026-fgpsr</a></li><li>Claude 会话 d77eeed3（2026-08-26）——官网功能块画像与适配判断</li><li>AI PRD Generator: 6 Free Tools Tested vs ChatPRD 2026 — IdeaPlan 2026，<a href="https://www.ideaplan.io/blog/best-free-ai-prd-generators-2026">https://www.ideaplan.io/blog/best-free-ai-prd-generators-2026</a></li><li>The 12 Best AI Tools for Product Managers in 2026 (Tested) — Storyflow 2026，<a href="https://storyflow.so/blog/best-ai-tools-for-product-managers-2026">https://storyflow.so/blog/best-ai-tools-for-product-managers-2026</a></li><li>13x PRD Examples（Claude Code PRD Reviewer）— Hustle Badger，<a href="https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/">https://www.hustlebadger.com/what-do-product-teams-do/prd-template-examples/</a></li><li>Best ChatPRD Alternatives in 2026 — BuildBetter 2026，<a href="https://blog.buildbetter.ai/best-chatprd-alternatives-in-2026-ai-prd-generators-for-product-teams">https://blog.buildbetter.ai/best-chatprd-alternatives-in-2026-ai-prd-generators-for-product-teams</a></li><li>ChatPRD × Lenny's Newsletter 优惠页 — <a href="https://www.chatprd.ai/lenny">https://www.chatprd.ai/lenny</a>（查询 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（历史会话结论 + 价格核实）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

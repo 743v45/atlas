@@ -1,0 +1,23 @@
+{
+  "name": "GitFox",
+  "homepage": "https://www.gitfox.app",
+  "license": "Proprietary",
+  "verdict": "assess",
+  "summary": "macOS 原生新秀：SwiftUI 编写、Fork 级功能对齐，€60/年订阅；v4.x 迭代快但生态年轻，值得观察再上车。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.gitfox.app",
+    "https://www.gitfox.app/plans",
+    "https://apps.apple.com/app/gitfox",
+    "https://www.reddit.com/r/macapps/comments/1munkvg/after_months_of_development_ive_completed_a"
+  ],
+  "tags": ["git", "gui", "macos", "native", "subscription", "new-entrant"],
+  "matrix": {
+    "许可": "闭源订阅",
+    "价格": "€60/年",
+    "平台": "仅 macOS",
+    "性能": "快（SwiftUI 原生）",
+    "大仓库": "待验证"
+  }
+}

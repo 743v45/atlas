@@ -1,0 +1,35 @@
+{
+  "name": "Trilium / TriliumNext",
+  "repo": "https://github.com/TriliumNext/Trilium",
+  "homepage": "https://triliumnotes.org",
+  "license": "AGPL-3.0",
+  "verdict": "assess",
+  "summary": "自托管 Web 多端访问、Docker 部署好——但数据非纯 Markdown、AI 写入通道弱；2025-06 fork 仓库归档、项目并回原名 Trilium（原 zadam/trilium 仓库，2026-08 仍活跃发版）；多端 Web 访问刚需时才值得评。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/TriliumNext/Trilium（gh 2026-08-27 采集；原 zadam/trilium 仓库转让至 TriliumNext 组织）",
+    "https://github.com/TriliumNext/Notes（fork 旧仓库，2025-06-24 归档，gh 2026-08-27）",
+    "https://github.com/orgs/TriliumNext/discussions/5867（「TriliumNext Notes will become Trilium Notes」更名讨论，访问 2026-08-27）",
+    "Claude 会话 be457b46（2026-08-25）——本报告提取源"
+  ],
+  "tags": [
+    "自托管",
+    "web",
+    "docker"
+  ],
+  "stats": {
+    "source_repo": "TriliumNext/Trilium",
+    "stars": 37599,
+    "pushed_at": "2026-08-26",
+    "license": "AGPL-3.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "数据形态": "自管数据库",
+    "双链": "有（克隆树）",
+    "AI 写入": "API 弱",
+    "自托管": "✅ Docker",
+    "成本": "免费"
+  }
+}

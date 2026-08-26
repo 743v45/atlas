@@ -1,0 +1,36 @@
+{
+  "name": "SenseVoice",
+  "repo": "https://github.com/FunAudioLLM/SenseVoice",
+  "homepage": "https://arxiv.org/abs/2407.04051",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "通义 234M 非自回归小模型：10 秒音频 70ms 出结果（官方口径比 Whisper-Large 快 15 倍），中粤英日韩五语+情感/事件检测，2026-06 起有 llama.cpp 单文件 GGUF 运行时（q8 仅 254MB）——轻量本地字幕/实时场景首选模型。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/FunAudioLLM/SenseVoice",
+    "https://huggingface.co/FunAudioLLM/SenseVoiceSmall",
+    "https://github.com/FireRedTeam/FireRedASR"
+  ],
+  "tags": [
+    "asr",
+    "model",
+    "chinese",
+    "lightweight",
+    "gguf"
+  ],
+  "stats": {
+    "source_repo": "FunAudioLLM/SenseVoice",
+    "stars": 9150,
+    "pushed_at": "2026-08-18",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "模型（GGUF/ONNX）",
+    "中文支持": "强（含粤语）",
+    "本地部署": "✅ 单文件二进制",
+    "速度": "15x Whisper-Large",
+    "许可": "MIT"
+  }
+}

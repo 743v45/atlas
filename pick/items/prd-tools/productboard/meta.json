@@ -1,0 +1,25 @@
+{
+  "name": "Productboard",
+  "repo": "",
+  "homepage": "https://www.productboard.com",
+  "license": "商业 SaaS",
+  "verdict": "hold",
+  "summary": "面向「大量用户反馈聚类成 roadmap」的需求管理平台：AI 聚类反馈强、PRD 起草弱（Essentials $19 / Pro $59 per maker/月，2026）；个人与小团队为此付费不值——它解决的是你没遇到的反馈规模问题。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.productboard.com",
+    "https://www.enterpret.com/guides/the-6-best-ai-tools-for-writing-a-prd-grounded-in-customer-evidence-in-2026-fgpsr",
+    "https://storyflow.so/blog/best-ai-tools-for-product-managers-2026",
+    "Claude 会话 d77eeed3（2026-08-26）——本报告提取源"
+  ],
+  "tags": ["需求管理", "roadmap", "企业", "落选"],
+  "matrix": {
+    "形态": "SaaS 需求管理平台",
+    "AI 能力": "反馈聚类+AI 起草（弱）",
+    "协作": "门户+路线图+权限",
+    "Agent 读写": "❌ 无公开 agent 通道",
+    "价格": "Essentials $19 / Pro $59 per maker",
+    "中文": "界面多语言（待验证）"
+  }
+}

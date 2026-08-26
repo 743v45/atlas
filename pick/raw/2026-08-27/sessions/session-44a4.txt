@@ -1,0 +1,1015 @@
+
+===== [5] USER =====
+[命令调用] <command-message>grill-me</command-message>
+<command-name>/grill-me</command-name>
+<command-args>取推荐但不询问，除非无法决策。tvly 调研反检测浏览器，能让 ai 用的，写一份报告。另外 mcp 或者 cli 的方式访问浏览器也写一份报告。写到 taevasidian 里</command-args
+
+===== [6] USER =====
+Base directory for this skill: /Users/taevas/.claude/skills/grill-me
+
+Call the Skill tool with "grilling".
+
+
+ARGUMENTS: 取推荐但不询问，除非无法决策。tvly 调研反检测浏览器，能让 ai 用的，写一份报告。另外 mcp 或者 cli 的方式访问浏览器也写一份报告。写到 taevasidian 里
+
+----- [11] assistant TOOL_USE Skill -----
+{"args": "取推荐但不询问，除非无法决策。tvly 调研反检测浏览器，能让 ai 用的，写一份报告。另外 mcp 或者 cli 的方式访问浏览器也写一份报告。写到 taevasidian 里", "skill": "grilling"}
+
+----- [12] TOOL_RESULT -----
+Launching skill: grilling
+
+===== [13] USER =====
+Base directory for this skill: /Users/taevas/.claude/skills/grilling
+
+Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
+
+Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.
+
+Format a round like so:
+
+```
+❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+
+➡️ <your recommended answer>
+
+---
+
+❓ **Q2** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+
+➡️ <your recommended answer>
+```
+
+Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
+
+Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
+
+The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.
+
+
+ARGUMENTS: 取推荐但不询问，除非无法决策。tvly 调研反检测浏览器，能让 ai 用的，写一份报告。另外 mcp 或者 cli 的方式访问浏览器也写一份报告。写到 taevasidian 里
+
+===== [20] ASSISTANT =====
+收到。参数已明确覆盖默认拷问行为：**自己取推荐做决策，不问用户**。先把设计树在内部过一遍，然后直接执行。
+
+**内部决策树(全部取推荐，无一需要升级给用户)：**
+
+- **D1 调研工具**:`tvly` 是环境事实 → 自己查(`which tvly` / `--help`)
+- **D2 调研主题一范围**：“反检测浏览器 + 能让 AI 用” → 取推荐：覆盖自托管方案(Camoufox、Patchright、undetected-chromedriver 系)+ 云端 agent 浏览器(Browserbase、Steel 等)，聚焦可编程/AI-agent 可接入
+- **D3 调研主题二范围**：“MCP / CLI 访问浏览器” → 取推荐：MCH 侧(chrome-devtools-mcp、playwright-mcp 等)+ CLI 侧(browser-use、agent-browser 等)
+- **D4 报告语言**：中文
+- **D5 落盘位置/规范**：vault 根 CLAUDE.md 是唯一权威 → 先读规则再写
+
+先并行拿事实：
+
+----- [21] assistant TOOL_USE Bash -----
+{"command": "which tvly && tvly --help 2>&1 | head -50", "description": "Check tvly CLI availability and usage"}
+
+----- [22] assistant TOOL_USE Bash -----
+{"command": "ls /Users/taevas/SynologyDrive/m4ni/taevasidian/", "description": "List taevasidian vault root structure"}
+
+----- [23] TOOL_RESULT -----
+/Users/taevas/.local/bin/tvly
+Usage: tvly [OPTIONS] [COMMAND] [ARGS]...
+
+  Tavily CLI — search, extract, crawl, map, and research from the command
+  line.
+
+  Authenticate with: tvly login --api-key tvly-YOUR_KEY Or set TAVILY_API_KEY
+  environment variable.
+
+Options:
+  --version  Show version and exit.
+  --status   Show version and auth status.
+  --json     Output as JSON (for agents and scripts).
+  --help     Show this message and exit.
+
+Commands:
+  auth      Check authentication status.
+  crawl     Crawl a website starting from URL.
+  extract   Extract content from one or more URLs.
+  login 
+
+----- [24] TOOL_RESULT -----
+attachments
+business
+CLAUDE.md
+Diary
+Excalidraw
+f49568a0df5657d589517df40dea5f1d.jpg
+graphify-out
+inbox
+INDEX.base
+INDEX.md
+info 1.plist
+info 2.plist
+info 3.plist
+info 4.plist
+info.plist
+invest
+ops
+Pasted image 20260317194808.png
+refs
+tech
+templates
+欢迎.md
+未命名.canvas
+
+===== [27] ASSISTANT =====
+tvly 可用。读 vault 规则和 tech 目录结构：
+
+----- [28] assistant TOOL_USE Read -----
+{"file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/CLAUDE.md"}
+
+----- [29] TOOL_RESULT -----
+1	# taevasidian — 个人知识库
+2	
+3	AI 主写的留档 wiki。用户极少手工编辑,一切写入、归档、织网、索引维护由 AI 执行。目标是**查什么有什么、都存下来、方便定位**。
+4	
+5	- 位置:`/Users/taevas/SynologyDrive/m4ni/taevasidian`
+6	- 备份三通道:SynologyDrive 同步 + git 本地历史 + GitHub 远端 `743v45/taevasidian`(commit 后 push;Obsidian Git 插件每 15 分钟自动 commit+push 兜底)
+7	- 阅读器:Obsidian(本 vault;数据是纯 Markdown 文件,阅读器随时可换,不绑定)
+8	- 写入口:Claude Code(`/wiki` skill 或直接会话),**不要**再用 Outline/飞书写入(已废弃)
+9	
+10	## 目录规则(AI 判断归属,用户不管文件)
+11	
+12	| 目录 | 用途 |
+13	|---|---|
+14	| `tech/` | 技术方法论、技术设计、选型报告、技术翻译 |
+15	| `ops/` | 部署踩坑、运维实录 |
+16	| `invest/` | 投资研究 |
+17	| `business/` | 商业洞察 |
+18	| `refs/` | 外部内
+
+----- [30] assistant TOOL_USE Bash -----
+{"command": "ls /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/ && echo \"---\" && ls /Users/taevas/SynologyDrive/m4ni/taevasidian/inbox/ 2>/dev/null | head -20", "description": "List tech and inbox directory contents"}
+
+----- [31] TOOL_RESULT -----
+agent-frameworks
+ai-coding
+apple-liquid-glass
+kubernetes
+methodology
+synology-ops
+templates
+技能树
+技术专题
+技术专题.md
+面试题
+命令行
+数据库选型
+数据库选型.md
+自动化开发平台 - Agent 框架.md
+---
+
+===== [34] ASSISTANT =====
+规则已明确：选型报告 → `tech/`,type: report,写完要织网 + 更新 INDEX + commit/push。先查重并看织网环境：
+
+----- [35] assistant TOOL_USE Bash -----
+{"command": "cd /Users/taevas/SynologyDrive/m4ni/taevasidian && grep -rli \"camoufox\\|patchright\\|browserbase\\|undetected\\|反检测\\|指纹浏览器\\|playwright.*mcp\\|chrome.*devtools.*mcp\\|browser-use\" --include=\"*.md\" . 2>/dev/null | grep -v graphify-out | head -20; echo \"=== tech/技术专题 ===\"; ls tech
+
+----- [39] TOOL_RESULT -----
+setValueForKeyFakeAssocArray:27: command not found: _encode
+setValueForKeyFakeAssocArray:27: command not found: _encode
+setValueForKeyFakeAssocArray:27: command not found: _encode
+setValueForKeyFakeAssocArray:27: command not found: _encode
+setValueForKeyFakeAssocArray:27: command not found: _encode
+setValueForKeyFakeAssocArray:27: command not found: _encode
+setValueForKeyFakeAssocArray:27: command not found: _encode
+setValueForKeyFakeAssocArray:27: command not found: _encode
+setValueForKeyFakeAssocArray:27: command not found: _encode
+setValueForKeyFakeAssocArray:27: command not found: _encode
+
+
+===== [42] ASSISTANT =====
+查重结论:无既有报告,但有两大枢纽可织网(`browser-automation/浏览器自动化总览`、`crawler/反反爬虫技能树总览`)。归属决策(取推荐):新建 `tech/browser/`,两份报告同放,主题聚焦。
+
+开始 tvly 调研。先摸清 search 参数,同时跑第一轮搜索:
+
+----- [43] assistant TOOL_USE Bash -----
+{"command": "tvly search --help 2>&1 | head -30", "description": "Check tvly search options"}
+
+----- [44] TOOL_RESULT -----
+Usage: tvly search [OPTIONS] [QUERY]
+
+  Search the web using Tavily.
+
+  QUERY is the search query. Use "-" to read from stdin.
+
+  Works without an API key (subject to a rate-limit cap). Run `tvly login` to
+  authenticate and remove the cap.
+
+Options:
+  --depth [ultra-fast|fast|basic|advanced]
+                                  Search depth (default: basic).
+  --max-results INTEGER           Maximum results, 0-20 (default: 5).
+  --topic [general|news|finance]  Search topic.
+  --time-range [day|week|month|year]
+                                  Relative time filter.
+  --start-date TEXT           
+
+----- [45] assistant TOOL_USE Bash -----
+{"command": "tvly search \"best anti-detect browsers for AI agents web automation 2026\" 2>&1 | head -80", "description": "Search anti-detect browsers for AI agents"}
+
+----- [46] TOOL_RESULT -----
+1. Best Anti-Detect Browsers for AI Agents 2026 | ProxyHorizon | ProxyHorizon   
+score: 0.91
+   www.proxyhorizon.com
+   ## The 8 Best Anti-Detect Browsers for AI Agents in 2026
+
+### 1Multilogin
+
+Multilogin
+
+Multilogin
+
+4.5/ 5
+
+Profiles:Up to unlimited
+
+Free Plan:No
+
+From:€29/mo
+
+Team:Supported
+
+Industry-leading fingerprint technology
+
+Custom-built browser engines for maximum stealth
+
+Excellent API and automation supp...
+
+2. The 9 Best AI Agents in 2026 & How to Run Automation Safely | AdsPower   
+score: 0.88
+   www.adspower.com
+   #### Best Antidetect Browsers in 2026: Evaluated & Rated
+
+  Loo
+
+===== [49] ASSISTANT =====
+搜索链路通。继续批量并行调研两份报告的素材：
+
+----- [50] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Camoufox Firefox anti-detect browser playwright stealth fingerprinting\" --max-results 5 2>&1 | head -60", "description": "Search Camoufox stealth browser details"}
+
+----- [51] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Patchright playwright patch anti-detection CDP leaks\" --max-results 5 2>&1 | head -60", "description": "Search Patchright details"}
+
+----- [52] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Browserbase vs Steel vs Hyperbrowser headless browser API for AI agents comparison\" --max-results 5 2>&1 | head -60", "description": "Search cloud agent browser platforms comparison"}
+
+----- [53] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Chrome DevTools MCP vs Playwright MCP browser automation comparison 2026\" --max-results 5 2>&1 | head -60", "description": "Search browser MCP servers comparison"}
+
+----- [54] TOOL_RESULT -----
+1. daijro/camoufox: 🦊 Anti-detect browser   score: 0.84
+   github.com
+   Warning
+
+Current status as of 2026: There has been a year gap in maintenance due to a 
+personal situation. Camoufox has gone down in performance due to the base 
+Firefox version and newly discovered fingerprint inconsistencies. Camoufox is 
+currently under active development.
+
+In Camoufox, all of Playw...
+
+2. Stealth Overview   score: 0.82
+   camoufox.com
+   Normally, Playwright injects some JavaScript into the page such as 
+`window.__playwright__binding__` and to perform actions like querying elements, 
+evaluating javasc
+
+----- [58] TOOL_RESULT -----
+1. Anti-Detect Browser Benchmark 2026: 7 Tools, 651 Verdicts   score: 0.89
+   ianlpaterson.com
+   ### Patchright
+
+Patchright is a Playwright fork that patches the CDP-leak signals Playwright 
+exposes during browser startup, specifically the `Runtime.enable` and 
+`Target.setAutoAttach` call sequences that anti-bot systems can detect in the 
+protocol handshake. It supports `channel=chrome`, which tel...
+
+2. The 6 best Patchright alternatives in 2026 - Roundproxies   score: 0.85
+   roundproxies.com
+   The main difference between Patchright and Camoufox is the underlying browser
+engine and patchin
+
+----- [59] TOOL_RESULT -----
+1. Browserbase vs Steel vs Hyperbrowser: Browser Infrastructure 2026 | APIScout 
+score: 0.91
+   apiscout.dev
+   Browserbase is the safest default for teams that want managed browser 
+sessions without inventing browser operations.
+ Steel’s main appeal is openness: it positions the browser API itself as 
+open-source infrastructure for agent builders.
+ Hyperbrowser is the most agent-branded option and is aimed squ...
+
+2. Remote Browsers: Web Infra for AI Agents Compared   score: 0.80
+   aimultiple.com
+   | Provider | Composite score | Success rate for browser automation | Speed | 
+Features | Scal
+
+----- [60] TOOL_RESULT -----
+1. Chrome DevTools MCP vs Playwright MCP for Digital Analysts: A Practical 
+Comparison (2026) | Trackingplan   score: 0.93
+   www.trackingplan.com
+   It depends on what you're measuring. On schema cost (loaded when the session 
+starts) Playwright MCP is lighter — about 13,700 tokens vs Chrome DevTools MCP's
+18,000, per public benchmarks from November 2025. But at runtime, on real 
+multi-step journeys, Playwright MCP becomes much more expensive: it ...
+
+2. Playwright MCP vs Claude in Chrome: Which Browser Testing ...   score: 0.91
+   lalatenduswain.medium.com
+   The ideal setup for most teams i
+
+===== [63] ASSISTANT =====
+新线索浮现：Clawbrowser、Donut、Kernel、Vercel agent-browser。继续深挖：
+
+----- [64] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Clawbrowser AI agent browser open source Claude Code playwright\" --max-results 5 2>&1 | head -55", "description": "Search Clawbrowser details"}
+
+----- [65] assistant TOOL_USE Bash -----
+{"command": "tvly search \"browser-use open source library LLM agent chromium 2026\" --max-results 5 2>&1 | head -55", "description": "Search browser-use library details"}
+
+----- [66] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Vercel agent-browser CLI terminal web browser agent\" --max-results 5 2>&1 | head -55", "description": "Search Vercel agent-browser CLI"}
+
+----- [67] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Multilogin AdsPower 比特浏览器 API automation selenium playwright 接入\" --max-results 5 2>&1 | head -55", "description": "Search commercial antidetect browser API integration"}
+
+----- [68] TOOL_RESULT -----
+1. OpenClaw Browser Agent Guide | MI   score: 0.74
+   www.meta-intelligence.tech
+   1. OpenClaw Documentation. (2026). Skills — agent-browser. docs.openclaw.ai
+2. OpenClaw Documentation. (2026). ClawhHub — Skills Marketplace. 
+docs.openclaw.ai
+3. Scientific American. (2026). OpenClaw is an open-source AI agent that runs 
+your computer. Scientific American. scientificamerican.com
+4. P...
+
+2. The 7 Best Browsers for AI Agent Automation in 2026 — Clawbrowser   score: 
+0.70
+   clawbrowser.ai
+   ### Key Features
+
+ Fully open-source and self-hostable; MIT-style permissive license
+ Built-in stealth p
+
+----- [69] TOOL_RESULT -----
+1. Best 30+ Open Source Web Agents in 2026   score: 0.82
+   aimultiple.com
+   Browser-Use: Takes messy DOM and restructures it for LLMs. Strips out 
+irrelevant elements, labels interactive components, and provides control 
+interfaces. This is what let Browser-Use hit 89.1% on WebVoyager. Available as a
+Python library or API, deploy self-hosted or use their cloud. [...] Browser-...
+
+2. Best Open Source Browser Automation in 2026   score: 0.81
+   www.unbrowse.ai
+   Browser Use lets AI models control browsers using natural language 
+instructions. It has grown explosively to become the most-starre
+
+----- [73] TOOL_RESULT -----
+1. Code-First Agents - Browser CLI with agent-browser | bitbasti   score: 0.84
+   bitbasti.com
+   With `agent-browseragent-browser`, I use one tool family for the entire 
+browser workflow instead of bouncing between separate tool wrappers for open, 
+context, click, extract, and screenshot.
+
+## Getting Started with `agent-browseragent-browser`
+
+### What is `agent-browseragent-browser`?
+
+`agent-brow...
+
+2. Vercel Agent Browser + Cloud Browser Integration   score: 0.84
+   scrapfly.io
+   agent-browser lets you control headless browsers directly from the terminal. 
+Open pages, extract text, take sc
+
+----- [74] TOOL_RESULT -----
+1. awesome-adspower-automation/guides/selenium-integration.md at main · 
+pencil20388-eng/awesome-adspower-automation · GitHub   score: 0.71
+   github.com
+   # Selenium + AdsPower Integration Guide
+
+Connect Selenium to AdsPower browser profiles for advanced automation. This 
+guide covers everything from installation to running your first automated task.
+
+## How It Works
+
+When you open an AdsPower profile via API, it returns a debug interface address.
+Sele...
+
+2. 2026 年 AdsPower 与 Multilogin 对比：该如何选择？   score: 0.70
+   www.bright.cn
+   胜者：平局
+
+## 系统需求
+
+在系统需求上，Multilogin 与 AdsPower 相比略有优势。两者都需要 4GB
+
+===== [77] ASSISTANT =====
+素材快齐了。补最后几个关键点：benchmark 细节、Donut、Playwright CLI、nodriver 现状：
+
+----- [78] assistant TOOL_USE Bash -----
+{"command": "tvly extract \"https://ianlpaterson.com/anti-detect-browser-benchmark\" 2>&1 | head -100 || tvly search \"ianlpaterson anti-detect browser benchmark patchright camoufox verdicts\" --max-results 3 2>&1 | head -40", "description": "Extract anti-detect browser benchmark details"}
+
+----- [79] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Donut Browser anti-detect chromium open source github\" --max-results 3 2>&1 | head -40", "description": "Search Donut Browser details"}
+
+----- [80] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Microsoft Playwright CLI 2026 agent command line browser\" --max-results 3 2>&1 | head -40", "description": "Search Playwright CLI 2026"}
+
+----- [81] assistant TOOL_USE Bash -----
+{"command": "tvly search \"nodriver undetected-chromedriver successor 2026 status cloudflare\" --max-results 3 2>&1 | head -40", "description": "Search nodriver current status"}
+
+----- [82] TOOL_RESULT -----
+Failed extractions:
+  x https://ianlpaterson.com/anti-detect-browser-benchmark: 404 page not found
+
+──────────────────────── 0 extracted, 1 failed | 2.91s ─────────────────────────
+
+----- [83] TOOL_RESULT -----
+1. Open Source Antidetect Browser — Donut Browser   score: 0.93
+   donutbrowser.com
+   Yes, one exists. Donut Browser is an open source antidetect browser: the app 
+you actually run — profile manager, local REST API, MCP server and sync service 
+— is published under AGPL-3.0 at github.com/zhom/donutbrowser, with zero 
+telemetry and no account required. One part is not open: the Wayfern C...
+
+2. Free Open-Source Anti-Detect Browser — Donut Browser   score: 0.87
+   donutbrowser.com
+   Donut Browser is an anti-detect browser that allows you to create and manage 
+unlimited local profiles for multi
+
+----- [84] TOOL_RESULT -----
+1. Playwright CLI: The Token-Efficient Alternative to Playwright MCP for AI 
+Coding Agents   score: 0.83
+   testcollab.com
+   Playwright CLI is a standalone command-line tool published by Microsoft under
+the `@playwright/cli` npm package. It launched in early 2026 as a companion to 
+the existing Playwright MCP server. [...] # Open the browser playwright-cli open
+--headed # Take a snapshot to get element references playwrig...
+
+2. Playwright MCP is Shifting to Playwright CLI - Now What?   score: 0.83
+   www.kualitatem.com
+   ## What Microsoft Just Shipped
+
+In early 2026, Microsoft released Play
+
+----- [85] TOOL_RESULT -----
+1. Anti-Detect Browser Benchmark 2026: 7 Tools, 651 Verdicts   score: 0.83
+   ianlpaterson.com
+   nodriver drives system Chrome over a direct WebSocket connection to the 
+browser’s DevTools port. There is no Playwright shim in the control plane, no 
+`Runtime.enable` call sequence at startup, and no middleware layer between the 
+Python code and the browser process. It is the successor to undetected-...
+
+2. Best Stealth Browsers for Web Scraping in 2026   score: 0.77
+   scrapfly.io
+   ## 2. nodriver: Best Modern Python Default
+
+nodriver is the best modern Python default. It controls Chrome direc
+
+===== [91] ASSISTANT =====
+关键动态浮现：**Microsoft 2026 年把重心从 Playwright MCP 转向 Playwright CLI**(state 存磁盘不进 context);Donut Browser 横跨两份报告(反检测 + 自带 MCP server)。补最后一批素材：
+
+----- [92] assistant TOOL_USE Bash -----
+{"command": "tvly search \"\\\"Anti-Detect Browser Benchmark 2026\\\" 7 tools 651 verdicts results winner\" --max-results 3 --include-domains ianlpaterson.com 2>&1 | head -50", "description": "Find benchmark article URL and results"}
+
+----- [93] assistant TOOL_USE Bash -----
+{"command": "tvly search \"Claude in Chrome extension browser features 2026\" --max-results 3 2>&1 | head -35", "description": "Search Claude in Chrome extension details"}
+
+----- [94] TOOL_RESULT -----
+1. Anti-Detect Browser Benchmark 2026: 7 Tools, 651 Verdicts   score: 0.90
+   ianlpaterson.com
+   | linkedin-jobs | ok | ok | ok | ok | ok | ok | ok |
+| medium | BLK | gated | gated | gated | BLK | ok | gated |
+| newsfilecorp | ok | ok | ok | ok | ok | ok | ok |
+| nowsecure-cf | ok | ok | ok | ok | ok | ok | ok |
+| pixelscan-bot | ok | ok | ok | ok | ok | ok | ok |
+| pixelscan-fp | ok | ok | ok ...
+
+2. AI: Local LLMs, Benchmarks, and Agent Tooling   score: 0.77
+   ianlpaterson.com
+   ## Sorting a Filesystem Hoard With Local LLMs: What 2,300 Files Told Me About
+My Obsidian Vault
+
+  In shortThe 
+
+----- [95] TOOL_RESULT -----
+1. 【2026年版】Chrome に戻した私が入れている拡張機能 4 選と、Claude Code 
+にブラウザを操作させる話｜Noah Shin   score: 0.86
+   note.com
+   Claude Code が Google Chrome を操作できるようになった、これです。
+
+Claude 公式の Chrome 拡張を入れると、Claude Code 
+側からブラウザを直接動かせます。ページを開く、クリックする、フォームに入力する、
+画面を読む。全部やらせられます。
+
+これ、Atlas を使っていた頃の私は、正直ほとんど気づけていませんでした。
+
+「ブラウザに AI を載せる」ことばかり考えていて、逆向きの発想、つまり AI 
+側にブラウザを持たせるという選択肢が完全に抜け落ちていました。
+
+言葉にすると似ていますが、使うと別物です。
+
+AI ブラウザのエージェント機能は、あく...
+
+2. Claude in Chrome vs ChatGPT Atlas: Extension vs Full Browser (2026)   score: 
+0.82
+   www.usecarly.com
+   Claude in Chrome is an extension. You install it from the Chrome Web Store, 
+it
+
+===== [98] ASSISTANT =====
+素材齐了。开始写报告。先瞄一眼枢纽文档结构以便织网：
+
+----- [99] assistant TOOL_USE Bash -----
+{"command": "head -40 \"/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/技能树/browser-automation/浏览器自动化总览.md\"; echo \"==== 反反爬 ====\"; head -30 \"/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/技能树/crawler/反反爬虫技能树总览.md\"", "description": "Peek hub documents structure for linking"}
+
+----- [100] TOOL_RESULT -----
+---
+tags: [浏览器自动化, 技能树, 总览]
+category: 技能树
+created: 2026-04-14
+type: note
+topic: [浏览器自动化]
+status: stable
+updated: 2026-08-25
+---
+
+# 浏览器自动化技术 - 总览
+
+> 浏览器自动化技术知识库，涵盖 CDP、扩展 API、Headless 模式等核心技术。
+
+## 与反反爬虫技能树的关系
+
+本目录作为 [[crawler/README|反反爬虫技能树]] 的技术补充，提供浏览器自动化底层技术的深度解析。
+
+| 技能树 | 本目录 | 关系 |
+|--------|--------|------|
+| crawler | browser-automation | crawler 使用自动化技术，本目录解析自动化技术本身的限制与原理 |
+
+## 文件索引
+
+| 文件 | 说明 | 阅读建议 |
+|------|------|----------|
+| [[Chrome调试端口限制]] | CDP 完整限制列表 | 理解 CDP 的边界，选择合适的技术方案 |
+
+## 学习路径
+
+```
+浏览器自动化技术
+│
+├── 理解 CDP 限制 → [[Chrome调试端口限制]]
+│   ├── 网络与连接限制
+│   ├── 安全限制
+│   ├── 反检测信号
+│ 
+
+===== [103] ASSISTANT =====
+织网环境清楚了。现在写两份报告：
+
+----- [104] assistant TOOL_USE Bash -----
+{"command": "mkdir -p \"/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser\"", "description": "Create tech/browser directory"}
+
+----- [108] TOOL_RESULT -----
+(Bash completed with no output)
+
+----- [110] assistant TOOL_USE Write -----
+{"file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "content": "---\ntitle: \"反检测浏览器选型：AI Agent 可用方案\"\ntype: report\ntopic: [浏览器自动化, 爬虫, AI-Agent]\nstatus: stable\nsource: 原创\nurl:\ncreated: 2026-08-27\nupdated: 2026-08-27\n---\n\n# 反检测浏览器选型:AI Agent
+
+----- [112] TOOL_RESULT -----
+File created successfully at: /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md (file state is current in your context — no need to Read it back)
+
+----- [115] assistant TOOL_USE Write -----
+{"file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md", "content": "---\ntitle: \"浏览器访问层选型：MCP 与 CLI\"\ntype: report\ntopic: [浏览器自动化, MCP, AI-Agent]\nstatus: stable\nsource: 原创\nurl:\ncreated: 2026-08-27\nupdated: 2026-08-27\n---\n\n# 浏览器访问层选型:MCP 与 CLI\n\n> 
+
+----- [120] TOOL_RESULT -----
+File created successfully at: /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md (file state is current in your context — no need to Read it back)
+
+===== [123] ASSISTANT =====
+两份报告落盘。继续织网：枢纽文档加回链 + 更新 INDEX:
+
+----- [124] assistant TOOL_USE Bash -----
+{"command": "sed -n '48,58p' /Users/taevas/SynologyDrive/m4ni/taevasidian/INDEX.md", "description": "Check INDEX.md section format"}
+
+----- [125] TOOL_RESULT -----
+- [[tech-debt-register]]
+- [[tech-selection-report]]
+
+## tech/数据库选型 — 数据库选型报告 (27)
+
+- [[Amazon Aurora · 云原生关系数据库选型报告]]
+- [[Amazon DynamoDB · 托管 KV-文档数据库选型报告]]
+- [[Apache Cassandra · 宽列分布式数据库选型报告]]
+- [[Chroma · 轻量向量数据库选型报告]]
+- [[ClickHouse · 列式 OLAP 数据库选型报告]]
+- [[CockroachDB · 分布式 NewSQL 数据库选型报告]]
+
+----- [129] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/技能树/browser-automation/浏览器自动化总览.md", "old_string": "| 文件 | 说明 | 阅读建议 |\n|------|------|----------|\n| [[Chrome调试端口限制]] | CDP 完整限制列表 | 理解 CDP 的边界，选择合适的技术方案 |", "new_string": "| 文件 | 说明 | 阅读建议 |\n|------|------|----
+
+----- [130] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/技能树/browser-automation/浏览器自动化总览.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [131] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/INDEX.md", "old_string": "## tech/数据库选型 — 数据库选型报告 (27)", "new_string": "## tech/browser — 浏览器 (2)\n\n- [[反检测浏览器选型：AI Agent 可用方案]]\n- [[浏览器访问层选型：MCP 与 CLI]]\n\n## tech/数据库选型 — 数据库选型报告 (27)"}
+
+----- [133] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/INDEX.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+===== [139] ASSISTANT =====
+织网完成。最后按 vault 流程 commit + push:
+
+----- [140] assistant TOOL_USE Bash -----
+{"command": "git status --short 2>&1 | head -10", "description": "Check git status in vault"}
+
+----- [141] TOOL_RESULT -----
+ M .obsidian/workspace.json
+ M INDEX.md
+ M "tech/\346\212\200\350\203\275\346\240\221/browser-automation/\346\265\217\350\247\210\345\231\250\350\207\252\345\212\250\345\214\226\346\200\273\350\247\210.md"
+?? tech/browser/
+
+----- [143] assistant TOOL_USE Bash -----
+{"command": "git add INDEX.md \"tech/browser/反检测浏览器选型：AI Agent 可用方案.md\" \"tech/browser/浏览器访问层选型：MCP 与 CLI.md\" \"tech/技能树/browser-automation/浏览器自动化总览.md\" && git commit -m \"wiki: 反检测浏览器选型 + 浏览器访问层选型（MCP 与 CLI）\" && git push 2>&1 | tail -5", "description": "Commit and push the two new reports"}
+
+----- [144] TOOL_RESULT -----
+[main ff6174a] wiki: 反检测浏览器选型 + 浏览器访问层选型（MCP 与 CLI）
+ 4 files changed, 291 insertions(+)
+ create mode 100644 "tech/browser/\345\217\215\346\243\200\346\265\213\346\265\217\350\247\210\345\231\250\351\200\211\345\236\213\357\274\232AI Agent \345\217\257\347\224\250\346\226\271\346\241\210.md"
+ create mode 100644 "tech/browser/\346\265\217\350\247\210\345\231\250\350\256\277\351\227\256\345\261\202\351\200\211\345\236\213\357\274\232MCP \344\270\216 CLI.md"
+To github.com:743v45/taevasidian.git
+   7f3d9ff..ff6174a  main -> main
+
+===== [147] ASSISTANT =====
+完成。全程未触发“无法决策”升级，设计树各分支均按推荐执行。
+
+## 交付总结
+
+**两份报告已写入 vault 并推送(commit `ff6174a`):**
+
+### 📄 `tech/browser/反检测浏览器选型：AI Agent 可用方案.md`
+- **四条技术路线**全景：
+  - **A 驱动层补丁**:Patchright(Playwright drop-in,改一行 import)、nodriver(udc 官方继任，直连 DevTools)、Camoufox(引擎级最强理论，但 2026 有维护断层史 ⚠️)
+  - **B 开源反检测浏览器**:Donut(AGPL,**自带 REST API + MCP server**)、Clawbrowser(MIT,CDP 暴露，为 Claude Code 类 Agent 设计)
+  - **C 商业指纹浏览器**:AdsPower/Multilogin 等(REST API → debug port 接管模式)
+  - **D 云端基础设施**：Browserbase(省心)、Steel(开源可自托管)、Bright Data(AIMultiple 97 分最高)
+- TL;DR 场景矩阵 + 对比表 + 选型决策树 + 合规边界
+
+### 📄 `tech/browser/浏览器访问层选型：MCP 与 CLI.md`
+- **2026 关键动态**：Microsoft 重心从 Playwright MCP → **Playwright CLI**(state 存磁盘不进上下文)；CLI 路线 token 经济学全面占优(schema 0 vs 13.7k/18k)
+- MCP 阵营：DevTools MCP(性能调试独占)、Playwright MCP(跨浏览器)、mcp-chrome(接管现有登录态)、Browserbase/Browser Use MCP
+- CLI 阵营：**agent-browser**(Vercel Rust,一键装进 Claude Code)、Playwright CLI、browser-use、Claude in Chrome(官方扩展，反 Atlas 路线)
+- token 成本速查表 + 分层选型决策树
+
+**织网**：两报告互链为姊妹篇，并链入 `浏览器自动化总览`(枢纽已加回链)、`反反爬虫技能树总览`、`Chrome调试端口限制`、refs 的 CDP 演化文;INDEX.md 已加 `tech/browser` 段。
+
+一个值得留意的调研发现：**Donut Browser 是两份报告的交集**——自托管反检测 + 内置 MCP,如果你要“反检测且 Agent 直连”的单一方案，它是目前唯一孤例。
+
+===== [152] USER =====
+你再用 gh 搜一搜，补充补充。star 起码 1000 以上吧
+
+===== [158] ASSISTANT =====
+好，用 `gh` 拿一手数据(star、push 时间、license),给两份报告补硬指标。并行搜：
+
+----- [159] assistant TOOL_USE Bash -----
+{"command": "echo \"=== camoufox ===\"; gh search repos camoufox --sort stars --limit 3 --json fullName,stargazersCount,pushedAt,license --template '{{range .}}{{.fullName}} | ⭐{{.stargazersCount}} | push:{{.pushedAt}} | {{.license.name}}{{\"\\n\"}}{{end}}' 2>&1; echo \"=== patchright ===\"; gh sear
+
+----- [160] TOOL_RESULT -----
+Exit code 4
+=== camoufox ===
+To get started with GitHub CLI, please run:  gh auth login
+Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+=== patchright ===
+To get started with GitHub CLI, please run:  gh auth login
+Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+=== nodriver/udc ===
+To get started with GitHub CLI, please run:  gh auth login
+Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+
+----- [161] assistant TOOL_USE Bash -----
+{"command": "echo \"=== browser-use ===\"; gh search repos browser-use --sort stars --limit 5 --json fullName,stargazersCount,pushedAt,license --template '{{range .}}{{.fullName}} | ⭐{{.stargazersCount}} | push:{{.pushedAt}} | {{.license.name}}{{\"\\n\"}}{{end}}' 2>&1; echo \"=== donut ===\"; gh sea
+
+----- [162] TOOL_RESULT -----
+Exit code 4
+=== browser-use ===
+To get started with GitHub CLI, please run:  gh auth login
+Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+=== donut ===
+To get started with GitHub CLI, please run:  gh auth login
+Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+=== clawbrowser ===
+To get started with GitHub CLI, please run:  gh auth login
+Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+
+----- [163] assistant TOOL_USE Bash -----
+{"command": "echo \"=== playwright-mcp ===\"; gh search repos \"playwright mcp\" --sort stars --limit 3 --json fullName,stargazersCount,pushedAt,license --template '{{range .}}{{.fullName}} | ⭐{{.stargazersCount}} | push:{{.pushedAt}} | {{.license.name}}{{\"\\n\"}}{{end}}' 2>&1; echo \"=== devtools-
+
+----- [168] TOOL_RESULT -----
+Exit code 4
+=== playwright-mcp ===
+To get started with GitHub CLI, please run:  gh auth login
+Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+=== devtools-mcp ===
+To get started with GitHub CLI, please run:  gh auth login
+Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+=== agent-browser ===
+To get started with GitHub CLI, please run:  gh auth login
+Alternatively, populate the GH_TOKEN environment variable with a GitHub API authentication token.
+
+===== [171] ASSISTANT =====
+gh 未认证。检查有无本地凭据，否则走 GitHub 公共 API 兜底：
+
+----- [172] assistant TOOL_USE Bash -----
+{"command": "gh auth status 2>&1; ls ~/.config/gh/ 2>/dev/null; grep -l \"oauth_token\" ~/.config/gh/hosts.yml 2>/dev/null && echo \"token exists\"", "description": "Check gh auth status and local credentials"}
+
+----- [173] TOOL_RESULT -----
+Exit code 2
+You are not logged into any GitHub hosts. To log in, run: gh auth login
+
+===== [175] USER =====
+[Request interrupted by user]
+
+===== [177] USER =====
+gh 登录了
+
+----- [180] assistant TOOL_USE Bash -----
+{"command": "gh auth status 2>&1 | head -5 && echo \"=== camoufox ===\" && gh search repos camoufox --sort stars --limit 3 --json fullName,stargazersCount,pushedAt,license --template '{{range .}}{{.fullName}} | ⭐{{.stargazersCount}} | push:{{.pushedAt}} | {{.license.name}}{{\"\\n\"}}{{end}}'", "desc
+
+----- [181] TOOL_RESULT -----
+github.com
+  ✓ Logged in to github.com account 743v45 (keyring)
+  - Active account: true
+  - Git operations protocol: https
+  - Token: gho_************************************
+=== camoufox ===
+daijro/camoufox | ⭐11448 | push:2026-08-26T01:40:45Z | Mozilla Public License 2.0
+CJackHwang/AIstudioProxyAPI | ⭐2489 | push:2026-04-22T12:20:26Z | GNU Affero General Public License v3.0
+saifyxpro/HeadlessX | ⭐2266 | push:2026-08-26T10:08:00Z | Other
+
+===== [184] ASSISTANT =====
+认证成功。Camoufox ⭐11.4k 且昨天仍在 push——这修正了 tvly 调研的“断层”印象。继续批量：
+
+----- [185] assistant TOOL_USE Bash -----
+{"command": "for q in \"patchright\" \"nodriver\" \"undetected-chromedriver\" \"botasaurus\"; do echo \"=== $q ===\"; gh search repos \"$q\" --sort stars --limit 3 --json fullName,stargazersCount,pushedAt,license --template '{{range .}}{{.fullName}} | ⭐{{.stargazersCount}} | push:{{.pushedAt}} | {{.
+
+----- [186] assistant TOOL_USE Bash -----
+{"command": "for q in \"browser-use\" \"donut browser\" \"clawbrowser\" \"browser automation agent\"; do echo \"=== $q ===\"; gh search repos \"$q\" --sort stars --limit 4 --json fullName,stargazersCount,pushedAt,license --template '{{range .}}{{.fullName}} | ⭐{{.stargazersCount}} | push:{{.pushedAt
+
+----- [187] assistant TOOL_USE Bash -----
+{"command": "for q in \"playwright mcp\" \"devtools mcp\" \"agent-browser\" \"stagehand\"; do echo \"=== $q ===\"; gh search repos \"$q\" --sort stars --limit 3 --json fullName,stargazersCount,pushedAt,license --template '{{range .}}{{.fullName}} | ⭐{{.stargazersCount}} | push:{{.pushedAt}} | {{.lic
+
+----- [188] TOOL_RESULT -----
+=== patchright ===
+vogler/free-games-claimer | ⭐4197 | push:2026-08-06T13:47:00Z | GNU Affero General Public License v3.0
+Kaliiiiiiiiii-Vinyzu/patchright | ⭐4187 | push:2026-08-19T17:20:06Z | Apache License 2.0
+zhizhuodemao/js-reverse-mcp | ⭐2608 | push:2026-08-25T07:03:19Z | Apache License 2.0
+=== nodriver ===
+ultrafunkamsterdam/nodriver | ⭐4698 | push:2026-05-13T13:58:15Z | GNU Affero General Public License v3.0
+vibheksoni/stealth-browser-mcp | ⭐1666 | push:2026-07-24T22:20:35Z | MIT License
+cdpdriver/zendriver | ⭐1409 | push:2026-08-16T23:23:26Z | GNU Affero General Public License v3.0
+=== 
+
+----- [189] TOOL_RESULT -----
+=== browser-use ===
+browser-use/browser-use | ⭐110782 | push:2026-08-26T07:24:01Z | MIT License
+animate-css/animate.css | ⭐82753 | push:2024-07-29T19:34:21Z | Other
+bytedance/UI-TARS-desktop | ⭐38708 | push:2026-08-05T02:48:59Z | Apache License 2.0
+filebrowser/filebrowser | ⭐35950 | push:2026-07-31T10:06:58Z | Apache License 2.0
+=== donut browser ===
+ToRaNek/donutbrowser-fixed | ⭐4 | push:2026-03-24T09:09:41Z | GNU Affero General Public License v3.0
+mateusz-kacpura/donutbrowser-unlocked | ⭐3 | push:2026-08-22T09:08:50Z | GNU Affero General Public License v3.0
+donutbrowser/docs | ⭐1 | push:2026
+
+----- [190] TOOL_RESULT -----
+=== playwright mcp ===
+microsoft/playwright-mcp | ⭐36489 | push:2026-08-21T22:46:04Z | Apache License 2.0
+cloudflare/playwright-mcp | ⭐257 | push:2026-04-23T20:52:00Z | Apache License 2.0
+terryso/claude-code-playwright-mcp-test | ⭐185 | push:2025-07-19T13:28:59Z | 
+=== devtools mcp ===
+ChromeDevTools/chrome-devtools-mcp | ⭐49749 | push:2026-08-26T14:26:02Z | Apache License 2.0
+cookjohn/cnki-skills | ⭐880 | push:2026-03-13T06:29:41Z | 
+vercel/next-devtools-mcp | ⭐813 | push:2026-06-25T22:30:14Z | 
+=== agent-browser ===
+abhigyanpatwari/GitNexus | ⭐45797 | push:2026-08-26T15:39:37Z | Other
+vercel
+
+===== [197] ASSISTANT =====
+一手数据威力大：**agent-browser 已 41k star**(tvly 的 12k 是旧数据)、**chrome-devtools-mcp 49.7k**,而 **Clawbrowser 只有 28 star**(营销热≠社区热，要从推荐位降级)。再补几个精确查询：
+
+----- [198] assistant TOOL_USE Bash -----
+{"command": "for r in zhom/donutbrowser steel-dev/steel browserless/browserless unclecode/crawl4ai SkyvernAgent/skyvern microsoft/playwright; do gh api repos/$r --jq '[.full_name, .stargazers_count, .pushed_at, .license.spdx_id] | @tsv' 2>/dev/null || echo \"$r NOT FOUND\"; done", "description": "Qu
+
+----- [199] assistant TOOL_USE Bash -----
+{"command": "for q in \"skyvern\" \"crawl4ai\" \"mcp chrome\" \"browser mcp\"; do echo \"=== $q ===\"; gh search repos \"$q\" --sort stars --limit 4 --json fullName,stargazersCount,pushedAt,license --template '{{range .}}{{.fullName}} | ⭐{{.stargazersCount}} | push:{{.pushedAt}} | {{.license.name}}{
+
+----- [200] TOOL_RESULT -----
+zhom/donutbrowser	3716	2026-08-26T11:51:50Z	AGPL-3.0
+{"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/repos#get-a-repository","status":"404"}steel-dev/steel NOT FOUND
+browserless/browserless	13635	2026-08-25T05:44:08Z	NOASSERTION
+unclecode/crawl4ai	79463	2026-08-25T07:39:29Z	Apache-2.0
+{"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/repos#get-a-repository","status":"404"}SkyvernAgent/skyvern NOT FOUND
+microsoft/playwright	95163	2026-08-26T16:29:34Z	Apache-2.0
+
+----- [201] TOOL_RESULT -----
+=== skyvern ===
+Skyvern-AI/skyvern | ⭐22850 | push:2026-08-26T03:53:17Z | GNU Affero General Public License v3.0
+Skyvern-AI/n8n-nodes-skyvern | ⭐19 | push:2025-09-02T18:52:12Z | MIT License
+elucherini/skyvern-client | ⭐5 | push:2024-11-17T18:21:31Z | MIT License
+bulia-keshav/Element-variation-websites | ⭐5 | push:2025-09-07T18:19:00Z | 
+=== crawl4ai ===
+unclecode/crawl4ai | ⭐79463 | push:2026-08-25T07:39:29Z | Apache License 2.0
+coleam00/mcp-crawl4ai-rag | ⭐2245 | push:2025-07-25T15:17:13Z | MIT License
+cyberagiinc/DevDocs | ⭐2106 | push:2026-02-04T16:24:24Z | Apache License 2.0
+watercrawl/Wat
+
+===== [204] ASSISTANT =====
+数据齐了，还发现几个重要遗漏(Stagehand 24k、Skyvern 22.8k、botasaurus 5.7k、zendriver 1.4k)。查一下 Steel 的真实 repo 再动笔：
+
+----- [205] assistant TOOL_USE Bash -----
+{"command": "gh search repos \"steel browser api\" --sort stars --limit 5 --json fullName,stargazersCount,pushedAt --template '{{range .}}{{.fullName}} | ⭐{{.stargazersCount}} | push:{{.pushedAt}}{{\"\\n\"}}{{end}}'; echo \"---\"; gh api \"repos/steel-dev/steel-browser\" --jq '[.full_name, .stargaze
+
+----- [206] TOOL_RESULT -----
+---
+steel-dev/steel-browser	7542	2026-08-25T19:41:14Z
+
+===== [209] ASSISTANT =====
+Steel 实为 `steel-dev/steel-browser` ⭐7.5k(活跃)。现在把一手数据灌进两份报告。先改报告一：
+
+----- [210] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "> 调研时间:2026-08-27,工具 tvly(Tavily)。", "new_string": "> 调研时间:2026-08-27,工具 tvly(Tavily)+ gh(GitHub CLI 一手数据:star/push/license)。"}
+
+----- [211] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [212] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "| 需要多 Profile 管理 + AI 接口,自托管 | **Donut Browser** | AGPL-3.0,自带本地 REST API + **MCP server**,天生给 Agent 用 |\n| Claude Code 等 CLI Agent 直接开浏览器 | **Clawbrowser** | MIT
+
+----- [213] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [220] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "- **AI 接入**:纯 Python API,与 browser-use 等框架组合方便。\n- **定位**:直面 Cloudflare/Imperva/hCaptcha 场景的 Python 默认选择(Scrapfly 2026 评测结论)。", "new_string": "- **AI 接入**:纯 Pytho
+
+----- [221] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [222] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "- **AI 接入**:Python 库 `camoufox`,Playwright API 驱动。\n- **⚠️ 风险**:GitHub 官方警告——作者个人原因有约一年维护断层,基础 Firefox 版本老化 + 新发现指纹不一致问题导致对抗性能下滑,2026 年处于重新活跃开发中。选型时把它当\"强但需盯紧\"的选
+
+----- [223] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [230] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "| 指纹一致性要求高,能接受 Firefox | **Camoufox** | C++ 层改造 Firefox 引擎,指纹从引擎生成;但 2026 维护有断层,需评估 |", "new_string": "| 指纹一致性要求高,能接受 Firefox | **Camoufox** | C++ 层改造 Firefox 引擎,
+
+----- [231] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [232] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "#### Donut Browser\n\n- AGPL-3.0 开源,零遥测、无需账号;Profile 管理器 + **本地 REST API + MCP server** + 同步服务(云端 Wayfern 部分闭源)。\n- 对 AI Agent 的意义:Agent 可直接通过 MCP 创建/切换指纹 Profile
+
+----- [233] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [240] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "**高(断层史)**", "new_string": "**高(断层史,2026-08 已回魂)**"}
+
+----- [241] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [242] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "未知(新)", "new_string": "**极高(⭐28)**"}
+
+----- [243] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+===== [250] ASSISTANT =====
+现在插入 GitHub 活跃度速查表：
+
+----- [251] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "第三方基准可参考 ianlpaterson.com《Anti-Detect Browser Benchmark 2026: 7 Tools, 651 Verdicts》(逐站点 ok/BLK/gated 矩阵)与 AIMultiple 云浏览器评测(综合分:Bright Data 97 > BrowserAI 87 > A
+
+----- [252] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+===== [255] ASSISTANT =====
+决策树里的 Clawbrowser 引用也要修：
+
+----- [256] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md", "old_string": "├── 需要多 Profile / 多账号 / 指纹轮换?\n│   ├── 自托管、要 MCP 直连 → Donut Browser\n│   ├── CLI Agent(Claude Code 等)→ Clawbrowser\n│   └── 商业级稳定、付费 → AdsPower(中文/性价比)/ Multilogi
+
+----- [257] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/反检测浏览器选型：AI Agent 可用方案.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+===== [263] ASSISTANT =====
+报告一完成。现在更新报告二(MCP 与 CLI):
+
+----- [264] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md", "old_string": "> 调研时间:2026-08-27,工具 tvly(Tavily)。", "new_string": "> 调研时间:2026-08-27,工具 tvly(Tavily)+ gh(GitHub CLI 一手数据:star/push/license)。"}
+
+----- [265] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [266] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md", "old_string": "- 生态集成是一等公民:官方 skill 可一键装进 **Claude Code、Codex、Cursor、Gemini CLI、Copilot、Goose、OpenCode、Windsurf**(`npx skills add vercel-labs/agent-browser`),skill 从仓库动态拉取保持更新。\n- 可
+
+----- [267] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [270] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md", "old_string": "### mcp-chrome(接管现有会话)\n\n- 连接用户**现有的本地 Chrome**(登录态、cookie、tab 全在),适合\"让 Agent 用我的身份干活\"。\n- 与 Playwright MCP 的 fresh session 模式互补,Webfuse 2026 榜单把它列为\"接现有 Chrome\"的
+
+----- [271] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [272] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md", "old_string": "### Donut Browser 内置 MCP\n\n- 自托管反检测浏览器自带 MCP server——**反检测 + Agent 访问**一体的孤例,详见姊妹篇路线 B。", "new_string": "### Donut Browser 内置 MCP / stealth-browser-mcp\n\n- 自托管反检测浏览
+
+----- [273] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+===== [280] ASSISTANT =====
+加 GitHub 活跃度速查表 + 更新决策树:
+
+----- [281] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md", "old_string": "## 五、选型决策树", "new_string": "## 五、GitHub 活跃度速查(gh 一手数据,2026-08-27,选型门槛 ≥1k star)\n\n| 项目 | star | 最后 push | license | 备注 |\n|------|------|-----------|---------|------
+
+----- [282] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [283] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md", "old_string": "└── 反检测也是需求?\n    └── Donut Browser(MCP 自带)或 agent-browser + Clawbrowser/云端 stealth", "new_string": "└── 反检测也是需求?\n    └── Donut Browser / stealth-browser-mcp(MCP 自带)
+
+----- [284] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+===== [291] ASSISTANT =====
+TL;DR 矩阵补一行 Stagehand,然后收尾提交:
+
+----- [292] assistant TOOL_USE Edit -----
+{"replace_all": false, "file_path": "/Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md", "old_string": "| Claude Code 里的日常通用浏览器操作 | **agent-browser**(Vercel) | Rust CLI,快;官方 skill 一行装进 Claude Code/Cursor/Codex;`@e2` 元素引用语法极省 token |", "new_string": "| Claude Code 里的日常通用
+
+----- [293] TOOL_RESULT -----
+The file /Users/taevas/SynologyDrive/m4ni/taevasidian/tech/browser/浏览器访问层选型：MCP 与 CLI.md has been updated successfully. (file state is current in your context — no need to Read it back)
+
+----- [295] assistant TOOL_USE Bash -----
+{"command": "git add \"tech/browser/反检测浏览器选型：AI Agent 可用方案.md\" \"tech/browser/浏览器访问层选型：MCP 与 CLI.md\" && git commit -m \"wiki: 浏览器两报告补充 gh 一手数据（star/push/license，≥1k 门槛）\" && git push 2>&1 | tail -3", "description": "Commit and push updated reports"}
+
+----- [296] TOOL_RESULT -----
+[main 7c735a0] wiki: 浏览器两报告补充 gh 一手数据（star/push/license，≥1k 门槛）
+ 2 files changed, 81 insertions(+), 24 deletions(-)
+To github.com:743v45/taevasidian.git
+   e84591f..7c735a0  main -> main
+
+===== [299] ASSISTANT =====
+补充完成，commit `7c735a0` 已推送。gh 一手数据带来三类修正：
+
+## 数据修正(评测文章全是旧数据)
+- **agent-browser:12k+ → ⭐41,372**(日更，CLI 路线领跑)
+- **Camoufox“维护断层”是历史**：最后 push 2026-08-26,已回魂(⭐11.4k)
+- **undetected-chromedriver 确认死亡**：⭐12.8k 但停在 2025-07,报告标注勿选
+- Steel repo 已改名 `steel-browser`,⭐7,542 活跃
+
+## 降级/除名(过不了 1k star 门槛)
+- **Clawbrowser:⭐28** — tvly 调研里它声量很大，实际 GitHub 社区几乎不存在，营销痕迹明显。已从 TL;DR 和决策树移除，正文降为“观察对象”并标注冷数据
+- BrowserMCP(⭐7k)停更一年+ → 勿选；mcp-chrome(⭐12.4k)放缓 7 个月 → 标注
+
+## 新增(≥1k 且活跃)
+- **Stagehand ⭐24,064**(Browserbase 官方 AI SDK,act/extract/observe 三原语)— 此前最大遗漏，补进报告二 TL;DR,并引出“通道 vs 原语 vs 自治”三层抽象的选型框架
+- **Skyvern ⭐22,850** — 视觉+DOM 混合 Agent
+- **botasaurus ⭐5,689** — 一体化反检测爬虫框架
+- **zendriver ⭐1,409** — nodriver 放缓后的社区 fork 备选
+- **stealth-browser-mcp ⭐1,666** — “反检测×MCP”交集线
+- crawl4ai ⭐79k / UI-TARS ⭐38.7k 作相邻生态收录
+
+两份报告各新增一节 **「GitHub 活跃度速查表」**(star / 最后 push / license / 备注)，调研方法注明 `tvly + gh` 双源。
+
+顺带一提：两报告加起来，`chrome-devtools-mcp`(49.7k)、`agent-browser`(41.4k)、`playwright-mcp`(36.5k)三个头部项目全在日更——这个赛道 2026 年的竞争烈度远超评测文章呈现的状态。
+
+===== [303] USER =====
+数据进报告了吗
+
+===== [307] ASSISTANT =====
+进了。刚才那次 commit(`7c735a0`,+81 行)就是灌入数据，验证一下实际内容：
+
+----- [308] assistant TOOL_USE Bash -----
+{"command": "echo \"=== 报告一:反检测 ===\"; grep -c \"⭐\" \"tech/browser/反检测浏览器选型：AI Agent 可用方案.md\"; grep -n \"活跃度速查\\|110,782\\|11,448\\|4,187\\|3,716\\|28\" \"tech/browser/反检测浏览器选型：AI Agent 可用方案.md\" | head -8; echo; echo \"=== 报告二:MCP/CLI ===\"; grep -c \"⭐\" \"tech/browser/浏览器访问层选型：MCP 与 CLI.md\"; g
+
+----- [313] TOOL_RESULT -----
+=== 报告一:反检测 ===
+9
+61:- **活跃度**(gh 2026-08-27):⭐11,448 / MPL-2.0,最后 push 2026-08-26——README 里的"一年维护断层"警告是 2025 年的历史,当前已恢复日更节奏,选型时可当"强且已回魂"的选项,但 README 警告未撤,仍建议盯指纹一致性公告。
+75:- AGPL-3.0 开源(zhom/donutbrowser,⭐3,716,2026-08-26 活跃),零遥测、无需账号;Profile 管理器 + **本地 REST API + MCP server** + 同步服务(云端 Wayfern 部分闭源)。
+82:- **⚠️ 冷数据**(gh 2026-08-27):clawbrowser/clawbrowser 仅 **⭐28**。评测榜单上声量很大,但 GitHub 社区几乎不存在——自查内容营销痕迹明显,**不满足 ≥1k star 的选型门槛**,仅作观察对象。同类诉求(反检测 + CDP + MCP)由 Donut Browser 覆盖。
+118:| 维护风险  | 中              | 中            | **高(断层史,2026-08 已回魂)**     | 低(活跃)          | **极高(⭐28)**                    
+
+===== [316] ASSISTANT =====
+都在。数据以三层形态写入了：
+
+1. **正文小节的「活跃度」行** — 每个关键项目直接标注 gh 数据，如 Camoufox(报告一 ：61)、agent-browser 41,372(报告二 ：88)、Clawbrowser ⭐28 冷数据(报告一 ：82)
+2. **独立的「GitHub 活跃度速查」表** — 报告一 ：122(13 项)、报告二 ：122(10 项)，含 star / 最后 push / license / 备注，并标明“门槛 ≥1k star”
+3. **结论层修正** — 对比表的维护风险列、TL;DR、决策树都已同步(如报告一 ：118 的 Clawbrowser 改为“极高(⭐28)”)，不是只堆数字
+
+远端也是最新的(`7c735a0` 已 push)。

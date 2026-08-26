@@ -1,0 +1,38 @@
+{
+  "name": "CockroachDB",
+  "repo": "https://github.com/cockroachdb/cockroach",
+  "homepage": "https://www.cockroachlabs.com",
+  "license": "BUSL-1.1（源可用）",
+  "verdict": "trial",
+  "summary": "强一致分布式与运维自动化最好的 NewSQL 之一，但 BUSL 源可用许可（2024-08 起对年收入 ≥$5M 企业收费）与云优先导向，让开源自托管的新采用需要掂量；跨区域强一致刚需时值得试。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://endoflife.date/cockroachdb",
+    "https://techcrunch.com/2024/08/15/cockroach-labs-shakes-up-its-licensing-to-force-bigger-companies-to-pay",
+    "https://db-engines.com/en/ranking",
+    "https://www.cockroachlabs.com/docs/releases/v25.4",
+    "taevasidian/tech/数据库选型/CockroachDB · 分布式 NewSQL 数据库选型报告——历史调研底稿"
+  ],
+  "tags": [
+    "newsql",
+    "分布式",
+    "强一致",
+    "busl"
+  ],
+  "matrix": {
+    "定位": "分布式 NewSQL",
+    "许可": "BUSL-1.1（源可用）",
+    "水平扩展": "原生分布式",
+    "协议兼容": "PG 线协议",
+    "托管": "CockroachCloud",
+    "成本": "BUSL：≥$5M 收入收费"
+  },
+  "stats": {
+    "source_repo": "cockroachdb/cockroach",
+    "stars": 32415,
+    "pushed_at": "2026-08-07",
+    "license": "NOASSERTION",
+    "collected_at": "2026-08-27"
+  }
+}

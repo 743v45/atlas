@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SenseVoice · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/speech-content.html">语音与内容</a><span class="sep">·</span><span>字幕/语音识别工具</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../seed-asr/report.html">← 豆包 Seed-ASR（火山引擎 API）</a><span class="sep">·</span><a href="../whisper/report.html">OpenAI Whisper →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>SenseVoice</h1>
+<blockquote><strong>TL;DR</strong>：通义 234M 非自回归小模型：10 秒音频 70ms 出结果（官方口径比 Whisper-Large 快 15 倍），中粤英日韩五语+情感/事件检测，2026-06 起有 llama.cpp 单文件 GGUF 运行时（q8 仅 254MB）——轻量本地字幕/实时场景首选模型。</blockquote>
+<ul><li><strong>结论</strong>：adopt 推荐</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">SenseVoiceSmall（2024-07 开源）；GGUF/llama.cpp 运行时 2026-06；仓库最近推送 2026-08-18</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/FunAudioLLM/SenseVoice">https://github.com/FunAudioLLM/SenseVoice</a>（⭐9,150，gh 2026-08-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">活跃：2026 年连续更新（5 月 diarization 组合、6 月 GGUF、7 月时间戳/语言元数据跟随 FunASR 发版）（观察 2026-08-27）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ol><li><strong>推理速度断层领先</strong>：非自回归端到端架构，10 秒音频仅需 70ms——官方口径比 Whisper-Large 快 15 倍、比 Whisper-Small 快 5 倍以上（HF 官方模型卡/论文口径，2024-07）[2]。字幕批量回填、近实时转写都够用。</li><li><strong>中文+粤语在内的五语覆盖</strong>：普通话、粤语、英语、日语、韩语，官方基准称中文与粤语识别优于 Whisper（SenseVoice 仓库基准图，2024-07）[1]；历史会话横评口径下 AISHELL-1 CER 约 3.0%（腾讯云 2026-03 引 SenseVoice 仓库柱状图近似值）[3]。</li><li><strong>字幕场景的增值输出</strong>：附带语音情感识别（官方称持平或超过当时最佳情感模型）与音频事件检测（bgm/掌声/笑声/咳嗽等）——做视频字幕时可顺带标记非语音段 [1]。</li><li><strong>2026-06 起有单文件运行时</strong>：llama.cpp/GGUF 路线，whisper.cpp 式自包含二进制、内置 VAD、运行期无 Python，q8 量化模型仅约 254MB 且精度不变（官方口径）——Mac/边缘设备零依赖部署 [1]。</li><li><strong>准确率档位明确</strong>：SenseVoice-L 1.6B 普通话平均 CER 4.47%（FireRedASR v1 官方对比表，2025-01）[4]——不如 FireRedASR2（2.89%）但显著优于 Whisper-Large-v3（9.86%）[4]；Small 版更轻更快，精度略低于 L 版。</li></ol>
+<h2>对比</h2>
+<p>与 FireRedASR2 是「速度/轻量 vs 极致准确」的对子：素材以纯普通话为主且要最低错字率选 FireRedASR2；要五语覆盖、情感/事件标签、单文件部署或高吞吐选 SenseVoice。经 FunASR 调用可补齐标点/说话人/时间戳流水线（见 <a href="../funasr/report.md">funasr</a>）。逐维度见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li><strong>普通话准确率非第一</strong>：比 FireRedASR2 落后约 1-1.6 个百分点（不同口径，[3] [4]）；错字率敏感的纯中文场景不是最优解。</li><li>说话人分离不是模型本体能力，须 FunASR 组合 FSMN-VAD + CAM++ 流水线（2026-05 公告，需源码安装）[1]。</li><li>研究口径（5 万小时/50+ 语言的大模型版 SenseVoice-Large）与<strong>已发布 checkpoint</strong>（Small，5 语）范围不同，选型时勿混淆 [1]。</li><li>GGUF 运行时发布较新（2026-06），Mac 上长期稳定性待验证。</li></ul>
+<h2>来源</h2>
+<ol><li>SenseVoice 官方仓库（What's News/Benchmarks/能力边界注记）— <a href="https://github.com/FunAudioLLM/SenseVoice">https://github.com/FunAudioLLM/SenseVoice</a>（访问 2026-08-27）</li><li>SenseVoiceSmall HF 官方模型卡（70ms/10s、15x/5x 速度口径）— <a href="https://huggingface.co/FunAudioLLM/SenseVoiceSmall">https://huggingface.co/FunAudioLLM/SenseVoiceSmall</a>（访问 2026-08-27）</li><li>腾讯云开发者社区横评（CoovallyAIHub，2026-03-20；AISHELL-1 ≈3.0% 为其对仓库柱状图的近似读数）— <a href="https://cloud.tencent.com/developer/article/2642961">https://cloud.tencent.com/developer/article/2642961</a>（访问 2026-08-27）</li><li>FireRedASR v1 官方评测表（SenseVoice-L 4.47%、Whisper-Large-v3 9.86%）— <a href="https://github.com/FireRedTeam/FireRedASR">https://github.com/FireRedTeam/FireRedASR</a>（访问 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录：轻量/多语/实时路线首选模型</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

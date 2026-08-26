@@ -1,0 +1,22 @@
+{
+  "name": "豆包 Seed-ASR（火山引擎 API）",
+  "repo": "https://www.volcengine.com/docs/6561/1354869",
+  "homepage": "https://www.volcengine.com/product/speech-to-text",
+  "verdict": "trial",
+  "summary": "字节豆包 Seed-ASR 云 API：普通话平均 CER 3.69% 的闭源顶配（FireRedASR2 官方对比口径），录音文件 1.8 元/小时还带热词/替换词杠杆；无本地权重，隐私敏感场景出局。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/FireRedTeam/FireRedASR2S",
+    "https://www.volcengine.com/docs/6561/1359370",
+    "https://www.volcengine.com/docs/6348/1581712"
+  ],
+  "tags": ["asr", "cloud-api", "doubao", "commercial"],
+  "matrix": {
+    "形态": "云 API",
+    "中文支持": "顶配 3.69%",
+    "本地部署": "❌ 无权重",
+    "速度": "快（极速版另有档）",
+    "许可": "商业（按量计费）"
+  }
+}

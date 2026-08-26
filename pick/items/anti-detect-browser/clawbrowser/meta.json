@@ -1,0 +1,33 @@
+{
+  "name": "Clawbrowser",
+  "repo": "https://github.com/clawbrowser/clawbrowser",
+  "homepage": "https://clawbrowser.ai",
+  "license": "MIT",
+  "verdict": "hold",
+  "summary": "评测榜单声量很大但 GitHub 仅 ⭐28（gh 2026-08-27）——营销热度≠社区热度，不满足 ≥1k star 门槛；同类诉求（反检测+CDP+MCP）由 Donut Browser 覆盖。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/clawbrowser/clawbrowser",
+    "https://clawbrowser.ai — The 7 Best Browsers for AI Agent Automation in 2026"
+  ],
+  "tags": [
+    "反检测浏览器",
+    "营销警示",
+    "反面案例"
+  ],
+  "stats": {
+    "source_repo": "clawbrowser/clawbrowser",
+    "stars": 28,
+    "pushed_at": "2026-08-05",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "反检测层级": "stealth 插件",
+    "AI 接入": "CDP",
+    "许可": "MIT",
+    "成本": "免费",
+    "自托管": "✅"
+  }
+}

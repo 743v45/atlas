@@ -1,0 +1,26 @@
+{
+  "name": "Claude in Chrome",
+  "repo": "",
+  "homepage": "https://www.anthropic.com",
+  "license": "商业（官方扩展）",
+  "verdict": "trial",
+  "summary": "Anthropic 官方 Chrome 扩展（side panel + Chrome debugger API）：让 Claude 直接操作你正在用的浏览器——同 profile、同登录态、同 tab；适合日常开发调试，不适合无人值守批量。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.usecarly.com — Claude in Chrome vs ChatGPT Atlas（2026）",
+    "https://lalatenduswain.medium.com — Playwright MCP vs Claude in Chrome（2026）"
+  ],
+  "tags": [
+    "官方扩展",
+    "anthropic",
+    "接管会话"
+  ],
+  "matrix": {
+    "形态": "官方扩展",
+    "常驻 token": "N/A",
+    "引擎覆盖": "Chromium",
+    "独占能力": "接管现有会话",
+    "许可": "商业"
+  }
+}

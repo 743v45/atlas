@@ -1,0 +1,23 @@
+{
+  "name": "Tower",
+  "homepage": "https://www.git-tower.com",
+  "license": "Proprietary",
+  "verdict": "hold",
+  "summary": "功能最全的订阅制老牌：$69–149/年，独有全操作撤销等能力，但个人用户的性价比明显低于 Fork 买断。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.git-tower.com/pricing",
+    "https://www.git-tower.com/blog/best-git-client",
+    "https://www.git-tower.com/students",
+    "https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd"
+  ],
+  "tags": ["git", "gui", "subscription", "enterprise", "veteran"],
+  "matrix": {
+    "许可": "闭源订阅",
+    "价格": "$69/年起",
+    "平台": "macOS/Win",
+    "性能": "中上",
+    "大仓库": "好"
+  }
+}

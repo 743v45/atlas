@@ -1,0 +1,57 @@
+
+===== USER =====
+ Sourcetree 一样的软件有哪些，最好用的是哪个。以及价格
+
+===== ASSISTANT =====
+Sourcetree 是 Atlassian 出的免费 Git 图形客户端，同类软件有不少。我先查一下最新的价格信息，避免给你过时的数据。
+
+===== ASSISTANT =====
+搜索接口限流了（7月30日才恢复）。我换用直接抓取官网定价页的方式，数据更准。
+
+===== ASSISTANT =====
+SmartGit 官网搬家了，我补抓一下新地址。
+
+===== ASSISTANT =====
+官网定价已拿到（2026-07 抓取）。下面是完整对比和推荐。
+
+## 直接结论
+
+- **想免费且功能全**：**Sourcetree 本身就是最好的免费选择之一**；更轻的替代是 **GitHub Desktop**。
+- **愿意付一次钱、追求最好体验**：**Fork**（买断 $59.99）——这是公认体验最顺、最轻快的客户端，性价比最高。
+- **要跨平台（含 Linux）/ 团队订阅**：**GitKraken**。
+
+---
+
+## 同类软件对比
+
+| 软件 | 平台 | 价格 | 特点 |
+|---|---|---|---|
+| **Sourcetree** | Mac / Win | **免费** | Atlassian 出品，功能全（分支/HG/PR）。近年更新偏慢，偶有卡顿 |
+| **GitHub Desktop** | Mac / Win | **免费** | 官方出品，界面最简洁，新手友好；功能较基础 |
+| **GitKraken** | Mac / Win / **Linux** | 免费版仅公开仓库；付费 Pro/Advanced/Business/Enterprise（年付，按 seat/月，官网未公开具体金额，参考约 **$5–9/seat/月**） | 颜值高、分支图漂亮、跨平台。免费版限制私有仓库 |
+| **Fork** | Mac / Win | **$59.99 一次性买断**（终身更新），有不限时的免费评估版（带提示弹窗） | 轻快、稳定，公认体验最好的轻量客户端 |
+| **Tower** | Mac / Win | Basic **$69/年**、Pro **$129/年/人**、Enterprise **$149/年/人**；学生/教师**免费**；30 天试用 | 老牌、界面精致，订阅制 |
+| **SmartGit** | Mac / Win / **Linux** | 商业版订阅（参考约 **$99/年起**）或永久授权；**非商业用途免费**（学生、开源、学术、慈善） | 跨平台、功能强，适合重度用户 |
+| **Sublime Merge** | Mac / Win / Linux | 约 **$99 一次性**，可无限期免费评估 | 极快、可定制，Sublime 风格 |
+| **lazygit**（终端 TUI） | 全平台 | **免费/开源** | 命令行党的最爱，键位极快 |
+
+---
+
+## 怎么选
+
+- **你已经在用 Sourcetree 又免费**：其实没必要换，除非你嫌它卡。嫌卡就直接上 **Fork**（一次买断，最省心）。
+- **跨平台 / 团队 / 要接 Jira 等**：**GitKraken**（付费）。
+- **学生 / 开源开发者**：直接拿 **Tower 免费教育版** 或 **SmartGit 非商业免费**。
+- **终端用户**：装个 **lazygit**，零成本、效率最高。
+
+如果让我只点名一个「最好用」：**免费选 Sourcetree，付费选 Fork。**
+
+---
+
+来源（价格均为官网现价，订阅类以官网 checkout 最终确认）：
+- [GitKraken 定价](https://www.gitkraken.com/pricing)
+- [Tower 定价](https://www.git-tower.com/pricing)
+- [Fork 官网](https://fork.dev)
+- [SmartGit 定价](https://www.smartgit.dev/pricing/)
+
+> 说明：Web 搜索接口今天限流了（7月30日恢复），上面的价格是直接抓官网得到的。GitKraken 和 SmartGit 的具体美元金额官网用动态表单展示、未在页面上公开，我给了参考值，下单前请以官网为准。

@@ -1,0 +1,38 @@
+{
+  "name": "MySQL",
+  "repo": "https://github.com/mysql/mysql-server",
+  "homepage": "https://www.mysql.com",
+  "license": "GPL-2.0",
+  "verdict": "trial",
+  "summary": "可靠的老将，但新项目默认选择已让位 PostgreSQL：复杂查询、JSONB、扩展生态全面落后；已有 MySQL 栈、读多写少的简单 Web 场景仍值得继续用。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://dev.mysql.com/doc/refman/9.3/en/mysql-releases.html",
+    "https://tech-insider.org/postgresql-vs-mysql-2026",
+    "https://db-engines.com/en/ranking",
+    "https://www.bytebase.com/blog/postgres-vs-mysql/",
+    "taevasidian/tech/数据库选型/MySQL · 关系型数据库选型报告——历史调研底稿"
+  ],
+  "tags": [
+    "oltp",
+    "关系型",
+    "web",
+    "lamp"
+  ],
+  "matrix": {
+    "定位": "通用 OLTP（简单 Web）",
+    "许可": "GPL-2.0",
+    "水平扩展": "中（中间件）",
+    "协议兼容": "MySQL 方言",
+    "托管": "RDS/Aurora/PlanetScale",
+    "成本": "开源免费（双轨）"
+  },
+  "stats": {
+    "source_repo": "mysql/mysql-server",
+    "stars": 12407,
+    "pushed_at": "2026-08-25",
+    "license": "NOASSERTION",
+    "collected_at": "2026-08-27"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "nodriver",
+  "repo": "https://github.com/ultrafunkamsterdam/nodriver",
+  "homepage": "https://github.com/ultrafunkamsterdam/nodriver",
+  "license": "AGPL-3.0",
+  "verdict": "trial",
+  "summary": "undetected-chromedriver 官方继任者：WebSocket 直连系统 Chrome、无中间层痕迹，直面 Cloudflare 的 Python 默认选择；维护放缓，备选社区 fork zendriver。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/ultrafunkamsterdam/nodriver",
+    "https://github.com/cdpdriver/zendriver",
+    "https://scrapfly.io — Best Stealth Browsers for Web Scraping in 2026",
+    "https://ianlpaterson.com — Anti-Detect Browser Benchmark 2026"
+  ],
+  "tags": [
+    "python",
+    "async",
+    "驱动层",
+    "cloudflare"
+  ],
+  "stats": {
+    "source_repo": "ultrafunkamsterdam/nodriver",
+    "stars": 4698,
+    "pushed_at": "2026-05-13",
+    "license": "AGPL-3.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "反检测层级": "无中间层直连",
+    "AI 接入": "Py async",
+    "许可": "AGPL-3.0 ⚠",
+    "成本": "免费",
+    "自托管": "✅"
+  }
+}

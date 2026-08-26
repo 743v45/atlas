@@ -1,0 +1,26 @@
+{
+  "name": "ChatPRD",
+  "repo": "",
+  "homepage": "https://www.chatprd.ai",
+  "license": "商业 SaaS",
+  "verdict": "trial",
+  "summary": "最成熟的专用 AI PRD 平台：起草+CPO 视角评审+Linear/Notion/Confluence/MCP 流转一体（免费档 / Pro $15/月 / Teams $29/席/月，2026-08-27 查询）；生成质量已被通用 Claude 追平甚至反超，付费理由收窄为 PM 团队标准化与流转集成。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://www.chatprd.ai/pricing",
+    "https://www.chatprd.ai/",
+    "https://firesidepm.substack.com/p/i-tested-5-ai-tools-to-write-a-prdheres",
+    "https://www.enterpret.com/guides/the-6-best-ai-tools-for-writing-a-prd-grounded-in-customer-evidence-in-2026-fgpsr",
+    "Claude 会话 d77eeed3（2026-08-26）——本报告提取源"
+  ],
+  "tags": ["ai", "pm", "saas", "专用工具"],
+  "matrix": {
+    "形态": "SaaS AI PM 平台",
+    "AI 能力": "起草+CPO 评审+gap 分析",
+    "协作": "Teams 版共享项目",
+    "Agent 读写": "MCP 集成（官网宣称）",
+    "价格": "免费档 / Pro $15 / Teams $29",
+    "中文": "❌ 英文"
+  }
+}

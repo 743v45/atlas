@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YugabyteDB · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/data-storage.html">数据与存储</a><span class="sep">·</span><span>主数据库选型</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../tidb/report.html">← TiDB</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>YugabyteDB</h1>
+<blockquote><strong>TL;DR</strong>：2024 年起 100% Apache-2.0、深度 fork PG 查询层，是「要分布式又不想离开 PG 生态」时许可最干净、兼容最深的选择；生态规模与托管成熟度仍小于 CockroachDB。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用——PG 生态项目的分布式刚需首选候选）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">v2026.1 STS（2026-06-29 发布，历法版本号）；最新 v2026.1.1.1（2026-08-18）</td><td style="text-align:left">[2][6]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0（2024-06 起核心库 100% 开源，含原企业功能；自管平台 YugabyteDB Anywhere 为 Polyform 商业许可）</td><td style="text-align:left">[1][5]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/yugabyte/yugabyte-db">https://github.com/yugabyte/yugabyte-db</a>（⭐10,500，push 2026-08-26，gh 2026-08-27）</td><td style="text-align:left">[6]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">历法版本号持续发版；2026-06 发布 2026.1 并推出 AMP（Agentic Multitenant PostgreSQL）新叙事</td><td style="text-align:left">[2][3]</td></tr><tr><td style="text-align:left">流行度</td><td style="text-align:left">DB-Engines 第 118（2.09 分，2026-08 快照）——三剑客中最低</td><td style="text-align:left">[4]</td></tr></tbody></table>
+<h2>为什么选（在其领域）</h2>
+<ul><li><strong>PG 深兼容是真的深</strong>：直接 fork PostgreSQL 查询层（YSQL，复用 PG 的解析/优化/扩展机制），SQL 语法/行为最接近原生 PG——三剑客（vs CockroachDB 协议级兼容、TiDB MySQL 系）里对 PG 团队最友好；另有 Cassandra 风格 YCQL 双 API（taevasidian 底稿 2026-08）[5]。</li><li><strong>许可最干净</strong>：核心库 Apache-2.0 且企业功能也开源（2024-06 起），自托管商用零许可顾虑——对比 CockroachDB 的 BUSL ≥$5M 收费 [1]。</li><li><strong>分布式能力完整</strong>：Raft 复制、自动分片再平衡、跨区域部署（xCluster/geo-partition）[5]。</li><li><strong>跟进 PG 新版本节奏</strong>：官方持续声明与 PG 上游保持同步（Yugabyte 官方博客 2025–2026）[3]。</li><li><strong>2026 新动向</strong>：AMP（Agentic Multitenant PostgreSQL）瞄准 AI Agent 多租户场景（官方博客 2026-06-18）[3]。</li></ul>
+<h2>为什么谨慎（trial 而非 adopt）</h2>
+<ul><li><strong>生态规模最小</strong>：DB-Engines 第 118（2026-08）[4]；star 10,500 对比 CockroachDB 32,415、TiDB 40,473（gh 2026-08-27）[6]——社区内容、招聘池、第三方工具支持都更薄。</li><li><strong>托管成熟度</strong>：YugabyteDB Managed 体量小于 CockroachCloud/TiDB Cloud [5]。</li><li><strong>部分 PG 扩展仍不可用/受限</strong>：深兼容不等于全兼容，PostGIS 等重型扩展的支持矩阵需逐项核对（待验证）[5]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs <strong>CockroachDB</strong>：同赛道直接对位——Cockroach 强在托管与多区域故事，Yugabyte 强在 PG 兼容深度与 Apache-2.0 许可；开源自托管优先选 Yugabyte，全托管优先看 CockroachCloud。见 <code>../comparison.md</code>。</li><li>vs <strong>TiDB</strong>：协议栈分野——PG 生态选 Yugabyte，MySQL 生态选 TiDB [5]。</li><li>vs <strong>PostgreSQL</strong>：单机够用就别上分布式；Yugabyte 的定位是「PG 的水平扩展续命方案」[5]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>三剑客中热度最低，长期社区活力需观察（DB-Engines 2026-08）[4]。</li><li>商业模式把自管平台（Anywhere）留在商业许可，大规模自托管运维的平台能力要付费 [1][5]。</li><li>PG 小版本同步存在滞后窗口，安全补丁跟进节奏需验证（待验证）。</li><li>HTAP 分析能力弱（无原生列存副本）——既要分布式又要一库分析时 TiDB 更合适（taevasidian 底稿 2026-08）[5]。</li></ul>
+<h2>来源</h2>
+<ol><li>Why We Changed YugabyteDB Licensing to 100% Open Source（Yugabyte 官方博客，2024-06）— <a href="https://www.yugabyte.com/blog/why-we-changed-yugabyte-db-licensing-to-100-open-source">https://www.yugabyte.com/blog/why-we-changed-yugabyte-db-licensing-to-100-open-source</a></li><li>YugabyteDB Releases（官方文档，v2026.1 STS 2026-06-29）— <a href="https://docs.yugabyte.com/stable/releases/ybdb-releases">https://docs.yugabyte.com/stable/releases/ybdb-releases</a> （访问 2026-08-27）</li><li>A PostgreSQL Database for Every Agent（官方博客，2026-06-18，含 2026.1 与 AMP）— <a href="https://www.yugabyte.com/blog/a-postgresql-database-for-every-agent">https://www.yugabyte.com/blog/a-postgresql-database-for-every-agent</a></li><li>DB-Engines Ranking（2026-08 快照，采集 2026-08-27）— <a href="https://db-engines.com/en/ranking">https://db-engines.com/en/ranking</a></li><li>taevasidian《YugabyteDB · 分布式 NewSQL 数据库选型报告》（2026-08 导出；2026-08-06 会话调研底稿）</li><li>gh repos/yugabyte/yugabyte-db（star/push/release v2026.1.1.1 采集 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial（初始）</td><td style="text-align:left">首次记录：v2026.1（2026-06）；AMP 新叙事；DB-Engines 第 118 为主要顾虑</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "扁平 + 多面标签",
+  "repo": "",
+  "homepage": "",
+  "license": "—（组织模式）",
+  "verdict": "assess",
+  "summary": "无层级的 faceted 组织：条目平铺，按多维度标签过滤（颜色×尺寸×价格式）——免归类争论、检索强，但无浏览骨架，只搜不逛。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://en.wikipedia.org/wiki/Faceted_classification（分面分类法）",
+    "https://en.wikipedia.org/wiki/Faceted_search（多面检索）"
+  ],
+  "tags": ["facets", "标签", "检索"],
+  "matrix": {
+    "导航方式": "多面过滤",
+    "层级深度": "0–1 层",
+    "检索": "最强（多维组合）",
+    "维护": "标签纪律难持",
+    "适配规模": "千级同质条目"
+  }
+}

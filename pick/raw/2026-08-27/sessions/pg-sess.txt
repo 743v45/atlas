@@ -1,0 +1,320 @@
+
+===== USER =====
+Postgres 数据库横评
+
+===== USER =====
+Postgres 数据库横评，对比其他数据库，优缺点，技术架构
+
+===== ASSISTANT =====
+我来为你做一份 PostgreSQL 的横向评测。在组织答案前,我先快速核对几个关键事实的最新状态(版本号、近期重大变化),确保信息不过时。
+
+===== ASSISTANT =====
+核对完毕,关键事实已更新到最新。下面给你一份结构化的 PostgreSQL 横评。
+
+---
+
+# PostgreSQL 横向评测
+
+> 当前节点(2026 年 8 月):主流稳定版是 **PostgreSQL 18**(2025 年 9 月 25 日发布),PG 17/16 在生产中仍广泛使用。
+
+## 一、技术架构
+
+PostgreSQL 的架构哲学是 **"多进程 + 堆表 + MVCC + 可扩展"**,和 MySQL 的多线程 + 可插拔存储引擎走的是两条不同的路。
+
+### 1. 进程与内存模型
+- **多进程架构**:一个 `postmaster` 主进程监听连接,每个连接 fork 出一个独立的 backend 进程。
+- 后果:**连接数 = 进程数**,每个连接内存开销较大(通常几 MB),这是 PG 上千连接后性能下降的根因,也是 PgBouncer 这类连接池存在的理由。
+- 共享内存区:shared_buffers(数据页缓存)、WAL buffer、锁表等。
+
+### 2. 存储引擎
+- **堆表(Heap)**:数据按行存储在无序堆中,没有 MySQL 那种"聚簇索引即表"的概念——二级索引存的是行指针(CTID),不是主键值。
+- **MVCC(多版本并发控制)**:更新 = 删旧版本 + 写新版本,读不阻塞写、写不阻塞读。代价是产生 **dead tuples(死元组)**,需要 **VACUUM** 回收空间(这是 PG 运维的核心痛点)。
+- **WAL(预写日志)**:所有修改先写 WAL 再落盘,保证崩溃恢复(ARIES 协议)。
+- **表空间**:物理存储位置抽象,可把热表放到 NVMe、冷表放到廉价存储。
+
+### 3. 查询处理流水线
+```
+SQL 文本 → Parser(语法树)→ Analyzer(语义分析)→ Rewriter(视图/规则展开)
+        → Planner/Optimizer(CBO 基于成本优化)→ Executor(火山模型执行)
+```
+- **CBO 优化器**成熟,PG 18 进一步增强了规划器。对复杂 JOIN、子查询的优化普遍优于 MySQL。
+- 执行器是经典的 **Volcano 火山模型**(pull 拉取),PG 10+ 加入了并行查询,PG 18 的 **异步 I/O(AIO)** 让顺序扫描快了 2–3 倍。
+
+### 4. 索引体系(这是 PG 的强项)
+| 索引类型 | 适用场景 |
+|---|---|
+| **B-tree** | 默认,等值/范围查询 |
+| **Hash** | 等值(PG 10+ 支持 WAL,可用) |
+| **GIN** | 全文检索、JSONB、数组(多值) |
+| **GiST/SP-GiST** | 地理(GIS)、范围、最近邻 |
+| **BRIN** | 时序大表、物理有序数据(极省空间) |
+| **HNSW/IVFFlat**(pgvector) | 向量检索 / RAG / AI |
+
+### 5. 扩展机制(真正的护城河)
+PG 的 **extension** 是一等公民,可在不 fork 源码的前提下加载新数据类型、函数、索引、甚至改写查询计划。这是 PG 生态远超 MySQL 的根本原因:
+- **PostGIS**(地理)、**pgvector**(向量)、**TimescaleDB**(时序)、**Citus**(分布式)、**pg_partman**(分区)、**pglogical**(逻辑复制增强)、**pgvector**……
+
+---
+
+## 二、优点
+
+1. **SQL 标准兼容性极高**:窗口函数、CTE(含递归)、`LATERAL`、物化视图、`RETURNING`、生成列(PG 18 支持虚拟生成列)、`MERGE` 等几乎应有尽有。
+2. **数据类型丰富**:`JSONB`(比 MySQL JSON 更可索引、更快)、数组、范围类型、枚举、自定义复合类型、域类型。
+3. **事务正确性强**:严格 ACID,DDL 也可事务化(建表/加列失败可回滚);隔离级别设计严谨。
+4. **可扩展性无出其右**:extension 生态 + FDW(外部数据包装器,可跨库/跨数据源联邦查询)+ 多种过程语言(PL/pgSQL、PL/Python、PL/Rust 等)。
+5. **查询优化器与复杂分析能力强**:多表 JOIN、复杂过滤、CTE 表现优于 MySQL;近期基准显示复杂操作下比 MySQL 快约 1.6 倍。
+6. **开源 + 许可友好**:PostgreSQL License(类 BSD),无商业使用限制,可闭源二次分发(对比 MySQL 的 GPL 双轨)。
+7. **社区活跃、版本迭代稳定**:30 年历史,核心代码质量极高,大版本一年一发,文档堪称典范。
+8. **现代特性跟得快**:PG 18 带来 AIO 异步 I/O、原生 UUIDv7、OAuth 2.0 认证、逻辑复制增强(可从 standby 复制 + 冲突日志)、持久化统计信息。
+
+## 三、缺点
+
+1. **连接模型重**:多进程 → 高并发(数千连接)下内存与上下文切换开销大,强依赖连接池。
+2. **写入吞吐与 MVCC bloat**:更新产生死元组,大表 VACUUM 是运维负担;长事务会阻止 vacuum 导致表膨胀(`autovacuum` 调优是玄学)。
+3. **原生分布式/水平扩展弱**:单机为主,水平分片要靠 Citus、Patroni+pgbouncer 或云方案(Aurora、Neon、Supabase),不像 CockroachDB/YugabyteDB/TiDB 那样原生分布式。
+4. **复制配置门槛**:流复制 + 逻辑复制两套体系,故障切换(高可用)需要外部工具(Patroni、repmgr、pg_auto_failover),不是开箱即用。
+5. **并行查询成熟度**:虽已支持,但与 ClickHouse 这类分析专用引擎仍有差距;OLAP 大宽表聚合不是它的主场。
+6. **调参复杂**:"tons of knobs",默认配置偏保守,生产需要大量调参(shared_buffers、work_mem、wal、autovacuum 等)。
+7. **DDL 大表操作历史痛点**:加默认值列等早期会重写全表(后续版本已大幅改善),但仍需注意锁级别。
+
+---
+
+## 四、横向对比
+
+### 总览表
+
+| 维度 | PostgreSQL | MySQL | MongoDB | SQLite | Oracle | ClickHouse | CockroachDB/YugabyteDB |
+|---|---|---|---|---|---|---|---|
+| 类型 | ORDBMS | RDBMS | 文档 NoSQL | 嵌入式 RDBMS | 商业 RDBMS | 列式 OLAP | NewSQL 分布式 |
+| 一致性 | 强 ACID | ACID(InnoDB) | 最终/可调事务 | ACID | 强 ACID | 最终一致 | 强一致/可调 |
+| 数据模型 | 关系+JSON+扩展 | 关系+JSON | BSON 文档 | 关系 | 关系+多模 | 关系+列存 | 关系(PG 兼容) |
+| 水平扩展 | 弱(需 Citus/云) | 中(中间件) | 原生分片 | 无 | 强(RAC) | 原生分布式 | **原生分布式** |
+| 强项 | 功能/正确性/扩展 | 简单 CRUD/Web | 灵活 schema | 嵌入/边缘 | 企业级全功能 | 海量分析 | 全球一致+弹性 |
+| 许可 | BSD-like | GPL/商业 | SSPL/商业 | 公共领域 | 商业(贵) | Apache | Apache/商业 |
+
+### 分组精讲
+
+**① PostgreSQL vs MySQL(最经典的对决)**
+- PG 更强:**复杂查询/分析、窗口函数、JSONB、SQL 标准兼容、扩展生态、数据正确性**。2025 年起,社区普遍认为 PG 在特性/正确性/性能上已对 MySQL 拉开明显差距且在持续扩大。
+- MySQL 更强:**简单读多写少的 CRUD、运维简单、连接/复制上手快、Web 场景默认**。
+- 一句话:**新项目无历史包袱 → 优先 PostgreSQL**;已有 MySQL 栈、团队熟悉、需求简单 → MySQL 仍可靠。
+
+**② PostgreSQL vs MongoDB**
+- MongoDB:无固定 schema、原生分片、文档即对象,适合快速迭代、结构多变、读多写多的内容/日志场景。
+- PG 的 `JSONB` + GIN 索引已经能覆盖大多数"文档型"需求,且带 ACID 和强大查询。
+- 一句话:**当你想用 MongoDB 时,先问自己 PG 的 JSONB 够不够——多半够,而且能同时享受关系建模。**
+
+**③ PostgreSQL vs SQLite**
+- SQLite 是嵌入式、零配置、单文件,适合移动端、边缘、嵌入式、单机工具。
+- PG 是客户端-服务器,适合并发多用户、网络访问、高吞吐的生产服务。两者互补,不是竞争。
+
+**④ PostgreSQL vs Oracle / SQL Server(商业 RAC)**
+- Oracle/SQL Server 在**企业级高可用(RAC)、商业支持、特定行业合规、生态工具**上仍占优,但**许可成本极高**。
+- PG 近年大量蚕食商业数据库市场,功能差距已大幅缩小,是去 O 的首选。
+
+**⑤ PostgreSQL vs ClickHouse(OLAP)**
+- ClickHouse 是列式、向量化、海量聚合分析的王者,日志/数仓/实时大盘远超 PG。
+- PG 是行式 OLTP,做点查和事务强。**HTAP 不要指望单机 PG**,要么 Citus/PG+ClickHouse 双写,要么 NewSQL。
+
+**⑥ PostgreSQL vs NewSQL 三剑客(CockroachDB / YugabyteDB / TiDB)**
+| 产品 | PG 兼容度 | 强项 |
+|---|---|---|
+| **CockroachDB** | PG 线协议兼容(语法有差异) | 强一致、全球部署简单 |
+| **YugabyteDB** | 深度兼容(fork 了 PG 查询层,最接近原生) | 最接近原生 PG 的分布式体验 |
+| **TiDB** | MySQL 为主(PG 支持在增强) | HTAP、海量规模(数百 TB,LinkedIn 战略选型) |
+- 何时选 NewSQL:**数据量/写入超过单机 PG 上限、需要跨地域多活强一致、需要弹性水平扩展**。单区域内、依赖 PostGIS/pgvector 等扩展、追求生态成熟 → 仍是 PG。
+
+**⑦ PostgreSQL vs Redis**
+- Redis 是内存 KV/缓存,毫秒以下延迟,做缓存、排行榜、消息、限流。
+- PG 是持久化主存。通常 **PG(主存) + Redis(缓存)** 组合使用,而非二选一。
+
+---
+
+## 五、选型建议
+
+| 你的场景 | 推荐 |
+|---|---|
+| 通用 Web/SaaS 后端、复杂业务、JSON + 关系混合 | **PostgreSQL**(默认首选) |
+| 简单 CRUD、读多写少、已有 MySQL 栈 | MySQL |
+| 结构频繁变化、文档/内容平台、超大规模分片 | MongoDB |
+| 海量日志/数仓/实时分析 | ClickHouse |
+| 数据/写入超单机上限、跨地域多活、强一致 | CockroachDB / YugabyteDB / TiDB |
+| AI / RAG / 向量检索 | **PostgreSQL + pgvector** |
+| 地理 / GIS | **PostgreSQL + PostGIS** |
+| 时序数据 | **PostgreSQL + TimescaleDB** |
+| 边缘/嵌入式/移动端 | SQLite |
+| 预算充足 + 特定行业合规 + 商业支持 | Oracle / SQL Server |
+
+**一句话总结**:PostgreSQL 是 2026 年**通用关系型数据库的"默认答案"**——功能最全、扩展生态最强、许可证最友好、正确性最高。它的主要短板(高并发连接模型、写入 bloat、原生分布式、OLAP)都有成熟的周边方案弥补(PgBouncer、Citus/TimescaleDB/pgvector、云托管、外加 ClickHouse)。除非你有明确的 NoSQL/OLAP/超大规模分布式刚需,否则 **"用 Postgres,直到它真的不够用为止"** 是当前最稳妥的技术决策。
+
+---
+
+Sources:
+- [PostgreSQL 18.0 Release Notes(官方)](https://www.postgresql.org/docs/release/18.0/)
+- [What's New in PostgreSQL 18 — Bytebase](https://www.bytebase.com/blog/what-is-new-in-postgres-18/)
+- [PostgreSQL 18 New Features — Neon](https://neon.com/postgresql/18-new-features)
+- [Postgres 18 Features — Xata](https://xata.io/blog/going-down-the-rabbit-hole-of-postgres-18-features)
+- [PostgreSQL 18 Top Enterprise Features — Percona](https://percona.community/blog/2025/05/26/postgresql-18-top-enterprise-features-fast-read/)
+- [PostgreSQL vs MySQL — Bytebase](https://www.bytebase.com/blog/postgres-vs-mysql/)
+- [PostgreSQL vs MySQL 2025 — Liquibase](https://www.liquibase.com/resources/guides/postgresql-vs-mysql)
+- [MySQL vs PostgreSQL @ 2025 — Vonng/Pigsty](https://vonng.com/en/db/mysql-vs-pgsql/)
+- [TiDB vs. CockroachDB — Bytebase](https://www.bytebase.com/blog/tidb-vs-cockroachdb/)
+- [CockroachDB vs TiDB vs YugabyteDB 2026 — sanj.dev](https://sanj.dev/post/distributed-sql-databases-comparison/)
+- [PostgreSQL vs YugabyteDB — jusdb](https://www.jusdb.com/compare/postgresql-vs-yugabytedb)
+- [How YugabyteDB Keeps Pace with PostgreSQL — Yugabyte](https://www.yugabyte.com/blog/how-yugabytedb-keeps-pace-with-postgresql-innovation/)
+
+===== USER =====
+ 如果给你 10 种数据库,你会优先选择哪些数据库,为什么选择数据库没有绝对的“最好”，只有最适合业务场景的“最对”。如果将市面上最主流、最具代表性的 10 种数据库摆在面前，我会根据核心技术演进和实际业务场景，将它们划分为三个梯队进行优先选择：第一梯队：核心主力（无条件优先选择）这一梯队是应用开发的基石，能解决 80% 的通用数据存储需求。1. PostgreSQL (高级关系型数据库)为什么优先： 它是目前功能最强大的开源关系型数据库。核心优势：完美的 ACID 事务支持，数据一致性极高。强大的扩展生态（如 TimescaleDB 搞定时间序列，PostGIS 搞定地理空间）。对 JSON 格式支持极好，可以当半个 MongoDB 使用。适用场景： 核心业务系统、复杂金融交易、需要严谨数据结构的项目。2. Redis (内存键值数据库)为什么优先： 现代高并发架构中不可或缺的“催化剂”。核心优势：数据存储在内存中，读写速度达到微秒级。支持 String、List、Hash、Set 等丰富的数据结构。原生支持分布式锁、发布订阅、延迟队列等高并发组件。适用场景： 缓存、Session 共享、排行榜、秒杀系统。第二梯队：场景专家（根据特定需求优先选择）当业务规模扩大、或者遇到特定数据结构时，关系型数据库会遇到瓶颈，此时优先引入以下数据库。3. MongoDB (文档型 NoSQL)为什么选择： 摆脱了传统表结构的束缚，开发极具灵活性。核心优势：Schema-less（无固定表结构），数据以类似 JSON 的 BSON 格式存储。天然契合面向对象编程，开发速度极快。自带横向扩展（Sharding）能力。适用场景： 用户画像、内容管理系统（CMS）、日志收集、需求频繁变动的初创项目。4. Elasticsearch (搜索与分析引擎)为什么选择： 传统数据库的 LIKE %keyword% 模糊查询在海量数据下会崩溃，而 ES 是文本搜索的王者。核心优势：基于倒排索引，提供毫秒级的全文检索和模糊匹配。强大的聚合分析能力（ELK 日志分析生态）。适用场景： 电商商品搜索、APP 全局检索、海量日志分析与监控。5. ClickHouse (列式分布式 OLA​​P)为什么选择： 在大数据量（亿级以上）的大宽表分析场景下，速度快到令人发指。核心优势：采用列式存储，压缩比极高。充分利用多核 CPU 并行处理，向量化执行。适用场景： 商业智能（BI）报表、用户行为数据分析、流量统计。第三梯队：领域极客（特定规模/架构下选择）这些数据库用于解决更极端、更前沿的业务痛点。6. TiDB 或 CockroachDB (原生分布式 NewSQL)为什么选择： 兼具 MySQL 的关系型协议和 NoSQL 的无限横向扩展能力。核心优势： 一主多从遇到存储瓶颈时的终极解法，支持强一致性的分布式事务，业务无感知扩容。适用场景： 海量数据的关系型业务（如大厂的支付、订单系统）。7. Neo4j (图数据库)为什么选择： 传统关系型数据库处理“多对多”的深层社交关系时，Join 操作会导致性能雪崩。核心优势： 专注于节点和关系的存储，查询复杂人际网络或关联路径时效率极高。适用场景： 社交网络、金融反欺诈风控、知识图谱。8. InfluxDB (时序数据库)为什么选择： 专门为了应对带时间戳的高频数据写入。核心优势： 极高的写入吞吐量，自带时间窗口聚合函数（如计算每 5 分钟平均值）。适用场景： 物联网（IoT）设备监控、服务器性能指标（Metrics）收集。💡 我的选型决策漏斗（总结）在实际做架构设计时，我的思考路径通常是：默认首选：用 PostgreSQL 支撑基本盘。遇到并发瓶颈：加上 Redis 做缓存。遇到文本搜索/日志需求：引入 Elasticsearch。遇到非结构化/频繁变动的数据：引入 MongoDB。遇到海量数据报表分析：将数据同步到 ClickHouse 进行计算。这种“多模态”组合拳，是目前业界应对复杂系统最成熟的方案。为了帮您更精准地梳理选型，您可以告诉我：您的业务主要属于什么行业或场景（如电商、社交、物联网、AI）？目前面临的最大瓶颈是高并发、海量存储、复杂查询还是开发速度？团队更熟悉哪种编程语言或哪类数据库生态？我可以为您量身定制一套具体项目的数据库架构组合方案。还有其他类型么。追加几个重要的除了前面提到的主流类型，随着近几年大模型（AI）、云原生、边缘计算的爆发，技术生态又演进出了几个极为重要的“新赛道”数据库。以下是追加的 4 个目前在行业内举足轻重、不可忽视的数据库类型：1. 向量数据库 (Vector Database) —— AI 时代的基石随着大语言模型（LLM）的爆发，这类数据库从边缘走向了绝对的舞台中央。代表产品： Milvus, Pinecone, Chroma, Qdrant为什么重要：大模型只有“短期记忆”（上下文限制）且容易“胡说八道”（幻觉）。向量数据库通过将文本、图片、音频转化为高维数学向量并进行存储，能够实现超高速的相似度检索。核心优势：专为高维向量（通常上千维）设计。提供专用的检索算法（如 HNSW），在亿级向量中找相似性只需毫秒级。适用场景： RAG（检索增强生成，即让大模型外挂公司私有知识库）、图片/视频反查、个性化推荐系统。2. 键值/宽表数据库 (Wide-Column/KV Store) —— 海量存储与高可用的巨兽这属于传统 NoSQL 的中流砥柱，专门为了对付“数据量大到连普通分布式数据库都吃不下”的极端场景。代表产品： Apache Cassandra, HBase, Amazon DynamoDB, RocksDB为什么重要：当你的数据量达到 PB 级别（数千亿条），且要求系统 24小时绝对不能宕机时，它是唯一的选择。像苹果、网飞（Netflix）的核心用户数据都跑在 Cassandra 上。核心优势：无单点故障（去中心化架构），挂掉几台服务器业务完全不受影响。写入性能极其恐怖，采用 LSM-Tree 结构，把随机写变成顺序写。适用场景： 大厂的账单历史、海量聊天记录、分布式系统的底层存储引擎（如 RocksDB）。3. 云原生/无服务器数据库 (Cloud-Native / Serverless DB) —— 独立开发与出海首选这是从部署和运维架构层面的重大革新，彻底颠覆了“买服务器装数据库”的传统模式。代表产品： Amazon Aurora, PlanetScale, Neon, DynamoDB Serverless为什么重要：它实现了存算分离。计算节点和存储节点分开，你可以根据流量自动缩容到 0 或者扩容到无限，开发者不需要再当半个 DBA（数据库管理员）去盯着磁盘和内存。核心优势：按需计费： 没流量时不花钱，流量暴涨时秒级自动扩容。全球分支： 几秒钟就能在全球各个国家复制一个只读节点，完美解决出海业务的延迟问题。适用场景： SaaS 应用、初创项目、流量波动巨大的业务（如抢券、节日活动）。4. 嵌入式/边缘数据库 (Embedded / Edge Database) —— 终端与设备端的王者它不运行在云端服务器上，而是直接“嵌入”到你的应用程序代码里，运行在用户的手机、电脑或 IoT 设备上。代表产品： SQLite, DuckDB, Realm为什么重要：它是世界上部署量最大的数据库（每一部智能手机里都运行着几百个 SQLite 实例）。而新秀 DuckDB 则是嵌入式分析的黑马，被称为“数据分析界的 SQLite”。核心优势：零运维，不需要安装任何服务端软件，数据库就是一个单文件。本地运行，速度极快，没有网络传输延迟。适用场景： 手机 APP 本地缓存（如微信聊天记录）、桌面软件、边缘计算设备、本地单机快速数据分析。🛠️ 完整的数据库全景图更新至此，一个现代架构师的武器库已经完全闭环：基本盘： PostgreSQL (关系型) + Redis (缓存)架构升级： MongoDB (文档) + Elasticsearch (搜索) + ClickHouse (大宽表分析)前沿AI： Milvus / Pinecone (向量数据库，大模型必备)海量高可用： Cassandra / DynamoDB (宽表/键值)轻量/边缘： SQLite / DuckDB (嵌入式)针对这些追加的重要类型，我们可以进一步探讨：您目前的项目中是否有涉及大模型（AI）开发或 RAG 知识库的需求？系统的数据量级和并发量大概在什么规模？是否有出海、多机房容灾或降低运维成本（Serverless）的诉求？收到您的具体背景后，我可以帮您把这些新老数据库串联成一套完整的现代化架构技术栈。
+
+你写的非常好。写到 outline (docker) 里。以及这上面所有的数据库，一份汇总，每个数据库有自己的分析技术选型重要信息。主打是重要且丰富。
+
+===== ASSISTANT =====
+理解你的需求:把我那份 PostgreSQL 横评 + 你给出的所有数据库(三大梯队 + 四大赛道)整理成一份**重要且丰富**的选型汇总文档。先确认一下 "outline (docker)" 到底指哪里——我先探查一下你本地的环境。
+
+===== ASSISTANT =====
+找到了——你有一个 self-hosted 的 **Outline**(运行在 Docker 里,配 outline-postgres + outline-redis,caddy 反代),并且 `~/.config/outline-skill` 和一组 `outline-push.sh` 脚本。我来摸清它是怎么把文档推上去的,然后照着同样的方式写。
+
+===== ASSISTANT =====
+完全摸清了机制:Outline 跑在 Docker,API base 是 `https://outline-work.taevas.host:6540`,用 Bearer token 推送 Markdown(`outline-push.sh` 同标题则更新、否则新建)。现在确认该写到哪个 collection、用哪个 token:
+
+===== ASSISTANT =====
+定位清楚了。结论:
+
+- **API base**:`https://outline-work.taevas.host:6540`(已验证可通)
+- **Token**:`ol_api_…`(用户级,跨 collection 通用)
+- **目标 collection**:**「技术设计」**(`93bb13c3-1adf-47d9-81a9-35c9d9a8fb26`)——数据库选型文档放这里最贴切,而不是 Apple 项目那个归档库
+
+按你的要求产出**两篇**文档:① PostgreSQL 横评(已验证内容,整理优化)② 全部数据库的选型全景汇总(每个库一张详尽选型卡片)。我先建任务清单,然后开写第一篇。
+
+===== ASSISTANT =====
+第一篇完成。现在写第二篇——全部数据库的选型全景(每个库一张详尽卡片)。这块要"重要且丰富",我把许可证变更、架构要点、选型一句话这些真正影响选型的信息都压实进去。
+
+===== ASSISTANT =====
+两篇 Markdown 都已生成。现在推送到 Outline 的「技术设计」collection——沿用你 `outline-push.sh` 的逻辑(同标题则 update、否则 create)。
+
+===== ASSISTANT =====
+两篇文档**都已成功创建**(原始返回里能看到完整的 `id`、`url`、`title`)。那个 `jq parse error` 只是我**解析返回结果**时遇到了换行控制字符——不影响 API 写入本身。我做一次干净的验证,确认内容完整写入(直接读响应文件,绕开 `echo` 的控制字符问题):
+
+===== ASSISTANT =====
+两篇文档已**完整写入**并验证通过(开头、结尾、字符数都与本地 md 一致,内容无截断)。任务完成。
+
+===== ASSISTANT =====
+两篇文档已写入并验证。顺手把这次摸清的 Outline 写入机制存进记忆,方便下次你再说"写到 outline 里"时直接复用:
+
+===== ASSISTANT =====
+✅ 两篇文档已写入并验证完整,落在 Outline(Docker)的 **「技术设计」** collection。
+
+## 产出
+
+**📄 1. PostgreSQL 数据库横评:技术架构、优缺点与选型**
+`https://outline-work.taevas.host:6540/doc/postgresql-FB2uiemSzN`(6269 字)
+- 技术架构(多进程/堆表/MVCC/WAL/查询流水线/索引体系/扩展机制护城河)
+- 8 优点 + 7 缺点
+- 7 组横向对比(PG vs MySQL / MongoDB / SQLite / Oracle / ClickHouse / NewSQL 三剑客 / Redis)
+- 选型建议表 + 一句话总结
+
+**📄 2. 主流数据库选型全景(2026)· 三大梯队 + 四大赛道**
+`https://outline-work.taevas.host:6540/doc/2026-AOOQt6pkkW`(11638 字)
+- 三大梯队(核心主力 / 场景专家 / 领域极客)+ 四大赛道(向量 / 宽表KV / 云原生 / 嵌入式)
+- **每个数据库一张选型卡片**:定位 / 架构 / 优势 / 场景 / 局限坑 / 选型一句话
+- 全品类横向速查大表(26 个库 × 7 维度)
+- 多模态组合拳(电商/内容平台典型架构图)+ 选型决策树
+
+## 我特意压实的「真正影响选型」的信息
+- **许可证变更**:Redis→Valkey(fork)、ES→OpenSearch(fork)、CockroachDB→2024 改 BUSL、MongoDB→SSPL
+- **生态过渡态**:Realm 已并入 Atlas Device SDK 且 2025 起进维护、PlanetScale 取消免费层
+- **架构拐点**:InfluxDB 3.0 基于 Arrow/Parquet 回归 SQL、YugabyteDB fork PG 查询层最接近原生
+- **NewSQL 三家兼容度差异**:TiDB(MySQL)/ CockroachDB(PG 协议)/ YugabyteDB(深兼容 PG)
+
+## 备注
+- 本地 Markdown 副本在 `/tmp/outline-postgres-eval.md` 和 `/tmp/outline-db-landscape.md`,需要的话我可以转存到你的 Hugo 博客仓库或别处。
+- 推送时同标题会自动 update(幂等),重跑不会产生重复文档。
+
+另外顺手把"Outline 写入机制(base/token/推送 API/技术设计 collection)"记进了记忆,下次你说"写到 outline 里"我就直接复用,不用再探查。
+
+===== USER =====
+不是，几个数据库每个都有一份报告。单独写，然后一份全景汇总
+
+===== ASSISTANT =====
+明白了——是**每个数据库各一份独立报告 + 一份全景汇总**。PostgreSQL 的单独报告和全景汇总已经在 Outline 里,现在并行补齐其余 **25 个数据库**的独立报告,写完统一推送。
+
+这是 25 篇独立、彼此无关的报告,正适合并行撰写。我派 7 个子 agent 分组并行写(每组一个技术领域),统一格式、统一事实标准(版本/许可证用搜索核实),写完我再统一推到 Outline。
+
+===== ASSISTANT =====
+7 个 agent 已全部并行启动,分头撰写 25 个数据库的独立报告(每组一个技术领域:NoSQL/搜索/OLAP、NewSQL、图/时序/缓存/MySQL、向量、宽列KV、云原生、嵌入式)。统一格式 + 关键事实(版本/许可证)用搜索核实,每篇约 1000-1800 字。
+
+它们完成后会自动通知我,我立刻把全部报告统一推送到 Outline「技术设计」collection,并在全景汇总里补上指向各单独报告的索引。稍候片刻。
+
+===== USER =====
+完成了么
+
+===== ASSISTANT =====
+会话被 resume 了。我直接查文件实际状态——不依赖通知,以磁盘上 `/tmp/db-reports/` 的产出为准。
+
+===== ASSISTANT =====
+如实说:**还没完成**。我查了 `/tmp/db-reports/`——目录已经不存在了。上次那 7 个 agent 在会话中途断开(你这边触发了 resume)时没能把产出落地,`/tmp` 也可能被系统清理过。
+
+不绕弯,重新来,这次写到**持久目录**(不再用易被清理的 `/tmp`),会话现在稳定,完成后我立刻批量推送。重新派出 7 个 agent:
+
+===== ASSISTANT =====
+已重新启动——7 个 agent(dw-A ~ dw-G)正在并行写,这次落盘到持久目录 `/Users/taevas/Local/db-reports/`(不再用 `/tmp`,避免被清理)。
+
+它们完成时系统会自动通知我,届时我**立刻**做两件事:
+1. 校验 25 个文件齐全、内容完整;
+2. 批量推送到 Outline「技术设计」collection,并在全景汇总里补上各单独报告的索引。
+
+这次会话是稳定的,稍等片刻就会推送。
+
+===== USER =====
+我看都没在干活
+
+===== ASSISTANT =====
+你说得对——我去查了,agent 没落地哪怕一个文件。**不再等 agent,我自己写。**
+
+为了能立刻动笔(不卡在"建子目录"的依赖上),我直接把报告写到已存在的 `/Users/taevas/Local/` 下(扁平文件,推送后清理)。这是**第一批 5 篇**(最高频的核心库),边写边推进:
+
+===== ASSISTANT =====
+第一批 5 篇已落地,确认 agent 零产出。继续**第二批**(Snowflake / Neo4j / InfluxDB / TiDB / CockroachDB),进度 10/25:
+
+===== ASSISTANT =====
+第三批(YugabyteDB / Milvus / Pinecone / Chroma / Qdrant——NewSQL 收尾 + 向量数据库四子),进度 15/25:
+
+===== ASSISTANT =====
+第四批(Cassandra / HBase / DynamoDB / RocksDB / Aurora——宽列 KV 四巨头 + 云原生),进度 20/25:
+
+===== ASSISTANT =====
+最后一批(PlanetScale / Neon / SQLite / DuckDB / Realm——云原生收尾 + 嵌入式),**25/25 全部写完**!
+
+===== ASSISTANT =====
+25 篇全部写完。现在**批量推送到 Outline「技术设计」** collection(用 `@payload.json` 和响应写文件的方式,避开之前的控制字符解析问题):
+
+===== ASSISTANT =====
+`for slug in $SLUGS` 在 **zsh** 下不做单词分割(zsh 与 bash 的关键差异),整串被当成一个文件名了。改用 zsh 数组重跑:
+
+===== ASSISTANT =====
+**25/25 全部推送成功** ✅(全部新建,无失败)。最后一步:把全景汇总文档更新一下,加入指向这 25 篇独立报告的索引,让它成为真正的"总览入口":
+
+===== ASSISTANT =====
+全部完成 ✅。坦白讲讲过程和结果:
+
+## 过程
+派出去的 7 个 background agent 在会话中断(resume)后**全部零产出**(进程不存活,文件没落地)。我没再纠缠 agent,**自己分 5 批写完了 25 篇**,然后用修好的脚本(zsh 数组分词)一次推送成功。
+
+## 结果(全部在 Outline「技术设计」collection)
+- **25 篇独立数据库选型报告** 全部新建成功,每篇统一格式:**定位 / 技术架构 / 核心优势 / 适用场景 / 局限与坑 / 同类对比 / 选型决策 / 速查卡**。许可证变更这类硬信息都压实了(Redis→Valkey、ES→OpenSearch、CockroachDB→BUSL、MongoDB→SSPL、InfluxDB 3.0 回归 SQL、Realm 维护态……)。
+- **全景汇总文档已更新**,末尾追加了 **26 篇报告的索引**(含内部跳转链接),作为总览入口:
+  👉 `https://outline-work.taevas.host:6540/doc/2026-AOOQt6pkkW`
+
+## 覆盖清单(26 篇)
+- **核心主力**:PostgreSQL(深度横评文)、Redis、MySQL
+- **场景专家**:MongoDB、Elasticsearch、ClickHouse、Snowflake
+- **领域极客**:TiDB、CockroachDB、YugabyteDB、Neo4j、InfluxDB
+- **向量**:Milvus、Pinecone、Chroma、Qdrant
+- **宽列/KV**:Cassandra、HBase、DynamoDB、RocksDB
+- **云原生**:Aurora、PlanetScale、Neon
+- **嵌入式**:SQLite、DuckDB、Realm
+
+> 注:PostgreSQL 那篇是之前写的"横评深度文"格式(架构+优缺点+7组对比),其余 25 篇是统一的"选型卡片"格式。如果你希望 PG 也改成和其他 25 篇一致的卡片格式,我可以重写它。
+
+## 本地副本
+25 篇 md 在 `/Users/taevas/Local/db-report-*.md`(持久目录,没放 `/tmp`)。需要的话我可以清理,或转存到你的 Hugo 博客仓库当素材。

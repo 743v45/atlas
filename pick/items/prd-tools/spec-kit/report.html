@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spec Kit（GitHub） · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>PRD 工具</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../productboard/report.html">← Productboard</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Spec Kit（GitHub）</h1>
+<blockquote><strong>TL;DR</strong>：spec-driven 开发的事实标准：GitHub 官方开源（⭐131,657k，MIT，2026-08-21 发布 1.0.0），constitution→specify→plan→tasks→implement→converge 把 PRD 变成 agent 可执行流程、30+ agent 通用；适合「PRD 主要给 AI 消费」的 repo 工作流，人类协作评审弱于文档平台。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用——在非关键路径的 repo 内工作流先跑通）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">v1.0.0（2026-08-21 发布，项目满一年）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/github/spec-kit">https://github.com/github/spec-kit</a></td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">⭐131,657、最近 push 2026-08-26（gh 2026-08-27 采集）；GitHub 官方维护</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">形态</td><td style="text-align:left">specify CLI + 项目内 slash 命令，兼容 30+ AI coding agent（CLI 与 IDE 均）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么试用</h2>
+<ul><li><strong>spec-driven 是 2025-2026 最大的新范式，spec-kit 是其事实标准</strong>：把「PRD 是给 AI 的输入」制度化——specifications 不再是写完即弃的脚手架，而是可执行、直接产出实现的一等公民（README「Specifications become executable」，gh 2026-08-27）[1]。GitHub 官方出品 + ⭐131,657k，是该流派体量与背书最强的开源实现。</li><li><strong>流程完整且可收敛</strong>：<code>/speckit-constitution</code>（项目原则，一次性）→ <code>/speckit-specify</code>（写 spec）→ <code>/speckit-plan</code> → <code>/speckit-tasks</code> → <code>/speckit-implement</code> → <code>/speckit-converge</code>（实现与 spec 对齐校验，重复至 Converged）[1]；另有 opt-in 的 bug 修复流（assess→fix→test）与 idea 评估流 [1]。</li><li><strong>agent 中立</strong>：不锁 coding agent——Copilot / Claude Code / Cursor 等 30+ 集成（<code>specify integration list</code>）[1]。对已用 Claude Code 的团队，引入的是流程纪律而非新供应商。</li><li><strong>产物是 repo 内 Markdown</strong>：spec 即版本控制资产，agent 全文检索零摩擦——正好补上飞书/Notion「agent 检索不顺手」的短板（见 <a href="../feishu-docs-base/report.md">feishu-docs-base</a>）。</li></ul>
+<h2>对比</h2>
+<ul><li>与 Kiro：同流派（spec→design→tasks），Kiro 绑定自家 IDE 与 credits 计费、EARS 句式更严；spec-kit 开源、装进你现有的 agent——见 <a href="../kiro/report.md">kiro</a>。</li><li>与 OpenSpec（观察名单）：OpenSpec 主打轻量、brownfield 友好（⭐131,657k，MIT，gh 2026-08-27）[3]，spec-kit 流程更重更全。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>不是协作文档平台</strong>：人类评审走 git PR，评论/@/审批、富文本、原型嵌入都没有——「给人读的 PRD」仍需飞书/Notion 承载，两套并行有同步成本。</li><li><strong>1.0.0 ≠ 冻结</strong>：维护者明说 1.0 只是个数字，价值从稳定性转向可适应性（manorrock 2026-08-21）[2]——流程与命令面仍会演进，升级预期要留。</li><li><strong>对非开发读者不友好</strong>：spec 面向 engineering，业务方/老板阅读体验远不如文档平台（推导自形态 [1]）。</li></ul>
+<h2>来源</h2>
+<ol><li>github/spec-kit README 与仓库数据 — <a href="https://github.com/github/spec-kit">https://github.com/github/spec-kit</a>（gh 2026-08-27 采集）</li><li>Spec Kit Turns One — and Ships 1.0.0 — 维护者博客 2026-08-21，<a href="https://www.manorrock.com/blog/2026/08/21/spec_kit_turns_one.html">https://www.manorrock.com/blog/2026/08/21/spec_kit_turns_one.html</a></li><li>Fission-AI/OpenSpec 仓库数据 — gh 2026-08-27 采集，<a href="https://github.com/Fission-AI/OpenSpec">https://github.com/Fission-AI/OpenSpec</a></li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（2026 新增条目：spec-driven 范式）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

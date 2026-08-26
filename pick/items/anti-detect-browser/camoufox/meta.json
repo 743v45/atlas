@@ -1,0 +1,34 @@
+{
+  "name": "Camoufox",
+  "repo": "https://github.com/daijro/camoufox",
+  "homepage": "https://camoufox.com",
+  "license": "MPL-2.0",
+  "verdict": "trial",
+  "summary": "引擎级改造 Firefox（C++ 源码层伪造指纹），指纹一致性理论最强；2025 年有约一年维护断层、2026-08 已恢复日更，README 警告未撤，选它要盯紧维护公告。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/daijro/camoufox",
+    "https://camoufox.com — Stealth Overview",
+    "https://roundproxies.com — The 6 best Patchright alternatives in 2026"
+  ],
+  "tags": [
+    "firefox",
+    "引擎改造",
+    "指纹"
+  ],
+  "stats": {
+    "source_repo": "daijro/camoufox",
+    "stars": 11452,
+    "pushed_at": "2026-08-26",
+    "license": "MPL-2.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "反检测层级": "引擎级",
+    "AI 接入": "PW API",
+    "许可": "MPL-2.0",
+    "成本": "免费",
+    "自托管": "✅"
+  }
+}

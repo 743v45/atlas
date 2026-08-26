@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQLite · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/data-storage.html">数据与存储</a><span class="sep">·</span><span>主数据库选型</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../postgresql/report.html">← PostgreSQL</a><span class="sep">·</span><a href="../tidb/report.html">TiDB →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>SQLite</h1>
+<blockquote><strong>TL;DR</strong>：被 pick 为嵌入式与单机场景的默认数据库：单文件零运维、部署量世界第一；但多用户并发网络服务不是它的战场——与 PostgreSQL 互补而非竞争。</blockquote>
+<ul><li><strong>结论</strong>：adopt（推荐——嵌入式/边缘/单机场景默认选择）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">3.53.3（2026-06-26 维护版；3.53.2 为 2026-06-03）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">公共领域（Public Domain）——比 BSD 更宽松，无任何限制</td><td style="text-align:left">[3]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/sqlite/sqlite">https://github.com/sqlite/sqlite</a>（官方只读镜像，⭐10,347，push 2026-08-26，gh 2026-08-27）；开发在 sqlite.org Fossil</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">D. Richard Hipp 团队持续维护，季度级小版本稳定输出（2026 年内已发 3.53.x 多版）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">流行度</td><td style="text-align:left">DB-Engines 第 11（95.94 分，2026-08 快照）；按部署实例数为世界第一（每部智能手机数百实例）</td><td style="text-align:left">[3][4]</td></tr></tbody></table>
+<h2>为什么选（在其领域）</h2>
+<ul><li><strong>零运维、零部署</strong>：单文件即数据库，无服务端进程、无配置；移动端、桌面软件、边缘设备、CLI 工具的默认答案 [3][4]。</li><li><strong>许可不可更友好</strong>：公共领域，商用/闭源/改名分发皆可，法律层面零摩擦 [3]。</li><li><strong>SQL 质量高</strong>：SQL 标准子集实现严谨，事务 ACID 完整；FTS5 全文检索、R-Tree 空间索引内建 [3]。</li><li><strong>生态在扩张</strong>：libSQL/Turso、LiteFS、cr-sqlite 等衍生在把 SQLite 推向「本地优先（local-first）+ 边缘同步」的新赛道（taevasidian 底稿 2026-08）[4]。</li></ul>
+<h2>为什么不选（出界即止）</h2>
+<ul><li><strong>并发写是硬边界</strong>：整库级写锁（WAL 模式下读写可并发，但写仍串行），多用户高并发网络服务会撞墙——那是 PostgreSQL 的战场 [4]。</li><li><strong>无网络协议、无用户权限体系</strong>：文件即边界，不适合多进程/多租户共享服务 [4]。</li><li><strong>单机分析不是它强项</strong>：本地单机数据分析的新答案是 DuckDB（嵌入式 OLAP，taevasidian 有独立报告）[4]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs <strong>PostgreSQL</strong>：互补关系——客户端-服务器、并发多用户、网络访问 → PG；嵌入式、边缘、单文件 → SQLite（taevasidian 底稿 2026-08）[4]。逐维度对比见 <code>../comparison.md</code>。</li><li>vs <strong>DuckDB</strong>：同为嵌入式，OLTP vs OLAP 分工（观察名单）。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>官方仓库在 Fossil（非 GitHub），镜像延迟一般数小时内；引用代码/issue 以 sqlite.org 为准 [1][2]。</li><li>高并发写场景误用是常见事故来源——选型时先确认「真的只有一个写入者」。</li></ul>
+<h2>来源</h2>
+<ol><li>Recent SQLite News（3.53.3 · 2026-06-26）— <a href="https://sqlite.org/news.html">https://sqlite.org/news.html</a> （访问 2026-08-27）</li><li>gh repos/sqlite/sqlite（镜像 star/push 采集 2026-08-27）</li><li>DB-Engines Ranking（2026-08 快照，采集 2026-08-27）— <a href="https://db-engines.com/en/ranking">https://db-engines.com/en/ranking</a></li><li>taevasidian《SQLite · 嵌入式关系数据库选型报告》（2026-08 导出；2026-08-06 会话调研底稿）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt（初始）</td><td style="text-align:left">首次记录：3.53.3（2026-06-26）；DB-Engines 2026-08 第 11</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

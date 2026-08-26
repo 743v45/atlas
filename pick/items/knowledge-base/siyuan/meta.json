@@ -1,0 +1,36 @@
+{
+  "name": "思源笔记 SiYuan",
+  "repo": "https://github.com/siyuan-note/siyuan",
+  "homepage": "https://b3log.org/siyuan/",
+  "license": "AGPL-3.0",
+  "verdict": "assess",
+  "summary": "块级引用最细、中文原生、Docker 自建同步，v3.8.0（2026-08）内置 MCP 与智能体、全面转向人与 AI 协作——但数据仍是自管格式而非纯 Markdown，牺牲 agent 文件直写的通用性，维持排除。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/siyuan-note/siyuan（gh 2026-08-27 采集；仓库描述已改为「让人与智能体在此协作」）",
+    "https://ld246.com/tag/siyuan/good（v3.8.0 发布帖：内置 MCP 和 Agent，访问 2026-08-27）",
+    "https://zhuanlan.zhihu.com/p/2055268798240921220（v3.7.0 评测：官方 MCP、AI Agent 侧栏，访问 2026-08-27）",
+    "Claude 会话 be457b46（2026-08-25）——本报告提取源"
+  ],
+  "tags": [
+    "块级引用",
+    "中文",
+    "docker",
+    "mcp"
+  ],
+  "stats": {
+    "source_repo": "siyuan-note/siyuan",
+    "stars": 45995,
+    "pushed_at": "2026-08-26",
+    "license": "AGPL-3.0",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "数据形态": "自管数据库",
+    "双链": "块级",
+    "AI 写入": "内置 MCP+Agent",
+    "自托管": "✅ Docker",
+    "成本": "免费（同步付费）"
+  }
+}

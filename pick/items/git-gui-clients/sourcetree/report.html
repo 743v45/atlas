@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sourcetree · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>Git 图形化客户端</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../smartgit/report.html">← SmartGit</a><span class="sep">·</span><a href="../sublime-merge/report.html">Sublime Merge →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Sourcetree</h1>
+<blockquote><strong>TL;DR</strong>：免费且功能全的参照系：Atlassian 出品但更新偏慢、大仓库卡顿报告多，已在用可继续，新装建议先试 Fork。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">Mac 4.2.19（2026-07-30 构建）/ Win 3.4.31（2026-03 前后）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">免费闭源（Atlassian 专有）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left">无公开仓库</td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">2026 年 Mac 版发版记录：01-11、02-21、06-04、07-30，共 4 个小版本，以修复为主（如 4.2.17 仅为修 release notes 格式 + Bitbucket API 替换）</td><td style="text-align:left">[1][2]</td></tr></tbody></table>
+<h2>为什么不直接 adopt（但值得试用）</h2>
+<ol><li><strong>免费 + 功能全，仍是「免费全功能」的参照系</strong>：分支管理、Hg 支持（Mac）、PR 集成、内置冲突处理一应俱全 [3]。用户 2026-07-28 会话结论：已在用且免费，没必要强换 [5]。</li><li><strong>更新节奏明显放缓</strong>：2026 年前 8 个月仅 4 个 minor 版本且多为 breakfix（含一次纯粹修 release notes 格式）[2]；对照 GitHub Desktop（2026-08-13 发 3.6.4）与 lazygit（2026-08-12 发 v0.64.1）的高频节奏，Sourcetree 处于「维护态」而非「进化态」。</li><li><strong>大仓库性能是公认短板</strong>：Bytestack 2026 横评明确记录「部分用户报告 Sourcetree 在大仓库上变慢」[3]；dev.to 2025 横评也把 SourceTree 列入 monorepo 吃力一组 [4]。</li><li><strong>试用期定位</strong>：新用户装它零成本、能完整体验全功能 GUI 工作流；若嫌卡或想要更轻快，升级路径就是 Fork（$59.99 买断）[5]。</li></ol>
+<h2>对比</h2>
+<p>免费三杰中：功能全但慢（Sourcetree）、快而简（GitHub Desktop）、终端流（lazygit）。付费线（Fork/Sublime Merge）在性能与打磨上全面胜出。逐维度对比见 <code>../comparison.md</code>。</p>
+<h2>风险与注意</h2>
+<ul><li>安装需 Atlassian 账号注册（历史行为，2026-08 未复测，待验证）。</li><li>与 Atlassian 生态（Bitbucket/Jira）绑定最深，非该生态用户感知不到额外好处。</li><li>macOS 版要求 10.15+ [2]。</li></ul>
+<h2>来源</h2>
+<ol><li>Sourcetree Download Archives（版本与构建日期） — <a href="https://www.sourcetreeapp.com/download-archives">https://www.sourcetreeapp.com/download-archives</a> （访问 2026-08-27）</li><li>Sourcetree Release Notes — <a href="https://product-downloads.atlassian.com/sourcetree/GUI/ReleaseNotes.html">https://product-downloads.atlassian.com/sourcetree/GUI/ReleaseNotes.html</a> （访问 2026-08-27）</li><li>Bytestack: Sourcetree, GitKraken, GitHub Desktop, and Fork Compared — <a href="https://getpi.bytestack.ai/blog/4-gui-git">https://getpi.bytestack.ai/blog/4-gui-git</a> （访问 2026-08-27）</li><li>dev.to: Best Git GUI Clients in 2025 — <a href="https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd">https://dev.to/_d7eb1c1703182e3ce1782/best-git-gui-clients-in-2025-gitkraken-sourcetree-fork-and-more-compared-4gjd</a> （访问 2026-08-27）</li><li>用户 2026-07-28 Claude 会话（Sourcetree 同类调研）— 本地会话记录</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（承接 2026-07-28 会话「免费首选，但嫌卡换 Fork」结论）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

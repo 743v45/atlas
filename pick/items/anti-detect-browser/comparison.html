@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>反检测浏览器 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/browser-agents.html">AI × 浏览器</a><span class="sep">·</span><span>反检测浏览器 · 横评</span></nav>
+  <article>
+<h1>反检测浏览器横评（AI Agent 可用方案）</h1>
+<blockquote>调研时间 2026-08-27，方法 tvly（Tavily）+ gh（GitHub CLI 一手数据）。 核心命题：<strong>不是「哪款反检测浏览器最强」，而是「哪款能让 AI（Agent/LLM）真正用起来」</strong>——即提供 API/SDK/CDP/MCP 接口、可被程序化驱动，而不是只给人手的 GUI。</blockquote>
+<h2>场景速配（TL;DR 矩阵）</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">推荐</th><th style="text-align:left">理由</th></tr></thead><tbody><tr><td style="text-align:left">个人/AI Agent 自动化，自托管，零成本起步</td><td style="text-align:left"><a href="patchright/report.md">Patchright</a></td><td style="text-align:left">Playwright drop-in 替换，改一行 import 即生效</td></tr><tr><td style="text-align:left">Python 爬虫，直面 Cloudflare</td><td style="text-align:left"><a href="nodriver/report.md">nodriver</a></td><td style="text-align:left">undetected-chromedriver 官方继任，直连 DevTools WebSocket</td></tr><tr><td style="text-align:left">指纹一致性要求高，能接受 Firefox</td><td style="text-align:left"><a href="camoufox/report.md">Camoufox</a></td><td style="text-align:left">引擎级改造，指纹从引擎「长」出来</td></tr><tr><td style="text-align:left">多 Profile 管理 + AI 接口，自托管</td><td style="text-align:left"><a href="donut-browser/report.md">Donut Browser</a></td><td style="text-align:left">自带 REST API + MCP server，天生给 Agent 用</td></tr><tr><td style="text-align:left">团队生产，要稳定性和观测</td><td style="text-align:left"><a href="browserbase/report.md">Browserbase</a>（云）</td><td style="text-align:left">托管会话 + Stealth，最省心</td></tr><tr><td style="text-align:left">多账号运营（电商/社媒矩阵）</td><td style="text-align:left"><a href="adspower/report.md">AdsPower</a> / <a href="multilogin/report.md">Multilogin</a></td><td style="text-align:left">商业指纹库 + REST API → debug 端口接管</td></tr></tbody></table>
+<h2>一、为什么 AI 驱动的浏览器会被检测</h2>
+<p>反检测的前提是理解检测。Agent 驱动浏览器（Playwright/Puppeteer/Selenium）被识别的主要信号：</p>
+<ol><li><strong>CDP 协议握手痕迹</strong>：启动时的 <code>Runtime.enable</code>、<code>Target.setAutoAttach</code> 调用序列，反机器人系统可在协议层识别（Patchright 修补的核心）。</li><li><strong>注入残留</strong>：<code>window.__playwright__binding__</code> 等 JS 可被页面探测（Camoufox 把这些操作隔离在页面外作用域）。</li><li><strong>HeadlessChrome 标记</strong>：UA 与 <code>navigator.webdriver</code> 等 headless 指纹。</li><li><strong>指纹不一致</strong>：字体、WebGL、screen 属性自相矛盾——JS 注入式伪装只改表层，天然易露馅。</li></ol>
+<p>对抗思路分两派：<strong>补丁派</strong>（Patchright/nodriver：Chromium 上修痕迹）与<strong>引擎派</strong>（Camoufox：改浏览器源码，指纹一致性天然成立）。</p>
+<h2>二、跨方案属性对比</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">Patchright</th><th style="text-align:left">nodriver</th><th style="text-align:left">Camoufox</th><th style="text-align:left">Donut</th><th style="text-align:left">AdsPower/Multilogin</th><th style="text-align:left">Browserbase/Steel 等</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">驱动库</td><td style="text-align:left">驱动库</td><td style="text-align:left">驱动库+定制浏览器</td><td style="text-align:left">GUI+API 浏览器</td><td style="text-align:left">GUI+API 商业浏览器</td><td style="text-align:left">云 API</td></tr><tr><td style="text-align:left">反检测层级</td><td style="text-align:left">CDP 补丁</td><td style="text-align:left">无中间层直连</td><td style="text-align:left">引擎级（最强理论）</td><td style="text-align:left">Profile 指纹管理</td><td style="text-align:left">商业指纹库（最强商业）</td><td style="text-align:left">平台内置+代理</td></tr><tr><td style="text-align:left">AI 接入</td><td style="text-align:left">Playwright API</td><td style="text-align:left">Python async</td><td style="text-align:left">Playwright API</td><td style="text-align:left">REST + <strong>MCP</strong></td><td style="text-align:left">REST → debug port</td><td style="text-align:left">REST/SDK/MCP</td></tr><tr><td style="text-align:left">引擎</td><td style="text-align:left">Chromium</td><td style="text-align:left">Chromium</td><td style="text-align:left">Firefox</td><td style="text-align:left">Chromium</td><td style="text-align:left">自研 Mimic/Stealthfox</td><td style="text-align:left">Chromium</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">⚠️ AGPL-3.0</td><td style="text-align:left">MPL-2.0</td><td style="text-align:left">⚠️ AGPL-3.0</td><td style="text-align:left">商业订阅</td><td style="text-align:left">商业按量</td></tr><tr><td style="text-align:left">成本</td><td style="text-align:left">免费</td><td style="text-align:left">免费</td><td style="text-align:left">免费</td><td style="text-align:left">免费</td><td style="text-align:left">€29+/mo</td><td style="text-align:left">按量/订阅</td></tr><tr><td style="text-align:left">自托管</td><td style="text-align:left">✅</td><td style="text-align:left">✅</td><td style="text-align:left">✅</td><td style="text-align:left">✅</td><td style="text-align:left">桌面端</td><td style="text-align:left">Steel/Browserless 可，余否</td></tr><tr><td style="text-align:left">star（gh 2026-08-27）</td><td style="text-align:left">4,189</td><td style="text-align:left">4,698</td><td style="text-align:left">11,449</td><td style="text-align:left">3,717</td><td style="text-align:left">—（闭源）</td><td style="text-align:left">—（Steel 7,542）</td></tr><tr><td style="text-align:left">最后 push（同上）</td><td style="text-align:left">2026-08-19</td><td style="text-align:left">2026-05-13</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">—</td><td style="text-align:left">Steel 2026-08-25</td></tr><tr><td style="text-align:left">维护风险</td><td style="text-align:left">中</td><td style="text-align:left">中（fork zendriver 备选）</td><td style="text-align:left">高（断层史，2026-08 已回魂）</td><td style="text-align:left">低（活跃）</td><td style="text-align:left">低（商业）</td><td style="text-align:left">低（商业）</td></tr></tbody></table>
+<h2>二·五、决策矩阵（加权）</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">反检测层级（w=5）</th><th style="text-align:left">AI 接入（w=4）</th><th style="text-align:left">许可（w=3）</th><th style="text-align:left">成本（w=3）</th><th style="text-align:left">自托管（w=4）</th><th style="text-align:left">维护活跃（w=5）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="camoufox/report.md">Camoufox</a></td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">3</td><td style="text-align:left"><strong>110</strong> / 120</td></tr><tr><td style="text-align:left"><a href="patchright/report.md">Patchright</a></td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left"><strong>105</strong> / 120</td></tr><tr><td style="text-align:left"><a href="donut-browser/report.md">Donut Browser</a></td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>104</strong> / 120</td></tr><tr><td style="text-align:left"><a href="steel-browser/report.md">Steel Browser</a></td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left"><strong>102</strong> / 120</td></tr><tr><td style="text-align:left"><a href="botasaurus/report.md">botasaurus</a></td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left"><strong>101</strong> / 120</td></tr><tr><td style="text-align:left"><a href="browserless/report.md">Browserless</a></td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left"><strong>93</strong> / 120</td></tr><tr><td style="text-align:left"><a href="nodriver/report.md">nodriver</a></td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left"><strong>90</strong> / 120</td></tr><tr><td style="text-align:left"><a href="adspower/report.md">AdsPower</a></td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left"><strong>85</strong> / 120</td></tr><tr><td style="text-align:left"><a href="multilogin/report.md">Multilogin</a></td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left"><strong>85</strong> / 120</td></tr><tr><td style="text-align:left"><a href="browserbase/report.md">Browserbase</a></td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">2</td><td style="text-align:left">4</td><td style="text-align:left"><strong>83</strong> / 120</td></tr><tr><td style="text-align:left"><a href="clawbrowser/report.md">Clawbrowser</a></td><td style="text-align:left">2</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">1</td><td style="text-align:left"><strong>81</strong> / 120</td></tr><tr><td style="text-align:left"><a href="undetected-chromedriver/report.md">undetected-chromedriver</a></td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">1</td><td style="text-align:left"><strong>68</strong> / 120</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-08-27；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<h2>三、GitHub 活跃度速查</h2>
+<table><thead><tr><th style="text-align:left">项目</th><th style="text-align:left">仓库</th><th style="text-align:left">star</th><th style="text-align:left">最后 push</th><th style="text-align:left">license</th></tr></thead><tbody><tr><td style="text-align:left"><a href="browserbase/report.md">Browserbase</a></td><td style="text-align:left"><a href="https://github.com/browserbase/stagehand">browserbase/stagehand</a></td><td style="text-align:left">⭐24,066</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">MIT</td></tr><tr><td style="text-align:left"><a href="browserless/report.md">Browserless</a></td><td style="text-align:left"><a href="https://github.com/browserless/browserless">browserless/browserless</a></td><td style="text-align:left">⭐13,635</td><td style="text-align:left">2026-08-25</td><td style="text-align:left">NOASSERTION</td></tr><tr><td style="text-align:left"><a href="undetected-chromedriver/report.md">undetected-chromedriver</a></td><td style="text-align:left"><a href="https://github.com/ultrafunkamsterdam/undetected-chromedriver">ultrafunkamsterdam/undetected-chromedriver</a></td><td style="text-align:left">⭐12,808</td><td style="text-align:left">2025-07-05</td><td style="text-align:left">GPL-3.0</td></tr><tr><td style="text-align:left"><a href="camoufox/report.md">Camoufox</a></td><td style="text-align:left"><a href="https://github.com/daijro/camoufox">daijro/camoufox</a></td><td style="text-align:left">⭐11,452</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">MPL-2.0</td></tr><tr><td style="text-align:left"><a href="steel-browser/report.md">Steel Browser</a></td><td style="text-align:left"><a href="https://github.com/steel-dev/steel-browser">steel-dev/steel-browser</a></td><td style="text-align:left">⭐7,543</td><td style="text-align:left">2026-08-25</td><td style="text-align:left">Apache-2.0</td></tr><tr><td style="text-align:left"><a href="botasaurus/report.md">botasaurus</a></td><td style="text-align:left"><a href="https://github.com/omkarcloud/botasaurus">omkarcloud/botasaurus</a></td><td style="text-align:left">⭐5,689</td><td style="text-align:left">2026-07-26</td><td style="text-align:left">MIT</td></tr><tr><td style="text-align:left"><a href="nodriver/report.md">nodriver</a></td><td style="text-align:left"><a href="https://github.com/ultrafunkamsterdam/nodriver">ultrafunkamsterdam/nodriver</a></td><td style="text-align:left">⭐4,698</td><td style="text-align:left">2026-05-13</td><td style="text-align:left">AGPL-3.0</td></tr><tr><td style="text-align:left"><a href="patchright/report.md">Patchright</a></td><td style="text-align:left"><a href="https://github.com/Kaliiiiiiiiii-Vinyzu/patchright">Kaliiiiiiiiii-Vinyzu/patchright</a></td><td style="text-align:left">⭐4,190</td><td style="text-align:left">2026-08-19</td><td style="text-align:left">Apache-2.0</td></tr><tr><td style="text-align:left"><a href="donut-browser/report.md">Donut Browser</a></td><td style="text-align:left"><a href="https://github.com/zhom/donutbrowser">zhom/donutbrowser</a></td><td style="text-align:left">⭐3,719</td><td style="text-align:left">2026-08-26</td><td style="text-align:left">AGPL-3.0</td></tr><tr><td style="text-align:left"><a href="clawbrowser/report.md">Clawbrowser</a></td><td style="text-align:left"><a href="https://github.com/clawbrowser/clawbrowser">clawbrowser/clawbrowser</a></td><td style="text-align:left">⭐28</td><td style="text-align:left">2026-08-05</td><td style="text-align:left">MIT</td></tr></tbody></table>
+<p>*star / push 为 gh 一手快照，采集 2026-08-27；无 stats 的项（商业闭源等）不列。*</p>
+<p>（相邻生态另见观察名单：UI-TARS-desktop、crawl4ai、browser-use 等。选型门槛 ≥1k star。）</p>
+<h2>四、选型决策树</h2>
+<pre><code class="lang-">要反检测的浏览器给 AI 用
+│
+├── 已有 Playwright 代码?
+│   └── 是 → Patchright（改 import，零迁移）
+│
+├── 纯 Python、直面 Cloudflare?
+│   └── 是 → nodriver（停摆时切 zendriver）
+│
+├── 需要多 Profile / 多账号 / 指纹轮换?
+│   ├── 自托管、要 MCP 直连 → Donut Browser（或 stealth-browser-mcp，观察名单）
+│   └── 商业级稳定、付费 → AdsPower（中文/性价比）/ Multilogin（指纹口碑）
+│
+├── 指纹一致性是命门、接受 Firefox?
+│   └── Camoufox（盯紧维护状态）
+│
+└── 不想碰浏览器运维?
+    ├── 开源自托管 → Steel / Browserless
+    └── 托管省心 → Browserbase；成功率优先且预算足 → Bright Data</code></pre>
+<h2>五、观察名单（不建独立报告，含理由）</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">状态（观测 2026-08-27）</th><th style="text-align:left">备注</th></tr></thead><tbody><tr><td style="text-align:left">zendriver</td><td style="text-align:left">⭐1,409，push 2026-08-16</td><td style="text-align:left">nodriver 社区 fork，nodriver 停摆时切换</td></tr><tr><td style="text-align:left">stealth-browser-mcp</td><td style="text-align:left">⭐1,667，push 2026-07-24，MIT</td><td style="text-align:left">「反检测×MCP」轻量封装，Donut 的备选</td></tr><tr><td style="text-align:left">Bright Data（云）</td><td style="text-align:left">AIMultiple 2026 综合 97（成功率 95%）</td><td style="text-align:left">企业级、代理网络加成，贵但能打</td></tr><tr><td style="text-align:left">Kernel（云）</td><td style="text-align:left">官方口径浏览器创建 30ms p50 / 105ms p99（kernel.sh 2026 自述）；SigNoz 案例从 140ms 优化至 30ms</td><td style="text-align:left">极速沙箱，内置观测遥测</td></tr><tr><td style="text-align:left">Hyperbrowser（云）</td><td style="text-align:left">AIMultiple 2026 综合 62</td><td style="text-align:left">Agent 品牌最强但综合分落后 Steel（72）</td></tr><tr><td style="text-align:left">BrowserAI / Anchor（云）</td><td style="text-align:left">AIMultiple 2026 综合 87 / 82</td><td style="text-align:left">新兴，关注即可</td></tr><tr><td style="text-align:left">GoLogin / BitBrowser（商业）</td><td style="text-align:left">同 AdsPower/Multilogin 模式</td><td style="text-align:left">中文圈常用，未单独评估</td></tr><tr><td style="text-align:left">UI-TARS-desktop</td><td style="text-align:left">⭐38,708，push 2026-08-05</td><td style="text-align:left">字节出品 GUI/视觉 Agent，相邻生态</td></tr><tr><td style="text-align:left">crawl4ai</td><td style="text-align:left">⭐79,463</td><td style="text-align:left">LLM 友好爬虫（非反检测），常与本赛道组合用</td></tr></tbody></table>
+<h2>六、合规边界</h2>
+<p>反检测工具用于<strong>访问自己拥有的内容、已授权的自动化、绕过误伤性 bot 拦截</strong>是正当用途；用于大规模绕过目标站反爬、违反 ToS 抓取、账号矩阵灰色运营则有法律与封号风险。指纹浏览器商业方案的合规责任同样由使用者承担。选型时把「目标站允许什么」当第一约束，工具只是实现层。</p>
+<h2>数据时间说明</h2>
+<p>本页所有 star / push / license 为 gh 2026-08-27 采集快照；评测结论均标注评测方与年份；价格以标注查询日期为准。<strong>过期数据比没有数据更危险</strong>——复用本页前先核对时效（RULES.md 第 3 节）。</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

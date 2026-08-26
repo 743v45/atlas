@@ -1,0 +1,36 @@
+{
+  "name": "Docusaurus",
+  "repo": "https://github.com/facebook/docusaurus",
+  "homepage": "https://docusaurus.io",
+  "license": "MIT",
+  "verdict": "assess",
+  "summary": "嵌入级代表载体：raw-loader 构建时拉源码片段+onBrokenLinks 默认 throw 卡死链，Meta 出品、66k star 活跃；但选 SSG 是站点形态决策，须与知识库/博客落点合并另评——本类别只确认其嵌入机制可载组合方案。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/facebook/docusaurus",
+    "https://docusaurus.io/docs/markdown-features/react",
+    "https://docusaurus.io/docs/api/docusaurus-config",
+    "Claude 历史会话（2026-08-25）——本报告提取源"
+  ],
+  "tags": [
+    "ssg",
+    "嵌入级",
+    "react",
+    "meta"
+  ],
+  "matrix": {
+    "关联强度": "嵌入级",
+    "标识": "文件路径(构建时)",
+    "单一事实源": "代码仓(构建拉取)",
+    "CI 强制": "✅ 死链 throw",
+    "形态": "SSG 框架"
+  },
+  "stats": {
+    "source_repo": "facebook/docusaurus",
+    "stars": 66092,
+    "pushed_at": "2026-08-26",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  }
+}

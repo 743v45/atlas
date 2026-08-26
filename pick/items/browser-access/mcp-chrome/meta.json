@@ -1,0 +1,32 @@
+{
+  "name": "mcp-chrome",
+  "repo": "https://github.com/hangwin/mcp-chrome",
+  "homepage": "https://github.com/hangwin/mcp-chrome",
+  "license": "MIT",
+  "verdict": "hold",
+  "summary": "接管现有 Chrome 会话（登录态/cookie/tab 全在）的代表方案，Webfuse 2026 榜单唯一推荐；但 push 停在 2026-01-06、放缓 7 个月，同类需求 Chrome DevTools MCP / Claude in Chrome 更活跃。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://github.com/hangwin/mcp-chrome"
+  ],
+  "tags": [
+    "mcp",
+    "接管会话",
+    "登录态"
+  ],
+  "stats": {
+    "source_repo": "hangwin/mcp-chrome",
+    "stars": 12352,
+    "pushed_at": "2026-01-06",
+    "license": "MIT",
+    "collected_at": "2026-08-27"
+  },
+  "matrix": {
+    "形态": "MCP",
+    "常驻 token": "中",
+    "引擎覆盖": "Chromium",
+    "独占能力": "接管登录态",
+    "许可": "MIT"
+  }
+}

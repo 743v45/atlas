@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CockroachDB · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/data-storage.html">数据与存储</a><span class="sep">·</span><span>主数据库选型</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../clickhouse/report.html">← ClickHouse</a><span class="sep">·</span><a href="../mongodb/report.html">MongoDB →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>CockroachDB</h1>
+<blockquote><strong>TL;DR</strong>：强一致分布式与运维自动化最好的 NewSQL 之一，但 BUSL 源可用许可（2024-08 起对年收入 ≥$5M 企业收费）与云优先导向，让开源自托管的新采用需要掂量；跨区域强一致刚需时值得试。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用——跨区域强一致/超单机规模场景）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">v26.2（2026-04-27 发布，当前最新大版线）；v25.4 等旧线维护中</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">BUSL-1.1（源可用）：2019 年弃 Apache-2.0 转 BSL/BUSL；2024-08-15 起收费门槛从年收入 $10M 降至 $5M</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/cockroachdb/cockroach">https://github.com/cockroachdb/cockroach</a>（⭐32,415，push 2026-08-07，gh 2026-08-27——注意推送间隔约 3 周，开发主干可能部分内移，待验证）</td><td style="text-align:left">[6]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">Cockroach Labs 主导，历法版本号持续发版（26.1→26.2）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">流行度</td><td style="text-align:left">DB-Engines ≈第 65（2026-08 快照，呈下滑趋势）</td><td style="text-align:left">[3]</td></tr><tr><td style="text-align:left">托管</td><td style="text-align:left">CockroachCloud（Serverless/Standard/Dedicated 档）</td><td style="text-align:left">[4]</td></tr></tbody></table>
+<h2>为什么选（在其领域）</h2>
+<ul><li><strong>强一致 + 弹性伸缩</strong>：Raft 复制 + range 自动再平衡，节点/区域级容灾，水平扩容对应用透明（taevasidian 底稿 2026-08）[5]。</li><li><strong>跨区域部署简单</strong>：多区域/存活区配置（survival goals）是同类中最省心的全球部署故事 [5]。</li><li><strong>PG 线协议兼容</strong>：驱动生态可直接复用 PostgreSQL 客户端（语法有差异，非 100% 兼容）[5]。</li><li><strong>运维自动化好</strong>：自动再平衡/自动修复，DBA 投入低于「PG + Patroni + Citus」自组装方案 [5]。</li><li><strong>事务正确性有硬基础</strong>：HLC 混合逻辑时钟支撑跨地域 Serializable 隔离；Geo-partitioning 可指定数据落点降延迟（taevasidian 底稿 2026-08）[5]。</li></ul>
+<h2>为什么谨慎（trial 而非 adopt）</h2>
+<ul><li><strong>BUSL 许可闸门</strong>：非 OSI 开源；年营收 ≥$5M 的企业自托管商用需付费（TechCrunch 2024-08 报道许可调整）[2]。这是三剑客中许可最不干净的一家——同场景下 YugabyteDB 已 100% Apache-2.0。</li><li><strong>云优先的商业重心</strong>：功能节奏向 CockroachCloud 倾斜（如 v25.4.x 部分版本仅限云集群，官方文档 2026-03 访问）[4]。</li><li><strong>PG 兼容是协议级</strong>：扩展（PostGIS/pgvector 等）不可用，语法差异带来迁移摩擦——「深兼容」的是 YugabyteDB（见 <code>../yugabytedb/report.md</code>）[5]。</li><li><strong>热度下行</strong>：DB-Engines 2026-08 排 ≈65 且趋势下滑；GitHub push 间隔变长（观测 2026-08-27，待验证）[3][6]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs <strong>YugabyteDB</strong>：同为 PG 兼容分布式；Yugabyte 深兼容（fork PG 查询层）+ Apache-2.0，Cockroach 强在托管成熟度与多区域故事。逐维度见 <code>../comparison.md</code>。</li><li>vs <strong>TiDB</strong>：TiDB 走 MySQL 协议 + HTAP；Cockroach/Yugabyte 走 PG 兼容路线——先看团队协议栈再选（taevasidian 底稿 2026-08）[5]。</li><li>vs <strong>PostgreSQL</strong>：单区域内 + 依赖扩展生态 → PG；跨区域强一致/超单机规模 → NewSQL [5]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>BUSL 合规：营收接近 $5M 或有上市/并购预期的公司，自托管商用前需法务确认 [2]。</li><li>扩展生态不可用（PostGIS/pgvector 等），重度依赖 PG 扩展的团队迁移会痛 [5]。</li><li>单区域内性能不如原生 PG/MySQL（分布式共识开销），写延迟受多数派复制制约——「为了分布式而分布式」会得不偿失（taevasidian 底稿 2026-08）[5]。</li><li>开源社区活跃度依赖单一商业公司；GitHub 主仓 push 间隔 2026-08 观测约 3 周，持续观察（待验证）[6]。</li></ul>
+<h2>来源</h2>
+<ol><li>CockroachDB EOL/EOS 汇总（endoflife.date，访问 2026-08-27）— <a href="https://endoflife.date/cockroachdb">https://endoflife.date/cockroachdb</a></li><li>Cockroach Labs shakes up its licensing to force bigger companies to pay（TechCrunch，2024-08-15）— <a href="https://techcrunch.com/2024/08/15/cockroach-labs-shakes-up-its-licensing-to-force-bigger-companies-to-pay">https://techcrunch.com/2024/08/15/cockroach-labs-shakes-up-its-licensing-to-force-bigger-companies-to-pay</a></li><li>DB-Engines Ranking（2026-08 快照，采集 2026-08-27）— <a href="https://db-engines.com/en/ranking">https://db-engines.com/en/ranking</a></li><li>CockroachDB v25.4 Release Notes（官方文档，访问 2026-08-27）— <a href="https://www.cockroachlabs.com/docs/releases/v25.4">https://www.cockroachlabs.com/docs/releases/v25.4</a></li><li>taevasidian《CockroachDB · 分布式 NewSQL 数据库选型报告》（2026-08 导出；2026-08-06 会话调研底稿）</li><li>gh repos/cockroachdb/cockroach（star/push 采集 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial（初始）</td><td style="text-align:left">首次记录：v26.2（2026-04）；BUSL ≥$5M 收费门槛是主要顾虑</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MySQL · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/data-storage.html">数据与存储</a><span class="sep">·</span><span>主数据库选型</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../mongodb/report.html">← MongoDB</a><span class="sep">·</span><a href="../postgresql/report.html">PostgreSQL →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>MySQL</h1>
+<blockquote><strong>TL;DR</strong>：可靠的老将，但新项目默认选择已让位 PostgreSQL：复杂查询、JSONB、扩展生态全面落后；已有 MySQL 栈、读多写少的简单 Web 场景仍值得继续用。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用——已有栈延续使用；新项目默认选 PostgreSQL）</li><li><strong>核实日期</strong>：2026-08-27</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">8.4 LTS 与 9.x Innovation 并行；2026-01 发布 9.6（Innovation），9.7 为旧序号模型最后一条线；此后转历法版本号（26.7 Innovation，2026-07-20）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">GPL-2.0（Oracle 双轨：开源 GPL + 商业许可）</td><td style="text-align:left">[5]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/mysql/mysql-server">https://github.com/mysql/mysql-server</a>（⭐12,407，push 2026-08-25，gh 2026-08-27）</td><td style="text-align:left">[6]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">Oracle 主导，LTS + Innovation 双轨持续发布（9.7.2 tag 已出现，gh 2026-08-27）</td><td style="text-align:left">[1][6]</td></tr><tr><td style="text-align:left">流行度</td><td style="text-align:left">DB-Engines 第 2（842.32 分，2026-08 快照），存量装机仍是互联网最大基本盘之一</td><td style="text-align:left">[3]</td></tr></tbody></table>
+<h2>为什么（还能）选</h2>
+<ul><li><strong>简单读多写少仍然快</strong>：2026 年基准综述口径——简单 SELECT 比 PG 快 20–30%，单机写密集基准亦有约 30% 优势（评测：tech-insider 2026）[2]。架构上 InnoDB 聚簇索引（主键索引即数据），主键点查极快；二级索引存主键值需回表，与 PG 堆表+CTID 是两条路线（taevasidian 底稿）[5]。</li><li><strong>复制与高可用链路全</strong>：异步主从 → 半同步 → 组复制 MGR（Paxos 变种）按需升级；OCI/AWS 上的 HeatWave 内置内存列存可补 HTAP 短板（taevasidian 底稿）[5]。</li><li><strong>运维与上手门槛低</strong>：主从复制开箱即用、调参面窄，「Web 场景默认」三十年惯性，招人容易（评测：Bytebase 2025；taevasidian 底稿 2026-08）[4][5]。</li><li><strong>生态位依旧庞大</strong>：DB-Engines 第 2（2026-08）[3]；LAMP/WordPress/大量存量系统的事实标准，迁移成本即护城河 [5]。</li><li><strong>托管选择成熟</strong>：RDS/Aurora（MySQL 兼容）/PlanetScale（Vitess 分片托管）全云覆盖 [5]。</li></ul>
+<h2>为什么不选（新项目）</h2>
+<ul><li><strong>复杂查询落后</strong>：多表 JOIN、子查询、CTE、窗口函数场景优化弱于 PG，2026 年基准与社区综述均指向差距在扩大而非收窄（评测：tech-insider 2026；Bytebase 2025）[2][4]。</li><li><strong>JSON 与类型系统弱一档</strong>：JSON 列可索引性与 JSONB+GIN 有差距；无数组/范围类型；extension 生态远不及 PG [5]。</li><li><strong>GPL 双轨的商务摩擦</strong>：闭源产品嵌入分发需评估 GPL 传染或购买 Oracle 商业许可；PG 的 BSD 类许可无此顾虑 [5]。</li><li><strong>版本模型噪音</strong>：8.4 LTS / 9.x Innovation / 历法版本号（26.x）三轨并行，选型与升级路径需要额外甄别（官方文档，访问 2026-08-27）[1]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs <strong>PostgreSQL</strong>：见 <code>../comparison.md</code> 属性矩阵。一句话：新项目无历史包袱 → PG；已有 MySQL 栈、团队熟悉、需求简单 → 继续用不亏 [5]。</li><li>vs <strong>TiDB</strong>：要分布式扩展时，TiDB 兼容 MySQL 协议，是 MySQL 栈的平滑升级路径（见 <code>../tidb/report.md</code>）[5]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>Oracle 单一控制方的开源治理风险（历史分叉出 MariaDB 的原因），长期路线依赖需评估 [5]。</li><li>复杂分析/HTAP 需求继续增长时，PG 或外挂 OLAP 的架构组合更从容 [2][5]。</li><li>「MySQL 比 PG 快」在 2026 年仅对简单读成立，别拿旧结论做新决策（评测：tech-insider 2026）[2]。</li></ul>
+<h2>来源</h2>
+<ol><li>MySQL Reference Manual · 1.3 MySQL Releases: Innovation and LTS（含 9.7 为旧版本模型最后一条线、转 YY.M 历法版本号）— <a href="https://dev.mysql.com/doc/refman/9.3/en/mysql-releases.html">https://dev.mysql.com/doc/refman/9.3/en/mysql-releases.html</a> （访问 2026-08-27）</li><li>PostgreSQL vs MySQL: 5 Benchmarks Reveal the Winner（tech-insider，2026）— <a href="https://tech-insider.org/postgresql-vs-mysql-2026">https://tech-insider.org/postgresql-vs-mysql-2026</a></li><li>DB-Engines Ranking（2026-08 快照，采集 2026-08-27）— <a href="https://db-engines.com/en/ranking">https://db-engines.com/en/ranking</a></li><li>PostgreSQL vs MySQL（Bytebase，2025）— <a href="https://www.bytebase.com/blog/postgres-vs-mysql/">https://www.bytebase.com/blog/postgres-vs-mysql/</a></li><li>taevasidian《MySQL · 关系型数据库选型报告》与《PostgreSQL 数据库横评》（2026-08 导出；2026-08-06 会话调研底稿）</li><li>gh repos/mysql/mysql-server（star/push/tags 采集 2026-08-27）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">trial（初始）</td><td style="text-align:left">首次记录：DB-Engines 2026-08 第 2；版本模型转历法版本号（26.7）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>
