@@ -34,9 +34,9 @@ jq -r 'select(.type=="user") | .message.content | if type=="string" then . else 
 ## 3. 分流规则(硬边界)
 
 - **spark 级:AI 可直接录入**——它是草稿箱,低摩擦是功能。录入后跑 `spark/scripts/build-index.py`。
-- **馆级(课 / 错题 / 选型):只列清单,等用户确认**——收录即定案,门禁归人,不由 AI 代定。
+- **馆级(课 / 错题 / 选型)与新维度候选:一律写入 `dig/INBOX.md` 待审区,状态 pending**——定夺权全在用户(promoted 转正 / dismissed 清理,标记动作见 INBOX 头部规则)。收录即定案,门禁归人,不由 AI 代定。
 - **每条发现必须带来源**:会话文件名前 8 位 + 日期 + 项目目录名。翻车的原始表述**保留原文**(它是证据,不是转述)。
-- 录入/确认后:跑对应馆 build(门禁必须过),`git commit + push`(注明 `[dig]`),更新 `progress.json`。
+- 用户标记 promoted 后:AI 执行入库(写 meta+md、跑对应馆 build,门禁必须过),`git commit + push`(注明 `[dig]`),INBOX 条目移入已决区,更新 `progress.json`。
 
 ## 4. 新维度判据
 
