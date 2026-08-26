@@ -10,6 +10,7 @@ BAD=0
 for f in "$ATLAS"/pick/scripts/build-index.py \
          "$ATLAS"/apprentice/scripts/build-index.py \
          "$ATLAS"/mistakes/scripts/build-index.py \
+         "$ATLAS"/spark/scripts/build-index.py \
          "$ATLAS"/scripts/build-atlas.py; do
   [ -f "$f" ] || continue
   if grep -q "^def render_inline\|^BASE_CSS = " "$f"; then

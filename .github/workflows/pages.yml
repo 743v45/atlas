@@ -34,6 +34,9 @@ jobs:
       - name: Build mistakes
         run: python3 scripts/build-index.py
         working-directory: mistakes
+      - name: Build spark
+        run: python3 scripts/build-index.py
+        working-directory: spark
       - name: Build atlas（门户 + 错题集视图）
         run: python3 scripts/build-atlas.py
       - uses: actions/upload-pages-artifact@v3

@@ -89,8 +89,10 @@ def collect():
         md = (d_.parent / "mistake.md").read_text(encoding="utf-8")
         mistakes.append((rel, meta, root_cause_digest(md)))
 
+    spark_count = sum(1 for _ in (ROOT / "spark" / "items").glob("*/meta.json"))
+
     return {"pick_count": pick_count, "app_count": app_count, "mistake_count": mistake_count,
-            "holds": holds, "mistakes": mistakes, "rotten": rotten}
+            "spark_count": spark_count, "holds": holds, "mistakes": mistakes, "rotten": rotten}
 
 
 ATLAS_CSS = """
@@ -146,6 +148,11 @@ def render(data):
       <h2>mistakes · 错题集</h2>
       <div class="desc">怎么摔的——经过 / 根因 / 修正,单一事实源</div>
       <div class="figures">{data['mistake_count']} 条</div>
+    </a>
+    <a class="hall" href="spark/index.html">
+      <h2>spark · 奇想录</h2>
+      <div class="desc">想去但还没走的 Z——低摩擦苗圃,毕业制流向三馆</div>
+      <div class="figures">{data['spark_count']} 条念头</div>
     </a>
   </div>"""
 
@@ -225,8 +232,8 @@ def main():
     data = collect()
     (ROOT / "index.html").write_text(render(data), encoding="utf-8")
     print(
-        f"✅ 门户已生成:pick {data['pick_count']} · apprentice {data['app_count']} · mistakes {data['mistake_count']} | "
-        f"翻车 {len(data['mistakes'])} · 落选 {len(data['holds'])}(折叠) · 腐烂 {len(data['rotten'])}"
+        f"✅ 门户已生成:pick {data['pick_count']} · apprentice {data['app_count']} · mistakes {data['mistake_count']} · "
+        f"spark {data['spark_count']} | 翻车 {len(data['mistakes'])} · 落选 {len(data['holds'])}(折叠) · 腐烂 {len(data['rotten'])}"
     )
 
 

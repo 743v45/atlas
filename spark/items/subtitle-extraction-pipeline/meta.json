@@ -1,0 +1,7 @@
+{
+  "name": "FDE 字幕提取三段指令:勘察 → 带理由剪枝 → 全读",
+  "date": "2026-08-27",
+  "status": "idea",
+  "tags": ["express", "prune", "待固化"],
+  "graduated_to": null
+}

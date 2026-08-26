@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>mistakes · 错题集索引</title>
+<title>spark · 奇想录索引</title>
 <style>
   :root {
     --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
@@ -78,47 +78,51 @@
   .idx-table th.sorted-asc::after { content: " ↑"; color: var(--link); }
   .idx-table th.sorted-desc::after { content: " ↓"; color: var(--link); }
   .idx-table td { border-bottom: 1px solid var(--border); font-size: .84rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .idx-table td:first-child { width: 13rem; }
+  .idx-table td:first-child { width: auto; }
   .idx-table td.mx { color: var(--muted); }
   .idx-table td.num, .idx-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-family: var(--font-mono); font-size: .78rem; }
   .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
-  .idx-table .mistake-name { font-weight: 600; }
+  .idx-table .spark-name { font-weight: 600; }
+  .idx-table .dest { font-size: .76rem; }
   .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
-  @media (max-width: 720px) { .idx-table { min-width: 560px; } .category { overflow-x: auto; } }
+  @media (max-width: 720px) { .idx-table { min-width: 560px; } .wrap-x { overflow-x: auto; } }
 </style>
 </head>
 <body>
 <main>
   <div class="masthead">
-    <h1>mistakes</h1>
-    <span class="sub">错题集 · <a href="RULES.md">RULES.md</a> · <a href="../index.html">← atlas</a></span>
-    <span class="figures">1 条</span>
+    <h1>spark</h1>
+    <span class="sub">奇想录 · <a href="RULES.md">RULES.md</a> · <a href="../index.html">← atlas</a></span>
+    <span class="figures">1 条念头</span>
   </div>
-  <input id="filter" type="search" placeholder="按错题名 / 类型 / 出处搜索…" autocomplete="off">
+  <input id="filter" type="search" placeholder="按念头 / 标签搜索…" autocomplete="off">
   <div class="chips">
     <button class="chip active" data-status="all">全部</button>
-    <button class="chip" data-status="fixed" style="--chip-c:#0ca30c">已修正</button><button class="chip" data-status="recurring" style="--chip-c:#d03b3b">复发</button>
+    <button class="chip" data-status="idea" style="--chip-c:#fab219">灵感</button><button class="chip" data-status="snoozed" style="--chip-c:#898781">搁置</button><button class="chip" data-status="graduated" style="--chip-c:#0ca30c">毕业</button><button class="chip" data-status="dropped" style="--chip-c:#d03b3b">放弃</button>
   </div>
+  <div class="wrap-x">
   <table class="idx-table">
     <thead><tr>
-      <th data-sort="name" tabindex="0">错题</th><th data-sort="date" class="num" tabindex="0">日期</th>
-      <th>类型</th><th data-sort="status" tabindex="0">状态</th>
+      <th data-sort="name" tabindex="0">念头</th><th data-sort="date" class="num" tabindex="0">日期</th>
+      <th>标签</th><th data-sort="status" tabindex="0">状态</th><th>去向</th>
     </tr></thead>
     <tbody>
-      <tr data-status="fixed" data-date="2026-08-27" data-name="「我想要的」:Z 没说清就动手"
-          data-search="「我想要的」:z 没说清就动手 表达不清、z未定义、形容词当判据 fde 视频字幕提取需求,对话归档:conversations/2026-08-27-fog-walking-to-atlas.md">
-        <td class="mistake-name"><a href="items/vague-goal/mistake.html" title="FDE 视频字幕提取需求,对话归档:conversations/2026-08-27-fog-walking-to-atlas.md">「我想要的」:Z 没说清就动手</a></td>
+      <tr data-status="idea" data-date="2026-08-27" data-name="FDE 字幕提取三段指令:勘察 → 带理由剪枝 → 全读"
+          data-search="fde 字幕提取三段指令:勘察 → 带理由剪枝 → 全读 express、prune、待固化">
+        <td class="spark-name"><a href="items/subtitle-extraction-pipeline/spark.html">FDE 字幕提取三段指令:勘察 → 带理由剪枝 → 全读</a></td>
         <td class="num">2026-08-27</td>
-        <td class="mx">表达不清、Z未定义、形容词当判据</td>
-        <td><span class="seal" style="--vb:#0ca30c" title="已修正"><i></i>修</span></td>
+        <td class="mx">express、prune、待固化</td>
+        <td><span class="seal" style="--vb:#fab219" title="灵感"><i></i>念</span></td>
+        <td class="mx dest"></td>
       </tr>
     </tbody>
   </table>
-  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改</footer>
+  </div>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 想到重复的点子先查这里</footer>
 </main>
 <script>
   // 文本过滤 + status chips + 表头排序(点击切换升降序)
-  const STATUS_ORDER = {"fixed": 0, "recurring": 1};
+  const STATUS_ORDER = {"idea": 0, "snoozed": 1, "graduated": 2, "dropped": 3};
   const input = document.getElementById('filter');
   let statusF = 'all';
   const chips = [...document.querySelectorAll('.chip')];
