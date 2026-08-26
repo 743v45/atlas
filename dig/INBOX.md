@@ -35,6 +35,11 @@ pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403——一天�
 **待回读**:这是提问不是结论,须回读该会话结论段,结论成立且可验证才立课;与 pick/docs-code-linking 主题相邻,注意分工。
 状态:pending
 
+### [mistakes·素材] Outline 自托管 9 坑实录的下落 | 2026-07-30 | 53f490e3 + 4ac44e68
+3.7MB 部署全程会话产出文章「Outline 本机自托管踩坑实录:9 个坑才跑通 Google 登录」,发布到 Outline wiki「部署踩坑」collection——**而 Outline 已于 08-25 弃用**(memory:存量/迁移留档)。
+待查:文章是否已迁移到 taevasidian;若未迁,源对话 53f490e3 是恢复底稿。9 个坑若完好,可拆成 mistakes 条目素材。
+状态:pending
+
 ## 已决
 
 (暂无)
