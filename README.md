@@ -1,6 +1,8 @@
-# yawyd — 馆群 monorepo
+# atlas — 馆群 monorepo
 
-一个仓、一个站、一条流水线。认知的定案住在馆里,门户与错题集聚合在根——**内容不搬家,原地链接**(单一事实源)。
+atlas = 地图集:馆是图上的区域,错题集是警示图层,根 `index.html` 是封面。一个仓、一个站、一条流水线——**内容不搬家,原地链接**(单一事实源)。
+
+住在 `~/Code/yawyd/`(纯项目容器)之下,与其他项目平级。
 
 ## 馆
 
@@ -22,4 +24,4 @@ push 到 main → GitHub Pages 单站部署(`.github/workflows/pages.yml`:两馆
 
 ## 迁移留档
 
-2026-08-27 由 pick、apprentice 两个独立仓就地合并(路径未动,子目录 `.git.archived-mono/` 留存原仓历史;原 GitHub 仓库 743v45/pick、743v45/apprentice 仍在)。引擎血缘见 `apprentice/scripts/ORIGIN.md`——shared/ 抽取后,check-drift 退役。
+2026-08-27 由 pick、apprentice 两个独立仓就地合并(先名 yawyd 后更名 halls,终名 atlas;子目录 `.git.archived-mono/` 留存原仓历史;原 GitHub 仓库 743v45/pick、743v45/apprentice 仍在)。引擎血缘见 `apprentice/scripts/ORIGIN.md`——shared/ 抽取后,check-drift 退役。
