@@ -1,10 +1,10 @@
 # 白名单式:本仓只收馆群体系;yawyd 下其他项目是独立代码仓,不纳入
 /*
 !/.gitignore
-!/.dig-progress.json
 !/README.md
 !/PHILOSOPHY.md
 !/DESIGN-TREE.md
+!/dig/
 !/.github/
 !/scripts/
 !/shared/

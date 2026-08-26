@@ -1,0 +1,122 @@
+{
+  "purpose": "dig 翻阅进度唯一事实源(规则见同目录 RULES.md / TIMELINE.md)",
+  "updated": "2026-08-27",
+  "days": [
+    {
+      "day": "2026-07-28",
+      "files": 7,
+      "status": "in-flight",
+      "agent": "dig-0728"
+    },
+    {
+      "day": "2026-07-29",
+      "files": 4,
+      "status": "in-flight",
+      "agent": "dig-0729"
+    },
+    {
+      "day": "2026-07-30",
+      "files": 3,
+      "status": "in-flight",
+      "agent": "dig-0730"
+    },
+    {
+      "day": "2026-08-01",
+      "files": 1,
+      "status": "in-flight",
+      "agent": "dig-0801"
+    },
+    {
+      "day": "2026-08-03",
+      "files": 5,
+      "status": "in-flight",
+      "agent": "dig-0803"
+    },
+    {
+      "day": "2026-08-04",
+      "files": 14,
+      "status": "in-flight",
+      "agent": "dig-0804"
+    },
+    {
+      "day": "2026-08-05",
+      "files": 4,
+      "status": "in-flight",
+      "agent": "dig-0805"
+    },
+    {
+      "day": "2026-08-06",
+      "files": 4,
+      "status": "in-flight",
+      "agent": "dig-0806"
+    },
+    {
+      "day": "2026-08-07",
+      "files": 1,
+      "status": "in-flight",
+      "agent": "dig-0807"
+    },
+    {
+      "day": "2026-08-11",
+      "files": 9,
+      "status": "in-flight",
+      "agent": "dig-0811"
+    },
+    {
+      "day": "2026-08-18",
+      "files": 3,
+      "status": "in-flight",
+      "agent": "dig-0818"
+    },
+    {
+      "day": "2026-08-19",
+      "files": 5,
+      "status": "in-flight",
+      "agent": "dig-0819"
+    },
+    {
+      "day": "2026-08-20",
+      "files": 2,
+      "status": "in-flight",
+      "agent": "dig-0820"
+    },
+    {
+      "day": "2026-08-21",
+      "files": 14,
+      "status": "in-flight",
+      "agent": "dig-0821"
+    },
+    {
+      "day": "2026-08-22",
+      "files": 34,
+      "status": "in-flight",
+      "agent": "dig-0822"
+    },
+    {
+      "day": "2026-08-23",
+      "files": 32,
+      "status": "in-flight",
+      "agent": "dig-0823"
+    },
+    {
+      "day": "2026-08-24",
+      "files": 110,
+      "status": "queued"
+    },
+    {
+      "day": "2026-08-25",
+      "files": 37,
+      "status": "queued"
+    },
+    {
+      "day": "2026-08-26",
+      "files": 12,
+      "status": "queued"
+    },
+    {
+      "day": "2026-08-27",
+      "files": 31,
+      "status": "queued"
+    }
+  ]
+}

@@ -15,6 +15,7 @@ atlas = 地图集:馆是图上的区域,错题集是警示图层,根 `index.html
 
 **conversations/** — 对话归档:三馆 source 的底座(建条当日归档,source 变实路径)。
 **DESIGN-TREE.md** — 总设计树(跨馆架构决策,变更当日加节点)。
+**dig/** — 历史会话翻阅:方法规则 `dig/RULES.md`(任何 AI 读了即可执行)+ 时间线规则 `dig/TIMELINE.md` + 进度 `dig/progress.json`(唯一事实源)。
 
 各馆自带 RULES.md / 门禁 / CLAUDE.md,规则互不合并。渲染引擎单源 `shared/render.py`(新馆复制骨架、删副本、接 shared)。时态分工:spark 将来时 / 对话现在时 / 三馆完成时。
 
