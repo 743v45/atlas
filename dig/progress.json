@@ -52,8 +52,9 @@
     {
       "day": "2026-08-07",
       "files": 1,
-      "status": "in-flight",
-      "agent": "dig-0807"
+      "status": "done",
+      "agent": "dig-0807",
+      "summary": "Langfuse 部署接入 multica(项目日常);小天至此全部翻毕"
     },
     {
       "day": "2026-08-11",
