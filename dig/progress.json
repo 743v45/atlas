@@ -64,7 +64,8 @@
     {
       "day": "2026-08-18",
       "files": 3,
-      "status": "queued"
+      "status": "done",
+      "summary": "subtitle-collector:手机发任务到服务器 + docker 化,项目日常"
     },
     {
       "day": "2026-08-19",
@@ -74,7 +75,8 @@
     {
       "day": "2026-08-20",
       "files": 2,
-      "status": "queued"
+      "status": "done",
+      "summary": "复盘日:项目断舍离 + 「光做没产出」目的性自省(高价值候选入 INBOX)"
     },
     {
       "day": "2026-08-21",
@@ -84,17 +86,20 @@
     {
       "day": "2026-08-22",
       "files": 34,
-      "status": "queued"
+      "status": "in-flight",
+      "agent": "dig-0822"
     },
     {
       "day": "2026-08-23",
       "files": 32,
-      "status": "queued"
+      "status": "in-flight",
+      "agent": "dig-0823"
     },
     {
       "day": "2026-08-24",
       "files": 110,
-      "status": "queued"
+      "status": "in-flight",
+      "agent": "dig-0824"
     },
     {
       "day": "2026-08-25",
@@ -109,7 +114,8 @@
     {
       "day": "2026-08-27",
       "files": 31,
-      "status": "queued"
+      "status": "in-flight",
+      "agent": "dig-0827"
     }
   ],
   "note": "并发 16→8:真瓶颈是 API 限流而非 pane(各队 1h 仅 17s CPU,集体等限流)。小天队先行打通链路,之后完成一队补一队"

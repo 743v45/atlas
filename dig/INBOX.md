@@ -67,6 +67,11 @@ Outline 已弃用,上述内容是否已迁 taevasidian 待查;未迁则从源对
 三重属性:①沉没清单最大件,可从源对话恢复;②pick/items/primary-database 类别的前身调研,**待查重**(pick 的 postgresql 条目 verdict 与此关系);③恢复后可拆成 pick 补充条目或 decision 素材。
 状态:pending
 
+### [apprentice/mistakes] 项目级 Z 漂移的自省 | 2026-08-20 | f804e142
+原始表述:「我做这个的需求是什么。我现在光做,但是没产出,没有目的性的产出。」——同日还做了项目断舍离(13ff4727「哪些要的,哪些不要的」)。
+这是 apprentice 首课「Z 三要素」的长期项目版:不是一次指令的 Z 不清,是项目的 Z 漂移——光做不问产出。**待回读**:该会话后续如何回应/修正;若走通出「定期自问产出」的方法,可立课或与 describe-the-goal 互链。
+状态:pending
+
 ## 已决
 
 (暂无)
