@@ -15,10 +15,6 @@ AI 的边界(dig/RULES §3):spark 级可直接代录入苗圃;**凡进本收件�
 
 ## 待审
 
-### [pick] Sourcetree 替代品选型调研 | 2026-07-28 | 5b13ef50
-「Sourcetree 一样的软件有哪些,最好用的是哪个。以及价格」——git GUI 客户端对比。
-**待查重**:pick/items/git-gui-clients 类别已存在,可能是同期同一调研的产物;若已覆盖则 dismissed:重复。
-状态:pending
 
 ### [mistakes] CLI 安装败于环境版本 | 2026-07-28 | ea55b84e
 Tavily CLI 安装报错 "Python 3.10+ is required" → 同日转去装 pyenv 3.12/3.13。
@@ -65,10 +61,6 @@ Outline 已弃用,上述内容是否已迁 taevasidian 待查;未迁则从源对
 回读补充**两条红线**:WAL 为 0 字节才可单独拷 `.db`;非空 `-wal` 绝不能丢下。同会话还产出了「SQLite WAL 机制详解」自洽长文(checkpoint/崩溃恢复/与 rollback journal 对比)——沉于 Outline,可恢复。立课素材齐备。
 状态:pending
 
-### [pick/conversations] 数据库横评全景(沉没大件) | 2026-08-06 | e887ed25
-「Postgres 横评,10 种数据库优先选哪些」→ AI 三梯队全景(基本盘 PG+Redis / 场景专家 Mongo+ES+CH / 领域极客 TiDB+Neo4j+InfluxDB)+ 追加四新赛道(向量/宽表/Serverless/嵌入式)+ 选型决策漏斗。用户评「写得非常好」,全文写入(已废弃的)Outline。
-三重属性:①沉没清单最大件,可从源对话恢复;②pick/items/primary-database 类别的前身调研,**待查重**(pick 的 postgresql 条目 verdict 与此关系);③恢复后可拆成 pick 补充条目或 decision 素材。
-状态:pending
 
 ### [mistakes] 项目级 Z 漂移:「光做没产出」 | 2026-08-20 | f804e142 ✅已回读
 原始表述:「我做这个的需求是什么。我现在光做,但是没产出,没有目的性的产出。」
@@ -87,9 +79,6 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 **立课就绪,亦可直接固化成 skill**(固化光谱的公路档)。
 状态:pending
 
-### [pick] prd-tools 调研查重 | 2026-08-26 | d77eeed3
-「prd 最佳工具」(grilling 逼问式)——pick/items/prd-tools 类别已存在,待查重是否同源;同源则 dismissed:重复。
-状态:pending
 
 ### [维度/方法论] AI 原生数据访问(CLI for AI) | 2026-08-11 起 | 跨项目四现
 「有没有 cli 查询数据的功能。希望做一个 cli 给 ai 查询使用」(lucent 08-11);subtitle-collector 的 collector-cli+SKILL.md;pick/knowledge-base 核心命题「AI 对存储层的原生访问权」;**08-25 第四现**:「cli 收集 b 站近半年 ai 面试题内容。没法用 cli 的话,需要实现功能的」(08ac9a07)——以「AI 能否直接用」为功能开发的准入标准。
@@ -110,4 +99,6 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 
 ## 已决
 
-(暂无)
+- [pick] Sourcetree 选型调研(07-28)→ dismissed:重复——pick/git-gui-clients 已 9 条目含 sourcetree(trial),调研成果已被完整覆盖(2026-08-27 查重)
+- [pick] prd-tools 调研(08-26)→ dismissed:重复——pick/prd-tools 已 7 条目(chatprd/claude/feishu/kiro/notion-ai/productboard/spec-kit)(2026-08-27 查重)
+- [pick] 数据库横评全景(08-06)→ dismissed:重复——pick/primary-database 已 8 条目,PG/SQLite 双 adopt,三梯队结论已入库;**全景综述原文仍是 asked 沉没件**(见沉没清单)(2026-08-27 查重)
