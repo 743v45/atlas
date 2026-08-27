@@ -34,6 +34,7 @@ pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403(07-28);远程
 - 07-30:「Outline 自托管 9 坑实录」(53f490e3 底稿可恢复)
 - 08-05:「端到端是 AI 开发终极形态吗」(a5699e87)
 - 08-06:**数据库横评全景,最大件**(e887ed25)
+- 08-04:Apple Liquid Glass 全套文档中译副本(cc58980a 采集)——**源在 report/projects/apple-liquid-glass/md/,损失小**,仅 Outline 副本沉没
 Outline 已弃用,上述内容是否已迁 taevasidian 待查;未迁则从源对话恢复。
 状态:pending
 
@@ -70,6 +71,11 @@ Outline 已弃用,上述内容是否已迁 taevasidian 待查;未迁则从源对
 ### [apprentice/mistakes] 项目级 Z 漂移的自省 | 2026-08-20 | f804e142
 原始表述:「我做这个的需求是什么。我现在光做,但是没产出,没有目的性的产出。」——同日还做了项目断舍离(13ff4727「哪些要的,哪些不要的」)。
 这是 apprentice 首课「Z 三要素」的长期项目版:不是一次指令的 Z 不清,是项目的 Z 漂移——光做不问产出。**待回读**:该会话后续如何回应/修正;若走通出「定期自问产出」的方法,可立课或与 describe-the-goal 互链。
+状态:pending
+
+### [apprentice] 批量文档翻译流水线 | 2026-08-04 | 17959ecc 等 10 会话
+Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个会话** + 标准化翻译 prompt(术语映射表:Material→材质/vibrancy→虚化…;保留规则:来源区块/代码块/API 名/URL 原样)+ goal 挂机采集前置(chrome-devtools 全量获取,「看一篇记录一篇」)。
+**待回读**:抽取该日的标准 prompt 全文——若定型,可立课并直接固化成 skill(固化光谱的公路档)。
 状态:pending
 
 ## 已决
