@@ -11,7 +11,7 @@
 |---|---|---|
 | 形态 | 大纲式（outliner）本地笔记 | [1][2] |
 | 许可 | AGPL-3.0 开源 | [2] |
-| 维护活跃度 | ⭐44,642、push 2026-08-26；近期发布 2.0.1（2026-07-13，DB 版 beta）、nightly（2026-08-26）（gh 2026-08-27 采集） | [2] |
+| 维护活跃度 | ⭐44,643、push 2026-08-26；近期发布 2.0.1（2026-07-13，DB 版 beta）、nightly（2026-08-26）（gh 2026-08-27 采集） | [2] |
 | 版本分裂 | 2.0 = 数据库版（SQLite）beta；文件版现称 Logseq OG（Markdown），官方表态两者长期并行、目标功能对齐（2026 公告） | [3][4] |
 
 ## 为什么（未 pick）
@@ -33,7 +33,7 @@
 ## 来源
 
 1. Logseq — https://logseq.com（访问 2026-08-27）
-2. logseq/logseq — https://github.com/logseq/logseq（gh 2026-08-27 采集：⭐44,642、push 2026-08-26、AGPL-3.0、2.0.1 发布 2026-07-13）
+2. logseq/logseq — https://github.com/logseq/logseq（gh 2026-08-27 采集：⭐44,643、push 2026-08-26、AGPL-3.0、2.0.1 发布 2026-07-13）
 3. Big update: Logseq is splitting into two versions — https://logseq.io/p/e3YDyX5AYr（官方公告，访问 2026-08-27）；Why the database version and how it's going — https://discuss.logseq.com/t/why-the-database-version-and-how-its-going/26744（访问 2026-08-27）
 4. Logseq 2.0 Beta (DB version) is here — https://news.ycombinator.com/item?id=48896229（HN 2026-07，访问 2026-08-27）；Logseq OG (markdown) vs Logseq (DB:sqlite) — https://discuss.logseq.com/t/logseq-og-markdown-vs-logseq-db-sqlite/34608（访问 2026-08-27）
 

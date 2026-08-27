@@ -97,6 +97,10 @@
   .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
   .idx-table .tool-name { font-weight: 600; }
   .push-stale { color: var(--danger); }
+  .stale-flag {
+    margin-left: .45rem; padding: 0 .4rem; border: 1px solid var(--accent); border-radius: 999px;
+    color: var(--accent); font-size: .68rem; font-family: var(--font-body); white-space: nowrap;
+  }
   .collected-note { color: var(--muted); font-size: .75rem; margin-top: .3rem; font-family: var(--font-mono); }
   .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
   /* 域列表（顶层索引）与域页 */
@@ -244,7 +248,7 @@
       </tr>
       </tbody>
     </table>
-    <p class="collected-note">star / push 为 gh 快照，采集 2026-08-27；红色 push 表示停滞超 180 天；条目名悬停看一句话结论。</p>
+    <p class="collected-note">star / push 为 gh 快照，采集 2026-08-27；红色 push 表示停滞超 180 天，「待复核」表示采集/核实超 180 天；条目名悬停看一句话结论。</p>
   </section>
   <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
 </main>

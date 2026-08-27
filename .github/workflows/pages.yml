@@ -42,6 +42,15 @@ jobs:
         working-directory: asked
       - name: Build atlas（门户 + 错题集视图）
         run: python3 scripts/build-atlas.py
+      - name: Check all（全站断言：链接 / 模板残留 / 渲染器单源）
+        run: python3 scripts/check-all.py
+      - name: 收敛上传面：移除非站点内容
+        # 敏感归档与内部文档不上线（conversations 对话归档、dig 内部收件箱、pick/raw 会话转写）；
+        # 源码在 github.com 仓库仍可见，此处仅从 Pages 部署面剔除。五馆目录与站点页面就地生成，html 保留。
+        run: |
+          rm -rf conversations dig pick/raw
+          find . -type d -name __pycache__ -not -path './.git/*' -exec rm -rf {} +
+          find . -name '*.pyc' -not -path './.git/*' -delete
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

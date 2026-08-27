@@ -4,7 +4,7 @@
   "homepage": "https://github.github.io/spec-kit/",
   "license": "MIT",
   "verdict": "trial",
-  "summary": "spec-driven 开发的事实标准：GitHub 官方开源（⭐131,657k，MIT，2026-08-21 发布 1.0.0），constitution→specify→plan→tasks→implement→converge 把 PRD 变成 agent 可执行流程、30+ agent 通用；适合「PRD 主要给 AI 消费」的 repo 工作流，人类协作评审弱于文档平台。",
+  "summary": "spec-driven 开发的事实标准：GitHub 官方开源（⭐131,668，MIT，2026-08-21 发布 1.0.0），constitution→specify→plan→tasks→implement→converge 把 PRD 变成 agent 可执行流程、30+ agent 通用；适合「PRD 主要给 AI 消费」的 repo 工作流，人类协作评审弱于文档平台。",
   "updated": "2026-08-27",
   "verified": "2026-08-27",
   "sources": [

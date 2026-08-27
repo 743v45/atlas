@@ -11,7 +11,7 @@
 |---|---|---|
 | 版本 | 稳定版 18.x（18.0 于 2025-09-25 发布，小版本持续更新）；PG 19 Beta 2 已于 2026-07-16 发布 | [2][3] |
 | 许可证 | PostgreSQL License（类 BSD，可闭源二次分发） | [2] |
-| 仓库 | https://github.com/postgres/postgres（⭐21,899，push 2026-08-26，gh 2026-08-27） | [9] |
+| 仓库 | https://github.com/postgres/postgres（⭐21,900，push 2026-08-26，gh 2026-08-27） | [9] |
 | 维护活跃度 | 30 年历史，大版本年发；2026-06/07 连发 19 Beta 1/2，GA 预计 2026-09 | [3][8] |
 | 流行度 | DB-Engines 第 4（684.58 分，2026-08 快照），与第 3 名 SQL Server（694.56）差距缩至 ~10 分 | [4] |
 | 开发者口碑 | Stack Overflow 2025 调查：全量受访者最常用且最被向往（most desired/admired）的数据库 | [5] |
