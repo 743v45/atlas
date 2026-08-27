@@ -52,7 +52,7 @@ pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403(07-28);远程
 
 ### [conversations] pick 起源对话待归档 | 2026-08-03 | 5af1327a + 7df267c2;+08-21
 「技术选型,最佳的技术报告该是什么样」(2.6MB)是 pick 的直接前身;同日 report 项目规则(索引文件/单向链接关联代码地址)是 pick「有理有据」体系的思想源头。
-**+08-21**:knowledge-base 类别起源「个人知识库,和 ai 共建,用什么工具管理」(99faa8a0, 3MB)。
+**+08-21**:knowledge-base 类别起源(99faa8a0);**+08-24**:asr-subtitle-tools 起源「有没有好用的识别视频音频的字幕,免费的,或者本地能部署的」(fce485e7);**同日 apprentice 前身之问**:「教教我,这个项目怎么写。怎么设计出来,设计哲学。出一份教程,顺序教学」(3475e2c2→e8f845e1 调研一手材料)。
 低优先:按 conversations 规则归档摘要,链接进 pick 的 README 或 DESIGN-TREE 作起源存证。
 状态:pending
 
@@ -69,7 +69,7 @@ pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403(07-28);远程
 状态:pending
 
 ### [apprentice] 批量文档翻译流水线 | 2026-08-04 | 17959ecc 等 10 会话 ✅已回读
-Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个会话** + 标准化翻译 prompt + goal 挂机采集前置。模板已定型(首轮抽取即见结构完全一致):
+Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个会话** + 标准化翻译 prompt + goal 挂机采集前置。**08-24 最大规模实例:mattpocock-skills 整仓中译,85+ 文件编队(「一次一个 subagent 只翻译一个文件」,指挥会话 448387f6)**。模板已定型:
 ```
 读取:md/<slug>.md → 写出:md/<slug>.zh.md
 这是什么(一句话) + 翻译要求:
@@ -81,7 +81,7 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 
 
 ### [维度/方法论] AI 原生数据访问(CLI for AI) | 2026-08-11 起 | 跨项目五现
-「有没有 cli 查询数据的功能。希望做一个 cli 给 ai 查询使用」(lucent 08-11);subtitle-collector 的 collector-cli+SKILL.md;pick/knowledge-base 核心命题「AI 对存储层的原生访问权」;08-25「没法用 cli 的话,需要实现功能的」;**08-27 第五现**:「subtitle-collector 需要 skill 做这个事情,方便我调度」(e3533f06)——CLI 之上再包 skill 层,给 AI 的接口持续升维。
+「有没有 cli 查询数据的功能。希望做一个 cli 给 ai 查询使用」(lucent 08-11);subtitle-collector 的 collector-cli+SKILL.md;pick/knowledge-base 核心命题「AI 对存储层的原生访问权」;08-25「没法用 cli 的话,需要实现功能的」;**08-27 第五现**:「subtitle-collector 需要 skill 做这个事情,方便我调度」(e3533f06);**08-24 第六现**:「增加手动翻译功能…留给大模型使用。cli 化」(325c89be)——给 AI 的接口持续升维(CLI→skill→功能准入)。
 贯穿五个项目。五现=超成熟,建议直接立课或写入 PHILLOSOPHY(与「图纸与公路」互链)。
 状态:pending
 
