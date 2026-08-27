@@ -110,7 +110,8 @@
     {
       "day": "2026-08-26",
       "files": 12,
-      "status": "queued"
+      "status": "done",
+      "summary": "求职准备日(面试双线)+项目深度审计+瑞幸卡券调研(spark 直录);prd-tools 待查重"
     },
     {
       "day": "2026-08-27",

@@ -78,6 +78,10 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 **待回读**:抽取该日的标准 prompt 全文——若定型,可立课并直接固化成 skill(固化光谱的公路档)。
 状态:pending
 
+### [pick] prd-tools 调研查重 | 2026-08-26 | d77eeed3
+「prd 最佳工具」(grilling 逼问式)——pick/items/prd-tools 类别已存在,待查重是否同源;同源则 dismissed:重复。
+状态:pending
+
 ## 已决
 
 (暂无)
