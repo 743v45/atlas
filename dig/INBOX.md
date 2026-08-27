@@ -76,9 +76,15 @@ Outline 已弃用,上述内容是否已迁 taevasidian 待查;未迁则从源对
 **建议形态:mistakes 条目**(经过=光做没产出;根因=项目 Z 漂移,做了大量采集基建却无消费端;修正=自问产出→立即转向消费端闭环)。素材齐全,等用户定夺。
 状态:pending
 
-### [apprentice] 批量文档翻译流水线 | 2026-08-04 | 17959ecc 等 10 会话
-Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个会话** + 标准化翻译 prompt(术语映射表:Material→材质/vibrancy→虚化…;保留规则:来源区块/代码块/API 名/URL 原样)+ goal 挂机采集前置(chrome-devtools 全量获取,「看一篇记录一篇」)。
-**待回读**:抽取该日的标准 prompt 全文——若定型,可立课并直接固化成 skill(固化光谱的公路档)。
+### [apprentice] 批量文档翻译流水线 | 2026-08-04 | 17959ecc 等 10 会话 ✅已回读
+Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个会话** + 标准化翻译 prompt + goal 挂机采集前置。模板已定型(首轮抽取即见结构完全一致):
+```
+读取:md/<slug>.md → 写出:md/<slug>.zh.md
+这是什么(一句话) + 翻译要求:
+- 术语映射表(Material→材质/vibrancy→虚化…每篇定制)
+- 保持不变:> 来源区块 / ```代码块 / API·类型名 / URL / markdown 结构
+```
+**立课就绪,亦可直接固化成 skill**(固化光谱的公路档)。
 状态:pending
 
 ### [pick] prd-tools 调研查重 | 2026-08-26 | d77eeed3
@@ -90,9 +96,11 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 贯穿四个项目的设计哲学。四现=立课时机成熟,建议用户考虑立 apprentice 课或并入 PHILoSOPHY。
 状态:pending
 
-### [mistakes] virtiofs 宿主机直读 SQLite 损库 | 2026-08-25 | 44279426
-调查 prompt 中已固化规则「注意宿主机禁止直接读库文件(virtiofs 会损库),只能容器内 exec」——规则存在说明翻车已发生过,但**原始翻车对话未定位**。
-待办:回挖原始翻车(可能在更早的 subtitle-collector 会话);确认后立 mistakes 条目(Docker on macOS + SQLite 的经典坑)。
+### [mistakes] virtiofs 宿主机直读 SQLite 损库 | 2026-08-24 翻车 | ✅已定位
+**经过**:2026-08-24 两次 SQLITE_CORRUPT——旧 bind mount 走 virtiofs,宿主机进程直触挂载库(哪怕只读)引发 mmap 一致性损坏。
+**根因**:macOS Docker 的 virtiofs 与 SQLite mmap 不兼容,「只读无害」假设错误。
+**修正(已产物化)**:迁 named volume 根除路径;docker-compose 文件头红线注释;备份四层化(15min RPO,VACUUM INTO 滚动)+ verify-deployed 自检 + sqlite-rescue 工具。
+原始会话 76ec3aae(08-24,在 dig-0824 队覆盖内)。**素材完整,立条就绪**。
 状态:pending
 
 ### [apprentice] 调查/审计驱动的开发工作流 | 2026-08-21/25/26 | 三日多处
