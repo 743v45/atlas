@@ -40,8 +40,8 @@
     {
       "day": "2026-08-05",
       "files": 4,
-      "status": "in-flight",
-      "agent": "dig-0805"
+      "status": "done",
+      "summary": "SQLite 安全迁移方法(apprentice 候选)+ 环境维度第二例 + Outline 又沉一篇(端到端之问)"
     },
     {
       "day": "2026-08-06",
