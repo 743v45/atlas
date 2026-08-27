@@ -35,6 +35,7 @@ pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403(07-28);远程
 - 08-05:「端到端是 AI 开发终极形态吗」(a5699e87)
 - 08-06:**数据库横评全景,最大件**(e887ed25)
 - 08-04:Apple Liquid Glass 全套文档中译副本(cc58980a 采集)——**源在 report/projects/apple-liquid-glass/md/,损失小**,仅 Outline 副本沉没
+- 08-05:SQLite WAL 机制详解(e8b976d5,含备份红线)
 Outline 已弃用,上述内容是否已迁 taevasidian 待查;未迁则从源对话恢复。
 状态:pending
 
@@ -59,9 +60,9 @@ Outline 已弃用,上述内容是否已迁 taevasidian 待查;未迁则从源对
 低优先:按 conversations 规则归档摘要,链接进 pick 的 README 或 DESIGN-TREE 作起源存证。
 状态:pending
 
-### [apprentice] SQLite db 文件安全迁移 | 2026-08-05 | e8b976d5
-完整方法已在对话中走通:迁移前探测(lsof/ps 查占用、PRAGMA quick_check、WAL 0 字节确认一致未锁)→ 单进程完成传输+大小对比+一致性校验+耗时。
-**待回读**:结论段补齐(什么情况下不能直拷、WAL 非零怎么办),可验证(校验步骤即验证)才立课。
+### [apprentice] SQLite db 文件安全迁移 + WAL 红线 | 2026-08-05 | e8b976d5 ✅已回读
+完整方法已走通并验证:迁移前探测(lsof/ps 查占用、PRAGMA quick_check、WAL 0 字节确认一致未锁)→ 单进程传输+大小对比+一致性校验+耗时。
+回读补充**两条红线**:WAL 为 0 字节才可单独拷 `.db`;非空 `-wal` 绝不能丢下。同会话还产出了「SQLite WAL 机制详解」自洽长文(checkpoint/崩溃恢复/与 rollback journal 对比)——沉于 Outline,可恢复。立课素材齐备。
 状态:pending
 
 ### [pick/conversations] 数据库横评全景(沉没大件) | 2026-08-06 | e887ed25
