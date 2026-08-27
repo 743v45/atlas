@@ -4,6 +4,7 @@
 !/README.md
 !/PHILOSOPHY.md
 !/DESIGN-TREE.md
+!/COMPARISON.md
 !/dig/
 !/.github/
 !/scripts/
@@ -13,6 +14,7 @@
 !/apprentice/
 !/mistakes/
 !/spark/
+!/asked/
 
 # 迁移时归档的原独立仓库(历史与 remote 留档,git 不认作仓库)
 *.archived-mono/

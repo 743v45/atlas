@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQLite WAL:预写日志机制详解 · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><a href="../../index.html">← atlas</a><span class="sep">·</span><a href="../one-click-login/answer.html">← 移动端一键登录是怎么实现的?</a><span class="sep">·</span><a href="../two-kinds-of-fog/answer.html">两种雾:路不清,还是 Z 不清? →</a></nav>
+  <article>
+<h1>SQLite WAL:预写日志机制详解</h1>
+<blockquote><strong>TL;DR</strong>:WAL(Write-Ahead Logging)把「改了再写盘」变成「先记日志再落盘」——读写从此不互相阻塞,这是 SQLite 并发性能的关键。代价是三件套文件形态:备份与迁移时 WAL 的两条红线能救你的库。</blockquote>
+<p>*(恢复自 2026-08-05 问答,原报告骨架忠实,细节 AI 重构。)*</p>
+<h2>三件套与便签类比</h2>
+<p>WAL 模式的库是三个文件:<code>.db</code>(主库)、<code>.db-wal</code>(预写日志)、<code>.db-shm</code>(共享内存索引)。类比:主库是账本,WAL 是便签——新账先写便签(快),攒一批再誊回账本(这个动作叫 <strong>checkpoint</strong>);读的人看「账本+便签的合并视图」,所以<strong>读不阻塞写、写不阻塞读</strong>(rollback journal 模式做不到:它写前要先复制原页,读写互斥)。</p>
+<h2>两个关键机制</h2>
+<ul><li><strong>checkpoint</strong>:WAL 攒到阈值(默认约 1000 页)或显式 <code>PRAGMA wal_checkpoint</code> 时,把日志内容写回主库并重置。库正常关闭时会自动做。</li><li><strong>崩溃恢复</strong>:重启后发现 WAL 非空,重放其中已提交的事务(以 commit 帧为准),丢弃未提交部分——「预写」的意义就在这:日志先于数据落盘,崩溃后总有依据。</li></ul>
+<h2>代价与限制</h2>
+<p>多两个文件;所有连接必须在同一台机器(网络文件系统上是经典灾难);读多写少的场景 WAL 略增读开销。</p>
+<h2>备份迁移两条红线(实战)</h2>
+<ol><li><strong>WAL 为 0 字节</strong>(全部 checkpoint 完)才可单独拷 <code>.db</code>——一个文件自成完整库。</li><li><strong>非空 <code>-wal</code> 绝不能丢下</strong>——只拷 <code>.db</code> 不拷 <code>-wal</code>,便签上的账全丢,还可能带出损坏。</li></ol>
+<p>安全做法:要么先 <code>wal_checkpoint(TRUNCATE)</code> 再拷单文件;要么三件套一起拷且确认无进程占用(lsof / <code>PRAGMA quick_check</code>);Docker on macOS 下更有一层坑——virtiofs 与 mmap 不兼容,宿主机直读挂载库(哪怕只读)可致 <code>SQLITE_CORRUPT</code>,只能容器内 exec(mistakes 馆有全案)。</p>
+<h2>出处</h2>
+<ul><li>源对话归档:../conversations/2026-08-05-sqlite-wal-and-migration.md(2026-08-05,同场产出 db 迁移方法,apprentice 课候选)</li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

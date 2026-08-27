@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>asked · 问答馆索引</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .masthead { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .masthead .sub { color: var(--muted); font-size: .92rem; }
+  .masthead .figures { margin-left: auto; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+  #filter {
+    width: 100%; padding: .5rem .8rem; margin-bottom: .6rem; font-size: .95rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text);
+  }
+  .idx-table { display: table; table-layout: fixed; }
+  .idx-table th {
+    font-size: .73rem; color: var(--muted); font-weight: 500; text-align: left; font-family: var(--font-body);
+    cursor: pointer; user-select: none; white-space: nowrap;
+  }
+  .idx-table th:focus-visible { outline-offset: -2px; }
+  .idx-table th.sorted-asc::after { content: " ↑"; color: var(--link); }
+  .idx-table th.sorted-desc::after { content: " ↓"; color: var(--link); }
+  .idx-table td { border-bottom: 1px solid var(--border); font-size: .84rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .idx-table td:first-child { width: auto; }
+  .idx-table td.mx { color: var(--muted); }
+  .idx-table td.num, .idx-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-family: var(--font-mono); font-size: .78rem; }
+  .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
+  .idx-table .entry-name { font-weight: 600; }
+  .idx-table .src { font-size: .74rem; }
+  .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
+  @media (max-width: 720px) { .idx-table { min-width: 560px; } .wrap-x { overflow-x: auto; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="masthead">
+    <h1>asked</h1>
+    <span class="sub">问答馆 · <a href="RULES.md">RULES.md</a> · <a href="../index.html">← atlas</a></span>
+    <span class="figures">4 篇</span>
+  </div>
+  <input id="filter" type="search" placeholder="按问题 / 标签搜索…" autocomplete="off">
+  <div class="wrap-x">
+  <table class="idx-table">
+    <thead><tr>
+      <th data-sort="name" tabindex="0">问题</th><th data-sort="date" class="num" tabindex="0">日期</th>
+      <th>标签</th><th>出处</th>
+    </tr></thead>
+    <tbody>
+      <tr data-date="2026-08-06" data-name="给你 10 种数据库,优先选哪些?——全景与决策漏斗"
+          data-search="给你 10 种数据库,优先选哪些?——全景与决策漏斗 数据库、选型、架构">
+        <td class="entry-name"><a href="items/database-landscape/answer.html">给你 10 种数据库,优先选哪些?——全景与决策漏斗</a></td>
+        <td class="num">2026-08-06</td>
+        <td class="mx">数据库、选型、架构</td>
+        <td class="mx src">../conversations/2026-08-06-database-landscape.md</td>
+      </tr>
+      <tr data-date="2026-08-03" data-name="移动端一键登录是怎么实现的?"
+          data-search="移动端一键登录是怎么实现的? 移动端、认证、运营商">
+        <td class="entry-name"><a href="items/one-click-login/answer.html">移动端一键登录是怎么实现的?</a></td>
+        <td class="num">2026-08-03</td>
+        <td class="mx">移动端、认证、运营商</td>
+        <td class="mx src">../conversations/2026-08-03-one-click-login.md</td>
+      </tr>
+      <tr data-date="2026-08-05" data-name="SQLite WAL:预写日志机制详解"
+          data-search="sqlite wal:预写日志机制详解 sqlite、存储、运维红线">
+        <td class="entry-name"><a href="items/sqlite-wal/answer.html">SQLite WAL:预写日志机制详解</a></td>
+        <td class="num">2026-08-05</td>
+        <td class="mx">SQLite、存储、运维红线</td>
+        <td class="mx src">../conversations/2026-08-05-sqlite-wal-and-migration.md</td>
+      </tr>
+      <tr data-date="2026-08-27" data-name="两种雾:路不清,还是 Z 不清?"
+          data-search="两种雾:路不清,还是 z 不清? 方法论、走路隐喻、atlas">
+        <td class="entry-name"><a href="items/two-kinds-of-fog/answer.html">两种雾:路不清,还是 Z 不清?</a></td>
+        <td class="num">2026-08-27</td>
+        <td class="mx">方法论、走路隐喻、atlas</td>
+        <td class="mx src">../conversations/2026-08-27-fog-walking-to-atlas.md</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 我问、AI 长答、值得留存</footer>
+</main>
+<script>
+  const input = document.getElementById('filter');
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    document.querySelectorAll('tbody tr').forEach(tr => {
+      tr.classList.toggle('hidden', q && !tr.dataset.search.includes(q));
+    });
+  });
+  document.querySelectorAll('.idx-table th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const tbody = th.closest('table').querySelector('tbody');
+      const key = th.dataset.sort;
+      const asc = !th.classList.contains('sorted-asc');
+      th.closest('table').querySelectorAll('th').forEach(t => t.classList.remove('sorted-asc', 'sorted-desc'));
+      th.classList.add(asc ? 'sorted-asc' : 'sorted-desc');
+      [...tbody.querySelectorAll('tr')].sort((a, b) =>
+        String(a.dataset[key] ?? '').localeCompare(String(b.dataset[key] ?? ''), 'zh') * (asc ? 1 : -1)
+      ).forEach(tr => tbody.appendChild(tr));
+    });
+  });
+</script>
+</body>
+</html>

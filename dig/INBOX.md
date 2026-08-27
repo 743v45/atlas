@@ -32,7 +32,7 @@ pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403(07-28);远程
 - 08-05:「端到端是 AI 开发终极形态吗」;SQLite WAL 机制详解
 - 08-06:**数据库横评全景,最大件**
 - 08-04:Apple Liquid Glass 中译副本(源在 report 项目,损失小)
-后续:在飞书侧核对上述件是否完整迁达;未迁者从源对话恢复,恢复后归宿按内容分流(asked 馆/pick 素材)。
+后续:在飞书侧核对上述件是否完整迁达。**08-27 已从源对话恢复 3 件入 asked**(数据库全景/WAL 详解/一键登录);端到端与九坑实录仍待恢复。
 状态:pending
 
 ### [apprentice] 多项目 AI 上下文与隐藏关系管理(tacit) | 2026-07-29 | 8cefa2a2 ✅已回读
@@ -45,10 +45,6 @@ pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403(07-28);远程
 待查:文章是否已迁移到 taevasidian;若未迁,源对话 53f490e3 是恢复底稿。9 个坑若完好,可拆成 mistakes 条目素材。
 状态:pending
 
-### [维度] AI 技术科普问答(asked?) | 2026-08-03 起 | 8 例
-一键登录原理(07-28);端到端 AI 开发形态(08-05);数据库横评全景(08-06);类型系统/形式化验证(08-04);审美积累/临摹遗忘+双向链接+gherkin(08-25);**「AI 深度幻觉」是什么意思(08-22 05f369c6,6.2MB 大会话)**。
-边界已扩到学习方法/概念解惑——asked 的真实定义趋近「我问、AI 长答、值得留存的一切」。若立馆,门禁候选:出处对话+复述验证;发布地=atlas(不死的家)。
-状态:pending
 
 ### [conversations] pick 起源对话待归档 | 2026-08-03 | 5af1327a + 7df267c2;+08-21
 「技术选型,最佳的技术报告该是什么样」(2.6MB)是 pick 的直接前身;同日 report 项目规则(索引文件/单向链接关联代码地址)是 pick「有理有据」体系的思想源头。
@@ -119,6 +115,8 @@ ds-phoneness 原生 App 会战 + subtitle-collector 测试质量会战,模式定
 状态:pending
 
 ## 已决
+
+- [维度] asked(08-27)→ promoted:建馆 atlas/asked(五馆齐);首批 4 篇恢复入库:两种雾/数据库全景/WAL/一键登录;其余 4-5 例(类型系统/审美/gherkin/双向链接/AI 深度幻觉)待回读源对话后补录
 
 - [pick] Sourcetree 选型调研(07-28)→ dismissed:重复——pick/git-gui-clients 已 9 条目含 sourcetree(trial),调研成果已被完整覆盖(2026-08-27 查重)
 - [pick] prd-tools 调研(08-26)→ dismissed:重复——pick/prd-tools 已 7 条目(chatprd/claude/feishu/kiro/notion-ai/productboard/spec-kit)(2026-08-27 查重)

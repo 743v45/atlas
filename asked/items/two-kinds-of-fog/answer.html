@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>两种雾:路不清,还是 Z 不清? · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><a href="../../index.html">← atlas</a><span class="sep">·</span><a href="../sqlite-wal/answer.html">← SQLite WAL:预写日志机制详解</a></nav>
+  <article>
+<h1>两种雾:路不清,还是 Z 不清?</h1>
+<blockquote><strong>TL;DR</strong>:迷雾里迷路有两种完全不同的原因——不知道「怎么走」(路不清),和不知道「要去哪」(Z 不清)。前者靠勘察和试探能解,后者走再快都没用。分清自己在哪种雾里,是行动前的第一个判断。</blockquote>
+<p>拿走路理解做事:目标是 Z,中间是雾。<strong>路不清</strong>时,你清楚要去哪,只是不知道路径——这时该做的是勘察(点亮周围:读文件、收集信息)、试探(走几步看看)、验证(脚下是不是预期的路)。<strong>Z 不清</strong>时,你连要去哪都没定义清楚——「帮我提取我想要的」里的「我想要的」就是典型的 Z 不清:四个字全是雾,再努力地走也只是瞎猜。</p>
+<p>判据很简单:如果你自己一句话写不出「要什么」,是 Z 不清;写得出现是路不清。</p>
+<p>多数人(和多数 AI)的通病,是把第二种雾当第一种处理——埋头赶路,用勤奋掩盖目标缺失。Z 不清时唯一正确的动作是停下来把 Z 说清(产出形态、判据、保真度),然后再上路。</p>
+<h2>出处</h2>
+<ul><li>源对话归档:../conversations/2026-08-27-fog-walking-to-atlas.md(2026-08-27)</li><li>本概念同时收录于 atlas/PHILOSOPHY.md 术语表,衍生方法课:apprentice/express/describe-the-goal</li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

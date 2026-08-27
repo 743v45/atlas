@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>移动端一键登录是怎么实现的? · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><a href="../../index.html">← atlas</a><span class="sep">·</span><a href="../database-landscape/answer.html">← 给你 10 种数据库,优先选哪些?——全景与决策漏斗</a><span class="sep">·</span><a href="../sqlite-wal/answer.html">SQLite WAL:预写日志机制详解 →</a></nav>
+  <article>
+<h1>移动端一键登录是怎么实现的?</h1>
+<blockquote><strong>TL;DR</strong>:一键登录(本机号码认证)的本质是借蜂窝数据通道让运营商网关直接认出 SIM 卡对应的手机号——App 拿临时 token,业务服务器用 token 换明文号码,全程用户不输入、不读短信、不输密码。</blockquote>
+<p>*(恢复自 2026-08-03 问答,原理与时序骨架忠实,细节 AI 重构。)*</p>
+<h2>为什么能「一键」</h2>
+<p>手机插着 SIM 卡走蜂窝网络时,所有流量都经过运营商网关,而<strong>运营商天然知道这张 SIM 卡对应的手机号(MSISDN)</strong>。一键登录做的事:让 App 走一条只有运营商能识别的蜂窝数据链路去「取号」——网关看到这条请求来自哪张卡,号码就是谁的。</p>
+<h2>完整时序(五方)</h2>
+<pre><code class="lang-">手机(App) → SDK → 运营商网关 → 业务服务器 → 运营商认证服务器</code></pre>
+<ol><li>App 内置运营商一键登录 SDK,发起取号(此时必须走蜂窝数据,Wi-Fi 下会先切蜂窝或要求开启)。</li><li>SDK 经运营商网关的专用通道拿到一个<strong>临时 token</strong>(号码没有出运营商)。</li><li>App 把 token 交给<strong>自己的业务服务器</strong>。</li><li>业务服务器拿 token + 自己的密钥调<strong>运营商认证服务器</strong>的 API,换回明文手机号。</li><li>业务服务器按手机号完成注册/登录,下发会话。</li></ol>
+<p>全程:用户只点一次「确认授权」;明文号码只在「运营商认证服务器 → 业务服务器」这一跳出现;短信验证码整条链路被绕过。</p>
+<h2>与短信验证码的对比</h2>
+<p>短信码是「证明你拥有这个号码」(读短信),一键登录是「运营商直接告诉你这是谁」(通道认证)。前者依赖短信可达性与用户输入,后者依赖蜂窝网络与 SDK 集成(三大运营商各自的 SDK,或聚合服务)。安全边界也变了个位置:从「短信不被劫持」变成「token 不被重放」——所以 token 短时效、一次性,且换号必须走业务服务器密钥。</p>
+<h2>出处</h2>
+<ul><li>源对话归档:../conversations/2026-08-03-one-click-login.md(2026-08-03)</li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>
