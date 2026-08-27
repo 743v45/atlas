@@ -3,14 +3,14 @@
 
 用法：python3 scripts/build-index.py && python3 scripts/check.py
 
-覆盖三类回归（都真实发生过）：
+覆盖四类回归（都真实发生过）：
 1. 链接完整性：爬所有 html 的相对 href，逐一断言目标文件存在
    （2026-08-27 域页 404 回归：/domains/items/… 双重前缀）
-2. 模板残留：f-string/%% 未替换的占位（{{xxx}} 残迹）与空关键区
-   （2026-08-27 TABLE_JS 双花括号语法错回归）
+2. 模板残留：f-string 未替换的 {{xxx}} 残迹与 % 格式占位（%(name)s / %s / %d），
+   以及空关键区（2026-08-27 TABLE_JS 双花括号语法错回归）
 3. 源与产物脱节：任何 html 早于任何源文件（md/json）的 mtime → 忘了重建
    （用户报「索引没更新」的一类根源）
-4. 关键内容：每页判词章/figures/锚点齐全
+4. 关键内容：report 页判词章/TL;DR 引用块、index 页关键区与条目计数
 """
 
 import json
@@ -20,7 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 HTML_FILES = [ROOT / "index.html", *sorted((ROOT / "domains").glob("*.html")),
-              *sorted((ROOT / "items").glob("*/*/*.html")), *sorted((ROOT / "items").glob("*/ *.html"))]
+              *sorted((ROOT / "items").glob("*/*/*.html")), *sorted((ROOT / "items").glob("*/*.html"))]
 HTML_FILES = [f for f in HTML_FILES if f.exists()]
 
 failures = []
@@ -46,9 +46,12 @@ for page in HTML_FILES:
 # ---------- 2) 模板残留与关键内容 ----------
 for page in HTML_FILES:
     text = page.read_text(encoding="utf-8")
-    # f-string/%% 未替换的典型残迹（生成页不该出现成对花括号占位）
-    if re.search(r"\{\{?\w+\}\}?[^\w]", text.replace("{{", "")) and "{{" in text:
+    # f-string 未替换的残迹（生成页不该出现成对花括号占位；占位名支持中英文）
+    if re.search(r"\{\{[\w一-鿿][\w一-鿿 ]*\}\}", text):
         fail(f"模板残留: {page.relative_to(ROOT)} 含未替换的 {{…}}")
+    # % 格式化未替换的残迹（TABLE_JS 走 % 格式化：%(name)s / %s / %d）
+    if re.search(r"%\([^)]*\)[sd]|%[sd][^0-9A-Fa-f%]", text):
+        fail(f"模板残留: {page.relative_to(ROOT)} 含未替换的 %(…)s/%s 占位")
     if page.name == "report.html":
         if 'class="seal' not in text:
             fail(f"判词章缺失: {page.relative_to(ROOT)}")
@@ -67,7 +70,8 @@ for page in HTML_FILES:
 # ---------- 3) 源与产物脱节 ----------
 newest_src = 0.0
 for src in list((ROOT / "items").rglob("*.md")) + list((ROOT / "items").rglob("*.json")) \
-        + [ROOT / "domains.json", ROOT / "scripts" / "build-index.py"]:
+        + [ROOT / "domains.json", ROOT / "scripts" / "build-index.py",
+           ROOT.parent / "shared" / "render.py"]:
     newest_src = max(newest_src, src.stat().st_mtime)
 oldest_html = min(f.stat().st_mtime for f in HTML_FILES)
 if oldest_html < newest_src:

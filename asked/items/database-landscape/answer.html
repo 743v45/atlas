@@ -69,7 +69,7 @@
 </head>
 <body>
 <main>
-  <nav class="entry-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><a href="../../index.html">← atlas</a><span class="sep">·</span><a href="../one-click-login/answer.html">移动端一键登录是怎么实现的? →</a></nav>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../one-click-login/answer.html">移动端一键登录是怎么实现的? →</a></nav>
   <article>
 <h1>给你 10 种数据库,优先选哪些?——全景与决策漏斗</h1>
 <blockquote><strong>TL;DR</strong>:没有绝对的「最好」,只有场景的「最对」。基本盘永远是 PostgreSQL(+Redis 做缓存),遇到具体瓶颈再引入场景专家;数据库选型的思考路径是一个决策漏斗,不是一次全景对比。</blockquote>
@@ -86,7 +86,7 @@
 <h2>选型决策漏斗</h2>
 <p>默认首选 <strong>PostgreSQL</strong> 支撑基本盘 → 遇并发瓶颈加 <strong>Redis</strong> → 遇搜索/日志引入 <strong>Elasticsearch</strong> → 非结构化频繁变动上 <strong>MongoDB</strong> → 海量报表同步到 <strong>ClickHouse</strong>。多模态组合拳是业界成熟解;大模型需求再加向量库。</p>
 <h2>出处</h2>
-<ul><li>源对话归档:../conversations/2026-08-06-database-landscape.md(2026-08-06)</li><li>决策落地:pick/items/primary-database(PG adopt、SQLite adopt、其余 trial/assess)</li></ul>
+<ul><li>源对话归档:../../../conversations/2026-08-06-database-landscape.md(2026-08-06)</li><li>决策落地:pick/items/primary-database(PG adopt、SQLite adopt、其余 trial/assess)</li></ul>
   </article>
   <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>

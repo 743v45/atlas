@@ -31,7 +31,7 @@
 
 | 日期 | 翻车 | 修正 |
 |---|---|---|
-| 2026-08-27 | 「我是希望从数据里面提取我想要的」——完整档案(经过/根因/修正)见 [mistakes/vague-goal](../../../mistakes/items/vague-goal/mistake.html) | Z 三要素补齐,指令即可执行 |
+| 2026-08-27 | 「我是希望从数据里面提取我想要的」——完整档案(经过/根因/修正)见 [mistakes/vague-goal](../../../../mistakes/items/vague-goal/mistake.html) | Z 三要素补齐,指令即可执行 |
 
 ## 时效
 

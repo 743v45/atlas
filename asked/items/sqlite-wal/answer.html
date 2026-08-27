@@ -69,7 +69,7 @@
 </head>
 <body>
 <main>
-  <nav class="entry-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><a href="../../index.html">← atlas</a><span class="sep">·</span><a href="../one-click-login/answer.html">← 移动端一键登录是怎么实现的?</a><span class="sep">·</span><a href="../two-kinds-of-fog/answer.html">两种雾:路不清,还是 Z 不清? →</a></nav>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../one-click-login/answer.html">← 移动端一键登录是怎么实现的?</a><span class="sep">·</span><a href="../two-kinds-of-fog/answer.html">两种雾:路不清,还是 Z 不清? →</a></nav>
   <article>
 <h1>SQLite WAL:预写日志机制详解</h1>
 <blockquote><strong>TL;DR</strong>:WAL(Write-Ahead Logging)把「改了再写盘」变成「先记日志再落盘」——读写从此不互相阻塞,这是 SQLite 并发性能的关键。代价是三件套文件形态:备份与迁移时 WAL 的两条红线能救你的库。</blockquote>
@@ -82,9 +82,9 @@
 <p>多两个文件;所有连接必须在同一台机器(网络文件系统上是经典灾难);读多写少的场景 WAL 略增读开销。</p>
 <h2>备份迁移两条红线(实战)</h2>
 <ol><li><strong>WAL 为 0 字节</strong>(全部 checkpoint 完)才可单独拷 <code>.db</code>——一个文件自成完整库。</li><li><strong>非空 <code>-wal</code> 绝不能丢下</strong>——只拷 <code>.db</code> 不拷 <code>-wal</code>,便签上的账全丢,还可能带出损坏。</li></ol>
-<p>安全做法:要么先 <code>wal_checkpoint(TRUNCATE)</code> 再拷单文件;要么三件套一起拷且确认无进程占用(lsof / <code>PRAGMA quick_check</code>);Docker on macOS 下更有一层坑——virtiofs 与 mmap 不兼容,宿主机直读挂载库(哪怕只读)可致 <code>SQLITE_CORRUPT</code>,只能容器内 exec(mistakes 馆有全案)。</p>
+<p>安全做法:要么先 <code>wal_checkpoint(TRUNCATE)</code> 再拷单文件;要么三件套一起拷且确认无进程占用(lsof / <code>PRAGMA quick_check</code>);Docker on macOS 下更有一层坑——virtiofs 与 mmap 不兼容,宿主机直读挂载库(哪怕只读)可致 <code>SQLITE_CORRUPT</code>,只能容器内 exec(virtiofs 全链错题立条中,素材见 dig/INBOX)。</p>
 <h2>出处</h2>
-<ul><li>源对话归档:../conversations/2026-08-05-sqlite-wal-and-migration.md(2026-08-05,同场产出 db 迁移方法,apprentice 课候选)</li></ul>
+<ul><li>源对话归档:../../../conversations/2026-08-05-sqlite-wal-and-migration.md(2026-08-05,同场产出 db 迁移方法,apprentice 课候选)</li></ul>
   </article>
   <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>

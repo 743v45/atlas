@@ -57,7 +57,7 @@ def validate_entry(meta, where):
     if tags is not None and (not isinstance(tags, list) or not tags):
         errors.append(f"{where}: tags 必须是非空数组")
     src = meta.get("source")
-    if src and not (ROOT / src).exists():
+    if src and not (ROOT.parent / src).exists():
         errors.append(f"{where}: source 路径不存在:{src}(知识要可溯——先归档到 atlas/conversations/ 再建条)")
     return errors
 
@@ -233,7 +233,7 @@ def _page(title, css, body_html, today):
 
 def render_entry_page(e, prev, nxt, today):
     meta = e["meta"]
-    nav = ['<a href="../index.html">← 索引</a>', '<a href="../../index.html">← atlas</a>']
+    nav = ['<a href="../../index.html">← 索引</a>', '<a href="../../../index.html">← atlas</a>']
     if prev:
         nav.append(f'<a href="../{prev["dir"].name}/answer.html">← {html.escape(prev["meta"]["name"])}</a>')
     if nxt:

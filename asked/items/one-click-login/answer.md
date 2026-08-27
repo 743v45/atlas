@@ -28,4 +28,4 @@
 
 ## 出处
 
-- 源对话归档:../conversations/2026-08-03-one-click-login.md(2026-08-03)
+- 源对话归档:../../../conversations/2026-08-03-one-click-login.md(2026-08-03)

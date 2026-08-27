@@ -292,6 +292,10 @@ INDEX_CSS = """
   .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
   .idx-table .tool-name { font-weight: 600; }
   .push-stale { color: var(--danger); }
+  .stale-flag {
+    margin-left: .45rem; padding: 0 .4rem; border: 1px solid var(--accent); border-radius: 999px;
+    color: var(--accent); font-size: .68rem; font-family: var(--font-body); white-space: nowrap;
+  }
   .collected-note { color: var(--muted); font-size: .75rem; margin-top: .3rem; font-family: var(--font-mono); }
   .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
   /* 域列表（顶层索引）与域页 */
@@ -406,6 +410,9 @@ def render_row(tool, columns, base_prefix=""):
             pass
     push_cls = ' class="num push-stale"' if push_old else ' class="num"'
     push_html = f'<td{push_cls}>{html.escape(fmt_push(pushed))}</td>'
+    # 待复核徽标（RULES 第 4 节：collected_at/verified 超 180 天 → 索引行标注）
+    stale_flag = (f'<span class="stale-flag" title="数据采集/核实超 {STALE_DAYS} 天（RULES 第 4 节）">待复核</span>'
+                  if stale else "")
 
     matrix_tds = []
     for col in columns:
@@ -417,7 +424,7 @@ def render_row(tool, columns, base_prefix=""):
     return f"""      <tr data-verdict="{m['verdict']}" data-stars="{stars if isinstance(stars, int) else -1}"
           data-push="{pushed}" data-name="{html.escape(m['name'])}"
           data-search="{html.escape(' '.join([m['name'], m['summary'], tags]).lower())}">
-        <td class="tool-name"><a href="{base_prefix}{html.escape(rel)}/report.html" title="{html.escape(m['summary'])}">{html.escape(m['name'])}</a></td>
+        <td class="tool-name"><a href="{base_prefix}{html.escape(rel)}/report.html" title="{html.escape(m['summary'])}">{html.escape(m['name'])}</a>{stale_flag}</td>
         <td>{badge(m['verdict'])}</td>
         {''.join(matrix_tds)}
         <td class="num">{stars_txt}</td>
@@ -434,7 +441,7 @@ def render_category_sections(cats, base_prefix=""):
             cmp_html = f'<a class="cmp" href="{base_prefix}items/{html.escape(c["slug"])}/comparison.html">横评 →</a>'
         rows = "\n".join(render_row(t, c["columns"], base_prefix=base_prefix) for t in c["tools"]) or f'<tr><td colspan="{2 + len(c["columns"]) + 2}" class="sum">该类别暂无条目报告。</td></tr>'
         collected = sorted({(t["meta"].get("stats") or {}).get("collected_at") for t in c["tools"]} - {None})
-        note = f'<p class="collected-note">star / push 为 gh 快照，采集 {", ".join(collected)}；红色 push 表示停滞超 {STALE_DAYS} 天；条目名悬停看一句话结论。</p>' if collected else ""
+        note = f'<p class="collected-note">star / push 为 gh 快照，采集 {", ".join(collected)}；红色 push 表示停滞超 {STALE_DAYS} 天，「待复核」表示采集/核实超 {STALE_DAYS} 天；条目名悬停看一句话结论。</p>' if collected else ""
         dim_ths = "".join(f'<th>{html.escape(col)}</th>' for col in c["columns"])
         sections.append(f"""  <section class="category" id="{c['slug']}" data-search="{html.escape(c['name'].lower())}">
     <h2>{html.escape(c['name'])} <span class="cat-count">{len(c['tools'])} 条</span> {cmp_html}</h2>

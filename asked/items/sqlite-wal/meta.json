@@ -1,6 +1,10 @@
 {
   "name": "SQLite WAL:预写日志机制详解",
   "date": "2026-08-05",
-  "source": "../conversations/2026-08-05-sqlite-wal-and-migration.md",
-  "tags": ["SQLite", "存储", "运维红线"]
+  "source": "conversations/2026-08-05-sqlite-wal-and-migration.md",
+  "tags": [
+    "SQLite",
+    "存储",
+    "运维红线"
+  ]
 }

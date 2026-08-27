@@ -1,6 +1,10 @@
 {
   "name": "移动端一键登录是怎么实现的?",
   "date": "2026-08-03",
-  "source": "../conversations/2026-08-03-one-click-login.md",
-  "tags": ["移动端", "认证", "运营商"]
+  "source": "conversations/2026-08-03-one-click-login.md",
+  "tags": [
+    "移动端",
+    "认证",
+    "运营商"
+  ]
 }

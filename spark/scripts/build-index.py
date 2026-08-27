@@ -283,7 +283,7 @@ def _page(title, css, body_html, today):
 
 def render_spark_page(s, prev, nxt, today):
     meta = s["meta"]
-    nav = ['<a href="../index.html">← 索引</a>', '<a href="../../index.html">← atlas</a>']
+    nav = ['<a href="../../index.html">← 索引</a>', '<a href="../../../index.html">← atlas</a>']
     if prev:
         nav.append(f'<a href="../{prev["dir"].name}/spark.html">← {html.escape(prev["meta"]["name"])}</a>')
     if nxt:

@@ -36,5 +36,5 @@
 
 ## 出处
 
-- 源对话归档:../conversations/2026-08-06-database-landscape.md(2026-08-06)
+- 源对话归档:../../../conversations/2026-08-06-database-landscape.md(2026-08-06)
 - 决策落地:pick/items/primary-database(PG adopt、SQLite adopt、其余 trial/assess)

@@ -10,5 +10,5 @@
 
 ## 出处
 
-- 源对话归档:../conversations/2026-08-27-fog-walking-to-atlas.md(2026-08-27)
+- 源对话归档:../../../conversations/2026-08-27-fog-walking-to-atlas.md(2026-08-27)
 - 本概念同时收录于 atlas/PHILOSOPHY.md 术语表,衍生方法课:apprentice/express/describe-the-goal

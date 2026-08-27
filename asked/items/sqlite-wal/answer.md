@@ -22,8 +22,8 @@ WAL 模式的库是三个文件:`.db`(主库)、`.db-wal`(预写日志)、`.db-s
 1. **WAL 为 0 字节**(全部 checkpoint 完)才可单独拷 `.db`——一个文件自成完整库。
 2. **非空 `-wal` 绝不能丢下**——只拷 `.db` 不拷 `-wal`,便签上的账全丢,还可能带出损坏。
 
-安全做法:要么先 `wal_checkpoint(TRUNCATE)` 再拷单文件;要么三件套一起拷且确认无进程占用(lsof / `PRAGMA quick_check`);Docker on macOS 下更有一层坑——virtiofs 与 mmap 不兼容,宿主机直读挂载库(哪怕只读)可致 `SQLITE_CORRUPT`,只能容器内 exec(mistakes 馆有全案)。
+安全做法:要么先 `wal_checkpoint(TRUNCATE)` 再拷单文件;要么三件套一起拷且确认无进程占用(lsof / `PRAGMA quick_check`);Docker on macOS 下更有一层坑——virtiofs 与 mmap 不兼容,宿主机直读挂载库(哪怕只读)可致 `SQLITE_CORRUPT`,只能容器内 exec(virtiofs 全链错题立条中,素材见 dig/INBOX)。
 
 ## 出处
 
-- 源对话归档:../conversations/2026-08-05-sqlite-wal-and-migration.md(2026-08-05,同场产出 db 迁移方法,apprentice 课候选)
+- 源对话归档:../../../conversations/2026-08-05-sqlite-wal-and-migration.md(2026-08-05,同场产出 db 迁移方法,apprentice 课候选)

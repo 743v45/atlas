@@ -69,7 +69,7 @@
 </head>
 <body>
 <main>
-  <nav class="entry-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><a href="../../index.html">← atlas</a><span class="sep">·</span><a href="../database-landscape/answer.html">← 给你 10 种数据库,优先选哪些?——全景与决策漏斗</a><span class="sep">·</span><a href="../sqlite-wal/answer.html">SQLite WAL:预写日志机制详解 →</a></nav>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../database-landscape/answer.html">← 给你 10 种数据库,优先选哪些?——全景与决策漏斗</a><span class="sep">·</span><a href="../sqlite-wal/answer.html">SQLite WAL:预写日志机制详解 →</a></nav>
   <article>
 <h1>移动端一键登录是怎么实现的?</h1>
 <blockquote><strong>TL;DR</strong>:一键登录(本机号码认证)的本质是借蜂窝数据通道让运营商网关直接认出 SIM 卡对应的手机号——App 拿临时 token,业务服务器用 token 换明文号码,全程用户不输入、不读短信、不输密码。</blockquote>
@@ -83,7 +83,7 @@
 <h2>与短信验证码的对比</h2>
 <p>短信码是「证明你拥有这个号码」(读短信),一键登录是「运营商直接告诉你这是谁」(通道认证)。前者依赖短信可达性与用户输入,后者依赖蜂窝网络与 SDK 集成(三大运营商各自的 SDK,或聚合服务)。安全边界也变了个位置:从「短信不被劫持」变成「token 不被重放」——所以 token 短时效、一次性,且换号必须走业务服务器密钥。</p>
 <h2>出处</h2>
-<ul><li>源对话归档:../conversations/2026-08-03-one-click-login.md(2026-08-03)</li></ul>
+<ul><li>源对话归档:../../../conversations/2026-08-03-one-click-login.md(2026-08-03)</li></ul>
   </article>
   <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
