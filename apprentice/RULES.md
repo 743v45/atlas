@@ -42,7 +42,7 @@
 
 ## 5. 引擎血缘
 
-骨架复制自 pick（init `617c31a`，2026-08-27）：理念与方法复制，代码按 apprentice 的 schema 重写。共享层（Markdown 渲染器、BASE_CSS）的同步纪律与抽象触发条件见 `scripts/ORIGIN.md`；对账跑 `bash scripts/check-drift.sh`。
+骨架复制自 pick（init `617c31a`，2026-08-27）：理念与方法复制，代码按 apprentice 的 schema 重写。渲染器与 BASE_CSS 已上提 `atlas/shared/render.py` 单源维护（血缘与同步纪律见 `scripts/ORIGIN.md`）。
 
 ## 6. 生成物与门禁
 

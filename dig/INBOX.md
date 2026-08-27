@@ -42,7 +42,7 @@ pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403(07-28);远程
 
 ### [mistakes·素材] Outline 自托管 9 坑实录的下落 | 2026-07-30 | 53f490e3 + 4ac44e68
 3.7MB 部署全程会话产出文章「Outline 本机自托管踩坑实录:9 个坑才跑通 Google 登录」,发布到 Outline wiki「部署踩坑」collection——**而 Outline 已于 08-25 弃用**(memory:存量/迁移留档)。
-待查:文章是否已迁移到 taevasidian;若未迁,源对话 53f490e3 是恢复底稿。9 个坑若完好,可拆成 mistakes 条目素材。
+后续:文章应已随 08-23「outline 数据全部导入飞书」落地飞书(见上条,非 taevasidian);在飞书侧核对是否完整迁达,若未达,源对话 53f490e3 是恢复底稿。9 个坑若完好,可拆成 mistakes 条目素材。
 状态:pending
 
 
@@ -76,9 +76,9 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 状态:pending
 
 
-### [维度/方法论] AI 原生数据访问(CLI for AI) | 2026-08-11 起 | 跨项目五现
+### [维度/方法论] AI 原生数据访问(CLI for AI) | 2026-08-11 起 | 跨项目六现
 「有没有 cli 查询数据的功能。希望做一个 cli 给 ai 查询使用」(lucent 08-11);subtitle-collector 的 collector-cli+SKILL.md;pick/knowledge-base 核心命题「AI 对存储层的原生访问权」;08-25「没法用 cli 的话,需要实现功能的」;**08-27 第五现**:「subtitle-collector 需要 skill 做这个事情,方便我调度」(e3533f06);**08-24 第六现**:「增加手动翻译功能…留给大模型使用。cli 化」(325c89be)——给 AI 的接口持续升维(CLI→skill→功能准入)。
-贯穿五个项目。五现=超成熟,建议直接立课或写入 PHILLOSOPHY(与「图纸与公路」互链)。
+贯穿五个项目。六现=超成熟,建议直接立课或写入 PHILLOSOPHY(与「图纸与公路」互链)。
 状态:pending
 
 ### [mistakes] virtiofs 宿主机直读 SQLite 损库 | 2026-08-24 翻车 | ✅已定位
@@ -112,6 +112,10 @@ ds-phoneness 原生 App 会战 + subtitle-collector 测试质量会战,模式定
 - **多视角审查编队**:标准审查/规格符合性/对抗性(correctness·robustness·security)并行
 - **轮次制验收**:「第 5 轮验收:对抗复核这批修复本身有没有引入新缺陷或修错」——复核修复,不是复核原始代码
 与「调查/审计驱动工作流」(08-21)互为姊妹:那个串行深挖,这个并行分治。立课素材齐备。
+状态:pending
+
+### [pick] 31 条 meta.sources 为不可解析文本引用 | 2026-08-27 | 审查发现
+pick 门禁承诺「有据可溯」,但全库 78 条中 31 条的 meta.sources 存在既非 URL 亦非 raw/ 实路径的纯文本引用(如「Claude 历史会话(2026-08-25)——提取源」)——可溯性承诺未兑现,需重新溯源为 URL 或实路径(raw/ 留档)。
 状态:pending
 
 ## 已决

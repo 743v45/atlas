@@ -1,6 +1,6 @@
 # PRD 工具 · 选型设计树
 
-> 叶子格式 `- 叶：[名](slug/) verdict`，build 校验与 meta 一致（RULES.md 第 8 节）。
+> 叶子格式 `- 叶：[名](slug/) verdict`，build 校验与 meta 一致（RULES.md 第 7 节）。
 
 ## 根问题
 

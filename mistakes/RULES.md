@@ -30,4 +30,4 @@
 
 ## 4. 引擎
 
-渲染器与基础样式在 `atlas/shared/render.py`(三馆与门户共用)。本馆 build 内不得出现本地渲染器副本(check-drift 反向断言看守)。所有 HTML 由 `python3 scripts/build-index.py` 生成,禁止手改;门禁不过的错题不进索引。
+渲染器与基础样式在 `atlas/shared/render.py`(五馆与门户共用)。本馆 build 内不得出现本地渲染器副本(scripts/check-all.py 单源断言看守)。所有 HTML 由 `python3 scripts/build-index.py` 生成,禁止手改;门禁不过的错题不进索引。

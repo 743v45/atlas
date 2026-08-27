@@ -2,8 +2,8 @@
 
 2026-08-27 第三馆(mistakes)触发抽取(触发条件见 apprentice/scripts/ORIGIN.md):
 自 apprentice 的 build-index.py 上提,与 pick 的对账副本合并为这一份。
-此后三馆(pick / apprentice / mistakes)与门户(build-atlas)统一 import 本文件,
-各馆 build 内不得再出现本地渲染器副本(check-drift 反向断言看守)。
+此后五馆与门户(build-atlas)统一 import 本文件,
+各馆 build 内不得再出现本地渲染器副本(scripts/check-all.py 单源断言看守)。
 
 覆盖模板的封闭语法:标题 / 段落 / GFM 表格 / 有无序列表 /
 引用块 / 围栏代码 / 水平线 / 行内(粗体、代码、链接、裸 URL)/ HTML 行透传

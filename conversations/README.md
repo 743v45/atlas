@@ -1,6 +1,6 @@
 # conversations — 对话归档
 
-三馆的 source 底座:课、错题、报告都要求「从真实对话长出来、可追溯」——归档让追溯落到实文件。
+apprentice / mistakes / asked 三馆的 source 底座:课、错题、答问都要求「从真实对话长出来、可追溯」——归档让追溯落到实文件(pick 用外链 sources,spark 无 source 要求)。
 
 ## 规则
 

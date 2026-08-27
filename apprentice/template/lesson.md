@@ -35,4 +35,4 @@
 
 | 日期 | 状态 | 说明 |
 |---|---|---|
-| {{YYYY-MM-DD}} | {{learning}} | 首次沉淀,源自 {{source}} |
+| {{YYYY-MM-DD}} | settled | 首次沉淀,源自 {{source}} |

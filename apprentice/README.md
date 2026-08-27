@@ -15,16 +15,14 @@ apprentice/
 ├── RULES.md             # 记录规则(核心)
 ├── DESIGN-TREE.md       # 架构决策树(变更当日加节点)
 ├── index.html           # 索引页(生成物,禁止手改)
-├── .github/workflows/pages.yml   # GitHub Pages:push 即部署
 ├── scripts/
 │   ├── build-index.py   # 聚合 meta + 渲染全部 HTML(含校验门禁 + 膨胀预警)
-│   ├── check-drift.sh   # 与 pick 的引擎对账(血缘见 scripts/ORIGIN.md)
 │   └── ORIGIN.md        # 引擎血缘:共享层、同步纪律、抽象触发条件
 ├── template/            # 新课模板(meta.json + lesson.md)
 └── items/               # items/<类别>/<课>/{meta.json, lesson.md, lesson.html}
 ```
 
-发布:push 到 main 即触发 Pages 部署(Actions 内重建,纯标准库零依赖);生成物入库,克隆即看。
+发布:push 到 atlas 的 main 由根 CI 统一构建部署(子目录 `.github` 在 monorepo 中不生效,已删;纯标准库零依赖);生成物入库,克隆即看。
 
 ## 快速上手
 
@@ -41,7 +39,7 @@ python3 scripts/build-index.py   # 校验 + 渲染全部页面
 
 ## 与姊妹库的关系
 
-- **pick** 管「选什么」，**apprentice** 管「怎么问」——人机协作的两半。
+- **pick** 管「选什么」，**apprentice** 管「怎么做」，**asked** 管「是什么/为什么」——五馆边界口诀见根 [COMPARISON.md](../COMPARISON.md)。
 - 同一套骨架哲学：唯一事实来源在 meta + md，HTML 全生成，门禁不过不进索引。
 - 引擎血缘与同步纪律：`scripts/ORIGIN.md`。
 

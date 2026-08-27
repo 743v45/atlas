@@ -16,15 +16,15 @@ atlas = 地图集:馆是图上的区域,错题集是警示图层,根 `index.html
 
 **五馆横评与边界口诀见 [COMPARISON.md](COMPARISON.md)——概念固定,新条目不知去哪先查它。**
 
-**conversations/** — 对话归档:三馆 source 的底座(建条当日归档,source 变实路径)。
+**conversations/** — 对话归档:apprentice / mistakes / asked 三馆 source 的底座(建条当日归档,source 变实路径)。
 **DESIGN-TREE.md** — 总设计树(跨馆架构决策,变更当日加节点)。
 **dig/** — 历史会话翻阅:方法规则 `dig/RULES.md`(任何 AI 读了即可执行)+ 时间线规则 `dig/TIMELINE.md` + 进度 `dig/progress.json`(唯一事实源)+ **`dig/INBOX.md` 候选收件箱**(维度与馆级候选待审,用户标记 promoted/dismissed)。
 
-各馆自带 RULES.md / 门禁 / CLAUDE.md,规则互不合并。渲染引擎单源 `shared/render.py`(新馆复制骨架、删副本、接 shared)。时态分工:spark 将来时 / 对话现在时 / 三馆完成时。
+各馆自带 RULES.md / 门禁 / CLAUDE.md,规则互不合并。渲染引擎单源 `shared/render.py`(新馆复制骨架、删副本、接 shared)。时态分工:spark 将来时 / 对话现在时 / pick·apprentice·asked 完成时 / mistakes 过去时不过期。
 
 ## 门户与错题集视图
 
-根 `index.html` 由 `python3 scripts/build-atlas.py` 生成(需先跑三馆各自的 build):
+根 `index.html` 由 `python3 scripts/build-atlas.py` 生成(需先跑五馆各自的 build):
 
 - 馆导航 + 动态统计
 - **翻车**:mistakes 馆条目,根因一行直读
@@ -33,7 +33,7 @@ atlas = 地图集:馆是图上的区域,错题集是警示图层,根 `index.html
 
 ## 部署
 
-push 到 main → GitHub Pages 单站部署:三馆 build + pick 防漂移断言 + atlas 聚合,纯标准库零依赖。
+push 到 main → GitHub Pages 单站部署:五馆 build + pick 防漂移断言 + 全站链接断言 + atlas 聚合,纯标准库零依赖。
 
 ## 迁移留档
 

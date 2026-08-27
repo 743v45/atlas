@@ -10,4 +10,4 @@
 - **时效是硬规则**:verified + model 必标——无时效标注的课视为无效,模型换代后技巧会过期。超 180 天索引标「待重验」。
 - **所有 HTML 均为生成物,禁止手改**:改完 meta 或 md 后跑 `python3 scripts/build-index.py`(含校验门禁:验证段/翻车记录必填、artifacts 路径存在性——不过门禁不进索引)。
 - **图纸与公路对账**:课的 artifacts 指向沉淀出的模板 / skill / 规则文件,文件头注来源课;改路当天更新图纸(RULES 第 4 节)。
-- **引擎血缘**:渲染器与 BASE_CSS 与 pick 共享,改任一边当天同步另一边;对账 `bash scripts/check-drift.sh`(纪律与触发条件见 `scripts/ORIGIN.md`)。
+- **引擎单源**:渲染器与 BASE_CSS 住 `atlas/shared/render.py`,本馆 build 统一 import,本地不得有副本——对账跑根级 `python3 scripts/check-all.py`(含单源反向断言);纪律与触发条件见 `scripts/ORIGIN.md`。

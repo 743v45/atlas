@@ -20,7 +20,7 @@
 - 问「**怎么做**」→ apprentice;问「**是什么/为什么**」→ asked。
 - 带对比与 verdict → pick;只有结论没有对比 → 不是 pick。
 - 摔了有根因 → mistakes;只是没走通 → spark。
-- 同一场对话可拆多馆:方法进 apprentice,原理进 asked,翻车进 mistakes(首例:08-05 SQLite 场,一谈三收)。
+- 同一场对话可拆多馆:方法进 apprentice,原理进 asked,翻车进 mistakes(例:08-05 SQLite 场——讲义当日入 asked,方法候选尚在 dig/INBOX 待审)。
 - **有门禁的才是馆**;跨馆已有内容的复用是视图,进门户聚合(atlas 错题集层),不建内容馆。
 
 ## 与馆外体系的关系

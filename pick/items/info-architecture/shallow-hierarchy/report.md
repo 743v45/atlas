@@ -31,7 +31,7 @@ vs 深分类学树 / 扁平多面 / 网络图：见 `../comparison.md`。
 ## 来源
 
 1. taevasidian — https://github.com/743v45/taevasidian（知识层同思路落地：三层目录 + INDEX 索引驱动）
-2. pick 本库实践与分层判据（RULES.md 第 1 节、DESIGN-TREE.md D6/D12，2026-08-27）
+2. pick 本库实践与分层判据（RULES.md 第 1 节、DESIGN-TREE.md D6/D13，2026-08-27）
 
 ## 变更记录
 

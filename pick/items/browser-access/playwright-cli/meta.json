@@ -4,7 +4,7 @@
   "homepage": "https://github.com/microsoft/playwright",
   "license": "Apache-2.0",
   "verdict": "trial",
-  "summary": "微软 2026 年初为 AI coding agent 发布的官方 CLI（@playwright/cli）：浏览器 state 存磁盘不进上下文，官方定位为 Playwright MCP 的 token 高效演进方向；发布尚新，生态待观察。",
+  "summary": "微软 2026 年初为 AI coding agent 发布的官方 CLI（`@playwright/cli`）：浏览器 state 存磁盘不进上下文，官方定位为 Playwright MCP 的 token 高效演进方向；发布尚新，生态待观察。",
   "updated": "2026-08-27",
   "verified": "2026-08-27",
   "sources": [

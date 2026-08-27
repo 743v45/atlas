@@ -4,6 +4,7 @@ topic: 拿走路学 AI:从雾中行走到 atlas 馆群
 related:
   - ../apprentice/items/express/describe-the-goal/
   - ../mistakes/items/vague-goal/
+  - ../asked/items/two-kinds-of-fog/
 ---
 
 # 2026-08-27 · 拿走路学 AI:从雾中行走到 atlas 馆群

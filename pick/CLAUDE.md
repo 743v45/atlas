@@ -16,5 +16,5 @@
 
 ## 部署与协作
 
-- **push 即部署**：`git push` → GitHub Actions 自动 `build → check → deploy` 到 https://743v45.github.io/pick/ （断言失败阻止上线）；生成物 HTML 一并入库。
+- **push 即部署**：push 到 atlas 的 main → 根 CI 统一构建五馆（含 pick 本地三连的断言）→ deploy 到 https://743v45.github.io/atlas/pick/ （断言失败阻止上线）；生成物 HTML 一并入库。
 - **调研 subagent 派单模板**：读 RULES → 挖历史会话（提取脚本导出到 `raw/`）→ gh/WebSearch 高强度调研（原始数据落 `raw/`）→ 写全套（条目/横评/决策矩阵/设计树）→ 只动自己类别目录、**禁跑 build**（并行会互相覆盖，主会话统一三连）；并行 ≤6 个防 429 限流，撞了错峰唤醒。

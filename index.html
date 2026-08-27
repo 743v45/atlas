@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>atlas · 馆群门户</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .masthead { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .masthead .sub { color: var(--muted); font-size: .92rem; }
+  .halls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: .9rem; margin-bottom: 2.2rem; }
+  .hall {
+    display: block; text-decoration: none; color: var(--text);
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: .9rem 1.1rem;
+  }
+  .hall:hover { border-color: var(--link); }
+  .hall h2 { margin: 0 0 .25rem; font-size: 1.12rem; }
+  .hall .desc { color: var(--muted); font-size: .84rem; }
+  .hall .figures { font-family: var(--font-mono); font-size: .78rem; color: var(--link); margin-top: .4rem; }
+  h2.zone { font-size: 1.3rem; margin: 2rem 0 .6rem; }
+  .zone .note { color: var(--muted); font-size: .8rem; margin: 0 0 .5rem; font-family: var(--font-body); }
+  table { table-layout: fixed; }
+  td, th { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  td.wrap { white-space: normal; overflow: visible; }
+  .muted { color: var(--muted); font-size: .8rem; }
+  .empty-zone { color: var(--muted); font-size: .88rem; padding: .3rem 0 1rem; }
+  details.fold { margin-bottom: 1rem; }
+  details.fold > summary {
+    cursor: pointer; color: var(--muted); font-size: .88rem; padding: .35rem 0;
+    user-select: none; list-style: none;
+  }
+  details.fold > summary::before { content: "▸ "; }
+  details.fold[open] > summary::before { content: "▾ "; }
+  details.fold > summary:hover { color: var(--link); }
+</style>
+</head>
+<body>
+<main>
+  <div class="masthead">
+    <h1>atlas</h1>
+    <span class="sub">馆群门户 · <a href="PHILOSOPHY.md">设计理念</a> · 内容不搬家,原地链接</span>
+  </div>
+  <div class="halls">
+    <a class="hall" href="pick/index.html">
+      <h2>pick · 选型对比决策库</h2>
+      <div class="desc">选什么——域 → 类别 → 条目,有据报告 + 决策矩阵</div>
+      <div class="figures">78 条目</div>
+    </a>
+    <a class="hall" href="apprentice/index.html">
+      <h2>apprentice · AI 学徒笔记库</h2>
+      <div class="desc">怎么做——结论馆,收录即定案,课从真实对话长出来</div>
+      <div class="figures">1 课</div>
+    </a>
+    <a class="hall" href="mistakes/index.html">
+      <h2>mistakes · 错题集</h2>
+      <div class="desc">怎么摔的——经过 / 根因 / 修正,单一事实源</div>
+      <div class="figures">1 条</div>
+    </a>
+    <a class="hall" href="spark/index.html">
+      <h2>spark · 奇想录</h2>
+      <div class="desc">想去但还没走的 Z——低摩擦苗圃,毕业制流向各馆</div>
+      <div class="figures">3 条念头</div>
+    </a>
+    <a class="hall" href="asked/index.html">
+      <h2>asked · 问答馆</h2>
+      <div class="desc">是什么、为什么——师父讲的地形,自洽且可溯</div>
+      <div class="figures">4 篇</div>
+    </a>
+  </div>
+  <h2 class="zone">错题集 · 翻车</h2>
+  <p class="note">来自 mistakes 馆——根因一行直读,详情点入。失败比成功教学价值高。</p>
+<table><thead><tr><th style="width:6rem">日期</th><th style="width:13rem">错题</th><th style="width:8rem">类型</th><th style="width:auto">根因</th></tr></thead><tbody><tr><td class="muted">2026-08-27</td><td><a href="mistakes/items/vague-goal/mistake.html">「我想要的」:Z 没说清就动手</a></td><td class="muted">表达不清、Z未定义、形容词当判据</td><td class="wrap">把「路不清」当成了默认处境,没先检查「Z 清不清」。「我想要的」是形容词——形容词制造「已说清楚」的错觉,但评价函数没有真正交出去:我以为表达了意图,实际只表达了情绪(想要)。</td></tr></tbody></table>
+  <h2 class="zone">错题集 · 落选</h2>
+  <p class="note">pick 里 verdict=hold 的条目。默认折叠——不常看的知识不占视野,要时点开。</p>
+<details class="fold"><summary>展开 16 条落选(verdict=hold,被毙的方案与理由——不常看,收着)</summary><table><thead><tr><th style="width:9rem">条目</th><th style="width:7rem">类别</th><th style="width:auto">一句话结论</th></tr></thead><tbody><tr><td><a href="pick/items/anti-detect-browser/adspower/report.html">AdsPower</a></td><td class="muted">anti-detect-browser</td><td class="wrap">商业指纹浏览器（多账号矩阵场景标配）：本地 REST API 启动 Profile 返回 debug 端口供 Selenium/Playwright 接管；中文与性价比占优；个人 Agent 开发一般用不上。</td></tr><tr><td><a href="pick/items/anti-detect-browser/clawbrowser/report.html">Clawbrowser</a></td><td class="muted">anti-detect-browser</td><td class="wrap">评测榜单声量很大但 GitHub 仅 ⭐28（gh 2026-08-27）——营销热度≠社区热度，不满足 ≥1k star 门槛；同类诉求（反检测+CDP+MCP）由 Donut Browser 覆盖。</td></tr><tr><td><a href="pick/items/anti-detect-browser/multilogin/report.html">Multilogin</a></td><td class="muted">anti-detect-browser</td><td class="wrap">商业指纹浏览器口碑领先者：自研 Mimic/Stealthfox 引擎、指纹技术行业标杆，€29/mo 起；官方 Playwright/Puppeteer/Selenium automation 文档齐全；多账号矩阵商业场景才需要。</td></tr><tr><td><a href="pick/items/anti-detect-browser/undetected-chromedriver/report.html">undetected-chromedriver</a></td><td class="muted">anti-detect-browser</td><td class="wrap">曾经的事实标准（⭐12,808），但最后 push 停在 2025-07-05、停更一年余——高 star 不等于活着，勿再选；继任者为同作者的 nodriver。</td></tr><tr><td><a href="pick/items/asr-subtitle-tools/faster-whisper/report.html">faster-whisper</a></td><td class="muted">asr-subtitle-tools</td><td class="wrap">CTranslate2 加速的 Whisper Python 实现：GPU 服务器上快且省内存，但 macOS 只能 CPU 且比 whisper.cpp 慢约 3 倍，仓库已 9 个月无提交（gh 2026-08-27）——新项目不建议入。</td></tr><tr><td><a href="pick/items/asr-subtitle-tools/fireredasr-ui/report.html">fireredasr-ui</a></td><td class="muted">asr-subtitle-tools</td><td class="wrap">FireRedASR 的第三方一键 WebUI+OpenAI 兼容 API 封装：本机部署的原型，但上游 2025-02 起停更 18 个月、不支持 v2——已被本地深度改造（队列/缓存/看门狗）接管，新项目勿直接采用上游原版。</td></tr><tr><td><a href="pick/items/asr-subtitle-tools/whisper/report.html">OpenAI Whisper</a></td><td class="muted">asr-subtitle-tools</td><td class="wrap">多语言基线但中文明显掉队：官方口径 large-v3 普通话平均 CER 9.86%（约为 FireRedASR2 的 3.4 倍）、turbo 更差，字幕主力中文场景不建议新采用；价值在英文/小语种覆盖与庞大生态。</td></tr><tr><td><a href="pick/items/browser-access/mcp-chrome/report.html">mcp-chrome</a></td><td class="muted">browser-access</td><td class="wrap">接管现有 Chrome 会话（登录态/cookie/tab 全在）的代表方案，Webfuse 2026 榜单唯一推荐；但 push 停在 2026-01-06、放缓 7 个月，同类需求 Chrome DevTools MCP / Claude in Chrome 更活跃。</td></tr><tr><td><a href="pick/items/docs-code-linking/swimm/report.html">Swimm</a></td><td class="muted">docs-code-linking</td><td class="wrap">锚点级最强——token/AST 锚点随重构自动跟随+swimm-verify CI 卡点；但核心闭源、按代码行数计价、2026 已转向企业现代化服务，对个人/小团队过重。</td></tr><tr><td><a href="pick/items/git-gui-clients/gitkraken/report.html">GitKraken</a></td><td class="muted">git-gui-clients</td><td class="wrap">颜值与团队协作向：免费版仅本地+公开仓库，付费 $6.99/人/月起且偏重，个人用户不推荐，跨平台团队协作再考虑。</td></tr><tr><td><a href="pick/items/git-gui-clients/tower/report.html">Tower</a></td><td class="muted">git-gui-clients</td><td class="wrap">功能最全的订阅制老牌：$69–149/年，独有全操作撤销等能力，但个人用户的性价比明显低于 Fork 买断。</td></tr><tr><td><a href="pick/items/ios-push-notify/pushover/report.html">Pushover</a></td><td class="muted">ios-push-notify</td><td class="wrap">体验口碑最佳的商业推送：$4.99/平台一次性买断、终身有效、30 天全功能试用（2026-08-27 官网报价），但试用后必付费且闭源不可自托管——与「免费」硬约束直接冲突；哪天愿意付这 5 美元它就是体验上限。</td></tr><tr><td><a href="pick/items/ios-push-notify/telegram-bot/report.html">Telegram Bot</a></td><td class="muted">ios-push-notify</td><td class="wrap">Bot API 免费强大、客户端成熟，但大陆网络 Telegram 全线被墙：发送端服务器要可达 api.telegram.org、接收端 iPhone 都需常驻代理，把一个通知通道变成两个外部依赖——不推荐新采用，网络环境变化再重评。</td></tr><tr><td><a href="pick/items/knowledge-base/notion/report.html">Notion</a></td><td class="muted">knowledge-base</td><td class="wrap">团队协作/权限/数据库视图最强——但 AI 批量读写走 API 很慢、共建体验差、数据不在本地；完整 AI 能力锁在 Business 档（$20/人/月，2026-08 查询），AI 共建个人知识库场景被否。</td></tr><tr><td><a href="pick/items/knowledge-base/outline/report.html">Outline</a></td><td class="muted">knowledge-base</td><td class="wrap">用户曾自托管的存量方案，已废弃：无 [[式双链（只有文档间跳转）补不上需求——落选理由是功能缺口而非质量；团队知识库场景仍是合格选项（2026 云版 $10/月起、自托管社区版免费）。</td></tr><tr><td><a href="pick/items/prd-tools/productboard/report.html">Productboard</a></td><td class="muted">prd-tools</td><td class="wrap">面向「大量用户反馈聚类成 roadmap」的需求管理平台：AI 聚类反馈强、PRD 起草弱（Essentials $19 / Pro $59 per maker/月，2026）；个人与小团队为此付费不值——它解决的是你没遇到的反馈规模问题。</td></tr></tbody></table></details>
+  <h2 class="zone">错题集 · 腐烂警示</h2>
+  <p class="note">两馆超 180 天未验证/未采集的条目与已过期(outdated)的课——知识在腐烂的地方,先看这里。</p>
+<p class="empty-zone">全部在保鲜期内。</p>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-atlas.py</code>(五馆 build 之后跑)· 本页为生成物,禁止手改</footer>
+</main>
+</body>
+</html>

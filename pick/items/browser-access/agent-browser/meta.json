@@ -4,7 +4,7 @@
   "homepage": "https://github.com/vercel-labs/agent-browser",
   "license": "Apache-2.0",
   "verdict": "adopt",
-  "summary": "Vercel 出品的 Rust CLI，AI Agent 浏览器自动化的 CLI 路线领跑者（⭐41,376、日更）；@e2 元素引用语法 + 官方 skill 一键装进 Claude Code 等 8 个 Agent，装完即用。",
+  "summary": "Vercel 出品的 Rust CLI，AI Agent 浏览器自动化的 CLI 路线领跑者（⭐41,376、日更）；`@e2` 元素引用语法 + 官方 skill 一键装进 Claude Code 等 8 个 Agent，装完即用。",
   "updated": "2026-08-27",
   "verified": "2026-08-27",
   "sources": [

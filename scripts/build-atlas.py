@@ -6,7 +6,7 @@
 - 落选:pick verdict=hold 的条目(默认折叠,展开才看)
 - 腐烂警示:pick / apprentice 超 180 天未验证/未采集的条目,及 apprentice status=outdated
 
-用法:python3 scripts/build-atlas.py(在三馆各自 build 之后跑)
+用法:python3 scripts/build-atlas.py(在五馆各自 build 之后跑)
 样式:atlas/shared/render.py 的 BASE_CSS
 """
 
@@ -58,7 +58,7 @@ def root_cause_digest(md_text, limit=90):
 
 
 def collect():
-    """扫三馆 meta,返回门户数据。"""
+    """扫五馆 meta,返回门户数据。"""
     holds, mistakes, rotten = [], [], []
     pick_count = app_count = mistake_count = 0
 
@@ -143,7 +143,7 @@ def render(data):
     </a>
     <a class="hall" href="apprentice/index.html">
       <h2>apprentice · AI 学徒笔记库</h2>
-      <div class="desc">怎么问——结论馆,收录即定案,课从真实对话长出来</div>
+      <div class="desc">怎么做——结论馆,收录即定案,课从真实对话长出来</div>
       <div class="figures">{data['app_count']} 课</div>
     </a>
     <a class="hall" href="mistakes/index.html">
@@ -180,7 +180,7 @@ def render(data):
     if data["holds"]:
         rows = "".join(
             f'<tr><td><a href="{rel}/report.html">{esc(m.get("name", ""))}</a></td>'
-            f'<td class="muted">{esc(rel.split("/")[1])}</td><td class="wrap">{esc(m.get("summary", ""))}</td></tr>'
+            f'<td class="muted">{esc(rel.split("/")[2])}</td><td class="wrap">{esc(m.get("summary", ""))}</td></tr>'
             for rel, m in data["holds"]
         )
         holds_inner = _table(["条目", "类别", "一句话结论"], rows, ["9rem", "7rem", "auto"])
@@ -228,7 +228,7 @@ def render(data):
     <span class="sub">馆群门户 · <a href="PHILOSOPHY.md">设计理念</a> · 内容不搬家,原地链接</span>
   </div>
 {body}
-  <footer>生成于 {today} · <code>python3 scripts/build-atlas.py</code>(三馆 build 之后跑)· 本页为生成物,禁止手改</footer>
+  <footer>生成于 {today} · <code>python3 scripts/build-atlas.py</code>(五馆 build 之后跑)· 本页为生成物,禁止手改</footer>
 </main>
 </body>
 </html>

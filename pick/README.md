@@ -7,16 +7,22 @@
 ## 结构
 
 ```
-tlrt/
+pick/
 ├── README.md            # 本文件
+├── CLAUDE.md            # 会话必守规则（AI 进入目录自动加载）
 ├── RULES.md             # 记录规则（核心）
+├── DESIGN-TREE.md       # 项目设计树（架构变更当日加节点）
+├── domains.json         # 域与界的定义（虚拟层，索引按此分组）
 ├── index.html           # 索引页（生成物，禁止手改）
 ├── scripts/
-│   ├── build-index.py   # 聚合 meta + 渲染全部 HTML（索引/报告/横评）
-│   └── refresh-stats.py # gh 一手数据 → meta.stats（star/push/license）
+│   ├── build-index.py   # 聚合 meta + 渲染全部 HTML（索引/域页/报告/横评）
+│   ├── refresh-stats.py # gh 一手数据 → meta.stats（star/push/license）
+│   └── check.py         # 产物断言（链接/模板残留/新鲜度；CI 部署前必跑）
 ├── template/            # 新报告模板（meta.json + report.md）
+├── raw/                 # 原始数据留档（raw/<日期>/{gh,web,sessions}）
 ├── items/               # 各类条目：items/<类别>/<条目>/{meta.json, report.md, report.html}
-│   └── <类别>/          #   类别级：_meta.json + decision.json（可选决策矩阵）+ comparison.md → comparison.html
+│   └── <类别>/          #   类别级：_meta.json + decision-tree.md + decision.json（可选决策矩阵）+ comparison.md → comparison.html
+├── domains/             # 域页（生成物：domains/<slug>.html）
 └── decks/               # Slidev 演示，只链接报告不复制结论
 ```
 
@@ -45,4 +51,4 @@ python3 scripts/build-index.py         # 重建页面（stale 标记基于 colle
 - 条目元信息与一手数据快照只存于 `items/<类别>/<条目>/meta.json`（`stats` 由 refresh-stats.py 维护）
 - 所有 HTML（`index.html`、各 `report.html`、`comparison.html`）完全由脚本生成——改 meta 或 md 后重新跑 build，不要手改
 - 横评的「GitHub 活跃度速查」表从 meta.stats 自动生成（md 里写 `<!--gen:activity-table-->` 占位）
-- 脚本会做校验门禁（必填字段、来源非空、verdict 合法、日期格式、正文 star 与 stats 一致性），不过门禁的报告进不了索引
+- 脚本会做校验门禁（必填字段、来源非空、verdict 合法、日期格式），不过门禁的报告进不了索引；正文 ⭐N 与 stats 一致性不一致时当前仅警告（warn）——提交前应对齐再提交

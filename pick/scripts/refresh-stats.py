@@ -4,7 +4,7 @@
 用法：python3 scripts/refresh-stats.py [--dry-run]
 
 行为：
-- 遍历 tools/*/*/meta.json，解析 repo 字段（仅 https://github.com/<owner>/<repo> 两段式生效；
+- 遍历 items/*/*/meta.json，解析 repo 字段（仅 https://github.com/<owner>/<repo> 两段式生效；
   org 页 / 空值 / 商业闭源自动跳过并说明）
 - gh api 拉取 stargazers_count / pushed_at / license.spdx_id
 - 写入 stats: {stars, pushed_at, license, collected_at: 今天}
