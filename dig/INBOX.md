@@ -38,9 +38,9 @@ pyenv 版本、zsh 插件缺失、CLI 依赖报错、API login 403(07-28);远程
 Outline 已弃用,上述内容是否已迁 taevasidian 待查;未迁则从源对话恢复。
 状态:pending
 
-### [apprentice] 多项目 AI 上下文与隐藏关系管理 | 2026-07-29 | 8cefa2a2
-原始提问:「单个项目很好管理……多个项目要一起开发,我该怎么管理?怎么让 AI 加载、又清楚各自的上下文?」「项目之间的关系、代码逻辑的关系,全是隐藏关系,不讲 AI 就不知道——除了这些还有哪些关系,全列出来」。
-**待回读**:这是提问不是结论,须回读该会话结论段,结论成立且可验证才立课;与 pick/docs-code-linking 主题相邻,注意分工。
+### [apprentice] 多项目 AI 上下文与隐藏关系管理(tacit) | 2026-07-29 | 8cefa2a2 ✅已回读
+提问「多个项目 AI 怎么加载、隐藏关系怎么讲」→ 当场演进为设计并实现 **tacit 插件**(taevas-plugins):默会知识显式化——`.tacit/` 登记跨文件约束(改 A 必改 B/不变量/红线/why),hook 编辑时自动注入提醒,`/tacit init|add|audit`。命名取自 Polanyi「我们能知道的,远多于我们能说出来的」,与 implicit-coupling、强制优于记忆同脉。
+**方法已走通,artifact 已存在**(tacit 插件),验证方式=端到端测试+真实项目实测注入。立课条件齐备,artifacts 指向插件目录即可——等用户 promoted。
 状态:pending
 
 ### [mistakes·素材] Outline 自托管 9 坑实录的下落 | 2026-07-30 | 53f490e3 + 4ac44e68
