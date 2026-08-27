@@ -102,8 +102,8 @@
     {
       "day": "2026-08-24",
       "files": 110,
-      "status": "in-flight",
-      "agent": "dig-0824"
+      "status": "done",
+      "summary": "SQLITE_CORRUPT 日(virtiofs 入 INBOX)+mattpocock 翻译编队 85 文件+CLI for AI 六现+「教教我」前身之问+asr 起源"
     },
     {
       "day": "2026-08-25",
