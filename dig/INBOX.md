@@ -53,8 +53,9 @@ Outline 已弃用,上述内容是否已迁 taevasidian 待查;未迁则从源对
 真空带:apprentice 收「怎么问」,mistakes 收摔跤,**「AI 给我讲过的技术课」没有馆收**。若立馆,门禁候选:须有出处对话+复述验证;且需先解决「发布地已死」问题(原发 Outline 全部沉没)。证据已 3 例,渐成型。
 状态:pending
 
-### [conversations] pick 起源对话待归档 | 2026-08-03 | 5af1327a + 7df267c2
+### [conversations] pick 起源对话待归档 | 2026-08-03 | 5af1327a + 7df267c2;+08-21
 「技术选型,最佳的技术报告该是什么样」(2.6MB)是 pick 的直接前身;同日 report 项目规则(索引文件/单向链接关联代码地址)是 pick「有理有据」体系的思想源头。
+**+08-21**:knowledge-base 类别起源「个人知识库,和 ai 共建,用什么工具管理」(99faa8a0, 3MB)。
 低优先:按 conversations 规则归档摘要,链接进 pick 的 README 或 DESIGN-TREE 作起源存证。
 状态:pending
 
@@ -85,6 +86,11 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 ### [维度/方法论] AI 原生数据访问(CLI for AI) | 2026-08-11 | 9064e887;跨项目三次出现
 「有没有 cli 查询数据的功能。希望做一个 cli 给 ai 查询使用」(lucent 08-11)——同源思想另见:subtitle-collector 的 collector-cli(带 SKILL.md 给 AI 用)、pick/knowledge-base 的核心命题「AI 对存储层的原生访问权」。
 贯穿三个项目的设计哲学:**给人用的接口和给 AI 用的接口要分开设计,后者是 CLI+文档**。与 07-29「多项目上下文管理」候选可能同属一个大主题。待攒第四例。
+状态:pending
+
+### [apprentice] 多视角审计 → 分级 → TDD 分批修复 | 2026-08-21 | deepseek-harness 目录 8 会话
+subtitle-collector 的规模化质量工程走通:四轮专项审查(协议一致性/架构数据流/静默失败/任务系统,只读不改)→ 问题清单 P0/P1/P2/P3 分级 → 分批修复(每批一会话,TDD 先写失败测试,P2 收尾+P3 杂项)。
+可验证(测试即验证)、可复用——强候选。**待回读**:抽取审查 prompt 模板与批次划分法,立课并考虑固化 skill。
 状态:pending
 
 ## 已决

@@ -84,7 +84,8 @@
     {
       "day": "2026-08-21",
       "files": 14,
-      "status": "queued"
+      "status": "done",
+      "summary": "质量工程日:四视角审查+P0-P3 分批 TDD 修复(强方法候选);knowledge-base 起源定位"
     },
     {
       "day": "2026-08-22",
