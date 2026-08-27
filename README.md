@@ -37,4 +37,4 @@ push 到 main → GitHub Pages 单站部署:五馆 build + pick 防漂移断言 
 
 ## 迁移留档
 
-2026-08-27 由 pick、apprentice 两个独立仓就地合并(先名 yawyd 后更名 halls,终名 atlas;子目录 `.git.archived-mono/` 留存原仓历史;原 GitHub 仓库 743v45/pick、743v45/apprentice 仍在)。引擎血缘见 `apprentice/scripts/ORIGIN.md`——shared/ 抽取后,check-drift 退役。
+2026-08-27 由 pick、apprentice 两个独立仓就地合并(先名 yawyd 后更名 halls,终名 atlas;文件级合并,原仓提交历史未继承)。原 GitHub 仓库 743v45/pick、743v45/apprentice 已删除;原仓完整历史另存两处——私有档案仓 [743v45/pick-archive](https://github.com/743v45/pick-archive)、[743v45/apprentice-archive](https://github.com/743v45/apprentice-archive),以及本机子目录 `.git.archived-mono/`(被 .gitignore 忽略,不随本仓分发)。引擎血缘见 `apprentice/scripts/ORIGIN.md`——shared/ 抽取后,check-drift 断言并入根级 `scripts/check-all.py`。
