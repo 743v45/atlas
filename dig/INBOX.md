@@ -82,6 +82,11 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 「prd 最佳工具」(grilling 逼问式)——pick/items/prd-tools 类别已存在,待查重是否同源;同源则 dismissed:重复。
 状态:pending
 
+### [维度/方法论] AI 原生数据访问(CLI for AI) | 2026-08-11 | 9064e887;跨项目三次出现
+「有没有 cli 查询数据的功能。希望做一个 cli 给 ai 查询使用」(lucent 08-11)——同源思想另见:subtitle-collector 的 collector-cli(带 SKILL.md 给 AI 用)、pick/knowledge-base 的核心命题「AI 对存储层的原生访问权」。
+贯穿三个项目的设计哲学:**给人用的接口和给 AI 用的接口要分开设计,后者是 CLI+文档**。与 07-29「多项目上下文管理」候选可能同属一个大主题。待攒第四例。
+状态:pending
+
 ## 已决
 
 (暂无)
