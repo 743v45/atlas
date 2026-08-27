@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apache ECharts · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/workflow-tools.html">工作流工具</a><span class="sep">·</span><span>图表可视化</span></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>Apache ECharts</h1>
+<blockquote><strong>TL;DR</strong>：「让 AI 写」前提下的图表库首选：声明式 option 对象让 AI 生成准确率远高于命令式代码，自包含单文件 HTML 落 docs/ 浏览器即开、写→看→改可闭环验证，桑基等复杂布局由引擎自动计算——适用域明确为 AI 代写，人工手写场景不限于此。</blockquote>
+<ul><li><strong>结论</strong>：adopt（适用域：<strong>AI 代写图表</strong>——本条目的全部裁决都以「图是 AI 写出来的」为前提）</li><li><strong>核实日期</strong>：2026-08-27（gh 一手数据 + 官网当日核实；选型出自 2026-08-18 会话）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本线</td><td style="text-align:left">Apache 顶级项目，官网当前 v6 代</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">⭐67,160、push 2026-08-04（gh 2026-08-27 采集）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">触发场景</td><td style="text-align:left">桑基图问句（「桑基图用什么画图…最佳用什么。让 ai 写」）</td><td style="text-align:left">[4]</td></tr></tbody></table>
+<h2>为什么选（AI 代写域内的四条论断）</h2>
+<ol><li><strong>声明式配置</strong>：整个图就是一个 <code>option</code> 对象，数据是 <code>data</code>/<code>links</code> 数组——AI 生成 JSON 配置的准确率远高于命令式代码，改数据不用动逻辑 [4]。官方范式即为 option 配置式 [3]。</li><li><strong>自包含 HTML</strong>：CDN 两行 + 配置，落 <code>docs/*.html</code> 浏览器即开，符合「关系图默认 HTML」的既有工作流 [4]。</li><li><strong>闭环验证</strong>：AI 写完可以用浏览器直接打开截图检查（布局、标签碰撞、比例），写→看→改在一个流程里——这是给 AI 写代码最重要的性质 [4]。</li><li><strong>容错好</strong>：节点排序、带子布局、标签避让都是引擎自动算的，AI 不用写布局数学 [4]。</li></ol>
+<p>桑基图最小用法（会话原样 [4]）：</p>
+<pre><code class="lang-js">series: [{
+  type: 'sankey',
+  data: [{ name: '搜索' }, { name: '详情页' }, { name: '下单' }],
+  links: [
+    { source: '搜索', target: '详情页', value: 300 },
+    { source: '详情页', target: '下单', value: 120 },
+  ],
+  emphasis: { focus: 'adjacency' }  // 悬停聚焦上下游
+}]</code></pre>
+<h2>对比（AI 生成友好度，会话内对比 [4]）</h2>
+<table><thead><tr><th style="text-align:left">工具</th><th style="text-align:left">AI 写起来</th><th style="text-align:left">问题</th></tr></thead><tbody><tr><td style="text-align:left"><strong>ECharts</strong></td><td style="text-align:left">✅ 一个 option 对象</td><td style="text-align:left">无</td></tr><tr><td style="text-align:left">Plotly（Python）</td><td style="text-align:left">✅ 几行声明式</td><td style="text-align:left">输出 HTML 略重，交互样式不如 ECharts 精致</td></tr><tr><td style="text-align:left">mermaid <code>sankey-beta</code></td><td style="text-align:left">✅ 三列 CSV</td><td style="text-align:left">定制太弱，节点一多就没法看（&gt;~15 节点换 ECharts）</td></tr><tr><td style="text-align:left">d3-sankey</td><td style="text-align:left">⚠️ 命令式 + 手动布局</td><td style="text-align:left">AI 写错率高，只做极致定制才值得</td></tr><tr><td style="text-align:left">RAWGraphs / Flourish</td><td style="text-align:left">无代码（人拖数据）</td><td style="text-align:left">一次性汇报可，不是 AI 代写通道</td></tr><tr><td style="text-align:left">Tableau / Power BI</td><td style="text-align:left">BI 内置桑基</td><td style="text-align:left">原生桑基都别扭，Power BI 需自定义视觉对象</td></tr></tbody></table>
+<h2>风险与注意</h2>
+<ul><li><strong>数据结构要求</strong>：桑基图要求数据为有向无环流、节点进出总量最好守恒——数据脏时 ECharts 会画出自环或比例失衡的带子，画之前先清洗校验 [4]。</li><li><strong>CDN 依赖网络</strong>：自包含 HTML 引 CDN 脚本，离线场景需把 <code>echarts.min.js</code> 内嵌进单文件。</li><li>适用域声明：本结论限定「AI 代写」前提；人工手写、深度定制（自绘布局数学）场景不受此裁决约束 [4]。</li></ul>
+<h2>来源</h2>
+<ol><li>Apache ECharts 官网 — <a href="https://echarts.apache.org">https://echarts.apache.org</a>（访问 2026-08-27）</li><li>apache/echarts — <a href="https://github.com/apache/echarts">https://github.com/apache/echarts</a>（gh 2026-08-27 采集：⭐67,160、push 2026-08-04、Apache-2.0；原始响应留档 raw/2026-08-27/gh/apache_echarts.json）</li><li>ECharts 官方入门（option 配置式用法） — <a href="https://echarts.apache.org/handbook/zh/get-started">https://echarts.apache.org/handbook/zh/get-started</a>（访问 2026-08-27）</li><li>Claude 会话 31db8d0e（2026-08-18）——桑基图选型与 AI 代写友好度对比；提取文本留档 raw/2026-08-27/sessions/echarts-{user,assistant}.md</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录（源会话 2026-08-18；dig INBOX 定稿入库）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

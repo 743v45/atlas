@@ -99,3 +99,9 @@
 - 选择：render_inline / render_markdown / BASE_CSS 上提至 `atlas/shared/render.py`，三馆（pick / apprentice / mistakes）与门户统一 import；本库 build 1023→843 行。
 - 否决：第三馆继续复制骨架（分叉面×3，对账噪音超收益）；立即抽更细的 schema 引擎（没有第四馆证据，过度）。
 - 红利：改渲染只改一处；check-drift 转反向断言（防本地副本倒退），对账成本归零。
+
+### D17 双新类别 — 开发自动化域 + 图表可视化（2026-08-27）
+
+- 选择：新域 `dev-automation`（开发自动化，归「AI 与智能体」界，单类别域——data-storage 有先例）装 `automation-platform`（三层开源栈等平台栈组合选型）；`charting`（图表可视化，「让 AI 写」前提裁决）归现有 workflow-tools 域，域描述追加「画图表」。
+- 否决：automation-platform 并入 prd-tools（PRD 文档工具与平台栈主题错位，分水岭不同）；charting 单独建域（单类别且与 typography 散件同族，不值得）。
+- 入库三条：automation-platform/three-layer-stack（adopt，② 层分叉未拍板如实记录）、charting/echarts（adopt，适用域标注 AI 代写）、knowledge-base/outline 重写为完整生命周期四幕报告（hold 不变）。

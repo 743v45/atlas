@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>降级凑合为失败:质量底线的表达 · apprentice</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .lesson-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .lesson-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lesson-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><span>表达</span><span class="sep">·</span><a href="../log-only-debugging/lesson.html">← 零指令纯日志投喂排障</a><span class="sep">·</span><a href="../teach-dont-operate/lesson.html">教我怎么做,不要替我操作:人机分工边界 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="定案"><i></i>定</span>
+<h1>降级凑合为失败:质量底线的表达</h1>
+<blockquote><strong>TL;DR</strong>:表达质量底线,不罗列标准,给否决——一句「降级凑合为失败」覆盖一切「用次优方案交差」的变体;再配一句触发元思考,让 AI 在选路当时自问,而不是交差后被打回。</blockquote>
+<ul><li><strong>状态</strong>:settled(定案)</li><li><strong>回答的问题</strong>:AI 总用次优方案交差(如该用专门工具时退到 curl),怎么让它自动不降级?</li><li><strong>验证</strong>:2026-08-27 · Claude Opus 4 系(小天机会话未核对)· claude-code</li></ul>
+<h2>原始三问(2026-08-27)</h2>
+<blockquote>AI 只会用 curl 效果不好怎么表达</blockquote>
+<blockquote>降级凑合为失败对吧</blockquote>
+<blockquote>怎么让 AI 自动不选 curl</blockquote>
+<p>三问连着看:第一问求表达,第二问用户自己给出定案句,第三问求固化——从「这一次纠正」走到「以后自动不选」。</p>
+<h2>方法:否决性原则,不罗列标准</h2>
+<ul><li><strong>罗列标准的死穴</strong>:「要工整、要完整、要效果达标……」——穷举不全,必有漏网;AI 对着清单逐项达标,仍可能在没列到的地方降级。</li><li><strong>否决性原则</strong>:「降级凑合为失败」——不给分,直接把「降级」定义成失败态。一票否决,无漏网可言:凡是「能跑但明知次优」的方案,全部命中。</li><li>判据:「正路存在(专门工具/接口/更优路径),AI 却选了省事的路」——正路不存在时的替代方案不叫降级,叫权衡。</li></ul>
+<h2>配套:触发元思考</h2>
+<p>否决句写进规则只是事后审判;再加一句让 AI 在<strong>选路当时</strong>自问,如:</p>
+<blockquote>动手选实现路径前,先自问:我此刻是不是在降级凑合?是,则停,走正路。</blockquote>
+<p>把否决从「交差后被发现」前移到「选路瞬间」——降级方案根本不会被写出来。</p>
+<h2>与「把目标说清楚:Z 三要素」互为姊妹</h2>
+<p><a href="../describe-the-goal/lesson.md">把目标说清楚:Z 三要素</a>管<strong>说清要什么</strong>(产出形态、判据、保真度);本课管<strong>说清不接受什么</strong>(否决线)。Z 三要素从正向拉,A 否决从负向堵——一拉一堵,「AI 交差了但不是我想要的」的两条来路都封死。</p>
+<h2>验证</h2>
+<ul><li>同输入对比:同一任务跑两次,一次带否决句 + 元思考句,一次不带;对比「次优方案出现率」——判据是否有效,看降级是否消失,不看 AI 复述了多少规则。</li><li>反例探针:故意给一个「专门工具较麻烦、curl 很顺手」的任务,看 AI 是否仍走专门工具——这是否决线最容易被突破的场景。</li><li>迁移检查:换一类降级(如「该写测试时只跑手动验证」),否决句是否仍适用——适用才算原则,只在 curl 场景灵的叫补丁。</li></ul>
+<h2>翻车记录</h2>
+<p>暂无。</p>
+<h2>时效</h2>
+<ul><li>验证于:Claude Opus 4 系(小天机会话未核对,待同步补档后修正),2026-08-27。</li><li>预期:模型变强后对「次优」的自察可能内建,否决句或不再必要;「负向否决优于正向罗列」的表达原则预期长期稳定。</li></ul>
+<h2>沉淀为</h2>
+<p>暂无。否决句尚未写入任何 CLAUDE.md/规则文件;实际落地后,链接至此。</p>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">状态</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">settled</td><td style="text-align:left">首次沉淀,源自当日小天机会话(摘要归档)</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

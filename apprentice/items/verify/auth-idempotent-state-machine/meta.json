@@ -1,0 +1,11 @@
+{
+  "name": "CLI 鉴权幂等状态机",
+  "question": "CLI 的鉴权这类横切需求,怎么交给 AI 才不用每条命令重复交代?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-07-28",
+  "model": "GLM-5.2 · claude-code",
+  "symptoms": ["每次命令都要重新登录", "AI 保存了没验证的凭据", "密码明文存配置", "401 了不知道要重新登录", "鉴权逻辑每条命令各写一套"],
+  "source": "conversations/2026-07-28-robin-auth-idempotent.md",
+  "artifacts": []
+}

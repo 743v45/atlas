@@ -1,0 +1,7 @@
+{
+  "name": "「你不验证一下吗」:凭据采集无验证闭环",
+  "date": "2026-07-28",
+  "source": "robin CLI 会话(41f4fc3f,07-28),对话归档:conversations/2026-07-28-robin-cli-fleet-review.md",
+  "tags": ["验证闭环缺失", "凭据处理", "保存前不验证"],
+  "status": "fixed"
+}

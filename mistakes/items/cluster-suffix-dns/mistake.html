@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>「明明应该是 fud3」:集群编号误当 k8s DNS 域后缀 · mistakes</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .mistake-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .mistake-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="mistake-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../cli-credential-verification/mistake.html">← 「你不验证一下吗」:凭据采集无验证闭环</a><span class="sep">·</span><a href="../e2e-green-config-missing/mistake.html">E2E 绿灯掩盖入口缺失:测试路径绕过配置 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="已修正"><i></i>修</span>
+<h1>「明明应该是 fud3」:集群编号误当 k8s DNS 域后缀</h1>
+<blockquote><strong>TL;DR</strong>:错在把「所有配置都这么写」当成了「这么写是对的」——配置多数只能证明同源,不能证明正确;DNS 域的事实来源是 resolv.conf。</blockquote>
+<ul><li><strong>状态</strong>:fixed(已修正)</li><li><strong>日期</strong>:2026-08-17</li><li><strong>出处</strong>:本机两场会话(08-17 报错排查 / 08-18 对峙定案),公司集群 gRPC 调用</li></ul>
+<h2>经过</h2>
+<p>集群内 gRPC 持续报 <code>Error: 14 UNAVAILABLE: Name resolution failed for target dns:&lt;svc&gt;.&lt;ns&gt;.svc.cluster.fud3:8443</code>。多份 ConfigMap 里地址全是 <code>...svc.cluster.fud3</code> 形式——「所有配置都是……都是 fud3 呀」。面对「改成 cluster.local」的提议,当时坚持错误结论:「为什么要改成 cluster.local。明明应该是 fud3」。Pod 内 <code>dns.lookup</code> 双变体对照:带 <code>cluster.fud3</code> 后缀解析失败,短形式 <code>&lt;svc&gt;.&lt;ns&gt;</code> 成功;<code>/etc/resolv.conf</code> 的 search 列表里真实集群 DNS 域就是 <code>cluster.local</code>。</p>
+<h2>根因</h2>
+<p>我以为是 DNS 偶发故障,其实是证据层级错位:拿「配置文件里的多数」当事实来源,而配置是待验证的断言,不是证据——所有配置都写 <code>fud3</code> 只说明它们同源同错。<code>fud3</code> 是内部集群编号,被误当成 DNS 域后缀;坚信自己见过这个后缀,是在用印象对抗可实测的解析结果。</p>
+<h2>修正</h2>
+<p>统一改用短形式 svc 名(同 ns 内 <code>dns:&lt;svc&gt;:8443</code>,跨 ns <code>dns:&lt;svc&gt;.&lt;ns&gt;:8443</code>)。可复用判据:DNS 域的事实来源 = 容器 resolv.conf 的 search 列表 + 双变体解析对照实验;配置多数性永远不进证据链。</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

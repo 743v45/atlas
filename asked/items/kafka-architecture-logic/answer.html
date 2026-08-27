@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kafka 使用架构逻辑:组件、协调层与关键语义 · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../k8s-kubectl-cheatsheet/answer.html">← k8s 入门速查:kubectl 命令、资源缩写与层级结构</a><span class="sep">·</span><a href="../maxwell-kafka-single-partition/answer.html">Maxwell→Kafka 分区为什么全挤一个区?producer_partition_by 诊断记 →</a></nav>
+  <article>
+<h1>Kafka 使用架构逻辑:组件、协调层与关键语义</h1>
+<blockquote><strong>TL;DR</strong>:一句话串起 Kafka——<strong>Producer 往 Topic 的某 Partition 写,该 Partition 的 Leader(在某 Broker)落盘并复制给 ISR 里的 Follower;Consumer 以 Group 形式 pull、各自记录 Offset;集群状态由 ZooKeeper/KRaft + Controller 维护,消费组由 Group Coordinator 协调</strong>。按逻辑层/物理层/客户端/协调层/语义参数五组记组件,比背零散名词快。</blockquote>
+<p>*(恢复自 2026-07-29 问答「kafka 使用架构逻辑」,原答骨架忠实。)*</p>
+<h2>一、逻辑层(数据怎么组织)</h2>
+<table><thead><tr><th style="text-align:left">概念</th><th style="text-align:left">含义</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Topic</strong></td><td style="text-align:left">消息主题/分类,逻辑命名空间。生产消费都面向它</td></tr><tr><td style="text-align:left"><strong>Partition</strong></td><td style="text-align:left">分区,topic 的水平切分。是<strong>并行与扩展的单位</strong>;单分区内消息有序,跨分区不保证</td></tr><tr><td style="text-align:left"><strong>Offset</strong></td><td style="text-align:left">分区内消息的单调递增序号,消费进度的唯一标识</td></tr><tr><td style="text-align:left"><strong>Record / Message</strong></td><td style="text-align:left">一条消息,由 <code>key + value + timestamp + headers</code> 组成</td></tr><tr><td style="text-align:left"><strong>Key</strong></td><td style="text-align:left">消息键;有 key 则按哈希路由到固定分区(保序关键)</td></tr><tr><td style="text-align:left"><strong>Log Segment</strong></td><td style="text-align:left">分区日志的分段文件(<code>.log</code> + <code>.index</code> + <code>.timeindex</code>),按大小/时间滚动</td></tr></tbody></table>
+<h2>二、物理层(数据存在哪)</h2>
+<table><thead><tr><th style="text-align:left">概念</th><th style="text-align:left">含义</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Broker</strong></td><td style="text-align:left">Kafka 服务器节点;多个 Broker 组成集群,无中心、对等</td></tr><tr><td style="text-align:left"><strong>Cluster</strong></td><td style="text-align:left">Broker 集群,由元数据层统一协调</td></tr><tr><td style="text-align:left"><strong>Replica</strong></td><td style="text-align:left">分区副本:每个分区 = 1 Leader + N Follower</td></tr><tr><td style="text-align:left"><strong>Leader</strong></td><td style="text-align:left">副本的「主」,处理该分区的<strong>所有读写</strong></td></tr><tr><td style="text-align:left"><strong>Follower</strong></td><td style="text-align:left">副本的「从」,被动从 Leader <strong>拉取(pull)</strong>同步数据</td></tr><tr><td style="text-align:left"><strong>ISR</strong></td><td style="text-align:left">In-Sync Replicas,与 Leader 保持同步的副本集合;<code>acks=all</code> 时等 ISR 全确认</td></tr><tr><td style="text-align:left"><strong>Controller</strong></td><td style="text-align:left">集群中某个 Broker 兼任,负责 Leader 选举、分区/副本状态管理</td></tr></tbody></table>
+<h2>三、客户端层(谁生产消费)</h2>
+<table><thead><tr><th style="text-align:left">概念</th><th style="text-align:left">含义</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Producer</strong></td><td style="text-align:left">生产者,发布消息到 topic;按 key 哈希/轮询选分区,靠 <code>acks</code> 控制持久化</td></tr><tr><td style="text-align:left"><strong>Consumer</strong></td><td style="text-align:left">消费者,主动 pull 消息,按 offset 顺序消费</td></tr><tr><td style="text-align:left"><strong>Consumer Group</strong></td><td style="text-align:left">消费者组。<strong>同组内一分区只被一个消费者消费</strong>(队列模型);不同组各自全量消费(发布订阅)</td></tr></tbody></table>
+<h2>四、协调层(集群怎么管自己)</h2>
+<table><thead><tr><th style="text-align:left">概念</th><th style="text-align:left">含义</th></tr></thead><tbody><tr><td style="text-align:left"><strong>ZooKeeper / KRaft</strong></td><td style="text-align:left">元数据存储 + Controller 选举。KRaft 把元数据 raft 化,正逐步淘汰 ZK</td></tr><tr><td style="text-align:left"><strong>Group Coordinator</strong></td><td style="text-align:left">(Broker 内)管消费者组成员、触发 <strong>Rebalance</strong>、记录消费 offset</td></tr><tr><td style="text-align:left"><strong>Rebalance</strong></td><td style="text-align:left">消费者/分区变化时重新分配分区,期间消费暂停</td></tr><tr><td style="text-align:left"><strong>__consumer_offsets</strong></td><td style="text-align:left">内部 topic,持久化各消费者组的消费位点</td></tr></tbody></table>
+<h2>五、关键语义/参数(决定行为)</h2>
+<table><thead><tr><th style="text-align:left">概念</th><th style="text-align:left">含义</th></tr></thead><tbody><tr><td style="text-align:left"><strong>acks</strong></td><td style="text-align:left">持久化强度:<code>0</code> 不等 / <code>1</code> Leader 落盘 / <code>all</code> 等 ISR 全确认</td></tr><tr><td style="text-align:left"><strong>min.insync.replicas</strong></td><td style="text-align:left">ISR 最少副本数(建议 ≥2),配合 <code>acks=all</code> 防丢</td></tr><tr><td style="text-align:left"><strong>unclean.leader.election</strong></td><td style="text-align:left">是否允许非 ISR 副本当 Leader(关=一致性,开=可用性)</td></tr><tr><td style="text-align:left"><strong>retention</strong></td><td style="text-align:left">消息保留策略,按 <code>hours</code>/<code>bytes</code>/<code>compact</code>(只留每个 key 最新值)</td></tr><tr><td style="text-align:left"><strong>交付语义</strong></td><td style="text-align:left">at-most-once / at-least-once(默认)/ exactly-once(幂等+事务 EOS)</td></tr></tbody></table>
+<h2>出处</h2>
+<ul><li>源对话归档:../../../conversations/2026-07-29-maxwell-kafka-pipeline.md(2026-07-29)</li><li>原始会话:~/.claude/projects/-Users-taevas/5bd0d732-5cc4-469c-9698-4c078aed0c36.jsonl</li><li>关联 artifact:~/docs/kafka-architecture.html(9 张 mermaid 关系图:核心架构/核心组件等,卡片式布局 + 组件表)</li><li>关联条目:<a href="../maxwell-kafka-single-partition/">maxwell-kafka-single-partition</a>(同日分区倾斜诊断)、<a href="../maxwell-restart-loop/">maxwell-restart-loop</a></li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

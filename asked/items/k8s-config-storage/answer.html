@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>k8s 里配置到底存在哪:deploy→cm/secret 反查 · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../gate-of-gates-green-not-sound/answer.html">← 「门的门」:CI 绿不等于 sound,漂移发生在层间缝隙</a><span class="sep">·</span><a href="../k8s-kubectl-cheatsheet/answer.html">k8s 入门速查:kubectl 命令、资源缩写与层级结构 →</a></nav>
+  <article>
+<h1>k8s 里配置到底存在哪:deploy→cm/secret 反查</h1>
+<blockquote><strong>TL;DR</strong>:Deployment <strong>只引用不存储</strong>配置——配置实体在 ConfigMap(明文)和 Secret(base64)里,deploy 通过两条通道接上:<code>envFrom</code> 注入环境变量、<code>volumes/volumeMounts</code> 挂载成文件。所以「这个服务在用哪份配置」的查法是固定三步:<strong>看 deploy 的容器启动命令和 envFrom/volumes → 拿到引用的 cm/secret 名字 → 再查对应的 cm/secret 内容</strong>。当日在一套生产部署上实走通。</blockquote>
+<p>*(恢复自 2026-08-17 生产排查问答,原答骨架忠实;集群代号/命名空间/服务名/IP 已脱敏泛化,方法与命令保留。)*</p>
+<h2>一、为什么会有这个问题</h2>
+<p>排查的起点是一次容器内报错:<code>kubectl exec</code> 进 <code>deploy/&lt;svc&gt;</code> 想跑 <code>node</code> 做 DNS 查询,报 <code>exec: "node": executable file not found in $PATH</code>——这个镜像不是 node 基础镜像,是编译型二进制直接打进去的,容器里可用的工具是 <code>nslookup</code> / <code>getent</code> / <code>nc</code> / <code>wget</code>。</p>
+<p>顺带发现第二个问题:查询用的域名后缀是把<strong>内部集群代号误当 DNS 域</strong>(形如把集群编号拼进 <code>svc.cluster.&lt;代号&gt;</code>)。集群真实 DNS 域是不是 <code>cluster.local</code> 看 Pod 的 resolv.conf 就知道:</p>
+<pre><code class="lang-">search &lt;ns&gt;.svc.cluster.local svc.cluster.local cluster.local</code></pre>
+<p>修正为 <code>&lt;svc&gt;.&lt;ns&gt;.svc.cluster.local</code>(或短名走 search 补全)后,解析正常到 Service 的 ClusterIP——「不存在的那条」整个集群都不会解析,<code>fud3</code> 之类的后缀只是被误当成域名用的代号。</p>
+<h2>二、核心知识点:deploy 只引用不存储</h2>
+<p>一个典型服务的配置全景(当日实测的一套):</p>
+<ul><li><strong>容器启动命令</strong>:<code>/app/&lt;svc&gt; -c /app/&lt;config&gt;.yaml</code>——主配置文件是挂载进去的。</li><li><strong>主配置来自 ConfigMap</strong>:该 cm 只有一个 key(如 <code>config.yaml</code>),挂载到容器的 <code>/app/&lt;config&gt;.yaml</code>。</li><li><strong>账密不在配置文件里</strong>:配置块里写了数据库地址/库名但<strong>没有 username/password</strong>——它们走 <code>envFrom</code> 的 <strong>Secret</strong> 注入成环境变量,进程启动时自己读。</li><li><strong>证书/杂项文件</strong>:若干 cm(证书.crt、seller.json 之类)以 volume 挂到指定路径。</li></ul>
+<h2>三、反查命令集(从 deploy 到配置内容)</h2>
+<p><strong>第 1 步:看 deploy 引用了什么</strong></p>
+<pre><code class="lang-bash"># 看环境变量来自哪个 cm/secret、挂载了哪些卷
+kubectl get deploy -n &lt;ns&gt; &lt;svc&gt; -o yaml | less
+# 或用 jq 提取关键部分
+kubectl get -n &lt;ns&gt; deploy/&lt;svc&gt; -o json | \
+  jq '.spec.template.spec.containers[0].envFrom, .spec.template.spec.volumes'</code></pre>
+<p><strong>第 2 步:查 ConfigMap(明文,不需要解码)</strong></p>
+<pre><code class="lang-bash">kubectl get cm -n &lt;ns&gt;                        # 列出(DATA 列 = key 个数)
+kubectl describe cm &lt;name&gt; -n &lt;ns&gt;            # Data 段直接显示每个 key 的值
+kubectl get cm &lt;name&gt; -n &lt;ns&gt; -o yaml         # 完整定义 + data 明细
+kubectl get cm &lt;name&gt; -n &lt;ns&gt; -o jsonpath='{.data.&lt;key&gt;}'   # 提取某个 key</code></pre>
+<p><strong>第 3 步:查 Secret(base64,要解码)</strong></p>
+<pre><code class="lang-bash">kubectl get secrets -n &lt;ns&gt;
+kubectl get secret &lt;name&gt; -n &lt;ns&gt; -o yaml     # 值是 base64
+kubectl get secret &lt;name&gt; -n &lt;ns&gt; -o jsonpath='{.data.&lt;KEY&gt;}' | base64 -d</code></pre>
+<p><strong>只看有哪些 key 不看值(脱敏视角)</strong>:</p>
+<pre><code class="lang-bash">kubectl get cm &lt;name&gt; -o go-template='{{range $k,$v := .data}}{{$k}}{{"\n"}}{{end}}'
+kubectl get secret &lt;name&gt; -o go-template='{{range $k,$v := .data}}{{$k}}{{"\n"}}{{end}}'</code></pre>
+<h2>四、两条配套知识</h2>
+<ul><li><strong>声明侧 vs 实际生效侧</strong>:查 cm/secret 看到的是声明的期望值;要看 Pod 里<strong>实际生效</strong>的值,<code>kubectl exec</code> 进去 <code>cat</code> 挂载文件 / <code>env</code> 看注入的环境变量。排障「为什么实际值不对」走后者,改配置/对比版本走前者。</li><li><strong>改了 cm 之后谁会自动更新</strong>:<strong>只有以 volume 方式挂载的</strong>才会自动更新(TTL 约 1 分钟);<strong>以 envFrom 注入环境变量的不会变</strong>,要重启 Pod 才生效。</li><li><strong>Secret 的 base64 不是加密</strong>:谁能 <code>kubectl get secret</code> 谁就能解码——RBAC 控制比编码重要。</li></ul>
+<h2>出处</h2>
+<ul><li>源对话归档:../../../conversations/2026-08-17-k8s-config-storage.md(2026-08-17)</li><li>原始会话:~/.claude/projects/-Users-taevas/94e8bf7d-1f7d-432d-8d29-d6e109c5c984.jsonl</li><li>关联条目:<a href="../k8s-kubectl-cheatsheet/">k8s-kubectl-cheatsheet</a>(命令全景)、<a href="../tencent-tke-access/">tencent-tke-access</a></li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "批量文档翻译流水线",
+  "question": "批量翻译几十上百篇文档,怎么保证术语一个口径、代码块一个不动、质量不随篇幅跑偏?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-24",
+  "model": "Claude Opus 4 系(小天机会话未核对)· claude-code",
+  "symptoms": ["批量翻译质量不稳定", "术语前后不一致", "翻译把代码块也翻了", "长文档翻译到后面跑偏"],
+  "source": "conversations/2026-08-24-batch-translation-pipeline.md",
+  "artifacts": []
+}

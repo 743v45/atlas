@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maxwell→Kafka 分区为什么全挤一个区?producer_partition_by 诊断记 · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../kafka-architecture-logic/answer.html">← Kafka 使用架构逻辑:组件、协调层与关键语义</a><span class="sep">·</span><a href="../maxwell-restart-loop/answer.html">Maxwell 重启循环:根因在下游 Kafka,不在 Maxwell 自身 →</a></nav>
+  <article>
+<h1>Maxwell→Kafka 分区为什么全挤一个区?producer_partition_by 诊断记</h1>
+<blockquote><strong>TL;DR</strong>:CMAK 控制台看到 3 分区的 topic 里 partition 1 独占约 410 万 offset、partition 0/2 恒为 0——Kafka 层完全健康,根因在 Maxwell 的分区键:默认 <code>producer_partition_by=database</code>,只同步一个库时 hash 恒定,每条消息都落同一个分区。verdict 是改 <code>primary_key</code>(均匀分散 + 同主键有序),下游必须幂等 upsert。本条还含一次 AI 记错参数名、被真实 <code>--help</code> 纠正的实录。</blockquote>
+<p>*(恢复自 2026-07-29 生产排查问答,原答骨架忠实,IP/topic 名已脱敏泛化。)*</p>
+<h2>一、证据:Kafka 这边完全健康</h2>
+<table><thead><tr><th style="text-align:left">指标</th><th style="text-align:left">值</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">Partition 0 Latest Offset</td><td style="text-align:left"><strong>0</strong></td><td style="text-align:left">从未有消息写入(不是消费问题,是 produce 端没写)</td></tr><tr><td style="text-align:left">Partition 1 Latest Offset</td><td style="text-align:left">4,100,036</td><td style="text-align:left">全部消息都在这</td></tr><tr><td style="text-align:left">Partition 2 Latest Offset</td><td style="text-align:left"><strong>0</strong></td><td style="text-align:left">从未被写入</td></tr><tr><td style="text-align:left">Under Replicated</td><td style="text-align:left">0%</td><td style="text-align:left">复制健康</td></tr><tr><td style="text-align:left">Preferred Leader</td><td style="text-align:left">全 true</td><td style="text-align:left">leader 分配正常</td></tr><tr><td style="text-align:left">Failed produce /sec</td><td style="text-align:left">0</td><td style="text-align:left">producer 写入没有失败</td></tr></tbody></table>
+<p><code>Latest Offset = 0</code> 是关键:它表示该分区的 log-end-offset 是 0,即 <strong>producer 从没成功写过一条消息进 partition 0/2</strong>。这不是消费者没消费,是生产者根本没发过去——所以排查方向不在 Kafka 集群,在 Maxwell 的分区路由。</p>
+<h2>二、根因:Maxwell 的分区键</h2>
+<p>Maxwell 写 Kafka 时按 <code>producer_partition_by</code> 决定消息进哪个分区:</p>
+<pre><code class="lang-">partition = hash(分区键) % 分区数</code></pre>
+<p>默认值是 <strong><code>database</code></strong>(按数据库名 hash)。只同步一个库时:</p>
+<pre><code class="lang-">hash("单个库名") % 3  恒等于同一个数   ← 每条消息都算出同一个分区</code></pre>
+<p>→ 全部消息落同一分区,其余分区永远是 0。</p>
+<p><strong>反向推理同样成立</strong>:如果当前是 <code>primary_key</code> 或 <code>random</code>,410 万条消息早就均匀分散了。所以看到单分区倾斜,生效的必然是 <code>database</code> 或 <code>table</code>(两者单库/单表时 hash 都恒定)。</p>
+<h2>三、参数名纠错实录</h2>
+<p>AI 先按记忆写了 <code>kafka_partition_hash</code> 配置项;用户贴出真实的 <code>--help</code> 输出后,AI 公开认错更正:<strong>正确参数名是 <code>--producer_partition_by</code></strong>,可选值为:</p>
+<table><thead><tr><th style="text-align:left">值</th><th style="text-align:left">单库单表时的分布</th><th style="text-align:left">会单分区倾斜吗</th></tr></thead><tbody><tr><td style="text-align:left"><code>database</code>(默认)</td><td style="text-align:left"><code>hash(db) % N</code> 恒定</td><td style="text-align:left"><strong>是 ← 本例</strong></td></tr><tr><td style="text-align:left"><code>table</code></td><td style="text-align:left"><code>hash(table) % N</code> 恒定</td><td style="text-align:left"><strong>是 ← 也可能</strong></td></tr><tr><td style="text-align:left"><code>primary_key</code></td><td style="text-align:left">按主键值均匀</td><td style="text-align:left">否</td></tr><tr><td style="text-align:left"><code>transaction_id</code></td><td style="text-align:left">按事务 id 均匀</td><td style="text-align:left">否</td></tr><tr><td style="text-align:left"><code>random</code></td><td style="text-align:left">随机均匀</td><td style="text-align:left">否</td></tr><tr><td style="text-align:left"><code>column</code></td><td style="text-align:left">看指定列的值</td><td style="text-align:left">视列而定</td></tr></tbody></table>
+<p>教训:<strong>凭记忆写配置项名要拿官方 help 核对,尤其老版本工具的参数名各版本差异大</strong>(本例环境 Kafka 0.9.0.1 + Maxwell v1.38.0)。</p>
+<h2>四、解决:改 primary_key</h2>
+<pre><code class="lang-bash"># 命令行
+--producer_partition_by=primary_key
+# 或 config.properties 里(去掉 --)
+producer_partition_by=primary_key</code></pre>
+<p><strong><code>primary_key</code> 是最佳实践</strong>:既把数据均匀分散到全部分区,又保证同一主键的多次变更落在同一分区内有序(下游按主键还原状态正确)。改完重启 Maxwell,观察控制台:闲置分区的 offset 开始增长,原分区增速降到约 1/N。</p>
+<p>进阶玩法 <code>column</code> 模式(按业务字段 hash,让同一用户/订单的变更聚在同一分区):</p>
+<pre><code class="lang-bash">--producer_partition_by=column
+--producer_partition_columns=user_id
+--producer_partition_by_fallback=primary_key   # 行没有该列时回退</code></pre>
+<h2>五、改的时候必须知道的 4 件事</h2>
+<ol><li><strong>不迁移已有数据</strong>:倾斜分区里的旧消息不会动,新配置只影响之后的消息。</li><li><strong>顺序语义变化</strong>:从「同库有序」变成「同主键有序」,跨主键不再全局有序——CDC 下游通常可接受。</li><li><strong>下游必须幂等 upsert</strong>:Maxwell 是 at-least-once,重放会重复,按主键/position 去重。</li><li><strong>消费组才能真正并行</strong>:之前只有 1 个分区有数据,消费组里多个消费者也没用;分区均匀后 N 消费者才各司其职——这是改它最大的收益。</li></ol>
+<h2>出处</h2>
+<ul><li>源对话归档:../../../conversations/2026-07-29-maxwell-kafka-pipeline.md(2026-07-29)</li><li>原始会话:~/.claude/projects/-Users-taevas/93c2dae1-f0c9-4cb3-bc15-bcfb71724127.jsonl</li><li>关联 artifact:~/docs/maxwell-architecture.html(Maxwell 全链路架构 7 section,含本坑的沉淀位)</li><li>关联条目:<a href="../kafka-architecture-logic/">kafka-architecture-logic</a>(同日的 Kafka 全景)、<a href="../maxwell-restart-loop/">maxwell-restart-loop</a>(同日下游故障)</li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

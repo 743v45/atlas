@@ -1,0 +1,7 @@
+{
+  "name": "「只读无害」:virtiofs 直读 SQLite 两次损库",
+  "date": "2026-08-24",
+  "source": "小天机 Claude Code 会话(76ec3aae),对话归档:conversations/2026-08-24-virtiofs-sqlite-corruption.md",
+  "tags": ["假设未验证", "数据安全", "环境兼容性"],
+  "status": "fixed"
+}

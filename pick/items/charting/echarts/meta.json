@@ -1,0 +1,24 @@
+{
+  "name": "Apache ECharts",
+  "repo": "https://github.com/apache/echarts",
+  "homepage": "https://echarts.apache.org",
+  "license": "Apache-2.0",
+  "verdict": "adopt",
+  "summary": "「让 AI 写」前提下的图表库首选：声明式 option 对象让 AI 生成准确率远高于命令式代码，自包含单文件 HTML 落 docs/ 浏览器即开、写→看→改可闭环验证，桑基等复杂布局由引擎自动计算——适用域明确为 AI 代写，人工手写场景不限于此。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://echarts.apache.org（Apache ECharts 官网，访问 2026-08-27）",
+    "https://github.com/apache/echarts（gh 2026-08-27 采集：⭐67,160、push 2026-08-04、Apache-2.0）",
+    "https://echarts.apache.org/handbook/zh/get-started（官方入门：option 配置式用法，访问 2026-08-27）",
+    "Claude 会话 31db8d0e（2026-08-18）——桑基图问句触发的选型对话与 AI 代写友好度对比"
+  ],
+  "tags": ["图表", "AI 代写", "可视化", "自包含 HTML"],
+  "matrix": {
+    "接入方式": "CDN 2 行",
+    "配置范式": "声明式 option",
+    "交互": "开箱即用",
+    "交付物": "单文件 HTML",
+    "许可": "Apache-2.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "CLI for AI:给 AI 造数据访问接口",
+  "question": "AI 访问不了内部系统,每次人工搬数据、爬页面、curl 凑合,怎么办?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-11",
+  "model": "GLM-5.2 / Claude Opus 4 系(跨双机多项目)· claude-code",
+  "symptoms": ["AI 没法访问内部系统", "每次都要人工搬运数据给 AI", "让 AI 操作平台只能爬网页", "AI 用 curl 凑合调用内部接口"],
+  "source": "conversations/2026-07-29-cli-for-ai.md",
+  "artifacts": []
+}

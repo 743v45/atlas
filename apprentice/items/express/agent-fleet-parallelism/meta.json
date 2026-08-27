@@ -1,0 +1,11 @@
+{
+  "name": "并行 agent 编队作战",
+  "question": "任务大到单会话装不下、串行又太慢,怎么组织多个 AI agent 并发干活?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-23",
+  "model": "GLM-5.2 / Claude Opus 4 系(跨双机)· claude-code",
+  "symptoms": ["任务太大单会话跑不完", "串行太慢", "多 agent 互相踩文件", "并发写同一处冲突", "subagent 干完活没人验收"],
+  "source": "conversations/2026-08-23-agent-fleet.md",
+  "artifacts": []
+}

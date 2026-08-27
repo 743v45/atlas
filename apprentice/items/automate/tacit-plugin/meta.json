@@ -1,0 +1,11 @@
+{
+  "name": "tacit 插件:默会知识显式化",
+  "question": "AI 不知道文件之间的隐藏约束,每次都要人肉交代一遍怎么办?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-07-29",
+  "model": "Claude Opus 4 系(小天机会话未核对)· claude-code",
+  "symptoms": ["AI 不知道文件之间的隐藏关系", "每个会话都要重复交代背景", "约束写在脑子里", "改一处忘另一处"],
+  "source": "conversations/2026-07-29-tacit-plugin.md",
+  "artifacts": []
+}

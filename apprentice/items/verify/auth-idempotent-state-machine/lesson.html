@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLI 鉴权幂等状态机 · apprentice</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .lesson-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .lesson-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lesson-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><span>验证</span><span class="sep">·</span><a href="../container-dns-triage/lesson.html">容器内 DNS 排障三步法 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="定案"><i></i>定</span>
+<h1>CLI 鉴权幂等状态机</h1>
+<blockquote><strong>TL;DR</strong>:鉴权这种横切需求,别逐命令提要求——<strong>用一段口语把状态机完整口述一遍</strong>(状态、迁移、幂等、每步确认),让 AI 把它落成一个全局机制。一次讲清,处处生效。</blockquote>
+<ul><li><strong>状态</strong>:settled(定案)</li><li><strong>回答的问题</strong>:CLI 的鉴权这类横切需求,怎么交给 AI 才不用每条命令重复交代?</li><li><strong>验证</strong>:2026-07-28 · GLM-5.2 · claude-code</li></ul>
+<h2>口述原文:一段口语 = 一台状态机</h2>
+<p>现场原话(内部 cookie 名已脱敏):</p>
+<blockquote>「&lt;网关&gt;cookie 先认证的吧。认证完,就可以记录进配置,每次 auth 看看配置里的可不可用,可用就没必要再配置,除非 force 更新,如果账号已经登录,也没必要再登录,除非 logout,每一步确认鉴权通过」</blockquote>
+<p>这段话没有一句术语,但拆开是完整的设计:</p>
+<table><thead><tr><th style="text-align:left">口语</th><th style="text-align:left">设计语义</th></tr></thead><tbody><tr><td style="text-align:left">先认证……认证完记录进配置</td><td style="text-align:left">状态:未认证 → 已认证;凭据落盘</td></tr><tr><td style="text-align:left">每次 auth 看看配置里的可不可用</td><td style="text-align:left">每次使用前做<strong>可用性检查</strong></td></tr><tr><td style="text-align:left">可用就没必要再配置,除非 force</td><td style="text-align:left">幂等 + <code>force</code> 迁移</td></tr><tr><td style="text-align:left">已登录也没必要再登录,除非 logout</td><td style="text-align:left">幂等 + <code>logout</code> 迁移</td></tr><tr><td style="text-align:left">每一步确认鉴权通过</td><td style="text-align:left">验证织进流程,不是事后补检查</td></tr></tbody></table>
+<p><strong>为什么这比「加个登录」有效</strong>:点需求(「加个登录」)得到的是散在各命令里的 if;一段状态机得到的是全局机制。AI 缺的从来不是写代码的能力,是完整的迁移规则——你嘴里那段「啰嗦」正是它要的规格。</p>
+<h2>配套五条:每条都是一句用户话催生的</h2>
+<p>同一现场,状态机之外还有五句修正,句句可复用:</p>
+<ol><li><strong>凭据必须先验证再落盘</strong>——「你不验证一下吗。我随便填写的。账号密码。密码隐藏的方式输入吧……并且要验证密码」(随手粘的假 cookie 不允许拿到「已保存」的绿灯);</li><li><strong>状态码必展示</strong>——「状态码可以展示一下.(其他的接口报错,状态码都可以展示一下」;</li><li><strong>401 关联登录提醒</strong>——「可以提醒一下登录的。这个应该和登录接口关联的(注释一下)」:鉴权失败的报错要把「该重新登录」说出口;</li><li><strong>增删改二次确认</strong>;</li><li><strong>不存密码存会话凭据,且落盘加盐</strong>——「配置是不是不要保存为密码,而是登录后变成 cookie 类的」「你存在配置里是不是也得加一下 salt」。</li></ol>
+<h2>验证</h2>
+<p>状态机是否真落地,按迁移逐条试,而不是看代码说有:</p>
+<ul><li><strong>假凭据关</strong>:粘一个乱写的 cookie → 必须当场验证失败、不落盘;</li><li><strong>幂等关</strong>:已认证状态连跑任意命令 → 不触发重新认证;重复 auth → 无副作用;</li><li><strong>失效感知关</strong>:手动改坏配置里的凭据 → 下一条命令要能发现并提示重登(可用性检查真的在跑);</li><li><strong>logout 关</strong>:登出后第一条受保护命令 → 必须要求重新认证;</li><li><strong>落盘检查</strong>:打开配置文件 → 无明文密码,凭据带盐。</li></ul>
+<h2>翻车记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">翻车</th><th style="text-align:left">修正</th></tr></thead><tbody><tr><td style="text-align:left">2026-07-28</td><td style="text-align:left">login 对随手乱填的 cookie 直接「已保存」,未做任何验证——完整档案(经过/根因/修正)见 <a href="../../../../mistakes/items/cli-credential-verification/mistake.html">mistakes/cli-credential-verification</a></td><td style="text-align:left">采集→验证→落盘闭环;密码隐藏输入;失败不落盘</td></tr></tbody></table>
+<h2>时效</h2>
+<ul><li>验证于:GLM-5.2(claude-code),2026-07-28。</li><li>状态机口述法与模型无关,预期长期稳定;401/cookie/加盐等机制细节随服务端协议演进需重验。</li></ul>
+<h2>沉淀为</h2>
+<p>暂无。鉴权机制本体住在内部 CLI 仓库(feature/auth-idempotent,已合 develop 并打 tag);本课只记口述方法。</p>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">状态</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">settled</td><td style="text-align:left">首次沉淀,源自 2026-07-28 robin CLI 会话(同会话编队视角另见 express 类编队课)</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maxwell 重启循环:根因在下游 Kafka,不在 Maxwell 自身 · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../maxwell-kafka-single-partition/answer.html">← Maxwell→Kafka 分区为什么全挤一个区?producer_partition_by 诊断记</a><span class="sep">·</span><a href="../one-click-login/answer.html">移动端一键登录是怎么实现的? →</a></nav>
+  <article>
+<h1>Maxwell 重启循环:根因在下游 Kafka,不在 Maxwell 自身</h1>
+<blockquote><strong>TL;DR</strong>:Maxwell 进程反复被拉起又挂掉,supervisor 循环重启——看启动日志会发现 MySQL 侧完全正常(<code>Binlog connected</code> 成功),真正挂的是<strong>下游要写入的 Kafka</strong>:Producer 请求 topic 元数据 60 秒拿不到,<code>TimeoutException</code> 超时退出,TaskManager 停掉全部 task。三种根因按概率排序:broker 挂/网络不通 &gt; topic 不存在且关了自动建 &gt; bootstrap.servers 配错。</blockquote>
+<p>*(恢复自 2026-07-29 生产排障问答,原答骨架忠实,IP/topic 名已脱敏泛化。)*</p>
+<h2>一、日志怎么读</h2>
+<p>用户贴出的日志里,启动段一切正常:</p>
+<pre><code class="lang-">Maxwell v1.38.0 is booting ... starting at Position[BinlogPosition[...]]
+Restoring schema id 2 / id 1 ... played 1 deltas
+Setting initial binlog pos ...
+Maxwell http server started on port 8080
+BinaryLogClient - Connected to &lt;mysql-host&gt;:3306 ...
+Binlog connected.</code></pre>
+<p>——MySQL 复制连接、schema 恢复、位点初始化全部成功。数分钟后的这两行才是根因:</p>
+<pre><code class="lang-">ERROR MaxwellKafkaProducer - Topic '&lt;topic&gt;' name does not exist.
+    Exception: Failed to update metadata after 60000 ms.
+ERROR TaskManager - cause:
+org.apache.kafka.common.errors.TimeoutException: Failed to update metadata after 60000 ms.</code></pre>
+<p>因果链:Maxwell 的 Kafka Producer 向 broker 请求 topic 的元数据 → <strong>60 秒拿不到 → 超时退出 → TaskManager 把 5 个 task 全停掉 → 进程挂</strong>。随后又重新 boot(从同一个 binlog 位点),说明被守护进程/supervisor <strong>反复拉起</strong>,但每次都因同样的 Kafka 超时再挂——典型重启循环。</p>
+<p><strong>判读要点:别被「Maxwell 挂了」带偏。挂的不是 Maxwell 自己,是它依赖的 Kafka。</strong></p>
+<h2>二、三种可能根因(按概率排序)</h2>
+<ol><li><strong>Kafka broker 挂了 / 网络不通</strong>——<code>Failed to update metadata</code> 最常见就是 producer 连不上任何 broker。先 ping/telnet <code>kafka.bootstrap.servers</code> 的端口。</li><li><strong>topic 不存在,且 broker 关了自动建 topic</strong>——<code>auto.create.topics.enable=false</code> 时,写一个不存在的 topic 会一直等不到 metadata。手动 <code>kafka-topics --create</code> 建一下即可。</li><li><strong>bootstrap.servers 配错</strong>——Maxwell 配置里 Kafka 地址写错,或指向了已下线的 broker。</li></ol>
+<h2>三、两点额外提醒</h2>
+<ul><li>该环境 <strong>Kafka 版本是 0.9.0.1</strong>(日志开头 <code>AppInfoParser - Kafka version : 0.9.0.1</code>),非常老,metadata 行为和新版差异较大,排障时别拿新版文档硬套。</li><li>MySQL 这边完全正常:<code>Binlog connected</code>、row count 指标都在跑——问题只在 Kafka 这一头。</li></ul>
+<p><strong>排查第一步</strong>:去 Kafka 侧确认 broker 进程和目标 topic 是否存在。broker 恢复 / topic 建好后,Maxwell 重启循环会自己消失(间接闭环:同日 Kafka 恢复后 CMAK 实测吞吐回到约 46k msg/s)。</p>
+<h2>出处</h2>
+<ul><li>源对话归档:../../../conversations/2026-07-29-maxwell-kafka-pipeline.md(2026-07-29)</li><li>原始会话:~/.claude/projects/-Users-taevas/3a45dd34-0840-40ff-9e57-30296b7c68d9.jsonl</li><li>关联条目:<a href="../maxwell-kafka-single-partition/">maxwell-kafka-single-partition</a>(同链路的分区倾斜)、<a href="../kafka-architecture-logic/">kafka-architecture-logic</a></li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

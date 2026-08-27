@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>28 个分片各过 gate,合并后 lint 溃败 · mistakes</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .mistake-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .mistake-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="mistake-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../e2e-green-config-missing/mistake.html">← E2E 绿灯掩盖入口缺失:测试路径绕过配置</a><span class="sep">·</span><a href="../paper-production-experience/mistake.html">「读过模板=会生产运维」:纸面样板冒充经验 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="已修正"><i></i>修</span>
+<h1>28 个分片各过 gate,合并后 lint 溃败</h1>
+<blockquote><strong>TL;DR</strong>:错在把 task 级 gate 当成了全局 gate——分片各自达标,拼起来溃败;全局质量门禁必须独立于分发单元存在。</blockquote>
+<ul><li><strong>状态</strong>:fixed(已修正)</li><li><strong>日期</strong>:2026-07-28</li><li><strong>出处</strong>:robin CLI 会话,28 个 agent 分片并行开发</li></ul>
+<h2>经过</h2>
+<p>28 个 agent 并行开发,各自通过 task 级 gate 交付(单片 lint/build/test 达标)。合并后用户一句话定案:「lint 全是问题。修复」——整体仓的 lint 溃败,task gate 一个都没拦住。</p>
+<h2>根因</h2>
+<p>我以为是某几个 agent 质量差,其实是门禁架构缺口:task gate 验证的是「这个分片在它的上下文里合格」,管不到「28 份改动叠在同一份全仓配置下」——分片边界不是质量边界,风格/依赖/unused 的冲突恰恰发生在边界上。没有独立的全局 gate,整体质量就处于无人值守状态。</p>
+<h2>修正</h2>
+<p>独立全局 gate:分片全部合并后,全仓级 lint/build/test 单独跑一遍、不过不算完。可复用判据:凡并发分片开发,门禁至少两层——task gate(分发单元)+ 全局 gate(合并整体);后者不可被前者代言。</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

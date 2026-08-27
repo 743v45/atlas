@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>腾讯云 TKE 访问四场景 + kubectl 上手实录 · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../tao-and-ai-development/answer.html">← 学道才能做好 AI 开发吗?为什么</a><span class="sep">·</span><a href="../two-kinds-of-fog/answer.html">两种雾:路不清,还是 Z 不清? →</a></nav>
+  <article>
+<h1>腾讯云 TKE 访问四场景 + kubectl 上手实录</h1>
+<blockquote><strong>TL;DR</strong>:「访问腾讯云容器服务」按四场景对号入座:控制台 Web UI(CAM 权限)/ 本地 kubectl 连集群(拿 kubeconfig → 配网络接入 → 验证)/ 访问集群内应用(LoadBalancer、port-forward)/ TCR 镜像服务。最容易卡住的两步:① 网络接入——kubeconfig 里的 server 是 VPC 私网地址还是公网地址,决定要不要 VPN/云联网;② 鉴权——TKE 是 CAM 用户映射到 K8s RBAC,子账号没绑角色就是 forbidden。当日从零到连上集群、查 ns/日志/配置,全程走通。</blockquote>
+<p>*(恢复自 2026-08-03 问答,原答骨架忠实;真实集群 ID/命名空间/服务名已脱敏,方法保留。)*</p>
+<h2>一、四场景总览</h2>
+<p><strong>场景 1 · 控制台管理(Web UI)</strong>:登录腾讯云控制台 →「容器服务 TKE」。需要账号具备对应 <strong>CAM 权限</strong>(如 <code>QcloudTKEFullAccess</code>)。</p>
+<p><strong>场景 2 · 本地 kubectl 连集群 ⭐ 最常见</strong>——见下节展开。</p>
+<p><strong>场景 3 · 访问集群内部署的应用</strong>:</p>
+<ul><li>对外暴露:<code>Service</code> 类型 <code>LoadBalancer</code>(腾讯云 CLB)或 <code>Ingress</code>。</li><li>本地调试:<code>kubectl port-forward svc/&lt;name&gt; 8080:80</code>。</li><li>VPC 内访问:Service 的 ClusterIP / 内网域名。</li></ul>
+<p><strong>场景 4 · 容器镜像服务 TCR</strong>:</p>
+<pre><code class="lang-bash">docker login ccr.ccs.tencentyun.com -u &lt;腾讯云账号ID&gt; -p &lt;密码&gt;   # 个人版
+# 企业版用各自实例域名,建议临时密钥</code></pre>
+<h2>二、场景 2 展开:五步连上集群</h2>
+<ol><li><strong>安装 kubectl</strong>(版本与集群 K8s 版本差一个小版本以内)。macOS 推荐 <code>brew install kubectl</code>;无 brew 手动 curl <code>dl.k8s.io</code> 的 darwin/arm64 包;Linux/Windows 同理(curl / winget)。</li><li><strong>获取集群凭证(kubeconfig)</strong>,两选一:</li></ol>
+<ul><li>控制台一键复制:集群详情 →「基本信息」→「集群APIServer信息」→「查看集群凭证」→ 复制 YAML。<strong>只要连集群,这条最省事。</strong></li><li>腾讯云 CLI:<code>tccli tke DescribeClusterKubeconfig --ClusterId cls-xxxx</code>——<strong>ClusterId 在控制台「集群」列表页的「集群 ID」列</strong>(有复制按钮),集群详情「基本信息」页顶部也有。</li></ul>
+<ol><li><strong>配置</strong>:<code>~/.kube/config</code>,或 <code>export KUBECONFIG=/path/to/kubeconfig</code>。</li><li><strong>网络接入(卡人最多的一步)</strong>:</li></ol>
+<ul><li><strong>公网访问</strong>:集群「基本信息」→ 开启 <strong>APIServer 外网访问</strong>,会分配公网域名/IP,kubeconfig 里 <code>server</code> 指向它。</li><li><strong>内网访问</strong>:<code>server</code> 是 VPC 私网地址,本地需通过 <strong>VPN / 云联网 CCN / 专线</strong>接入该 VPC。</li></ul>
+<ol><li><strong>验证</strong>:<code>kubectl get nodes</code>。</li></ol>
+<p><strong>tccli 的坑</strong>:configure 配好后 <code>DescribeClusterKubeconfig</code> 仍不行,通常是<strong>区域(Region)与集群地域不一致</strong>——找不到集群。configure 里填的或 <code>--Region</code> 传的都要对上。</p>
+<p><strong>鉴权链路</strong>:TKE 的集群鉴权是 <strong>CAM 用户 → K8s RBAC</strong> 的映射。子账号需在「集群 → 访问管理」里绑定 RBAC 角色,否则 kubectl 报 <code>forbidden</code>。</p>
+<h2>三、连上之后的三个高频动作(当日实走)</h2>
+<ul><li><strong>看命名空间</strong>:<code>kubectl get ns</code>(或 <code>get namespaces</code>)。</li><li><strong>看服务日志</strong>:<strong>Service 本身没有日志</strong>,日志在它背后的 Pod/容器里——先 <code>kubectl get pods -n &lt;ns&gt;</code>(或 <code>get svc</code> 找到后端),再 <code>kubectl logs &lt;pod&gt; -n &lt;ns&gt;</code>。</li><li><strong>看 Pod 配置</strong>:资源侧(<code>get pod -o yaml</code>、describe)看声明;实际生效侧 <code>exec</code> 进去看挂载文件和 <code>env</code>。配置实体在 cm/secret、deploy 只引用——详见 <a href="../k8s-config-storage/">k8s-config-storage</a>。</li><li>顺手的:<code>kubectl get pods -A</code> 看全局健康度,<code>kubectl config current-context</code> 确认连的是哪个集群。</li></ul>
+<h2>出处</h2>
+<ul><li>源对话归档:../../../conversations/2026-08-03-tencent-tke-access.md(2026-08-03)</li><li>原始会话:~/.claude/projects/-Users-taevas/bcbd5d97-4d63-4446-9e7b-c5883a11d7e1.jsonl</li><li>关联条目:<a href="../k8s-kubectl-cheatsheet/">k8s-kubectl-cheatsheet</a>(kubectl 全景)、<a href="../k8s-config-storage/">k8s-config-storage</a></li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

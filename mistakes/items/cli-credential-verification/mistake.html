@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>「你不验证一下吗」:凭据采集无验证闭环 · mistakes</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .mistake-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .mistake-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="mistake-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../cluster-suffix-dns/mistake.html">「明明应该是 fud3」:集群编号误当 k8s DNS 域后缀 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="已修正"><i></i>修</span>
+<h1>「你不验证一下吗」:凭据采集无验证闭环</h1>
+<blockquote><strong>TL;DR</strong>:错在把「采集」当成了「登录」——粘什么存什么,垃圾凭据也绿灯,故障推迟到下一个命令才爆。</blockquote>
+<ul><li><strong>状态</strong>:fixed(已修正)</li><li><strong>日期</strong>:2026-07-28</li><li><strong>出处</strong>:内部 DNS 服务 CLI(robin-cli)login 命令,双层鉴权(网关 cookie + Basic)</li></ul>
+<h2>经过</h2>
+<p>CLI <code>login</code> 只提示「从浏览器 DevTools 复制网关 cookie 值并粘贴」,随手粘 <code>123</code> 也直接「已保存网关 cookie」。用户当场揭穿:「你不验证一下吗。我随便填写的。账号密码。密码隐藏的方式输入吧。输入账号的时候，密码就得传入，隐藏的。并且要验证密码」。</p>
+<h2>根因</h2>
+<p>我以为是流程步骤(采 → 存 → 用时再说),其实是把「采集到字符串」当成了「登录成功」:无验证的保存让坏凭据拿到绿灯,故障不消失只是推迟——推迟到下一条命令、离根因更远处爆,排障成本翻倍。同时密码明文回显,把安全也押在了「用户不会犯错」上。</p>
+<h2>修正</h2>
+<p>login 重构为闭环:采集(账号明文 + 密码隐藏输入 + cookie 粘贴)→ 立即打真实接口验证(GET /api/domains,双层鉴权 Basic + 网关 cookie,200 才保存)→ 失败提示哪层失败并不落盘。可复用判据:凭据类输入,保存前必过一次真实验证;验证还要能区分失败层(网关 vs 账号),给用户可行动的报错。</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

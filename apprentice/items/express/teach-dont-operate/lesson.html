@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>教我怎么做,不要替我操作:人机分工边界 · apprentice</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .lesson-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .lesson-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lesson-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><span>表达</span><span class="sep">·</span><a href="../no-degraded-fallback/lesson.html">← 降级凑合为失败:质量底线的表达</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="定案"><i></i>定</span>
+<h1>教我怎么做,不要替我操作:人机分工边界</h1>
+<blockquote><strong>TL;DR</strong>:生产/不可逆环境,一句括号级的边界声明——「(不要替我操作)」——把 AI 锁进讲解位:AI 出命令 + 预期输出,人执行、回贴真实输出,迭代。不需要权限系统,一句话就是边界。</blockquote>
+<ul><li><strong>状态</strong>:settled(定案)</li><li><strong>回答的问题</strong>:生产环境不敢让 AI 直接动手,怎么让它只排查讲解、由人来执行?</li><li><strong>验证</strong>:2026-08-17 · GLM-5.3 · claude-code</li></ul>
+<h2>两现原话(2026-08-17,k8s 生产排障)</h2>
+<blockquote>你别主动给我改。我自己来改</blockquote>
+<blockquote>遇到域名解析问题，内网网络有问题。怎么排查（不要替我操作）</blockquote>
+<p>第一句是纠偏(AI 给出了直接改的方案,被拦下);第二句是<strong>预防</strong>(开口就声明边界)。同一天同一个会话,边界声明从「事后拦」进化到「事前立」。</p>
+<h2>方法:边界声明 + 回贴迭代</h2>
+<ol><li><strong>开口先声明边界</strong>:需求句尾加「(不要替我操作)」或「教我怎么做,别替我做」——把 AI 的产出物从「变更」改成「操作指引」。</li><li><strong>AI 交付命令 + 预期输出</strong>:每一步「跑什么、应该看到什么」——预期输出是人的执行判据,看到不一样的结果就是新证据。</li><li><strong>人执行、回贴真实输出</strong>:真实输出回到 AI,下一轮指引基于证据而非记忆。</li><li><strong>领域事实由人裁决</strong>:AI 建议「改成 cluster.local」时,用户一句「为什么要改成 cluster.local。明明应该是 &lt;内部后缀&gt;」驳回——哪个才是真实约定,人说了算,AI 只负责路径。</li></ol>
+<h2>为什么一句话就够</h2>
+<ul><li>边界声明与只读调查纪律同构:<a href="../audit-first-workflow/lesson.md">audit-first-workflow</a> 的「只读代码、报告发现,不修改任何文件」是<strong>给 AI 的任务规格</strong>;本课的「不要替我操作」是<strong>给人的边界工具</strong>——同一纪律的两侧,一侧写进 prompt,一侧挂在嘴边。</li><li>声明之所以有效,是因为它改变的是 AI 的<strong>角色定位</strong>(讲解者),不是能力限制——AI 仍全力排查,只是产出物形态变了。比「权限收窄」更好:排查质量不打折,执行权在人。</li></ul>
+<p>适用判据:生产环境、不可逆操作、资金/数据敏感链路——一切「错了无法 rollback」的地方。本地实验、可重置环境则不必,声明反而浪费 AI 的执行力。</p>
+<h2>验证</h2>
+<ul><li>声明后首轮回复抽查:AI 输出应只含命令/解释/预期输出,零执行痕迹——出现「已为你执行/已修改」即边界失效。</li><li>迭代闭环检查:人回贴的真实输出,AI 下一轮是否有引用并调整方向——没有引用说明 AI 在自说自话,回贴白贴。</li><li>领域裁决演练:故意让 AI 建议一个与内部事实不符的操作,看自己能否识别——识别不了说明该领域还不该交给这套流程,先补上下文。</li></ul>
+<h2>翻车记录</h2>
+<p>暂无。</p>
+<h2>时效</h2>
+<ul><li>验证于:GLM-5.3(claude-code),2026-08-17。</li><li>预期:依赖模型对自然语言边界声明的服从度;若未来 agent 权限系统成为标配,边界将从「嘴上说」落为「配置锁」,本课方法仍适用(声明先行,配置兜底)。</li></ul>
+<h2>沉淀为</h2>
+<p>暂无。</p>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">状态</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">settled</td><td style="text-align:left">首次沉淀,源自 2026-08-17 k8s 生产排障会话</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

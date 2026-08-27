@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>「语法对」被打脸:文档确认前不断言 · mistakes</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .mistake-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .mistake-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="mistake-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../subagent-report-truncation/mistake.html">← 长报告回传只剩最后一句:final text 不是传输通道</a><span class="sep">·</span><a href="../urllib-selfsigned-truncation/mistake.html">百 KB 即 IncompleteRead:自签 HTTPS 上 urllib 长响应截断 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="已修正"><i></i>修</span>
+<h1>「语法对」被打脸:文档确认前不断言</h1>
+<blockquote><strong>TL;DR</strong>:错在把「看起来像」当「确认过」——对可查证事实凭印象说「对」,用户拿报错回来时,信任已经赔进去了。</blockquote>
+<ul><li><strong>状态</strong>:fixed(已修正)</li><li><strong>日期</strong>:2026-08-05</li><li><strong>出处</strong>:Surge ssh 代理行配置,本机会话</li></ul>
+<h2>经过</h2>
+<p>用户配置 Surge 代理(内网 IP 已脱敏):<code>JumpServer = ssh, 10.x.x.x, 22, username=root, private-key-path=~/.ssh/id_rsa</code>,载入失败 <code>Invalid line #20</code>。AI 此前对这行断言「语法对」。用户贴出报错后,认错原话:「报错说明 Surge 不认这行的语法——我上一条说"语法对"是错的,这次我查官方文档确认准确写法,不猜了。」此后搜索配额耗尽、文档站被网络策略挡,仍换读取通道把官方文档读到才给写法。</p>
+<h2>根因</h2>
+<p>我以为是记忆里「ssh 行大致长这样」足够用,其实是把印象当成了断言资格:语法、接口签名、配置格式这类<strong>可查证事实</strong>,「像」和「对」之间的差距只能靠文档弥合——凭印象说「对」是负资产:错得越自信,用户越会把报错归因到别处,排障越绕路。</p>
+<h2>修正</h2>
+<p>文档确认前不断言:对可查证事实,要么查文档再答,要么明说「未查证,以下是印象」。查证遇阻(配额/网络)换通道也要查到——这次换了读取工具才读到官方文档。可复用判据:凡是能一句「等等,我查一下」解决的问题,就不该用一句自信的「对的」去赌。</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

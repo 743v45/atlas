@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>容器内 DNS 排障三步法 · apprentice</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .lesson-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .lesson-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lesson-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><span>验证</span><span class="sep">·</span><a href="../auth-idempotent-state-machine/lesson.html">← CLI 鉴权幂等状态机</a><span class="sep">·</span><a href="../pixel-perfect-replication/lesson.html">UI 像素级复刻验证法 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="定案"><i></i>定</span>
+<h1>容器内 DNS 排障三步法</h1>
+<blockquote><strong>TL;DR</strong>:第 0 步,exec 前先探容器里有什么工具——报错栈是 node 不代表容器里有 node 二进制;①读 <code>/etc/resolv.conf</code> 的 search 列表,拿到集群真实解析域;②同一服务名带/不带后缀各查一次,结果分裂即定位——<strong>配置里写的域与集群认的域不一致</strong>。DNS 域的事实来源是 resolv.conf 与解析实验,不是配置文件里的多数。</blockquote>
+<ul><li><strong>状态</strong>:settled(定案)</li><li><strong>回答的问题</strong>:容器里服务域名解析失败(ENOTFOUND),怎么一步步定位?</li><li><strong>验证</strong>:2026-08-17 · GLM-5.3 · claude-code</li></ul>
+<h2>第 0 步:先探工具,再 exec</h2>
+<p>现场首条命令就是翻车:<code>kubectl exec</code> 进容器直接跑 node 一行脚本做 DNS 查询,回的是 <code>exec: "node": executable file not found in $PATH</code>——<strong>应用语言 ≠ 运行环境</strong>,报错栈里的解释器可能只是构建期的,精简运行镜像里没有它。</p>
+<p>先探可用工具再选查询手段:容器里看 <code>getent</code> / <code>nslookup</code> / <code>wget</code> 哪个在,都不在就换宿主机侧(<code>kubectl</code> 自带 DNS 查询能力)。工具探测本身有回显,是第一步证据。</p>
+<h2>① resolv.conf:集群认哪个域</h2>
+<p><code>/etc/resolv.conf</code> 的 <code>search</code> 列表 = 集群 DNS 对短名自动补的后缀集合。服务全名的规范形态是 <code>&lt;svc&gt;.&lt;ns&gt;.svc.&lt;集群真实域&gt;</code>。<strong>配置文件里写的后缀若不在 search 列表里,补全规则就对不上</strong>——这一步拿的是「集群侧的事实」。</p>
+<h2>② 对比查询:一次实验证伪一个假设</h2>
+<p>同一服务名,两种写法各查一次:</p>
+<pre><code class="lang-">容器内解析 &lt;svc&gt;.&lt;ns&gt;.svc.&lt;配置里的后缀&gt;   → ENOTFOUND
+容器内解析 &lt;svc&gt;.&lt;ns&gt;(短形式,走 search 补全) → 解析成功,得 ClusterIP</code></pre>
+<p>结果分裂,一次就证伪了「服务不存在」——矛头直指配置。现场终局:所有 ConfigMap 都写着某个内部集群编号当后缀,而 resolv.conf 证明真实域是另一套;「所有配置都这么写」只说明同源同错,不是正确的证据。</p>
+<p>配套反问同样是路标:「为什么要改成 cluster.local。明明应该是(我们的编号)」——<strong>先核对事实再改,别套模板答案</strong>;最终修正也不是换成「标准后缀」,而是统一改用短形式(同命名空间内最短可用形态)。</p>
+<h2>验证</h2>
+<ul><li><strong>每步有可观察输出</strong>:工具探测有命令回显;resolv.conf 有 search 行;对比查询两结果并排——三步都是证据,不是推断;</li><li><strong>修后复跑同一实验</strong>:改完配置,重新 exec 同一对对比查询,与 search 一致的形态必须解析成功;</li><li><strong>别只验解析</strong>:能解析 ≠ 业务通,最后打一次真实调用(gRPC/HTTP)收尾。</li></ul>
+<h2>翻车记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">翻车</th><th style="text-align:left">修正</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-17</td><td style="text-align:left">首条 <code>kubectl exec</code> 直接跑 node 脚本 → executable file not found:报错栈是 node 写的,容器运行时里没有 node——完整档案(把集群编号误当 DNS 域的根因与修正)见 <a href="../../../../mistakes/items/cluster-suffix-dns/mistake.html">mistakes/cluster-suffix-dns</a></td><td style="text-align:left">第 0 步:exec 前先探容器可用工具;事实来源认 resolv.conf 与解析实验</td></tr></tbody></table>
+<h2>时效</h2>
+<ul><li>验证于:GLM-5.3(claude-code),2026-08-17。</li><li>k8s DNS 的 search 补全规则属基础设施,变化慢;容器越精简,第 0 步越重要。重验条件:CoreDNS 大版本或集群网络栈更换。</li></ul>
+<h2>沉淀为</h2>
+<p>暂无。三步是手工序列;若排障频次上升,可沉淀为一条脚本(探工具→读 search→对比查询一次出两结果)。</p>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">状态</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">settled</td><td style="text-align:left">首次沉淀,源自 2026-08-17 双会话排障现场(归档与错题档先建于 mistakes 侧,本课补方法视角)</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

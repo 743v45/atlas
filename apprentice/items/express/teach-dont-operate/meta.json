@@ -1,0 +1,11 @@
+{
+  "name": "教我怎么做,不要替我操作:人机分工边界",
+  "question": "生产环境不敢让 AI 直接动手,怎么让它只排查讲解、由人来执行?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-17",
+  "model": "GLM-5.3 · claude-code",
+  "symptoms": ["AI 动手改了生产环境", "我只想知道怎么排查", "危险操作被 AI 直接执行", "生产环境不敢让 AI 碰"],
+  "source": "conversations/2026-08-17-teach-dont-operate.md",
+  "artifacts": []
+}

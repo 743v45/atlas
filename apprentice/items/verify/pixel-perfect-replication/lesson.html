@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI 像素级复刻验证法 · apprentice</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .lesson-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .lesson-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lesson-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><span>验证</span><span class="sep">·</span><a href="../container-dns-triage/lesson.html">← 容器内 DNS 排障三步法</a><span class="sep">·</span><a href="../sqlite-safe-migration/lesson.html">SQLite 库文件安全迁移 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="定案"><i></i>定</span>
+<h1>UI 像素级复刻验证法</h1>
+<blockquote><strong>TL;DR</strong>:「一模一样」不是形容词,是一张逐格核对的表。给每个元素读 computed style 的坐标/尺寸,原站与复刻各一列,格式如 <code>24,22/104×20 ✓</code>——<strong>全部打勾才算完</strong>。computed style 是 DOM 的客观读数,肉眼是主观印象;用前者,「像不像」变成数得清的差异数。</blockquote>
+<ul><li><strong>状态</strong>:settled(定案)</li><li><strong>回答的问题</strong>:AI 复刻的页面「总觉得差一点」,怎么把像不像变成可核对的?</li><li><strong>验证</strong>:2026-08-05 · GLM-5.2 · claude-code</li></ul>
+<h2>三句指令,逐步收敛</h2>
+<p>现场的发起方式本身就是方法:</p>
+<ol><li>「(目标站) 分析这个网站的 UI 设计」——先分析,不动手;</li><li>「文案用官方的。你在这里写一份。一模一样的」——「一模一样」是 Z,但它是形容词,得落地成判据;</li><li>「(预览页) 页面顶部做得不好」——AI 自认完成后,点名具体区域,而不是「再改改」。</li></ol>
+<p>对照 describe-the-goal 的 Z 三要素:第 2 句给了产出形态,本课补的是<strong>判据的可执行形态</strong>。</p>
+<h2>对照表:把「像」变成行和列</h2>
+<p>每个可见元素一行,读双方 computed style,并排打勾:</p>
+<table><thead><tr><th style="text-align:left">元素</th><th style="text-align:left">原站</th><th style="text-align:left">复刻</th><th style="text-align:left"></th></tr></thead><tbody><tr><td style="text-align:left">logo</td><td style="text-align:left"><code>24,22/104×20</code></td><td style="text-align:left"><code>24,22/104×20</code></td><td style="text-align:left">✓</td></tr><tr><td style="text-align:left">标题</td><td style="text-align:left"><code>140,20/320×28</code></td><td style="text-align:left"><code>140,20/318×28</code></td><td style="text-align:left">✗ 宽差 2</td></tr><tr><td style="text-align:left">按钮</td><td style="text-align:left"><code>480,22/96×36</code></td><td style="text-align:left"><code>480,24/96×36</code></td><td style="text-align:left">✗ y 差 2</td></tr></tbody></table>
+<p>要点:</p>
+<ul><li><strong>量 computed style,不量截图</strong>:级联后的最终值含继承、覆盖、@media 效果,与视觉呈现一一对应;截图量的是像素,来源不可解释;</li><li><strong>✗ 必须带差值</strong>——「宽差 2」可修,「不对」不可修;</li><li><strong>全 ✓ 是停机条件</strong>:表清空 ✗ 之前,「做完了」不成立。</li></ul>
+<h2>多档视口:默认档全 ✓ 不算完</h2>
+<p>样式不只一套——<code>@media</code> 每个断点都是一套独立布局。验收要<strong>逐档跑</strong>:把窗口/仿真视口挨个过一遍,每档一张表。现场根因一(漏默认 <code>&lt;style&gt;</code> 里的 @media → 布局塌陷)正是「只验了主档」漏掉的。</p>
+<h2>验证</h2>
+<ul><li><strong>逐格对照</strong>:坐标、尺寸、字号、颜色逐项 ✓/✗,任何一格 ✗ 即未完成;</li><li><strong>视口逐档</strong>:主样式 + 每个 @media 断点各跑一遍,各档全 ✓;</li><li><strong>点名回路</strong>:用户说「某块不好」→ 不整页重做,回表单核该区域每一格,定位到具体 ✗;</li><li><strong>字号查精确值</strong>:视觉近似值是坑,font-size 以 computed style 读数为准。</li></ul>
+<h2>翻车记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">翻车</th><th style="text-align:left">修正</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-04</td><td style="text-align:left">漏掉默认 <code>&lt;style&gt;</code> 里的 <code>@media</code> 断点,只复了主样式——窗口一变布局塌陷(肉眼多轮「差不多」都没抓到)</td><td style="text-align:left">视口逐档验收,每档一张对照表</td></tr><tr><td style="text-align:left">2026-08-04</td><td style="text-align:left">字号用视觉近似值替代精确值,「说不出的别扭」在表上现形为具体差值</td><td style="text-align:left">字号一律读 computed style 精确值</td></tr></tbody></table>
+<p>两案现场见 <a href="../../../../conversations/2026-08-04-pixel-perfect-replication.md">归档</a>;mistakes 馆暂未单独立档。</p>
+<h2>时效</h2>
+<ul><li>验证于:GLM-5.2(claude-code),2026-08-05。</li><li>computed style 读数法依赖浏览器标准 API,稳定;预期模型变强后 AI 自查精度提升,但「逐格对照表 + 多档视口」作为验收结构长期有效。</li></ul>
+<h2>沉淀为</h2>
+<p>暂无。对照表逐案手搭;若复刻成为常态,考虑把「抓双方 computed style 生成对照表」固化为脚本。</p>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">状态</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">settled</td><td style="text-align:left">首次沉淀,源自 2026-08-04~05 codegraph 官网复刻会话</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

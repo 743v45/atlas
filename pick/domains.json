@@ -29,6 +29,14 @@
       ]
     },
     {
+      "slug": "dev-automation",
+      "name": "开发自动化",
+      "description": "AI 自动化软件开发的平台栈选型：协作/远程层、规划大脑层、可观测层的组合——单工具不够就组栈。",
+      "categories": [
+        "automation-platform"
+      ]
+    },
+    {
       "slug": "speech-content",
       "name": "语音与内容",
       "description": "语音 / 字幕的识别与内容处理：中文准确率优先，本地可部署。",
@@ -39,12 +47,13 @@
     {
       "slug": "workflow-tools",
       "name": "工作流工具",
-      "description": "写文档、看仓库、收通知、排字符——日常工具链的散件选型。",
+      "description": "写文档、看仓库、收通知、排字符、画图表——日常工具链的散件选型。",
       "categories": [
         "prd-tools",
         "git-gui-clients",
         "ios-push-notify",
-        "typography"
+        "typography",
+        "charting"
       ]
     }
   ],
@@ -52,10 +61,11 @@
     {
       "slug": "ai-agents",
       "name": "AI 与智能体",
-      "description": "Agent 如何感知与行动、如何共建知识",
+      "description": "Agent 如何感知与行动、如何共建知识、如何被组织起来自动开发",
       "domains": [
         "browser-agents",
-        "knowledge-docs"
+        "knowledge-docs",
+        "dev-automation"
       ]
     },
     {

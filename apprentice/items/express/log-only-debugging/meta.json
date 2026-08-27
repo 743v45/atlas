@@ -1,0 +1,11 @@
+{
+  "name": "零指令纯日志投喂排障",
+  "question": "不知道怎么向 AI 描述 bug 时,该发什么?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-03",
+  "model": "GLM-5.2 · claude-code",
+  "symptoms": ["不知道怎么向 AI 描述 bug", "描述半天不如贴日志", "排障方向转述失真", "AI 理解错故障方向"],
+  "source": "conversations/2026-08-03-log-only-debugging.md",
+  "artifacts": []
+}

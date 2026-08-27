@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>百 KB 即 IncompleteRead:自签 HTTPS 上 urllib 长响应截断 · mistakes</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .mistake-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .mistake-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="mistake-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../syntax-assertion-surge/mistake.html">← 「语法对」被打脸:文档确认前不断言</a><span class="sep">·</span><a href="../vague-goal/mistake.html">「我想要的」:Z 没说清就动手 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="已修正"><i></i>修</span>
+<h1>百 KB 即 IncompleteRead:自签 HTTPS 上 urllib 长响应截断</h1>
+<blockquote><strong>TL;DR</strong>:错在「stdlib 能用 = 传输层稳」——urllib 在自签 HTTPS 长响应上断流,该换通道而不是继续修补。</blockquote>
+<ul><li><strong>状态</strong>:fixed(已修正)</li><li><strong>日期</strong>:2026-08-05</li><li><strong>出处</strong>:Outline 发布 skill(urllib stdlib + 自签 https),search 大响应</li></ul>
+<h2>经过</h2>
+<p>skill 自包含仅用 stdlib(<code>urllib.request</code> + <code>ssl._create_unverified_context()</code> 禁证书校验),对自托管 Caddy 自签 https 服务调 search 接口,返回大响应时 <code>resp.read()</code> 中途断流:<code>http.client.IncompleteRead: IncompleteRead(101623 bytes read, 15759 more expected)</code>。小响应(create-document 等)全部正常,同端点 curl 正常——问题只钉在 urllib + 自签 HTTPS + 长响应这个组合上。</p>
+<h2>根因</h2>
+<p>我以为是接口或网络偶发,其实是传输层选型假设没验证:「不依赖第三方库」这个洁癖被当成了传输可靠性的证据。stdlib 能发请求 ≠ 在所有 TLS/响应形态下读得全;而发现翻车后没有当场最小复现 + 复验,判断悬在印象上。</p>
+<h2>修正</h2>
+<p>skill 的 <code>_request</code> 底层换成 curl 子进程(<code>-sk</code> 跳过证书校验 + 双重重试)。三段链闭环:08-05 翻车定位 → 当天改 skill → 08-07 新会话对真实实例复验,704ms 成功。可复用判据:传输层问题先做「同端点换客户端」对照(curl 正常 = 库的问题);修完必须新起会话走真实链路复验,不复验不算修完。</p>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

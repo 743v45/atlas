@@ -1,0 +1,7 @@
+{
+  "name": "逐词时间戳必崩:turbo 仓库不带 cross-attentions",
+  "date": "2026-08-06",
+  "source": "voicetxt 项目会话(2801380a,08-06/07),对话归档:conversations/2026-08-06-whisper-word-timestamps.md",
+  "tags": ["能力假设未验证", "选项组合不兼容", "缺降级路径"],
+  "status": "fixed"
+}

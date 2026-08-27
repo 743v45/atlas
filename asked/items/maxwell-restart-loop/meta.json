@@ -1,0 +1,11 @@
+{
+  "name": "Maxwell 重启循环:根因在下游 Kafka,不在 Maxwell 自身",
+  "date": "2026-07-29",
+  "source": "conversations/2026-07-29-maxwell-kafka-pipeline.md",
+  "tags": [
+    "Maxwell",
+    "Kafka",
+    "故障排查",
+    "CDC"
+  ]
+}

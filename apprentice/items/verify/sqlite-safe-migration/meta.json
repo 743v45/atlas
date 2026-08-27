@@ -1,0 +1,11 @@
+{
+  "name": "SQLite 库文件安全迁移",
+  "question": "拷一个 SQLite 数据库文件,怎么保证数据一条不少地过去?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-05",
+  "model": "GLM-5.2 · claude-code",
+  "symptoms": ["数据库拷过去数据少了", "拷贝 db 文件后打不开", "不知道 wal 文件要不要一起拷", "迁移后数据不一致", "在用的库不敢动"],
+  "source": "conversations/2026-08-05-sqlite-migration-field-work.md",
+  "artifacts": []
+}

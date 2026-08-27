@@ -1,0 +1,7 @@
+{
+  "name": "长报告回传只剩最后一句:final text 不是传输通道",
+  "date": "2026-07-28",
+  "source": "robin CLI 会话 subagent(agent-a14286de83d2709f3,07-28),对话归档:conversations/2026-07-28-robin-cli-fleet-review.md",
+  "tags": ["通道容量假设", "回传截断", "落盘优于回传"],
+  "status": "fixed"
+}

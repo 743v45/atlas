@@ -1,0 +1,28 @@
+{
+  "name": "三层开源栈（multica + 规划大脑 + Langfuse）",
+  "repo": "",
+  "homepage": "https://multica.ai",
+  "license": "—（组合方案）",
+  "verdict": "adopt",
+  "summary": "自动化开发平台的推荐解是三层开源栈而非单一工具：① multica 自托管（协作/平台/远程）+ ② Claude Code 或 Deep Agents（规划大脑——是否接受 Claude 绑定的分叉未拍板，留给组织决策）+ ③ Langfuse 自托管（trace/eval/datasets 复利）；三层各自独立可用、全部可自托管。",
+  "updated": "2026-08-27",
+  "verified": "2026-08-27",
+  "sources": [
+    "https://multica.ai（Multica 官网，访问 2026-08-27）",
+    "https://github.com/multica-ai/multica（gh 2026-08-27 采集：⭐47,969、push 2026-08-27）",
+    "https://langfuse.com（Langfuse 官网，访问 2026-08-27）",
+    "https://github.com/langfuse/langfuse（gh 2026-08-27 采集：⭐33,802、push 2026-08-27）",
+    "https://www.claude.com/product/claude-code（Claude Code 产品页，访问 2026-08-27）",
+    "https://github.com/anthropics/claude-code（gh 2026-08-27 采集：⭐143,157、push 2026-08-26）",
+    "https://github.com/langchain-ai/deepagents（gh 2026-08-27 采集：⭐28,584、push 2026-08-27、MIT）",
+    "Claude 会话 b0872007（2026-08-05/06）——选型全程：multica 100 篇调研、四维度对比、三层栈成形、11 份定位报告写入"
+  ],
+  "tags": ["方案组合", "agent-平台", "自托管", "multica", "langfuse"],
+  "matrix": {
+    "① 协作平台": "multica",
+    "② 规划大脑": "CC/DA 未拍板",
+    "③ 可观测": "Langfuse",
+    "自托管": "三层全可",
+    "模型绑定": "②层分叉点"
+  }
+}

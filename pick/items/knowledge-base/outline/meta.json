@@ -4,18 +4,23 @@
   "homepage": "https://www.getoutline.com",
   "license": "Business Source License 1.1",
   "verdict": "hold",
-  "summary": "用户曾自托管的存量方案，已废弃：无 [[式双链（只有文档间跳转）补不上需求——落选理由是功能缺口而非质量；团队知识库场景仍是合格选项（2026 云版 $10/月起、自托管社区版免费）。",
+  "summary": "完整生命周期样本：2026-07 三条件选型（最火+AI 接入+好看）的胜出者，经历自托管部署 9 坑与约一个月使用，2026-08-25 弃用（排版硬伤、无 [[ 双链）——技术设计库迁飞书、105 篇个人知识迁本地库；教学价值：选型要看完整生命周期，不止选型时刻的对比矩阵。",
   "updated": "2026-08-27",
   "verified": "2026-08-27",
   "sources": [
     "https://github.com/outline/outline（gh 2026-08-27 采集）",
     "https://www.getoutline.com/pricing（定价，访问 2026-08-27）",
-    "Claude 会话 be457b46（2026-08-25）——迁移执行记录"
+    "Claude 会话 5895b3c2（2026-07-29/30）——三条件选型全程与部署方案",
+    "Claude 会话 363279f3（2026-07-30）——部署排障（macOS keychain）",
+    "Claude 会话 53f490e3（小天机）——自托管部署 9 坑详单（本库概述并指向）",
+    "Claude 会话 0e78d1c6（2026-08-23）——lark-cli 数据迁飞书执行记录",
+    "Claude 会话 be457b46（2026-08-25）——弃用定论与 105 篇迁出记录"
   ],
   "tags": [
     "自托管",
     "wiki",
-    "已废弃"
+    "已废弃",
+    "全生命周期"
   ],
   "stats": {
     "source_repo": "outline/outline",

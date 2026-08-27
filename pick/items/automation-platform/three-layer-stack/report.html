@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三层开源栈（multica + 规划大脑 + Langfuse） · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/dev-automation.html">开发自动化</a><span class="sep">·</span><span>自动化开发平台</span></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>三层开源栈（multica + 规划大脑 + Langfuse）</h1>
+<blockquote><strong>TL;DR</strong>：自动化开发平台的推荐解是三层开源栈而非单一工具：① multica 自托管（协作/平台/远程）+ ② Claude Code 或 Deep Agents（规划大脑——是否接受 Claude 绑定的分叉未拍板，留给组织决策）+ ③ Langfuse 自托管（trace/eval/datasets 复利）；三层各自独立可用、全部可自托管。</blockquote>
+<ul><li><strong>结论</strong>：adopt（组合方案；② 层选手未拍板，不影响栈结构成立）</li><li><strong>核实日期</strong>：2026-08-27（gh 一手数据 + 官网当日核实；选型过程出自 2026-08-05/06 会话）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">层</th><th style="text-align:left">工具</th><th style="text-align:left">解决什么</th><th style="text-align:left">活跃度（gh 2026-08-27 采集）</th></tr></thead><tbody><tr><td style="text-align:left">① 协作/平台/远程</td><td style="text-align:left">multica（自托管）</td><td style="text-align:left">团队 workspace、issue 流派发、Autopilot 定时、远程 daemon、web/desktop/手机看板</td><td style="text-align:left">⭐47,969、push 2026-08-27 [2]</td></tr><tr><td style="text-align:left">② 规划大脑</td><td style="text-align:left">Claude Code <strong>或</strong> Deep Agents（作 custom runtime）</td><td style="text-align:left">需求拆解、sub-agents、验证、memory</td><td style="text-align:left">Claude Code ⭐143,157、push 2026-08-26 [6]；Deep Agents ⭐28,584、push 2026-08-27 [7]</td></tr><tr><td style="text-align:left">③ 可观测/评估</td><td style="text-align:left">Langfuse（自托管）</td><td style="text-align:left">trace 团队共享、eval、datasets 回归</td><td style="text-align:left">⭐33,802、push 2026-08-27 [4]</td></tr></tbody></table>
+<p>三层均为开源可自托管（multica [1][2]、Langfuse [3][4]、Deep Agents MIT [7]；Claude Code 为 Anthropic 商业产品、CLI 本体免费使用 [5][6]）。</p>
+<h2>为什么是「组栈」而不是「选一个」</h2>
+<ul><li><strong>单一工具覆盖不了三层需求</strong>：起点是对 multica 的不满——它的「规划」只有两层（把 issue 派给 agent + Autopilot 定时触发），需求怎么拆、子任务怎么排依赖、做完怎么验证、失败怎么重规划，<strong>全部压在单个 agent 的 prompt 里，平台不管</strong> [8]。用户 100 篇 multica Issue 调研中的 #815、#1943、#1767、#2120 都戳中这一痛点 [8]。</li><li><strong>关键洞察：multica 是两层，不是要被整体抛弃的工具</strong>——弱的是它的规划大脑层，强的是远程控制基础设施层（server(Go) + daemon(远程机器) + web/desktop/手机三端架构）[8]。所以正解是「用规划大脑升级 multica 的 agent，不浪费已有投入」，而不是换平台 [8]。</li><li><strong>③ 层选 Langfuse 而非 LangSmith，是为了数据不出内网</strong>：trace 让团队看见 agent 干了什么；<strong>eval + datasets 让「改进」可度量、可回归</strong>——改进 agent 后自动跑历史数据回归，越用越准 [8]。</li><li><strong>复利飞轮</strong>：agent 干活 → Langfuse 留 trace → 团队标注 → 沉淀 dataset + skill → 下次改 agent 自动跑回归。三层各自复利、互相反哺（③→② eval 回归、③→① 质量门、②→① skill 沉淀）[8]。</li><li><strong>渐进共建</strong>：阶段 1 自托管 multica 团队先用 → 阶段 2 接规划大脑 runtime 升级 → 阶段 3 接 Langfuse 转起飞轮。每层独立可用，不必一次到位 [8]。</li></ul>
+<h2>② 层分叉：Claude Code vs Deep Agents（未拍板）</h2>
+<p>同层对标（harness 侧）：Claude Agent SDK ↔ Deep Agents [8]。</p>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">Claude Code / Agent SDK</th><th style="text-align:left">Deep Agents</th></tr></thead><tbody><tr><td style="text-align:left">模型</td><td style="text-align:left">绑 Claude</td><td style="text-align:left">model-agnostic（含本地 Ollama/vLLM）</td></tr><tr><td style="text-align:left">harness 成熟度</td><td style="text-align:left">业界最成熟之一（工具链最全）</td><td style="text-align:left">成熟但更年轻</td></tr><tr><td style="text-align:left">接 multica</td><td style="text-align:left"><strong>原生支持，零适配</strong></td><td style="text-align:left">需写 dcode↔multica 协议 wrapper</td></tr><tr><td style="text-align:left">规划能力</td><td style="text-align:left">Plan mode / Agent Teams / Workflow / subagents</td><td style="text-align:left">自带 planner + LangGraph durable execution</td></tr></tbody></table>
+<ul><li>唯一的真分叉：<strong>是否接受 Claude 绑定</strong>。接受 → Claude Code 更快更稳（multica 原生支持，省掉 wrapper 风险）；要 model-agnostic / 多模型 / 本地模型 → Deep Agents [8]。</li><li><strong>如实记录：该分叉在选型会话内未拍板</strong>，停在「这个答案直接定栈」的提问上，留给组织决策 [8]。本条目 verdict 落在栈结构（三层各自成立），不预支 ② 层结论。</li><li>规划层演进佐证：LangChain 官方在 LangGraph 之上推出 Deep Agents 高层封装（plan + subagents + filesystem），多 agent 官方推荐 tool-based supervisor——规划大脑已成为独立产品化层 [8]。</li></ul>
+<h2>对比（会话内调研的备选，2026-08-05 gh 采集快照 [8]）</h2>
+<table><thead><tr><th style="text-align:left">备选</th><th style="text-align:left">定位</th><th style="text-align:left">为何不是主推</th></tr></thead><tbody><tr><td style="text-align:left">oh-my-claudecode ⭐38,352</td><td style="text-align:left">Claude Code 插件，<code>/autopilot</code> plan→build→qa 闭环</td><td style="text-align:left">个人单机最快路径；平台/远程/团队层缺</td></tr><tr><td style="text-align:left">Orca ⭐37,967</td><td style="text-align:left">可视化管一群并行 agent</td><td style="text-align:left">并行 fan-out 强，协作平台与观测闭环缺</td></tr><tr><td style="text-align:left">三省六部 Edict ⭐16,329</td><td style="text-align:left">审核闭环 + 实时看板 + 可干预</td><td style="text-align:left">全链路自含，但生态与调研深度不及三层栈</td></tr><tr><td style="text-align:left">Open Multi-Agent ⭐6,722</td><td style="text-align:left">TS 框架，goal 自动拆 task DAG，可 replay</td><td style="text-align:left">要写代码，平台层全自建</td></tr><tr><td style="text-align:left">Plandex / MetaGPT</td><td style="text-align:left">计划驱动 coding / 多角色 SOP</td><td style="text-align:left">定位报告已写，均不覆盖三层</td></tr></tbody></table>
+<p>（star 为 2026-08-05 会话内 gh 采集快照，非当日值 [8]。）备选工具各有 12 节定位报告，与三层栈总览同库存档——原存团队知识库「技术设计」collection，2026-08-23 数据迁飞书 [8]。</p>
+<h2>风险与注意</h2>
+<ul><li><strong>② 层未拍板</strong>（上文）：栈结构不受影响，但阶段 2 动工前必须先答「是否接受 Claude 绑定」。</li><li><strong>最大技术不确定性</strong>：若走 Deep Agents，dcode 接 multica runtime 需协议 wrapper（multica 已支持 claude/codex 等 14 种 runtime，wrapper 是可验证的小工程，但未实测）[8]。</li><li>11 份定位报告的原始 URL 已随知识库迁移失效，以飞书库为准（迁移记录见 lark-cli 会话 0e78d1c6）。</li></ul>
+<h2>来源</h2>
+<ol><li>Multica 官网 — <a href="https://multica.ai">https://multica.ai</a>（访问 2026-08-27）</li><li>multica-ai/multica — <a href="https://github.com/multica-ai/multica">https://github.com/multica-ai/multica</a>（gh 2026-08-27 采集：⭐47,969、push 2026-08-27；原始响应留档 raw/2026-08-27/gh/multica-ai_multica.json）</li><li>Langfuse 官网 — <a href="https://langfuse.com">https://langfuse.com</a>（访问 2026-08-27）</li><li>langfuse/langfuse — <a href="https://github.com/langfuse/langfuse">https://github.com/langfuse/langfuse</a>（gh 2026-08-27 采集：⭐33,802、push 2026-08-27；留档 raw/2026-08-27/gh/langfuse_langfuse.json）</li><li>Claude Code 产品页 — <a href="https://www.claude.com/product/claude-code">https://www.claude.com/product/claude-code</a>（访问 2026-08-27）</li><li>anthropics/claude-code — <a href="https://github.com/anthropics/claude-code">https://github.com/anthropics/claude-code</a>（gh 2026-08-27 采集：⭐143,157、push 2026-08-26；留档 raw/2026-08-27/gh/anthropics_claude-code.json）</li><li>langchain-ai/deepagents — <a href="https://github.com/langchain-ai/deepagents">https://github.com/langchain-ai/deepagents</a>（gh 2026-08-27 采集：⭐28,584、push 2026-08-27、MIT；留档 raw/2026-08-27/gh/langchain-ai_deepagents.json）</li><li>Claude 会话 b0872007（2026-08-05/06）——选型全程原始记录（multica 100 篇调研、四维度对比、三层栈成形、Claude Code vs Deep Agents 对标、11 份定位报告写入）；提取文本留档 raw/2026-08-27/sessions/automation-platform-3layer-{user,assistant}.md</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录（源会话 2026-08-05/06；dig INBOX 定稿入库）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

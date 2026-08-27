@@ -1,0 +1,11 @@
+{
+  "name": "k8s 里配置到底存在哪:deploy→cm/secret 反查",
+  "date": "2026-08-17",
+  "source": "conversations/2026-08-17-k8s-config-storage.md",
+  "tags": [
+    "Kubernetes",
+    "ConfigMap",
+    "Secret",
+    "配置管理"
+  ]
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tacit 插件:默会知识显式化 · apprentice</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .lesson-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .lesson-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lesson-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><span>固化/自动化</span><span class="sep">·</span><a href="../cli-for-ai/lesson.html">← CLI for AI:给 AI 造数据访问接口</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="定案"><i></i>定</span>
+<h1>tacit 插件:默会知识显式化</h1>
+<blockquote><strong>TL;DR</strong>:跨文件的默会约束,靠口头交代会随会话蒸发、靠 CLAUDE.md 散条是全局被动注入。登记进 <code>.tacit/</code>,编辑命中相关文件时 hook 自动注入——约束从「想起来才说」变成「改到哪带到哪」。</blockquote>
+<ul><li><strong>状态</strong>:settled(定案)</li><li><strong>回答的问题</strong>:AI 不知道文件之间的隐藏约束,每次都要人肉交代一遍怎么办?</li><li><strong>验证</strong>:2026-07-29 · Claude Opus 4 系(小天机会话未核对)· claude-code</li></ul>
+<h2>症状:约束住在你脑子里</h2>
+<ul><li>「这几个文件必须一起改」——只有你知道,新会话的 AI 不知道,于是改 A 忘 B。</li><li>每次开新会话先口头交代一遍背景,忘了交代就翻车;交代本身也占上下文。</li><li>写进 CLAUDE.md 能救一部分,但那是全局被动注入:所有会话都背着全部约束,而真正需要它的时刻只有编辑命中相关文件的那几次。</li></ul>
+<p>判据:一条约束如果<strong>只在特定文件被编辑时才需要在场</strong>,它就不该住 CLAUDE.md,该住能按文件命中的地方。</p>
+<h2>方法:<code>.tacit/</code> 登记 + hook 注入</h2>
+<p>起于两个问题:「多个项目 AI 怎么加载」「文件之间的隐藏关系怎么讲给它」——答案是设计并实现 <strong>tacit 插件</strong>(taevas-plugins 私有仓库)。三件套:</p>
+<ol><li><strong><code>.tacit/</code> 目录登记跨文件约束</strong>:每条约束写清涉及哪些文件、什么关系、违反了会怎样——默会知识显式化,先落成可对账的文本。</li><li><strong>hook 编辑时自动注入</strong>:编辑命令命中登记过的文件时,相关约束自动进入当前上下文。约束跟着文件走,不跟着会话走——新会话不用交代,长会话不会淡忘。</li><li><strong><code>/tacit init | add | audit</code> 三命令</strong>:init 初始化、add 登记新约束、audit 对账——扫一遍登记与代码现状是否还一致,防约束本身过期。</li></ol>
+<p>固化光谱上的位置:这是「规则 → 公路」的跃迁——散条规则(口头/CLAUDE.md)升级为结构化登记 + 自动触发的工具链。对照 PHILOSOPHY 第 3 节:固化拆掉的是上下文方差——你忘了说,不再是漂移源。</p>
+<h2>验证</h2>
+<ul><li><strong>零交代关</strong>:开一个全新会话,不交代任何背景,直接让 AI 改一个已登记的文件;随后问它「这两个文件什么关系」——答不出或答错 = 约束没被注入,检查 hook。</li><li><strong>audit 对账</strong>:改完代码跑 <code>/tacit audit</code>,登记里声称的关系与代码现状逐条对上;对不上的要么改登记、要么改代码。</li><li><strong>同输入对比</strong>:同一编辑动作跑两次,注入的约束内容一致(注入是确定性的,不该有方差)。</li></ul>
+<h2>翻车记录</h2>
+<p>暂无。</p>
+<h2>时效</h2>
+<ul><li>验证于:Claude Opus 4 系(claude-code),2026-07-29(小天机会话,模型待同步核对)。</li><li>预期:依赖的是 hook 机制与目录约定,不是模型能力——模型换代不失效。重验条件:claude-code 的插件/hook 机制变更时。</li></ul>
+<h2>沉淀为</h2>
+<p>tacit 插件本体(taevas-plugins:<code>.tacit/</code> 约定、hook、<code>/tacit</code> 命令)住 <code>~/code</code> 下私有仓库,在本库根之外——artifacts 只收可解析的库内路径,故留空;本课为图纸,插件实体以正文此节为指针。</p>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">状态</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">settled</td><td style="text-align:left">首次沉淀,源自 2026-07-29 小天机会话(8cefa2a2)</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

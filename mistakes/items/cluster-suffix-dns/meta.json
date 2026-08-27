@@ -1,0 +1,7 @@
+{
+  "name": "「明明应该是 fud3」:集群编号误当 k8s DNS 域后缀",
+  "date": "2026-08-17",
+  "source": "本机 Claude Code 会话(94e8bf7d,08-17 + ef20cf99,08-18),对话归档:conversations/2026-08-18-cluster-dns-suffix.md",
+  "tags": ["配置多数当证据", "DNS", "验证先于信任"],
+  "status": "fixed"
+}

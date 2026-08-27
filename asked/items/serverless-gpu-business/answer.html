@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Serverless GPU 生意账:GPU 不是资产是期权 · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../one-click-login/answer.html">← 移动端一键登录是怎么实现的?</a><span class="sep">·</span><a href="../sqlite-wal/answer.html">SQLite WAL:预写日志机制详解 →</a></nav>
+  <article>
+<h1>Serverless GPU 生意账:GPU 不是资产是期权</h1>
+<blockquote><strong>TL;DR</strong>:「模型放一个地方、机器放一个地方、计算就是调度」的设想真实存在,就是 Serverless GPU / 存算分离推理——Modal、RunPod Serverless、Baseten、Replicate、Fal.ai 整个行业。生意账的核心判断:<strong>GPU 不是资产是期权</strong>——scale-to-zero 模式下卖不掉,月沉没约 100 元随时归零;卖得掉,自部署把单条成本从官方 API 的约 9 元压到 7 毛以下。止损线:4 周 + 200 元没首单 → 关掉。</blockquote>
+<p>*(恢复自 2026-08-27 问答,原答骨架忠实;当日为闲聊式多轮对话,讲义按主题重组,数值与结论未动。)*</p>
+<h2>一、设想的正规形态:存算分离推理</h2>
+<p>「模型权重放存储桶、机器按需拉起、计算就是调度」——这就是 Serverless GPU。但有三个工程修正,恰恰是「调度专业性」所在:</p>
+<ol><li><strong>权重放存储桶 ✓,但取的时机是「机器冷启动时」,不是「每个请求时」</strong>。权重 15~140GB,从桶里拉要分钟级,GPU 算一次只要秒级。现实是:机器拉起 → 拉一次权重进显存 → 常驻跑几百个请求 → 空闲久了才释放。</li><li><strong>计算不是完全无状态</strong>。KV cache 和连续批处理(continuous batching,把不同请求拼进同一批提高利用率)都在单机显存里,所以调度器要做会话亲和、冷启动权衡、缩容时机。</li><li><strong>「所有开源模型统一调度」= Replicate 的产品形态</strong>:一个平台几千个模型,每个模型一个 worker 池,路由层按模型分发。模式已被验证。</li></ol>
+<p>平台格局(2026 年评测共识):<strong>RunPod</strong> 赢在价格+冷启动+卡型多(A100 约 $1.42/hr,serverless 4090 约 $0.88/hr);<strong>Modal</strong> 赢在灵活性(Python 写个函数就部署);<strong>Baseten</strong> 赢在生产级稳定;<strong>Replicate</strong> 开源模型即插即用;<strong>Fal.ai</strong> 视频/图像生成专用管线。国内:阿里云 PAI-EAS、GMI Cloud、AutoDL/仙宫云/恒源云(纯租卡,调度自理)。</p>
+<p><strong>关键推论:调度器已经被平台商品化了</strong>。不用自己买机器搭集群,写个 handler 丢上去,弹性伸缩、队列、权重缓存全是现成的。</p>
+<h2>二、生意账:以 H3(开源 33B 全模态视频模型)为例</h2>
+<p>H3 是教科书场景:量化(INT4/INT8/nvfp4)后权重 ~20GB 级、单张 24G 卡装得下;视频任务分钟级、无会话粘性 → 冷启动拉一次权重、跑一批、空载缩容到零,一台都不用囤。</p>
+<p><strong>为什么必须自部署(转发官方 API 没有套利空间)</strong>:</p>
+<table><thead><tr><th style="text-align:left">模式</th><th style="text-align:left">单条成本(15s 视频)</th><th style="text-align:left">卖 2 元的结果</th></tr></thead><tbody><tr><td style="text-align:left">官方 API 768p 档($0.08-0.09/s)</td><td style="text-align:left">~9 元</td><td style="text-align:left"><strong>亏 7 元/条</strong></td></tr><tr><td style="text-align:left">自部署 serverless 4090</td><td style="text-align:left">~0.66 元</td><td style="text-align:left">赚 1.34 元/条</td></tr></tbody></table>
+<p>自部署单条成本 ≈ GPU 时租 × 生成分钟 ÷ 60 + 冷启动摊派 ≈ 6.3 × 5/60 + 0.13 ≈ <strong>0.66 元/条</strong>(假设单条 GPU 时间 5 分钟——<strong>这是整个账的地基,须花 20 块实测</strong>;3 分钟则 0.45 元,10 分钟则 1.2 元,生意逻辑就变了)。</p>
+<p>月账(日均 50 单假设):GPU 计算费 ~790 + 冷启动摊派 ~190 + 权重存储 ~50 + 交付 ~15 ≈ <strong>1,050 元/月</strong>,收入 3,000,<strong>毛利 ~65%</strong>。</p>
+<h2>三、纠偏与风险(比账单更容易杀死生意的四条)</h2>
+<ul><li><strong>纠偏</strong>:GMI「minimax-week」免费名单是 M3(文本)/M2.7/Speech/Music——<strong>不含 H3 视频</strong>,免费活动对视频生意白嫖不到。核查免费额度覆盖哪些模型,别拿活动页标题当事实。</li></ul>
+<ol><li><strong>内容合规(最大风险)</strong>:国内《AIGC 内容标识办法》要求生成内容打标;开放生成服务,客户产出的内容出事,责任链到你。群里熟人接单风险低,做公开 API 必须上审核——比 GPU 贵得多的成本。</li><li><strong>防刷/账单失控</strong>:serverless endpoint 泄露 = GPU 被刷爆,一夜几百刀。前面必须挡一层开源网关 one-api / new-api(管用户、key、限额、计费)。</li><li><strong>支付门槛</strong>:海外平台要外币卡;国内替代有 Atlas Cloud、阿里云 PAI-EAS 等。</li><li><strong>冷启动延迟</strong>:缩容到零后首单等 3~5 分钟。常驻热待机 ~150 元/天,起步阶段不划算——设 min=0,跟客户说「高峰首单稍等」。</li></ol>
+<h2>四、卖不掉咋整:GPU 是期权</h2>
+<p>scale-to-zero 模式下,<strong>「卖不掉」本身就是免费选项</strong>:没请求 → 没 GPU 时间 → 月账单只剩权重网络盘 ~50 + 网关小鸡 ~10-30,<strong>合计 ~100 元/月,随时关掉归零</strong>。对比囤机器——几万块压死在折旧里。</p>
+<blockquote>一句话:<strong>这个生意里 GPU 不是资产是期权</strong>——卖不掉,权利金就 100 块/月;卖得掉,行权价 7 毛一条。囤机器才怕卖不掉,按量调度不怕。</blockquote>
+<p>卖不掉通常死在三件事:没流量(90%)、没信任(怕跑路)、形态不对(卖 key 这个动作筛掉大部分客户)。</p>
+<p><strong>出路四条(按推荐顺序)</strong>:</p>
+<ol><li><strong>第一个客户是自己</strong>——用 H3 生成自己业务的带货素材,把 GPU 时间用掉,顺手攒成品案例。</li><li><strong>换形态:卖成品,不卖 API</strong>——客户发素材、你出成品视频、按条收 5~20 元。客单价翻 10 倍,客户感知「代做服务」,信任问题直接消失。</li><li><strong>换客户:to B 电商商家</strong>——一天几十条商品视频,价格敏感只看交付,一个商家顶 50 个群友。</li><li><strong>免费换启动</strong>——前 50 条免费送,条件是反馈和转发;边际成本 7 毛/条,50 条 35 块,比广告便宜。</li></ol>
+<p><strong>止损线</strong>:4 周 + 花掉 200 元还没首单 → 关掉归零退出。模式允许随时再开——模型出 Turbo LoRA 提速、成本再降时,随时回来重试。</p>
+<h2>出处</h2>
+<ul><li>源对话归档:../../../conversations/2026-08-27-serverless-gpu-business.md(2026-08-27)</li><li>原始会话:~/.claude/projects/-Users-taevas/55c6c0ea-44cc-426f-94de-70e73e8a61b0.jsonl</li><li>关联 artifact:~/docs/model-storage-compute-split.html(存算分离架构:整体架构 + 设想 vs 现实对比,两图三表)</li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

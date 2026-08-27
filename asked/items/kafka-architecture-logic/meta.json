@@ -1,0 +1,10 @@
+{
+  "name": "Kafka 使用架构逻辑:组件、协调层与关键语义",
+  "date": "2026-07-29",
+  "source": "conversations/2026-07-29-maxwell-kafka-pipeline.md",
+  "tags": [
+    "Kafka",
+    "消息队列",
+    "架构"
+  ]
+}

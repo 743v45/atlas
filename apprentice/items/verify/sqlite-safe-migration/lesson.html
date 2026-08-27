@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQLite 库文件安全迁移 · apprentice</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .lesson-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .lesson-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lesson-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><span>验证</span><span class="sep">·</span><a href="../pixel-perfect-replication/lesson.html">← UI 像素级复刻验证法</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="定案"><i></i>定</span>
+<h1>SQLite 库文件安全迁移</h1>
+<blockquote><strong>TL;DR</strong>:拷 SQLite 库不是拷一个文件,是三件套(<code>.db / .db-wal / .db-shm</code>)。红线两条:<strong>WAL 0 字节才可单独拷 .db;非空 -wal 绝不能丢</strong>。其余动作——确认无进程持有、前后各一次 quick_check、对端逐字节复验——都是把「拷完了」变成「拷对了」。</blockquote>
+<ul><li><strong>状态</strong>:settled(定案)</li><li><strong>回答的问题</strong>:拷一个 SQLite 数据库文件,怎么保证数据一条不少地过去?</li><li><strong>验证</strong>:2026-08-05 · GLM-5.2 · claude-code</li></ul>
+<h2>先搞清在拷什么:三件套</h2>
+<p>WAL 模式下,写操作先进预写日志(<code>-wal</code>),checkpoint 后才落主库(<code>.db</code>)——<strong>最近的写入可能还住在 -wal 里</strong>,<code>.db-shm</code> 是两者的共享内存索引。所以:</p>
+<ul><li><code>-wal</code> <strong>0 字节</strong> → 近写已全部落主库,可单独拷 <code>.db</code>;</li><li><code>-wal</code> <strong>非空</strong> → 丢它就是丢最近写入,必须三件套同传。</li></ul>
+<p>WAL 机制的完整讲义见 <a href="../../../../asked/items/sqlite-wal/answer.html">asked/sqlite-wal</a>。</p>
+<p>动手前先问机制再问操作——现场的用户没说「拷过去」,先问的是「这三个文件是干嘛的」「wal 是什么」。搞懂机制,红线是推出来的;不懂机制,红线是背下来的。</p>
+<h2>迁移流程(六步,现场顺序)</h2>
+<ol><li><strong>认清现场</strong>:<code>ls</code> 看清是几件套,别默认只有一个 .db;</li><li><strong>查 -wal 大小</strong>:0 字节与否,决定走哪条红线;</li><li><strong>确认无进程持有</strong>:<code>lsof</code> / <code>ps</code> 查库文件——有写入者时拷到的是中间态;</li><li><strong>源库校验</strong>:<code>PRAGMA quick_check</code> 通过才出发;</li><li><strong>同传三件套</strong>(现场:285MB,40s),不拆散;</li><li><strong>对端复验</strong>:逐字节对比(或校验和)+ 再跑一次 <code>quick_check</code>。</li></ol>
+<p>每步打印耗时与结果——「拷了 40 秒」和「验了 40 秒」是两件事,都该有数。</p>
+<h2>验证</h2>
+<ul><li><strong>quick_check 打个对儿</strong>:出发前源库一次,到达后目标库一次——只验一头等于没验;</li><li><strong>逐字节/校验和对比</strong>:大小相同不等于内容相同;</li><li><strong>读一条最新记录</strong>:对端打开库,读出源端最后写入的那条——直接证明 -wal 里的数据没丢;</li><li><strong>计时打印</strong>:每步 + 总耗时,异常慢本身就是信号。</li></ul>
+<h2>翻车记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">翻车</th><th style="text-align:left">修正</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-05</td><td style="text-align:left">本课流程自身暂无翻车记录。相邻红线同族错题:virtiofs 共享文件系统直读 SQLite 两次损库——完整档案见 <a href="../../../../mistakes/items/virtiofs-sqlite-corruption/mistake.html">mistakes/virtiofs-sqlite-corruption</a></td><td style="text-align:left">库文件不落共享面;红线见上节</td></tr></tbody></table>
+<h2>时效</h2>
+<ul><li>验证于:GLM-5.2(claude-code),2026-08-05。</li><li>WAL 机制属存储层,不随模型换代;流程预期长期稳定。重验条件:换存储引擎或 SQLite 大版本变更。</li></ul>
+<h2>沉淀为</h2>
+<p>暂无。命令序列尚未固化为脚本;下次再迁移时若照抄本课流程,考虑沉淀为可重跑脚本(内嵌第 6 步复验)。</p>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">状态</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">settled</td><td style="text-align:left">首次沉淀,源自 2026-08-05 跨机迁移会话(知识侧另见 asked/sqlite-wal)</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

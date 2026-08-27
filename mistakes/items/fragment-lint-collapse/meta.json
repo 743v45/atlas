@@ -1,0 +1,7 @@
+{
+  "name": "28 个分片各过 gate,合并后 lint 溃败",
+  "date": "2026-07-28",
+  "source": "robin CLI 会话(41f4fc3f,07-28),对话归档:conversations/2026-07-28-robin-cli-fleet-review.md",
+  "tags": ["分片达标≠整体达标", "门禁设计", "全局质量缺口"],
+  "status": "fixed"
+}

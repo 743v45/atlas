@@ -1,0 +1,11 @@
+{
+  "name": "UI 像素级复刻验证法",
+  "question": "AI 复刻的页面「总觉得差一点」,怎么把像不像变成可核对的?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-05",
+  "model": "GLM-5.2 · claude-code",
+  "symptoms": ["复刻的页面总觉得差一点", "AI 说做完了但布局不对", "肉眼对比找不出差在哪", "响应式复刻塌了", "像素级还原没法验收"],
+  "source": "conversations/2026-08-04-pixel-perfect-replication.md",
+  "artifacts": []
+}

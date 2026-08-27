@@ -1,0 +1,11 @@
+{
+  "name": "Maxwell→Kafka 分区为什么全挤一个区?producer_partition_by 诊断记",
+  "date": "2026-07-29",
+  "source": "conversations/2026-07-29-maxwell-kafka-pipeline.md",
+  "tags": [
+    "Maxwell",
+    "Kafka",
+    "CDC",
+    "数据倾斜"
+  ]
+}

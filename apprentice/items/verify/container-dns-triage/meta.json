@@ -1,0 +1,11 @@
+{
+  "name": "容器内 DNS 排障三步法",
+  "question": "容器里服务域名解析失败(ENOTFOUND),怎么一步步定位?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-17",
+  "model": "GLM-5.3 · claude-code",
+  "symptoms": ["容器里域名解析失败", "ENOTFOUND 但服务明明在", "kubectl exec 报命令不存在", "不知道该信哪个域名后缀", "跨命名空间服务连不上"],
+  "source": "conversations/2026-08-18-cluster-dns-suffix.md",
+  "artifacts": []
+}

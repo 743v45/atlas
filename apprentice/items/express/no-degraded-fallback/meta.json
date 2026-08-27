@@ -1,0 +1,11 @@
+{
+  "name": "降级凑合为失败:质量底线的表达",
+  "question": "AI 总用次优方案交差(如该用专门工具时退到 curl),怎么让它自动不降级?",
+  "status": "settled",
+  "date": "2026-08-27",
+  "verified": "2026-08-27",
+  "model": "Claude Opus 4 系(小天机会话未核对)· claude-code",
+  "symptoms": ["AI 自动降级用次优方案", "效果不好但 AI 说做完了", "怎么表达质量要求", "AI 用 curl 凑合", "验收总在打回次品"],
+  "source": "conversations/2026-08-27-no-degraded-fallback.md",
+  "artifacts": []
+}

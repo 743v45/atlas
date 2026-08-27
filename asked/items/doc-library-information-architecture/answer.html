@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>文档库信息架构:建 collection 还是加层级? · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../deepseek-harness-design-philosophy/answer.html">← deepseek-harness 的设计哲学:为无记忆的 AI agent 造工具</a><span class="sep">·</span><a href="../gate-of-gates-green-not-sound/answer.html">「门的门」:CI 绿不等于 sound,漂移发生在层间缝隙 →</a></nav>
+  <article>
+<h1>文档库信息架构:建 collection 还是加层级?</h1>
+<blockquote><strong>TL;DR</strong>:判据一句话——<strong>独立知识域 / 跨主题复用 / 权限可见性边界 → 建 collection(顶层容器,创建有成本);同域内细分 → 父文档层级(就是个父文档,成本低、可重组)</strong>。深度以「级 = 含 collection 的总深度」计:2 级平铺(同域 &lt;7 篇)、3 级 collection→分类→文章(默认推荐、知识库甜点)、4 级封顶——再深该拆 collection 或重组。触发重组的数字:某层子项 &gt;10 拆分组、平铺 &gt;15 开一层、collection &gt;50 拆两个。</blockquote>
+<blockquote><strong>载体说明</strong>:本判据成形于 Outline(自托管知识库 wiki)的层级设计,该载体已于 2026-08-25 弃用迁飞书——<strong>判据本身通用</strong>,适用于任何「顶层容器 + 文档树」结构的知识库(飞书知识库、Notion、Confluence 等同理)。</blockquote>
+<p>*(恢复自 2026-08-06 问答,原答骨架忠实;重组阈值以当日落盘 skill 的定稿为准。)*</p>
+<h2>一、层级模型与核心判据</h2>
+<p>Outline 的层级模型:<strong>collection(顶层容器,不可嵌套)→ 文档树(可多层父子嵌套)</strong>。「分组」不是独立概念,靠<strong>父文档 → 子文档</strong>实现。(发现这一点正是因为想把 collection 嵌进 collection 而不得。)</p>
+<p><strong>什么进 collection</strong>:</p>
+<ul><li>独立知识域(如「AI 编程实践」「投资研究」各自成域)</li><li>跨主题复用(多个主题都会引用的内容)</li><li>权限/可见性边界(谁能看这一域)</li></ul>
+<p>collection 占导航一级入口、创建有成本,<strong>别为零散单篇建</strong>。</p>
+<p><strong>什么用文档层级</strong>:</p>
+<ul><li>同一域内的主题细分。建分组成本低(就是个父文档),灵活、可重组。</li></ul>
+<p><strong>经验法则</strong>:先有 5+ 篇同主题文章,再考虑是建新 collection 还是在现有 collection 下开分组;单篇/几篇直接平铺。</p>
+<h2>二、层级口径与深度建议</h2>
+<p>「级」= 含 collection 的总深度:</p>
+<table><thead><tr><th style="text-align:left">级数</th><th style="text-align:left">结构</th><th style="text-align:left">适用场景</th></tr></thead><tbody><tr><td style="text-align:left"><strong>2 级</strong></td><td style="text-align:left"><code>collection → 文章</code>(平铺)</td><td style="text-align:left">同一域 &lt;7 篇、松散笔记、快速记录</td></tr><tr><td style="text-align:left"><strong>3 级(默认推荐)</strong></td><td style="text-align:left"><code>collection → 分类 → 文章</code></td><td style="text-align:left">知识库甜点;一个 collection 下有多个主题</td></tr><tr><td style="text-align:left"><strong>4 级</strong></td><td style="text-align:left"><code>collection → 组 → 子组 → 文章</code></td><td style="text-align:left">主题下还有子分类(taxonomy)</td></tr><tr><td style="text-align:left"><strong>上限 4 级</strong></td><td style="text-align:left">—</td><td style="text-align:left">再深建议<strong>拆 collection</strong> 或重组,别往深堆</td></tr></tbody></table>
+<p>(对应「文档深度」不计 collection:2 级 = 深度 0、3 级 = 深度 1、4 级 = 深度 2。)</p>
+<h2>三、何时重组(阈值)</h2>
+<ul><li>某层子项 <strong>&gt;10</strong>,或出现「杂项/其他」兜底桶 → 拆出子分组。</li><li>层级 &lt;2 且同 collection 文档 <strong>&gt;15</strong> → 开一层分组。</li><li>某个 collection 长到 <strong>&gt;50</strong> 篇 → 考虑拆成两个 collection。</li></ul>
+<h2>四、命名约定</h2>
+<ul><li><strong>collection</strong>:简短名词,代表一个域(「AI 编程实践」)。</li><li><strong>父文档(分组)</strong>:表「分类名」,名词短语(「提示词优化」「部署」)。</li><li><strong>叶子文档</strong>:表具体内容标题,<strong>不要在标题里重复上层路径</strong>——有层级了,别写「AI 编程实践-提示词优化-XXX」。</li></ul>
+<h2>五、决策流程</h2>
+<pre><code class="lang-">这篇属于哪个已有 collection?
+├─ 没有 → 内容够独立 + 预计 5+ 篇?建新 collection;否则丢进最相近的现有 collection(平铺)
+└─ 有 → 该 collection 下有几个相关主题?
+   ├─ 0-1 个 / 总共 &lt;7 篇 → 平铺(2 级)
+   └─ 多主题 → 开/复用一层分类(3 级)
+      └─ 分类下还要再分?→ 4 级,到顶别再深</code></pre>
+<p><strong>案例回放</strong>:一篇「AGENTS.md 八条规则」的文章 → 域是「AI 编程实践」(新 collection,后续会有多篇)→ 主题是「提示词优化」(开一层分类)→ 文章挂分类下 = 3 级,正是默认甜点结构。</p>
+<h2>出处</h2>
+<ul><li>源对话归档:../../../conversations/2026-08-06-outline-doc-ia.md(2026-08-06)</li><li>原始会话:~/.claude/projects/-Users-taevas/666c3f48-2551-49df-ba92-d4e8faadc4ec.jsonl</li><li>落盘:判据定稿于 outline skill 的 SKILL.md「文档组织建议(信息架构)」一节(taevas-plugins 仓库),随 skill 发布;本条为通用化恢复。</li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

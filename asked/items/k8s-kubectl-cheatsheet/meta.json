@@ -1,0 +1,10 @@
+{
+  "name": "k8s 入门速查:kubectl 命令、资源缩写与层级结构",
+  "date": "2026-08-07",
+  "source": "conversations/2026-08-07-k8s-kubectl-basics.md",
+  "tags": [
+    "Kubernetes",
+    "kubectl",
+    "速查"
+  ]
+}

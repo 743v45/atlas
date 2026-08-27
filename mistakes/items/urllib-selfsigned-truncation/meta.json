@@ -1,0 +1,7 @@
+{
+  "name": "百 KB 即 IncompleteRead:自签 HTTPS 上 urllib 长响应截断",
+  "date": "2026-08-05",
+  "source": "Outline 发布 skill 三段链会话(b0872007 翻车→666c3f48 修→9e00e9e0 复验,08-05~07),对话归档:conversations/2026-08-05-urllib-selfsigned-truncation.md",
+  "tags": ["网络栈差异", "翻车未即时复验", "换通道优于修补"],
+  "status": "fixed"
+}

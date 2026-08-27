@@ -91,6 +91,8 @@ def main():
                 if msg:
                     broken.append(msg)
     for p in iter_files(".md"):
+        if "raw" in p.relative_to(ROOT).parts:  # raw/ = pick 逐字存档区，链接指向原项目上下文，断链是常态，豁免
+            continue
         text = strip_md_code(p.read_text(encoding="utf-8", errors="replace"))
         for href in MD_LINK_RE.findall(text):
             msg = broken_link(p, href)

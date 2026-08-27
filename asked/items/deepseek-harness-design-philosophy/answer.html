@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>deepseek-harness 的设计哲学:为无记忆的 AI agent 造工具 · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../database-landscape/answer.html">← 给你 10 种数据库,优先选哪些?——全景与决策漏斗</a><span class="sep">·</span><a href="../doc-library-information-architecture/answer.html">文档库信息架构:建 collection 还是加层级? →</a></nav>
+  <article>
+<h1>deepseek-harness 的设计哲学:为无记忆的 AI agent 造工具</h1>
+<blockquote><strong>TL;DR</strong>:对开源仓库 deepseek-harness(50+ 包的 agent 运行时)做十维度并行分析后,可以把它的全部设计收敛到一个第一性假设——<strong>读者与贡献者是跨 session 无记忆的 AI agent</strong>。由此推导出七根支柱:一切皆插件、单一事实源其余皆投影、信任边界由序列化介质枚举、seam 按演化速率划界、响亮失败、判断落成机器可校验工件、测试即证据。完整分析已落盘该仓库 analyze/ 目录,本条是 TL;DR + 骨架 + 指针。</blockquote>
+<p>*(本条为「指向条目」:正文只留骨架,完整论证见落盘文件,不搬运。)*</p>
+<h2>第一性假设</h2>
+<p>仓库围绕「读者与贡献者是跨 session 无记忆的 AI agent」设计——一切文档、门禁、工件的存在,都是给不记得上次做过什么的协作者(人或 AI)买保险。</p>
+<h2>七根支柱(骨架)</h2>
+<ol><li><strong>一切皆插件</strong>——内核收缩到 vendored Cordis 的组合语义 + 一条 durable session log;连 agent-loop 都是可替换插件,「plugins, not loop changes」写进根规则并强制架构图同步。</li><li><strong>单一事实源,其余皆投影</strong>——session log 是唯一事实,模型历史/fixture/审计是投影;TS 类型树是另一棵事实源,wire codec/双 SDK/文档目录由它派生;反模式是「第二份需要同步的拷贝」。Model-visible ⟺ logged 有 runtime 断言。</li><li><strong>信任边界由序列化介质枚举</strong>——config/queued/tool JSON/file/worker/process/wire 七类边界才校验,进程内靠 brand 类型防串线而非重验;校验点清单由介质决定,不靠风险直觉。</li><li><strong>capability seam 按演化速率划界</strong>——三角色完备律(Request/Spec/resolve 显式默认化);vendoring 同样按「internals 是否承载正确性」划界。</li><li><strong>响亮失败</strong>——required-on-read「过度拒绝优于静默残缺」;审批 fail-closed;版本钉 0 的零兼容窗口。</li><li><strong>判断落成工件</strong>——决策→Agent Note(Alternatives 强制)、规则→27 个门、审查→skill、证据→最小证伪;不依赖人的记忆。</li><li><strong>测试即证据</strong>——per-file 100% 覆盖被定位为*删代码机制*(未覆盖行是待删的死代码);postmortem 0001 之后「组装转录 &gt; 单测」;verify the world, not the self-report。</li></ol>
+<p><strong>五个最反常规决策</strong>:循环也是插件 / Model-visible⟺logged 有 runtime 断言 / per-file 100%=删代码机制 / CoT-leakage 分类学 / 有账本的 vendored fork。</p>
+<p><strong>附赠发现</strong>:一处真实文档漂移——AGENTS.md:100 与 vendor/README.md:34 仍写 vendored 包 <code>private: true</code>,但框架已公开发布为 <code>@deepseek-ai/cordis</code> 4.0.1。(该漂移的系统性追问见同馆 <a href="../gate-of-gates-green-not-sound/">gate-of-gates-green-not-sound</a>。)</p>
+<h2>方法</h2>
+<p>10 个维度并行 agent 分析(核心架构 / capability seam / 类型边界 / 会话可观测性 / 测试 / 治理 / 防御模式 / vendoring / loop 与工具 / 前端 SDK / 文档文化),交叉综合成 1 个第一性假设 + 7 根支柱,非简单拼接。</p>
+<h2>指向:落盘文件(正文所在)</h2>
+<table><thead><tr><th style="text-align:left">文件(位于 ~/code/openresources/deepseek-harness/)</th><th style="text-align:left">定位</th></tr></thead><tbody><tr><td style="text-align:left">analyze/DESIGN_PHILOSOPHY.md</td><td style="text-align:left">完整版,~600 行,全部论断带 <code>file:line</code> 证据</td></tr><tr><td style="text-align:left">analyze/KEY_POINTS.md</td><td style="text-align:left">重点提炼纯文本版(~90 行,可粘贴引用)</td></tr><tr><td style="text-align:left">analyze/index.html</td><td style="text-align:left">单页报告:重点 + 5 张内嵌 mermaid 关系图</td></tr><tr><td style="text-align:left">analyze/design-philosophy.html</td><td style="text-align:left">5 图全集(事实源→投影 / 七类信任边界 / seam 三角色 / 治理流水线)</td></tr><tr><td style="text-align:left">analyze/INDEX.md</td><td style="text-align:left">主索引:阅读顺序与维度覆盖</td></tr></tbody></table>
+<h2>出处</h2>
+<ul><li>源对话归档:../../../conversations/2026-08-18-deepseek-harness-philosophy.md(2026-08-18)</li><li>原始会话:~/.claude/projects/-Users-taevas-code-openresources-deepseek-harness/78f956bc-bb7b-4aca-895a-671827784f26.jsonl</li><li>恢复说明:讲义当日已完整落盘被分析仓库的 analyze/ 目录(浏览器实测 5 SVG 全渲染、0 语法错误),本条按「指向条目」处理:TL;DR + 骨架 + 指向,不搬正文。</li></ul>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

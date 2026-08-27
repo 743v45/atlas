@@ -1,0 +1,7 @@
+{
+  "name": "E2E 绿灯掩盖入口缺失:测试路径绕过配置",
+  "date": "2026-07-27",
+  "source": "workbuddy 项目会话(5086a366,07-27~30),对话归档:conversations/2026-07-27-e2e-green-config-missing.md",
+  "tags": ["假绿灯", "测试盲区", "验收路径偏离真实路径"],
+  "status": "fixed"
+}

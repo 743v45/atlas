@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>零指令纯日志投喂排障 · apprentice</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .lesson-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .lesson-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lesson-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><span>表达</span><span class="sep">·</span><a href="../describe-the-goal/lesson.html">← 把目标说清楚:Z 三要素</a><span class="sep">·</span><a href="../no-degraded-fallback/lesson.html">降级凑合为失败:质量底线的表达 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="定案"><i></i>定</span>
+<h1>零指令纯日志投喂排障</h1>
+<blockquote><strong>TL;DR</strong>:有完整错误栈时,别描述,直接贴日志——日志自带症状、上下文、时间线,比人转述更保真。零指令不是偷懒,是把「转述损耗」从排障链路里删掉。</blockquote>
+<ul><li><strong>状态</strong>:settled(定案)</li><li><strong>回答的问题</strong>:不知道怎么向 AI 描述 bug 时,该发什么?</li><li><strong>验证</strong>:2026-08-03 · GLM-5.2 · claude-code</li></ul>
+<h2>现场(2026-08-03,holdon 支付回调 500)</h2>
+<p>用户<strong>一个字的指令都没有</strong>——首条消息就是一大段生产日志(支付宝充值回调 500 的完整错误栈 + 若干正常请求日志)。AI 自行走证据收集:从错误栈定位到单个接口、对照正常日志排除「整体故障」、收窄到根因,全程 5 分钟,三层根因:</p>
+<ol><li>诊断字段被丢弃(<code>TradeQuery</code> 错误细节没有落日志);</li><li><code>IsSuccess</code> 语义误用(把「查询成功」当「支付成功」);</li><li>回调 500 后支付平台重试,但重试请求<strong>不入账</strong>——钱付了、账没记。</li></ol>
+<p>根因落 <code>recharge.go:171-173</code>。收尾 AI 主动停手:「生产资金代码需你拍板」——定位归 AI,动生产资金代码的决定权归人。</p>
+<h2>为什么零指令反而最优</h2>
+<ul><li>人转述 = 有损压缩:复述故障时已经带了自己的归因假设,AI 顺着假设走,错了两人一起错。</li><li>原始日志 = 无损证据:症状(500 栈)、上下文(前后正常请求)、时间线(同秒相邻事件)都在,AI 的证据收集有真材料可用。</li><li>零指令还删掉了「AI 先问一轮澄清」的往返——问题常在日志里已经答了。</li></ul>
+<h2>适用判据(不是万能)</h2>
+<table><thead><tr><th style="text-align:left">情形</th><th style="text-align:left">发什么</th></tr></thead><tbody><tr><td style="text-align:left">有完整错误栈 / 复现日志</td><td style="text-align:left"><strong>直接贴日志,不描述</strong>;可补一句「根因在哪」作目标</td></tr><tr><td style="text-align:left">症状模糊、无报错(「就是慢」「感觉不对」)</td><td style="text-align:left">人先框定:什么操作、预期 vs 实际、复现步骤——此时日志尚不存在,得先造出来</td></tr><tr><td style="text-align:left">日志与直觉冲突</td><td style="text-align:left">贴日志 + 让 AI 先解释日志,再谈你的假设——证据先行</td></tr></tbody></table>
+<p>生产日志投喂前脱敏:密钥、内部凭证、用户隐私数据去掉,错误结构保留——方法不变,材料合规。</p>
+<h2>验证</h2>
+<ul><li>拿一段带完整错误栈的日志,零指令投喂,核对 AI 结论是否落 <code>文件:行号</code> 级定位——落不到行号的「根因」只是猜测。</li><li>对照实验:同一故障,一次口述转述、一次贴原始日志,比较两者定位路径与轮次——转述版多花的轮次就是转述损耗。</li><li>收尾检查:AI 是否停在「定位 + 建议」,把动生产/资金代码的决定交还给人——越界直接改代码即失败。</li></ul>
+<h2>翻车记录</h2>
+<p>暂无。</p>
+<h2>时效</h2>
+<ul><li>验证于:GLM-5.2(claude-code),2026-08-03。</li><li>预期:长上下文模型对大段原始日志的抽取能力预期只增不减;「有栈贴栈、无栈先造栈」的判据预期长期稳定。</li></ul>
+<h2>沉淀为</h2>
+<p>暂无。</p>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">状态</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-08-27</td><td style="text-align:left">settled</td><td style="text-align:left">首次沉淀,源自 2026-08-03 holdon 零指令排障会话</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>
