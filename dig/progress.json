@@ -120,8 +120,8 @@
     {
       "day": "2026-08-27",
       "files": 31,
-      "status": "in-flight",
-      "agent": "dig-0827"
+      "status": "done",
+      "summary": "pick 批产日(sessions 考古管线运转)+「降级凑合为失败」课素材+CLI for AI 五现+spark 2 条;atlas 建设为已知内容"
     }
   ],
   "note": "并发 16→8:真瓶颈是 API 限流而非 pane(各队 1h 仅 17s CPU,集体等限流)。小天队先行打通链路,之后完成一队补一队"

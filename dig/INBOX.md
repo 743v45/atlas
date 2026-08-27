@@ -80,9 +80,9 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 状态:pending
 
 
-### [维度/方法论] AI 原生数据访问(CLI for AI) | 2026-08-11 起 | 跨项目四现
-「有没有 cli 查询数据的功能。希望做一个 cli 给 ai 查询使用」(lucent 08-11);subtitle-collector 的 collector-cli+SKILL.md;pick/knowledge-base 核心命题「AI 对存储层的原生访问权」;**08-25 第四现**:「cli 收集 b 站近半年 ai 面试题内容。没法用 cli 的话,需要实现功能的」(08ac9a07)——以「AI 能否直接用」为功能开发的准入标准。
-贯穿四个项目的设计哲学。四现=立课时机成熟,建议用户考虑立 apprentice 课或并入 PHILoSOPHY。
+### [维度/方法论] AI 原生数据访问(CLI for AI) | 2026-08-11 起 | 跨项目五现
+「有没有 cli 查询数据的功能。希望做一个 cli 给 ai 查询使用」(lucent 08-11);subtitle-collector 的 collector-cli+SKILL.md;pick/knowledge-base 核心命题「AI 对存储层的原生访问权」;08-25「没法用 cli 的话,需要实现功能的」;**08-27 第五现**:「subtitle-collector 需要 skill 做这个事情,方便我调度」(e3533f06)——CLI 之上再包 skill 层,给 AI 的接口持续升维。
+贯穿五个项目。五现=超成熟,建议直接立课或写入 PHILLOSOPHY(与「图纸与公路」互链)。
 状态:pending
 
 ### [mistakes] virtiofs 宿主机直读 SQLite 损库 | 2026-08-24 翻车 | ✅已定位
@@ -103,6 +103,11 @@ Apple Liquid Glass 官方文档全套中译走通的模式:**一篇文档一个�
 约束:只报核实过的;附「已检查无问题」清单;≤12 项,宁缺毋滥
 ```
 **立课就绪**:三段式(审计→分级→TDD 分批修复)+模板+验证方式(测试)俱全。「CLI for AI」是该工作流的接口层,两课可互链。
+状态:pending
+
+### [apprentice] 「降级凑合为失败」:工具降级的表达课 | 2026-08-27 | 82106df1 ✅素材完整
+原始三问:「没指定 playwright 且没安装,让 AI 访问网站,结果只会用 curl,效果不好——我该怎么表达,能让 AI 先来一层元思考?」「降级凑合为失败。那我应该补充『不降级凑合』就行了对吧?」「那我该怎么表达,又很方便的,没提到标准,然后 AI 自动会不选择 curl 呢?」
+**这是 Z 三要素的姊妹课**:表达里隐含的质量底线——AI 会自作主张降级工具(curl 替 playwright),纠法不是罗列标准,而是给出「不降级凑合」这类否决性原则+触发元思考。对话三问三答结构完整,立课素材即成。
 状态:pending
 
 ## 已决
