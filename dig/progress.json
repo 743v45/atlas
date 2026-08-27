@@ -96,8 +96,8 @@
     {
       "day": "2026-08-23",
       "files": 32,
-      "status": "in-flight",
-      "agent": "dig-0823"
+      "status": "done",
+      "summary": "并行 agent 编队作战日(App/测试/审查三线会战,模式定型);Outline 数据迁飞书确证"
     },
     {
       "day": "2026-08-24",
