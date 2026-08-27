@@ -122,6 +122,118 @@
       "files": 31,
       "status": "done",
       "summary": "pick 批产日(sessions 考古管线运转)+「降级凑合为失败」课素材+CLI for AI 五现+spark 2 条;atlas 建设为已知内容"
+    },
+    {
+      "day": "2026-07-27",
+      "machine": "macbook-air",
+      "files": 19,
+      "status": "done",
+      "agent": "dig-air-0730",
+      "summary": "[本机] longxia 会话开工日(19 subagents 三层审计编队由 2 句话驱动);随 07-30 队翻毕"
+    },
+    {
+      "day": "2026-07-28",
+      "machine": "macbook-air",
+      "files": 28,
+      "status": "done",
+      "agent": "dig-air-0729",
+      "summary": "[本机] robin-cli 编队日(28 subagents,SDD brief/review gate/半成品接力);随 07-29 队翻毕"
+    },
+    {
+      "day": "2026-07-29",
+      "machine": "macbook-air",
+      "files": 11,
+      "status": "done",
+      "agent": "dig-air-0729",
+      "summary": "[本机] robin-cli 一日全生命周期+Maxwell/Kafka 三连问产出两份架构 HTML;4 错题+2 课+3 讲义入 INBOX"
+    },
+    {
+      "day": "2026-07-30",
+      "machine": "macbook-air",
+      "files": 10,
+      "status": "done",
+      "agent": "dig-air-0730",
+      "summary": "[本机] workbuddy 契约三路并行 MVP 跑通+文档库选 Outline(与小天 9 坑互为表里)+「学道才能做好 AI 开发」+docker keychain 翻车"
+    },
+    {
+      "day": "2026-08-03",
+      "machine": "macbook-air",
+      "files": 23,
+      "status": "done",
+      "agent": "dig-air-0803",
+      "summary": "[本机] holdon 支付链日:零指令日志排障+4 小时编队造 recharge-reconciler(大案例);gvm 降 Go 自救;一键登录/Midscene/TKE 三讲义"
+    },
+    {
+      "day": "2026-08-04",
+      "machine": "macbook-air",
+      "files": 7,
+      "status": "done",
+      "agent": "dig-air-0804-05",
+      "summary": "[本机] 类型系统讲义想写 Outline 未遂沉没;磁盘清理四档分级(60G+,AI 只列单人执行)"
+    },
+    {
+      "day": "2026-08-05",
+      "machine": "macbook-air",
+      "files": 14,
+      "status": "done",
+      "agent": "dig-air-0804-05",
+      "summary": "[本机] SQLite 三件套双端验着迁 Mac mini(最完整现场)+WAL 讲义坐实;Surge「不猜了查文档」;五 agent 并发审计 monorepo"
+    },
+    {
+      "day": "2026-08-06",
+      "machine": "macbook-air",
+      "files": 19,
+      "status": "done",
+      "agent": "dig-air-0806-07",
+      "summary": "[本机] 插件整备日:tacit/blackbox/mattpocock 入机;outline skill urllib→curl 大修;11 agents 5m45s 并发写库零失败;假流式判据入 spark"
+    },
+    {
+      "day": "2026-08-07",
+      "machine": "macbook-air",
+      "files": 8,
+      "status": "done",
+      "agent": "dig-air-0806-07",
+      "summary": "[本机] 运维补短板日:「停开新项目,35+ 个」verdict+xiaopacai 纸面样板破除;whisper 逐词降级;k8s 速查讲义"
+    },
+    {
+      "day": "2026-08-14",
+      "machine": "macbook-air",
+      "files": 8,
+      "status": "done",
+      "agent": "dig-air-0814-18",
+      "summary": "[本机] bili 字幕三级调研编队(8 subagents);主会话 mtime 在 08-19,随 0814-18 队翻毕"
+    },
+    {
+      "day": "2026-08-17",
+      "machine": "macbook-air",
+      "files": 1,
+      "status": "done",
+      "agent": "dig-air-0814-18",
+      "summary": "[本机] fud3 集群编号误当 DNS 域后缀翻车(立条就绪)+容器内 DNS 排障三步法+cm 反查讲义"
+    },
+    {
+      "day": "2026-08-18",
+      "machine": "macbook-air",
+      "files": 27,
+      "status": "done",
+      "agent": "dig-air-0818-ds",
+      "summary": "[本机] deepseek-harness 外部仓库深审日:一句话→两轮×10维并发→四件套落盘;哲学七支柱+「门的门」绿≠sound 两讲义;ASR 价格表(d772f3c0)"
+    },
+    {
+      "day": "2026-08-19",
+      "machine": "macbook-air",
+      "files": 14,
+      "status": "done",
+      "agent": "dig-air-0819-27",
+      "summary": "[本机] bili 字幕 9 路调研收口(用户手砍 9 agent)+弃 Outline 选 VitePress「零新增常驻服务」+「让 AI 写」图表库 ECharts"
+    },
+    {
+      "day": "2026-08-27",
+      "machine": "macbook-air",
+      "files": 6,
+      "status": "done",
+      "agent": "dig-air-0819-27",
+      "summary": "[本机] GPU serverless 生意账(GPU 是期权)+图转提示词生图流水线(spark)+任务描述收敛法;atlas 活跃会话 1 个跳过"
     }
   ],
   "note": "并发 16→8:真瓶颈是 API 限流而非 pane(各队 1h 仅 17s CPU,集体等限流)。小天队先行打通链路,之后完成一队补一队"

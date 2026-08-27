@@ -118,6 +118,187 @@ ds-phoneness 原生 App 会战 + subtitle-collector 测试质量会战,模式定
 pick 门禁承诺「有据可溯」,但全库 78 条中 31 条的 meta.sources 存在既非 URL 亦非 raw/ 实路径的纯文本引用(如「Claude 历史会话(2026-08-25)——提取源」)——可溯性承诺未兑现,需重新溯源为 URL 或实路径(raw/ 留档)。
 状态:pending
 
+---
+
+## 待审 · 本机 MacBook Air 批(2026-08-27 dig,15 会话日 194 文件)
+
+> 本批全部来自 MacBook Air 本机存量(与小天 progress 记录分机器统计,互不覆盖)。以下均为新立条;既有条目的本机新证据见本批末尾「+N 例汇总」。
+
+### [mistakes] fud3 集群编号被误当 k8s DNS 域后缀(连环两日) | 2026-08-17/18 | 94e8bf7d + ef20cf99(本机)
+grpc 报 `Name resolution failed for target dns:order.holdcloud-backend.svc.cluster.fud3:8443`;同输入对比:长后缀 ENOTFOUND、短后缀 `.svc` 解析 192.168.70.158。根因:集群真实 DNS 域是 `cluster.local`(resolv.conf search 列表可证),fud3/fud4 只是内部集群编号被误写进配置。修正:统一改短形式 `shinichi.holdcloud-backend.svc:8443`。**用户当时坚信错误结论的原话**:「为什么要改成 cluster.local。明明应该是 fud3」。三段俱全+验证,**立条就绪**。
+状态:pending
+
+### [mistakes] whisper 逐词时间戳必崩:模型仓库变体选错 | 2026-08-06/07 | 2801380a(本机)
+原文「Model outputs must contain cross attentions to extract timestamps...not exported with output_attentions=True」。根因:transformers.js 逐词路径要求 `_timestamped` 变体模型仓库,turbo 用的无后缀仓库不带 cross-attentions,一开逐词即 crash。修正:turbo 禁逐词开关 + 全模型 try/catch 自动降级逐句带警告。
+状态:pending
+
+### [mistakes] urllib 自签 HTTPS 长响应截断(已固化) | 2026-08-05→07 | b0872007→666c3f48→9e00e9e0(本机)
+outline skill 的 `resp.read()` 在自签 HTTPS 上 ~15KB 即 IncompleteRead;修=`_request` 原地换 curl(subprocess,-sk+双重重试),签名不变全调用者受益。**翻车→修 skill→新会话用新 API 发布成功 704ms,三段链完整且修正已固化进 taevas-plugins outline skill,可直录**。
+状态:pending
+
+### [mistakes] 纸面样板冒充生产经验 | 2026-08-07 | c002eaf1(本机)
+xiaopacai 的「全套 K8s/Helm/Prometheus」是从未跑过的纸面样板:三套互相矛盾 CD 管线、`*.example.com`、`wc -h<<EOF` typo、PM2 与 k8s 并存。「读过模板=会生产运维」是误导学习方向的最危险幻觉;修正=学习路线图阶段 3 专破(跑通一次真部署)。
+状态:pending
+
+### [mistakes] E2E 绿灯掩盖配置缺失 | 2026-07-27→30 | 5086a366(本机)
+原文「No entry point found for electron app, please add a "main" field」。根因:E2E 用 `electron out/main/main.js` 直接指定入口**绕过了** package.json main 字段,而 `electron-vite dev` 走 main 字段——验收路径与真实启动路径不一致,测试全过但 dev 起不来。通用根因:**测试通过 ≠ 能跑,当测试路径绕过配置时**。
+状态:pending
+
+### [mistakes] CLI 凭据采集无验证闭环 | 2026-07-28 | 41f4fc3f(本机)
+原文:「你不验证一下吗。我随便填写的。账号密码。」——随手填 "123" 也提示「已保存网关 cookie」。修正=login 即打真实接口验证+密码隐藏输入,后续已落地。
+状态:pending
+
+### [mistakes] subagent 长报告回传截断只剩尾句 | 2026-07-28 | a14286de(本机)
+coordinator 原话:「你的审查完成了,但返回的内容只剩最后一句(--force 无效)。请输出完整的 final review 报告」——final review 险些以一句残片收场。根因方向:subagent 回传通道对长输出有截断,长报告应落盘文件+回传路径而非全靠 final text。
+状态:pending
+
+### [mistakes] task 级 gate 拦不住全局 lint 溃败 | 2026-07-28 | 41f4fc3f(本机)
+原文「lint 全是问题。修复」——28 agent 各过各的 task gate,合并后 lint 全挂。根因:**全局质量门禁须独立于分发单元**,分片各自达标≠整体达标。
+状态:pending
+
+### [mistakes] 小件三则 · 本机合计立一条或并入相关条均可 | 2026-07-28/08-03/08-05 | 41f4fc3f 等
+①commander required option 报错输出两遍+确认清单 `#undefined`(41f4fc3f,07-28);②kubectl -n 误传 workload 路径 `deploy/holdon`(bcbd5d97,08-03);③AI 凭印象断言 Surge 配置「语法对」被打脸,认错原话「这次我查官方文档确认准确写法,不猜了」(c03ea2ba,08-05——AI 的错非用户的错,收否由用户定)。
+状态:pending
+
+### [apprentice·大案例] holdon 支付链调查→对账系统会战 | 2026-08-03 | 22c19544(本机,4 小时一会话)
+完整链:问句「有没有主动处理支付完成的方式」→ Explore 结论「100% 依赖 Webhook、无补偿对账、QueryOrder 定义了从未被调用」→ brainstorming →「A,B,C 都做」→ 13 subagent 按 G1-G4 编队实施(DAO/对账脚本/回调改造/测试)→「会不会重复充值」幂等追问 → 最小上线三步清单;对账形态拍板「不要接口,用脚本」。**调查→设计→编队实施→上线清单完整链,建议以案例形态收编**(与「调查驱动」「并行编队」两候选互为表里)。
+状态:pending
+
+### [apprentice] CLI 鉴权幂等状态机 | 2026-07-28 | 41f4fc3f(本机)
+用户口述设计原文:「gwsupyun 先认证的吧。认证完,就可以记录进配置,每次 auth 看看配置里的可不可用,可用就没必要再配置,除非 force 更新,如果账号已经登录,也没必要再登录,除非 logout,每一步确认鉴权通过」——落地 feature/auth-idempotent 分支并合 develop;配套「配置不存密码存 cookie + salt」「状态码必展示 + 401 关联登录提醒 + 增删改二次确认」三则 UX/安全决策。
+状态:pending
+
+### [apprentice] 零指令纯日志投喂排障 | 2026-08-03 | fbcada82(本机)
+用户只贴一段生产日志、不说一个字,systematic-debugging 驱动 AI 自主走完证据收集→三层根因(TradeQuery 诊断字段全丢弃/IsSuccess 是「API 调用成功」非「支付成功」/回调 500 触发重试且已付款单不入账),根因落 recharge.go:171-173 可验证,收尾「涉及生产资金代码,需要你拍板」。可验证(文件行号在案)。
+状态:pending
+
+### [apprentice] 多 agent 并发产长文档库 | 2026-08-06 | b0872007(本机)
+11 agents(10 独立定位报告+1 汇总索引)统一结构、每 agent 直写 Outline 回传真实 URL,**5 分 45 秒 11/11 零失败**;验证=URL 回传+curl 探路由 200。与编队条目互证,此条的独立价值=「回传真实 URL 自验证」闭环。
+状态:pending
+
+### [apprentice] UI 像素级复刻验证法 | 2026-08-04/05 | d4e72e2c(本机)
+逐元素 computed style 坐标/尺寸对照表(官方 vs 复刻,`24,22/104×20 ✓完全一致` 式逐项核对);两根因可复用:覆盖组件只复制 HTML 漏默认 `<style>` 的 @media 布局→塌陷;字号误用首页大字号。验证方式=对照表本身(同输入对比)。
+状态:pending
+
+### [apprentice] k8s 容器内 DNS 排障三步法 + exec 前先探可用工具 | 2026-08-17 | 94e8bf7d(本机)
+第 0 步:报错栈是 node 不代表容器有 node(`exec: "node": executable file not found` 后先探 nslookup/getent/nc 再 exec);① 查容器 resolv.conf 的 search 列表定集群真实域;② 同名多后缀对比查询一次性证伪。验证=三种查询对照表。
+状态:pending
+
+### [apprentice] 「教我怎么做,不要替我操作」:生产集群人机分工边界 | 2026-08-18 | ef20cf99(本机)
+同会话两现原话:「你别主动给我改。我自己来改」「遇到域名解析问题…怎么排查(不要替我操作)」——生产环境里 AI 只排查讲解、用户亲手执行。与全局「只读纪律」及 spark「只读约束前置声明」同构,可立课或升 CLAUDE 规则。
+状态:pending
+
+### [apprentice] 任务描述收敛法 | 2026-08-26 | 9e446262(本机)
+「怎么描述专业点、收敛点」四要点:「做个 demo」→最小可运行示例+验收命令=停机条件;「子目录」→直接给目录名;动词不明→明确 append 到 CLAUDE.md;两事混一句→拆任务。核心一句**「每条诉求都补上『做到什么算完』」**;同日 1a161a0b 用收敛后描述实跑通 Quartz demo,验证在案。与 describe-the-goal/先复述再执行同族,合并与否由用户定。
+状态:pending
+
+### [apprentice] 外部工具配额耗尽降级链(收编:0804-05 队新维度提案) | 2026-08-05 | 4e92d911 + c03ea2ba(本机)
+WebSearch 周配额耗尽 → WebFetch 被网络策略挡 → webReader MCP 429 → 最后退到本机确定性路径(直接抓原文);AI 每次主动换通道并同步「查到/没查到」。两例同日同根因,形态是工具降级预案(单课),不建馆。
+状态:pending
+
+### [asked] 类型系统与形式化验证讲义 | 2026-08-04 | 19315383(本机)
+完整自洽讲义:静态/动态×强/弱、soundness、safety/liveness、模型检测 vs 定理证明(工具对照)、Curry–Howard 同构、保证强度谱系图。**正是已决区 asked 建馆条「待回读补录」的类型系统源头**;用户令「写进 outline,你可以丰富一下」后会话止于等 API token——讲义沉在对话里,恢复即可入库。
+状态:pending
+
+### [asked] deepseek-harness 设计哲学七支柱 | 2026-08-18 | 78f956bc(本机)
+第一性假设「读者与贡献者是跨 session 无记忆的 AI agent」推出全仓设计;七支柱(一切皆插件/单一事实源其余皆投影/信任边界由序列化介质枚举/capability seam 按演化速率划界/响亮失败/判断落成机器可校验工件/测试即证据)+五个最反常规决策。**讲义已完整落盘该仓 analyze/KEY_POINTS.md + DESIGN_PHILOSOPHY.md——建议建指向条目,不搬正文**。
+状态:pending
+
+### [asked] 「门的门」:绿≠sound,漂移全部发生在层间缝隙 | 2026-08-18 | 163afc75(本机)
+「CI 每次对真实仓库执行全部 gate——绿只证明『接受当前仓库』,不证明『拒绝坏仓库』」;发现 2 个孤儿 gate(含供应链门)+治理代码本身豁免覆盖率门;核心观察「每个门只守自己那一小片,门与门之间无人守望」——散文↔磁盘、gate存在↔gate执行、注释↔行为三种层间缝隙。**对 atlas 自身 build 门禁体系是直接镜子**。
+状态:pending
+
+### [asked] Maxwell→Kafka 分区不均:producer_partition_by 默认全挤一区 | 2026-07-29 | 93c2dae1(本机)
+CMAK 实测:3 分区中 partition 1 独占 410 万 offset、0/2 为零;verdict=改 primary_key(均匀+同主键有序);顺序语义从同库有序变同主键有序,下游须幂等 upsert。**产出 ~/docs/maxwell-architecture.html(24KB,存在),source 现成**。
+状态:pending
+
+### [asked] Kafka 使用架构五节讲义 | 2026-07-29 | 5bd0d732(本机)
+单问「kafka 使用架构逻辑」→ 组件/协调层(ZK/KRaft/Rebalance)/关键语义(acks/ISR/交付语义)自成体系。**产出 ~/docs/kafka-architecture.html(19KB,存在),source 现成**。
+状态:pending
+
+### [asked] Maxwell 重启循环根因在下游 Kafka 不在自身 | 2026-07-29 | 3a45dd34(本机)
+ERROR「Topic 'maxwell-robinlogs' name does not exist. Failed to update metadata」→ 判读:supervisor 反复拉起的重启循环,三种根因按概率排序+老版本提醒;同日下午 CMAK 显示 topic 恢复 46k msg/s(间接闭环,修正未在本会话回验)。
+状态:pending
+
+### [asked] 「学道才能做好 AI 开发吗。为什么」 | 2026-07-30 | fccac3ef(本机)
+道拆两层:技术之道(第一性原理,必然需要)与哲学之道(非必要但与概率性 LLM 系统深度共鸣)——「生而不有,为而不恃,长而不宰」即 Agent 设计纲领(越主宰越像被 micromanage 的员工),「反者道之动」对应 overfit 评测/过度护栏/过度堆工具三例;划界:哲学给方向感替代不了工程能力。
+状态:pending
+
+### [asked] Serverless GPU 生意账 | 2026-08-27 | 55c6c0ea(本机)
+存算分离推理全景(Modal/RunPod/Baseten/Replicate 两类),scale-to-zero 月沉没 ~100 元、H3 单条 ~7 毛,金句**「GPU 不是资产是期权」**;出路四条+止损线「4 周+200 元没首单→关掉」;内含纠偏(GMI 免费名单实际不含 H3)。artifacts 已落 ~/docs/model-storage-compute-split.html。
+状态:pending
+
+### [asked] k8s 入门速查讲义 | 2026-08-07 | 86bf1d57 + 0217db00 + c11736ad(本机)
+一天连环问:kubectl 三场景命令组+14 资源缩写术语+层级结构+「服务和脚本怎么区分」,AI 分场景表格长答自洽成体系。背景=c002eaf1 报告定位短板(「强语言弱运维」能力画像),属 k8s 补短板学习线一部分。
+状态:pending
+
+### [asked] k8s 配置怎么查:deploy→引用→cm/secret 反查讲义 | 2026-08-17 | 94e8bf7d(本机)
+「配置怎么查询。cm 么」→ deploy 本身不存配置只引用(envFrom/volumes),路径=deploy→找 cm/secret 名→查内容;附 cm/secret/envFrom 的 jq 提取命令集。
+状态:pending
+
+### [asked] Outline 信息架构方法论 | 2026-08-06 | 666c3f48(本机)
+collection vs 文档层级判据(独立知识域/权限边界→collection;同域细分→父文档)、深度 1-4 层上限、单层>7 拆/平铺>15 分组、命名约定、决策树;已写进 outline skill 文档(artifact 存在)。
+状态:pending
+
+### [asked] Surge 规则匹配语义:顺序优先于精确度 | 2026-08-05 | c03ea2ba(本机)
+从上到下命中即停、不按精确度;/32 跳板规则必须排在 10.0.0.0/8 DIRECT 之前;验证法=Dashboard 看该请求 Policy 列。注意:ssh proxy 行最终语法未确认,会话止于「查官方手册」,**无走通记录,入库前须补验**。
+状态:pending
+
+### [asked] TKE 访问四场景 + kubectl 上手 | 2026-08-03 | bcbd5d97(本机)
+控制台/kubectl+kubeconfig/集群内应用/TCR 四场景分流;网络接入是卡点最多一步;CAM→RBAC 映射错会 forbidden;当日实走通 tccli configure→DescribeClusterKubeconfig→kubectl 查 ns/pod(验证在案)。
+状态:pending
+
+### [asked·查重待定] 移动端一键登录原理 | 2026-08-03 | 1a4670dc(本机)
+蜂窝网关识别 SIM 取号、两段式、三网聚合 SDK、客户端只拿 token 明文仅服务端兑换、成功率 80~95% 必须留短信回退。**asked 已有「一键登录」条(08-27 从小天源对话恢复)——本机此条是否同源重复,入库前查重**。
+状态:pending
+
+### [asked·待复核] Midscene.js 是什么/怎么用 | 2026-08-03 | e60c5e28(本机)
+字节开源 LLM 驱动 UI 自动化:自然语言(aiAction/aiAssert/aiQuery)代替选择器,含 bridge mode/Android/Chrome 扩展形态。⚠️ 联网核对被 429 周限挡住,答基于知识库——**入库前须复核版本与现状**。
+状态:pending
+
+### [asked] 小件三则 · 本机可合并入速查类 | 2026-08-18 等 | fae29b5b 等
+①macOS 命令行启动 Docker Desktop:`open -a Docker` + `until docker info; do sleep 2; done` 轮询就绪(fae29b5b,08-18);②警示图标三态语义:alert-circle/triangle/info 梯度(306bcfd9,08-06,价值一般);③看到 {花括号} 系统提示词=未渲染模板占位符(4e92d911,08-05,弱)。
+状态:pending
+
+### [pick] 自动化开发平台三层栈 | 2026-08-05/06 | b0872007(本机)
+verdict:multica(①协作/平台/远程)+ Claude Code/Deep Agents(②规划大脑)+ Langfuse(③可观测);备选 oh-my-claudecode/Orca/三省六部Edict/OMA/Plandex/MetaGPT;10+1 份统一 12 节定位报告已入 Outline「技术设计」。**②层是否接受 Claude 绑定是唯一真分叉,未拍板(留给公司决策)——pick 条目需注明此分叉**。
+状态:pending
+
+### [pick] 文档知识库选 Outline(自托管) | 2026-07-29/30 | 5895b3c2(本机)
+真人三条件「最火+AI 接入+好看」→ AI 对比 Outline/Dify/RAGFlow/Docusaurus/VitePress/BookStack/Obsidian/AFFiNE,verdict=Outline(Obsidian pass:无现成 MCP/API;AFFiNE pass:自托管微服务地狱);用户随后真去 docker 部署(363279f3 行为验证)。**与小天 53f490e3 的「Outline 9 坑实录」互为表里:一条记「为什么选」,一条记「部署的坑」,建议 related 互链;结局(08-25 弃用迁飞书)两条都该写进 verdict 时间线**。
+状态:pending
+
+### [pick] 「让 AI 写」前提下的图表库:ECharts | 2026-08-18 | 31db8d0e(本机)
+问桑基图用什么画,用户限定「最佳用什么。让 ai 写」,verdict=ECharts——声明式 JSON 配置(option 对象)AI 生成准确率远高于命令式代码,自包含 HTML 落 docs/ 即开、可闭环验证。**适用域:「AI 代写」前提——可作 pick 内标签维度**。
+状态:pending
+
+### [pick] 股票 wiki 底座:VitePress(弃 Outline) | 2026-08-19 | c963d226(本机)
+思源/Obsidian(编辑器形态不匹配「AI 写、人看」)→ 初定 Next.js+shadcn → 勘察发现 Mac mini 已有 Caddy Docker 栈 → 终判「VitePress 是唯一零新增常驻服务的选项」。附带勘察课:`which docker` 找不到只是 PATH 问题,com.docker 进程在监听 80——**查进程/端口勿信 PATH**。注意演变:08-26 又做 Quartz 5 demo(1a161a0b),是否换轨未定,入库如实标注。
+状态:pending
+
+### [维度观察] API 额度与登录态墙 | 2026-08-03 起 | 3 例(本机)
+账号时段限(403 Please run /login 会话报废)/工具周限(webReader 429 reset 08-14)/登录态失效,撞墙后行为分叉:换知识库答/弃会话/换时段。**建议先收编进「环境与装机」维度观察,满 5 例再议是否门户视图**。
+状态:pending
+
+### [维度观察] Outline=统一知识归宿(定性反转证据) | 2026-08-04→07 | 4 会话(本机)
+本机证据显示 Outline 在 08-06/07 是**活跃知识归宿而非沉没**:两 collection 实际落地(「技术设计」11 份选型报告、「商业洞察」抖音长文剪藏,一字未删+来源标注,幂等 curl 脚本可重跑)+ 专用 skill + IA 方法论。**与小天沉没清单条(结局:08-25 弃用迁飞书)合起来才是全貌——定夺沉没清单时参考,不改原条目**。
+状态:pending
+
+### [维度观察] holdcloud 生产集群运维(k8s) | 2026-08-17/18 | 2 会话(本机)
+DNS 域、ConfigMap/Secret、跨 ns 服务发现连续排障。**收编**:排障方法→apprentice、fud3 翻车→mistakes、cm 查询讲义→asked(均已在上面单列);无独立门禁不建馆,门户可挂「运维」标签观察复发。
+状态:pending
+
+### [批注] 既有条目 +N 例汇总(本机新证据,不动原条目,并入与否用户定) | 2026-08-27 dig(本机)
+- **并行 agent 编队作战 +8 例**:robin-cli 28-subagent SDD 编队(41f4fc3f,07-28:brief 拆分/每任务 review gate/whole-branch merge gate/被 kill subagent 半成品接力/小任务合批);longxia 2 句话驱动 19-agent 三层审计(0bf6bb65,07-27,产出 C1-C14 编号问题清单);workbuddy 契约先行三路并行(5086a366,07-27→30,接口契约解耦+目录硬边界,MVP 真跑通);holdon G1-G4+集成缝隙(22c19544,08-03:11 实施 agent 跑完后 Makefile 漏加 reconciler 由主线兜底);subagent 当验证关卡(ec4cff00,08-05:build 验证/ff merge/chrome 重跑);11 agents 并发写库(见上条);deepseek-harness 维度切分法(78f956bc,08-18:两轮各 10-11 片,每片带必读清单+穷举指令,单会话 2-6 分钟/轮 16 分钟);bili 9 路调研十分钟齐发+用户中途手砍(08-13/08-27,a14f4448 再派 5-scout);三级编队调研+Plan→实现接力(6d38e98f,08-14/18)
+- **调查/审计驱动工作流 +6 例**:零指令纯日志排障(fbcada82)+zaiwu 文案语义漂移(311d68d6,「在线」实为「已用」)均 08-03;磁盘清理四档分级(305c70cd,08-04:3 subagent 并行扫 60G+ 四档清单+高危警示,「你被操作,我来执行」→后更正「你别操作」);mymy 五维审计(c002eaf1)+kubectl 只读盘点(c11736ad)+两轮 workflow(b0872007)均 08-06/07;longxia 全量审计改变选型成本计算(审计发现全是 RN 平台限制而非代码 bug);「先勘察既有资产再动手」再现(08-19/27:c963d226/a14f4448/55c6c0ea)
+- **环境与装机 +4 例**:gvm -B 二进制装旧 Go 自救(a21c295f,08-03,与 go1.23×2021 x/net 链接断裂 22c19544 同根两解:WHAT 绕过 vs 降 Go 版);pnpm「cannot find binary path」实为系统未装 pnpm+报错误导(e054800d,08-06);Mac mini(10.0.0.100)已有完整 Caddy Docker 栈被勘察确认(c963d226);multica 全迁+密钥单独保存「配置 key 数据不进 git,但是找得到」(2801380a,08-06/07)
+- **Outline 沉没清单 +4 例**:类型系统讲义想写未遂(19315383,08-04,「想写入未遂」新形态);WAL 讲义来源坐实(84c7c408,08-05);docker pull 被 keychain 挡死(363279f3,07-30,拉公开镜像也机械读 keychain);弃 Outline 选 VitePress 时「排版是硬伤」(c963d226,08-19)
+- **SQLite 迁移+WAL +1 例(最完整现场)**:三件套双端验着迁本机→Mac mini(84c7c408,08-05:WAL 0 字节→lsof/ps→本地 quick_check→三件套同传 285MB 40s→远程逐字节对比+quick_check→打耗时)
+- **Z 漂移「光做没产出」 +1 强例**:报告 verdict 原文「停开新项目。你已经有 35+ 个了」+35+ 独立 git 仓库非 monorepo 实况(c002eaf1,08-07)
+- **tacit 插件 +1 例**:插件试用流水线在本机启用侧走通(155bb185/c3ff4cb1,08-06,tacit+blackbox+mattpocock-skills 装删)
+- **pick 起源对话 +1 例(更早源头)**:ASR 选型与 2026 价格表(d772f3c0,08-18)——比 fce485e7(08-24)早 6 天,分场景 verdict+每小时价格表带来源链接
+- **CLI 安装败于环境版本 +1 例**:go1.23.4×2021 版 x/net 链接断裂(22c19544,08-03,新版编译器×老依赖符号漂移)
+
 ## 已决
 
 - [维度] asked(08-27)→ promoted:建馆 atlas/asked(五馆齐);首批 4 篇恢复入库:两种雾/数据库全景/WAL/一键登录;其余 4-5 例(类型系统/审美/gherkin/双向链接/AI 深度幻觉)待回读源对话后补录

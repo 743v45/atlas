@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>转卖瑞幸咖啡卡券的生意可行性 · spark</title>
+<title>「假流式」判据:end-to-end token delta 才是真流式 · spark</title>
 <style>
   :root {
     --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
@@ -70,13 +70,14 @@
 </head>
 <body>
 <main>
-  <nav class="spark-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../image-to-prompt-pipeline/spark.html">← 图→提示词→多平台生图流水线</a><span class="sep">·</span><a href="../readonly-first-in-prompt/spark.html">只读约束前置声明:安全边界写在指令首行 →</a></nav>
+  <nav class="spark-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../ai-output-untodo/spark.html">← AI 产出去待办化:知识库文档不要「下一步」</a><span class="sep">·</span><a href="../image-to-prompt-pipeline/spark.html">图→提示词→多平台生图流水线 →</a></nav>
   <article>
   <span class="seal seal-big" style="--vb:#fab219" title="灵感"><i></i>念</span>
-<h1>转卖瑞幸咖啡卡券的生意可行性</h1>
-<blockquote>闲鱼转卖瑞幸券:形态(兑换码/通兑券/代下单)、货源(官方促销/企业团购/员工价)、风险(官方风控/平台规则)——2026-08-26 已做一轮网络摸底调研(research 会话 b4aa7c4d),结论待挖;xianyu-scout agent 源于此。</blockquote>
+<h1>「假流式」判据:end-to-end token delta 才是真流式</h1>
+<blockquote>longxia 审计发现同一系统两层都在假装流式:BFF 层「流式」实为 350ms tail CLI 写的文件再 diff(fs.watch 不可靠到要 800ms 轮询兜底,watcher 成装饰);RN 层 fetch 不暴露 getReader,平板上流式也是假的。提炼判据:<strong>end-to-end token delta 才是真流式,「轮询+diff+重发」都是假流式</strong>,且每层各自造假会叠加延迟。判据未实测验证,提炼自审计(C2/C4)。</blockquote>
+<p>来源:本机 MacBook Air dig(0bf6bb65 | 2026-07-27 | holdcloud-longxia)。</p>
 <h2>怎么试</h2>
-<ul><li>回读 b4aa7c4d 的调研报告结论:利润率、风险敞口、货源可得性</li><li>若结论为「不可行」→ dropped,死因写清(风险/利润/时间成本哪项毙的)</li></ul>
+<ul><li>在任一真实流式链路上做端到端 token 到达时间对比,验证判据可测</li><li>走通后毕业去 apprentice(判据类)或直接当审计 checklist 项</li></ul>
   </article>
   <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>

@@ -1,0 +1,7 @@
+{
+  "name": "「假流式」判据:end-to-end token delta 才是真流式",
+  "date": "2026-07-27",
+  "status": "idea",
+  "tags": ["流式", "审计判据", "dig"],
+  "graduated_to": null
+}
