@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chroma · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/ai-app-dev.html">AI 应用工程</a><span class="sep">·</span><span>向量数据库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../elasticsearch/report.html">Elasticsearch →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Chroma</h1>
+<blockquote><strong>TL;DR</strong>：原型最快路径——<code>pip install chromadb</code> 即用的嵌入式向量库，零配置起步；分布式与生产能力是短板，定位正转向「Search infrastructure for AI」。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/chroma-core/chroma">https://github.com/chroma-core/chroma</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">pushed 2026-09-17，⭐29,315（gh 2026-09-17）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">定位</td><td style="text-align:left">仓库描述「Search infrastructure for AI」（2026-09-17 快照）；Chroma Cloud 商业化并行</td><td style="text-align:left">[1][2]</td></tr></tbody></table>
+<h2>为什么选（作为 trial）</h2>
+<ul><li><strong>上手摩擦全场最低</strong>：Python 进程内跑、默认本地持久化，几行代码出第一个 RAG 原型；教学与 notebook 场景事实标准 [2]。</li><li><strong>默认嵌入打包</strong>：内置默认嵌入函数，BYO 模型也可换；LangChain/LlamaIndex 教程普遍拿它当示例库 [2]。</li><li><strong>社区体量大</strong>：⭐29.3k，超过 Qdrant 与 pgvector 之外的大多数对手 [1]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs pgvector：同为「轻起步」答案——pgvector 换来的是与业务库同事务+生产即视感；Chroma 换来的是零 PG 依赖的纯本地开发体验 [2][3]。</li><li>生产化路径：单机/客户端-服务器模式可用但分布式能力弱于 Qdrant/Milvus，规模上去要迁移——迁移本身不难（数据导出），但索引参数体系要重建 [2][3]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>商业化转型期</strong>：重心向 Chroma Cloud 移动（新定位描述可见），开源单机版的演进节奏需持续观察 [1][2]。</li><li>混合检索（关键词+dense）能力有限，做 hybrid RAG 不是它的强项 [3]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/chroma-core/chroma">https://github.com/chroma-core/chroma</a>（gh 2026-09-17：Apache-2.0、⭐29,315、pushed 2026-09-17）</li><li>官方文档 — <a href="https://docs.trychroma.com/">https://docs.trychroma.com/</a>（2026-09-17）</li><li>口碑调研 — raw/2026-09-17/web/vector-databases-tavily-report.md（2026-09-17）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：本地原型默认，生产换库</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

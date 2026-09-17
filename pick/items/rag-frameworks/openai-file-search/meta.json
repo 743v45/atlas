@@ -1,0 +1,21 @@
+{
+  "name": "OpenAI File Search",
+  "homepage": "https://platform.openai.com/docs/assistants/tools-file-search",
+  "license": "闭源",
+  "verdict": "trial",
+  "summary": "Assistants 内置的一行调用 RAG：上传文件即得检索增强回答，原型最快；仅 OpenAI 栈、向量库黑盒、控制力最低",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://platform.openai.com/docs/assistants/tools-file-search"
+  ],
+  "tags": ["rag", "managed", "openai"],
+  "matrix": {
+    "形态": "托管 API",
+    "许可": "闭源",
+    "成本": "按量付费（存储+查询）",
+    "RAG 能力": "黑盒（自动切块/嵌入）",
+    "agentic 支持": "Assistants 工具链内",
+    "上手路径": "一行 API 调用"
+  }
+}

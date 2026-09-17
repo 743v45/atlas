@@ -1,0 +1,21 @@
+{
+  "name": "Azure AI Search",
+  "homepage": "https://learn.microsoft.com/azure/search/",
+  "license": "闭源",
+  "verdict": "assess",
+  "summary": "托管三家能力天花板：hybrid+语义 ranker、字段级权限、企业合规最全；只在 Azure 栈内才是正解，栈外无理由引入",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://learn.microsoft.com/azure/search/"
+  ],
+  "tags": ["rag", "managed", "azure"],
+  "matrix": {
+    "形态": "托管 API",
+    "许可": "闭源",
+    "成本": "按 Search Unit 计费",
+    "RAG 能力": "hybrid+语义 ranker，可调项多",
+    "agentic 支持": "Azure AI Agent 集成",
+    "上手路径": "Portal/SDK，Azure 体系内"
+  }
+}

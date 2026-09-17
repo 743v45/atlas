@@ -1,0 +1,33 @@
+{
+  "name": "Milvus",
+  "repo": "https://github.com/milvus-io/milvus",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "十亿级向量的重炮：LF AI 毕业项目 + Zilliz 商业背书，超大规模吞吐第一梯队，代价是分布式全家桶运维",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/milvus-io/milvus",
+    "https://milvus.io/docs"
+  ],
+  "tags": [
+    "rag",
+    "vector-search",
+    "distributed"
+  ],
+  "matrix": {
+    "形态": "专用向量库（分布式）",
+    "许可": "Apache-2.0",
+    "成本": "免费·自托管+云",
+    "混合检索": "dense+sparse",
+    "部署": "集群优先",
+    "规模定位": "十亿级"
+  },
+  "stats": {
+    "source_repo": "milvus-io/milvus",
+    "stars": 46138,
+    "pushed_at": "2026-09-17",
+    "license": "Apache-2.0",
+    "collected_at": "2026-09-17"
+  }
+}

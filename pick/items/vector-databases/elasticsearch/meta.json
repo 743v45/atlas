@@ -1,0 +1,33 @@
+{
+  "name": "Elasticsearch",
+  "repo": "https://github.com/elastic/elasticsearch",
+  "license": "AGPL-3.0",
+  "verdict": "assess",
+  "summary": "BM25+向量混合检索最成熟的搜索引擎，kNN 能力生产验证充分；三轨 license 与 JVM 重度运维使它只对存量 ES 栈用户顺手",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/elastic/elasticsearch",
+    "https://www.elastic.co/search-labs"
+  ],
+  "tags": [
+    "rag",
+    "search-engine",
+    "hybrid-search"
+  ],
+  "matrix": {
+    "形态": "搜索引擎",
+    "许可": "AGPL/SSPL/ELv2 三轨",
+    "成本": "免费·自托管+云",
+    "混合检索": "BM25+向量原生",
+    "部署": "集群",
+    "规模定位": "亿级+"
+  },
+  "stats": {
+    "source_repo": "elastic/elasticsearch",
+    "stars": 77923,
+    "pushed_at": "2026-09-17",
+    "license": "NOASSERTION",
+    "collected_at": "2026-09-17"
+  }
+}

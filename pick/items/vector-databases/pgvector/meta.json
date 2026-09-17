@@ -1,0 +1,33 @@
+{
+  "name": "pgvector",
+  "repo": "https://github.com/pgvector/pgvector",
+  "license": "PostgreSQL",
+  "verdict": "adopt",
+  "summary": "已有 Postgres 就从这里起步：一条 CREATE EXTENSION 获得向量检索，ACID/权限/备份全部白拿，千万级向量内不用考虑换库",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/pgvector/pgvector",
+    "https://github.com/pgvector/pgvector/blob/master/README.md"
+  ],
+  "tags": [
+    "rag",
+    "postgres",
+    "vector-search"
+  ],
+  "matrix": {
+    "形态": "Postgres 插件",
+    "许可": "PostgreSQL",
+    "成本": "免费·自托管",
+    "混合检索": "SQL 全文+向量",
+    "部署": "随 PG 走",
+    "规模定位": "千万级向量内"
+  },
+  "stats": {
+    "source_repo": "pgvector/pgvector",
+    "stars": 23040,
+    "pushed_at": "2026-09-10",
+    "license": "NOASSERTION",
+    "collected_at": "2026-09-17"
+  }
+}

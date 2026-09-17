@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LangChain / LangGraph · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/ai-app-dev.html">AI 应用工程</a><span class="sep">·</span><span>RAG 框架与平台</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../haystack/report.html">← Haystack</a><span class="sep">·</span><a href="../llamaindex/report.html">LlamaIndex →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>LangChain / LangGraph</h1>
+<blockquote><strong>TL;DR</strong>：生态最大的 LLM 编排框架——LangGraph 承担 agentic 编排后主业已转向 agent 工程（仓库自述「The agent engineering platform」），RAG 教程、集成与招聘 JD 三料事实标准。</blockquote>
+<ul><li><strong>结论</strong>：adopt 推荐</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a>（⭐146,512、pushed 2026-09-17，gh 2026-09-17）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">LangGraph</td><td style="text-align:left"><a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a>（⭐41,810、MIT、pushed 2026-09-17，gh 2026-09-17）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">配套</td><td style="text-align:left">LangSmith（观测/评估，商业）、LangGraph Platform（部署）</td><td style="text-align:left">[3]</td></tr></tbody></table>
+<h2>为什么选（作为 adopt）</h2>
+<ul><li><strong>生态与人才市场双第一</strong>：⭐146.5k 全场最高；模型/向量库/加载器集成覆盖最广；agent 工程师 JD 的事实关键词（本次选型动机）[1][3]。</li><li><strong>agentic RAG 路径完整</strong>：LangGraph 以状态图/检查点编排多步 agent 流程，「检索作为 tool」的 agentic RAG 主流实现路径，2026 年第三方基准将 LangChain+LangGraph 列为同 workload 对比组 [4]。</li><li><strong>1.0 后口碑回稳</strong>：早期抽象过重争议后，核心 API 收敛、LangGraph 成独立稳定项 [3]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs LlamaIndex：RAG 纯度与数据抽象 LlamaIndex 更深；编排广度、agent 生态、就业市场 LangChain 胜——两者常同栈使用（LlamaIndex 管检索、LangGraph 管编排）[4]。</li><li>vs DSPy：DSPy 管优化不管编排，可在 LangChain 管线之上叠加做 prompt 调优 [4]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>抽象层数多，链路调试比裸写难；不熟悉时容易「会用不知道为什么」——学习期建议同时裸写一版对照。</li><li>商业件（LangSmith/Platform）与开源件边界要分清，避免默认依赖托管服务 [3]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/langchain-ai/langchain">https://github.com/langchain-ai/langchain</a>（gh 2026-09-17：MIT、⭐146,512、pushed 2026-09-17，描述「The agent engineering platform」）</li><li>GitHub 仓库 — <a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a>（gh 2026-09-17）</li><li>官方文档 — <a href="https://python.langchain.com/">https://python.langchain.com/</a> 、<a href="https://langchain.com">https://langchain.com</a>（2026-09-17）</li><li>第三方基准 — AIMultiple 2026-08-04 五框架同 workload 横评（GPT-4.1-mini + BGE-small），原始输出留档 raw/2026-09-17/web/rag-frameworks-tavily-report.md</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录：生态/JD 事实标准，agentic RAG 主路径</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

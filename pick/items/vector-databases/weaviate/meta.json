@@ -1,0 +1,33 @@
+{
+  "name": "Weaviate",
+  "repo": "https://github.com/weaviate/weaviate",
+  "license": "BSD-3-Clause",
+  "verdict": "trial",
+  "summary": "内置混合检索 + 模块化推理的老牌向量库：BM25+向量原生融合、模块在库内做嵌入/重排，BSD-3 许可最干净",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/weaviate/weaviate",
+    "https://weaviate.io/developers"
+  ],
+  "tags": [
+    "rag",
+    "vector-search",
+    "hybrid-search"
+  ],
+  "matrix": {
+    "形态": "专用向量库",
+    "许可": "BSD-3-Clause",
+    "成本": "免费·自托管+云",
+    "混合检索": "内置 BM25+向量",
+    "部署": "单机/集群/云",
+    "规模定位": "亿级"
+  },
+  "stats": {
+    "source_repo": "weaviate/weaviate",
+    "stars": 16815,
+    "pushed_at": "2026-09-17",
+    "license": "NOASSERTION",
+    "collected_at": "2026-09-17"
+  }
+}

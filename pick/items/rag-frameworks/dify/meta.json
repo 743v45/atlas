@@ -1,0 +1,33 @@
+{
+  "name": "Dify",
+  "repo": "https://github.com/langgenius/dify",
+  "license": "Apache-2.0（修改版，含多租户限制）",
+  "verdict": "trial",
+  "summary": "低代码 LLM 应用平台头部（⭐156k 全场最高）：可视化编排+知识库+Agent 一站式，快速搭内部应用首选；深度定制与多租户商用是天花板",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/langgenius/dify",
+    "https://docs.dify.ai/"
+  ],
+  "tags": [
+    "rag",
+    "low-code",
+    "platform"
+  ],
+  "matrix": {
+    "形态": "低代码平台",
+    "许可": "修改版 Apache-2.0",
+    "成本": "免费·自托管+云",
+    "RAG 能力": "内置知识库，切块策略偏默认",
+    "agentic 支持": "可视化 Agent/工作流",
+    "上手路径": "Web UI 为主，插件/API 扩展"
+  },
+  "stats": {
+    "source_repo": "langgenius/dify",
+    "stars": 156096,
+    "pushed_at": "2026-09-17",
+    "license": "NOASSERTION",
+    "collected_at": "2026-09-17"
+  }
+}

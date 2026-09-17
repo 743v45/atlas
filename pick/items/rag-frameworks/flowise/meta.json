@@ -1,0 +1,33 @@
+{
+  "name": "Flowise",
+  "repo": "https://github.com/FlowiseAI/Flowise",
+  "license": "Apache-2.0（enterprise 目录商业双轨）",
+  "verdict": "hold",
+  "summary": "拖拽式 LangChain 可视化编排：教学与原型直观，但生产路径弱，定位被 Dify（平台化）与手写（可维护）两头挤压",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/FlowiseAI/Flowise",
+    "https://docs.flowiseai.com/"
+  ],
+  "tags": [
+    "rag",
+    "low-code",
+    "visual"
+  ],
+  "matrix": {
+    "形态": "低代码平台（可视化）",
+    "许可": "Apache-2.0+商业双轨",
+    "成本": "免费·自托管+云",
+    "RAG 能力": "依赖外接向量库",
+    "agentic 支持": "拖拽 Agent/Chatflow",
+    "上手路径": "Web UI 拖拽，最直观"
+  },
+  "stats": {
+    "source_repo": "FlowiseAI/Flowise",
+    "stars": 55466,
+    "pushed_at": "2026-08-13",
+    "license": "NOASSERTION",
+    "collected_at": "2026-09-17"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Qdrant",
+  "repo": "https://github.com/qdrant/qdrant",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "Postgres 不够用后的第一升级：Rust 内核、payload 过滤与量化是强项，Apache-2.0 且云/自托管同核，亿级向量性价比均衡",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/qdrant/qdrant",
+    "https://qdrant.tech/documentation/"
+  ],
+  "tags": [
+    "rag",
+    "vector-search",
+    "rust"
+  ],
+  "matrix": {
+    "形态": "专用向量库",
+    "许可": "Apache-2.0",
+    "成本": "免费·自托管+云",
+    "混合检索": "dense+sparse",
+    "部署": "单机/集群/云",
+    "规模定位": "亿级"
+  },
+  "stats": {
+    "source_repo": "qdrant/qdrant",
+    "stars": 34628,
+    "pushed_at": "2026-09-17",
+    "license": "Apache-2.0",
+    "collected_at": "2026-09-17"
+  }
+}

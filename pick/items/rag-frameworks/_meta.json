@@ -1,0 +1,6 @@
+{
+  "name": "RAG 框架与平台",
+  "description": "检索增强生成落地选型四路线：代码框架（LangChain / LlamaIndex / Haystack / DSPy）、低代码平台（Dify / RAGFlow / Flowise）、托管 API（OpenAI File Search / Azure AI Search / Vertex AI Search）",
+  "order": 10,
+  "columns": ["形态", "许可", "成本", "RAG 能力", "agentic 支持", "上手路径"]
+}

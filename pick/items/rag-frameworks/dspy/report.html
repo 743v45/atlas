@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSPy · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/ai-app-dev.html">AI 应用工程</a><span class="sep">·</span><span>RAG 框架与平台</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../dify/report.html">← Dify</a><span class="sep">·</span><a href="../flowise/report.html">Flowise →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>DSPy</h1>
+<blockquote><strong>TL;DR</strong>：把 prompt 变成程序的声明式框架——用签名定义输入输出、用指标驱动的优化器自动调 prompt；定位是管线的「优化层」而非完整编排，可与 LangChain/LlamaIndex 叠加。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/stanfordnlp/dspy">https://github.com/stanfordnlp/dspy</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">pushed 2026-09-17，⭐38,088（gh 2026-09-17）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">背景</td><td style="text-align:left">Stanford NLP 出品，仓库自述「programming—not prompting—language models」</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选（作为 trial）</h2>
+<ul><li><strong>方法论独一档</strong>：把手写 prompt 换成「签名（Signature）→ 模块（Module）→ 优化器（Optimizer/MIPROv2 等）」三件套，用评测指标自动搜索 prompt/few-shot 组合——RAG 答案质量的「评估闭环」它内置了 [2]。</li><li><strong>第三方基准中的差异点</strong>：AIMultiple 2026-08 横评将 DSPy 列为五框架之一，标签是「程序化 prompt 优化 + 框架开销最小」，且可与 LangChain/LlamaIndex 组件兼容叠加 [3]。</li><li><strong>学术血统 + 活跃维护</strong>：Stanford 主导，38k star 持续 push [1]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs 三个编排框架：LangChain/LlamaIndex/Haystack 回答「管线怎么搭」，DSPy 回答「搭好后怎么变好」——组合使用而非互斥 [2][3]。</li><li>单独当 RAG 主框架可以但生态少；更常见是在已有管线上对检索-生成环节做指标化调优 [2]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>评估集是前置成本</strong>：没有标注评测集就没有优化器可言——它惩罚「没有评估的 RAG 团队」，个人项目要先花力气建评测集。</li><li>概念抽象（teleprompter→optimizer 改名史等）文档演进快，跟官方 dspy.ai 学 [2]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/stanfordnlp/dspy">https://github.com/stanfordnlp/dspy</a>（gh 2026-09-17：MIT、⭐38,088、pushed 2026-09-17）</li><li>官方文档 — <a href="https://dspy.ai/">https://dspy.ai/</a>（2026-09-17）</li><li>第三方基准 — AIMultiple 2026-08-04 横评（含框架开销对比），原始输出留档 raw/2026-09-17/web/rag-frameworks-tavily-report.md</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：优化层定位，评测集齐了再上</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

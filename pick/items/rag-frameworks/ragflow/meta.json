@@ -1,0 +1,33 @@
+{
+  "name": "RAGFlow",
+  "repo": "https://github.com/infiniflow/ragflow",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "文档理解最深的开源 RAG 引擎：版式感知切块（DeepDoc）、引用溯源、内置知识图谱，生产级文档问答利器；中文社区一线",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/infiniflow/ragflow",
+    "https://ragflow.io/docs"
+  ],
+  "tags": [
+    "rag",
+    "document-understanding",
+    "knowledge-base"
+  ],
+  "matrix": {
+    "形态": "低代码平台（RAG 引擎）",
+    "许可": "Apache-2.0",
+    "成本": "免费·自托管",
+    "RAG 能力": "最深（DeepDoc 解析+溯源）",
+    "agentic 支持": "内置 Agent 工作流",
+    "上手路径": "Web UI + API，Docker 部署"
+  },
+  "stats": {
+    "source_repo": "infiniflow/ragflow",
+    "stars": 90874,
+    "pushed_at": "2026-09-17",
+    "license": "Apache-2.0",
+    "collected_at": "2026-09-17"
+  }
+}

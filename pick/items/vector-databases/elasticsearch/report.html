@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elasticsearch · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/ai-app-dev.html">AI 应用工程</a><span class="sep">·</span><span>向量数据库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../chroma/report.html">← Chroma</a><span class="sep">·</span><a href="../milvus/report.html">Milvus →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#898781" title="评估"><i></i>评</span>
+<h1>Elasticsearch</h1>
+<blockquote><strong>TL;DR</strong>：BM25+向量混合检索最成熟的搜索引擎——kNN 能力经生产大规模验证；但三轨 license 与 JVM 集群运维使它只对存量 ES 用户「顺手」，为 RAG 新引入不值。</blockquote>
+<ul><li><strong>结论</strong>：assess 评估</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">三轨：AGPL-3.0 / SSPL v1 / Elastic License 2.0（默认三轨授权，x-pack 目录仅 ELv2；LICENSE.txt 解码确认，GitHub 识别 NOASSERTION）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/elastic/elasticsearch">https://github.com/elastic/elasticsearch</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">pushed 2026-09-17，⭐77,923（gh 2026-09-17）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">形态</td><td style="text-align:left">JVM 搜索引擎，dense_vector + kNN 搜索、BM25 原生、ESS/语义 reranker</td><td style="text-align:left">[2]</td></tr></tbody></table>
+<h2>为什么 assess（而非推荐）</h2>
+<ul><li><strong>能力是第一梯队</strong>：文本检索四十年积累 + 8.x/9.x 的 HNSW 向量检索，hybrid search（BM25+向量+rerank）开箱即用，RAG 场景的检索质量上限高 [2]。</li><li><strong>但引入成本与 RAG 动机不匹配</strong>：为给 LLM 加检索拉起一个 ES 集群，运维面（JVM 调优、分片、安全配置）远超需求；pgvector/Qdrant 在 RAG 常见规模内已够 [3]。</li><li><strong>license 心智负担</strong>：2021 起的 SSPL/ELv2 分叉风波、2024-08 加回 AGPL——三轨并存对商用自托管/再分发的合规判断有真实成本（自用免费不受影响）[1]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs OpenSearch（AWS 分叉）：同为 Lucene 系，OpenSearch Apache-2.0 更干净；本仓不单独立目，存量二选一时按 license 与云绑定关系定（落选节点见 decision-tree）。</li><li>vs pgvector：混合检索成熟度 ES 胜；「已经有一个 Postgres」的场景 pgvector 完胜——这正是多数 RAG 项目的起点 [3]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>存量 ES 用户做 RAG 是顺路（索引/权限/监控全复用），此场景可升 trial；绿地项目不建议引入（维持 assess）。</li><li>三轨 license 下做托管服务转售需逐条对照 ELv2/AGPL 条款 [1]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 + LICENSE.txt — <a href="https://github.com/elastic/elasticsearch">https://github.com/elastic/elasticsearch</a>（gh 2026-09-17：⭐77,923、pushed 2026-09-17；license 三轨说明 2026-09-17 解码）</li><li>Elastic 官方 — <a href="https://www.elastic.co/search-labs">https://www.elastic.co/search-labs</a>（2026-09-17：向量/混合检索能力面）</li><li>口碑调研 — raw/2026-09-17/web/vector-databases-tavily-report.md（2026-09-17）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">assess</td><td style="text-align:left">首次记录：存量 ES 栈顺手用，绿地项目不引入</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

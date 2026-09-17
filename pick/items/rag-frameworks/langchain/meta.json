@@ -1,0 +1,33 @@
+{
+  "name": "LangChain / LangGraph",
+  "repo": "https://github.com/langchain-ai/langchain",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "生态最大的 LLM 编排框架：LangGraph 承担 agentic 编排后主业转向 agent 工程，RAG 教程/集成/招聘 JD 三料事实标准",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/langchain-ai/langchain",
+    "https://python.langchain.com/"
+  ],
+  "tags": [
+    "rag",
+    "agent",
+    "orchestration"
+  ],
+  "matrix": {
+    "形态": "代码框架",
+    "许可": "MIT",
+    "成本": "免费·开源",
+    "RAG 能力": "组件全，检索抽象泛化",
+    "agentic 支持": "LangGraph 状态图第一梯队",
+    "上手路径": "Python/JS，教程最多"
+  },
+  "stats": {
+    "source_repo": "langchain-ai/langchain",
+    "stars": 146512,
+    "pushed_at": "2026-09-17",
+    "license": "MIT",
+    "collected_at": "2026-09-17"
+  }
+}

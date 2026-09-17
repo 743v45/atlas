@@ -1,0 +1,21 @@
+{
+  "name": "Vertex AI Search",
+  "homepage": "https://cloud.google.com/vertex-ai/search",
+  "license": "闭源",
+  "verdict": "assess",
+  "summary": "GCP 栈的托管 RAG：第三方评测 recall 最高（94.5%），BigQuery/Workspace grounding 一体；同样只在 GCP 栈内成立",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://cloud.google.com/vertex-ai/search"
+  ],
+  "tags": ["rag", "managed", "gcp"],
+  "matrix": {
+    "形态": "托管 API",
+    "许可": "闭源",
+    "成本": "按查询量计费",
+    "RAG 能力": "recall 高，可调面中等",
+    "agentic 支持": "Vertex AI Agent Builder 集成",
+    "上手路径": "Console/SDK，GCP 体系内"
+  }
+}

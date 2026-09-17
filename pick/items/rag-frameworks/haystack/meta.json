@@ -1,0 +1,33 @@
+{
+  "name": "Haystack",
+  "repo": "https://github.com/deepset-ai/haystack",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "生产级 pipeline 抽象：类型安全、组件可测试、显式控制检索/路由/记忆，企业合规场景口碑好；社区声量比双雄小一档",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/deepset-ai/haystack",
+    "https://docs.haystack.deepset.ai/"
+  ],
+  "tags": [
+    "rag",
+    "pipeline",
+    "enterprise"
+  ],
+  "matrix": {
+    "形态": "代码框架",
+    "许可": "Apache-2.0",
+    "成本": "免费·开源",
+    "RAG 能力": "pipeline 原语完整",
+    "agentic 支持": "有，编排生态较小",
+    "上手路径": "Python，组件化心智"
+  },
+  "stats": {
+    "source_repo": "deepset-ai/haystack",
+    "stars": 26526,
+    "pushed_at": "2026-09-17",
+    "license": "Apache-2.0",
+    "collected_at": "2026-09-17"
+  }
+}

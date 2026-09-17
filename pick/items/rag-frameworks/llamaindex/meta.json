@@ -1,0 +1,33 @@
+{
+  "name": "LlamaIndex",
+  "repo": "https://github.com/run-llama/llama_index",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "为 RAG 而生的数据框架：连接器/索引/检索抽象全场最深，文档密集场景管线首选，现已扩展为文档处理平台（LlamaParse/LlamaCloud）",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/run-llama/llama_index",
+    "https://docs.llamaindex.ai/"
+  ],
+  "tags": [
+    "rag",
+    "data-framework",
+    "indexing"
+  ],
+  "matrix": {
+    "形态": "代码框架",
+    "许可": "MIT",
+    "成本": "免费·开源",
+    "RAG 能力": "最深（索引/切块/检索原生）",
+    "agentic 支持": "有 AgentWorkflow，弱于 LangGraph",
+    "上手路径": "Python/TS，RAG 上手最快"
+  },
+  "stats": {
+    "source_repo": "run-llama/llama_index",
+    "stars": 52197,
+    "pushed_at": "2026-09-15",
+    "license": "MIT",
+    "collected_at": "2026-09-17"
+  }
+}

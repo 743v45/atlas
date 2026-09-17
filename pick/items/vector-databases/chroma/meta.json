@@ -1,0 +1,33 @@
+{
+  "name": "Chroma",
+  "repo": "https://github.com/chroma-core/chroma",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "原型最快路径：pip install 即用的嵌入式向量库，零配置起步；分布式与生产能力是短板，定位「Search infrastructure for AI」转型中",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/chroma-core/chroma",
+    "https://docs.trychroma.com/"
+  ],
+  "tags": [
+    "rag",
+    "vector-search",
+    "prototype"
+  ],
+  "matrix": {
+    "形态": "嵌入式/单机库",
+    "许可": "Apache-2.0",
+    "成本": "免费·开源+云",
+    "混合检索": "有限",
+    "部署": "进程内/单机",
+    "规模定位": "原型·百万级"
+  },
+  "stats": {
+    "source_repo": "chroma-core/chroma",
+    "stars": 29315,
+    "pushed_at": "2026-09-17",
+    "license": "Apache-2.0",
+    "collected_at": "2026-09-17"
+  }
+}

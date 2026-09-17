@@ -30,8 +30,8 @@
   },
   "stats": {
     "source_repo": "ClickHouse/ClickHouse",
-    "stars": 49927,
-    "pushed_at": "2026-09-16",
+    "stars": 49942,
+    "pushed_at": "2026-09-17",
     "license": "Apache-2.0",
     "collected_at": "2026-09-17"
   }

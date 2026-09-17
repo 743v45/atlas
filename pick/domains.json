@@ -21,6 +21,15 @@
       ]
     },
     {
+      "slug": "ai-app-dev",
+      "name": "AI 应用工程",
+      "description": "LLM 落成应用的工程栈：RAG 管线怎么搭（框架 / 低代码平台 / 托管 API 四路线），检索底座怎么选（向量库四形态）。",
+      "categories": [
+        "rag-frameworks",
+        "vector-databases"
+      ]
+    },
+    {
       "slug": "data-storage",
       "name": "数据与存储",
       "description": "主数据库与存储引擎选型，以 PostgreSQL 为锚——用到不够用为止。",
@@ -66,6 +75,7 @@
       "domains": [
         "browser-agents",
         "knowledge-docs",
+        "ai-app-dev",
         "dev-automation"
       ]
     },

@@ -1,0 +1,22 @@
+{
+  "name": "Pinecone",
+  "homepage": "https://www.pinecone.io/",
+  "license": "闭源",
+  "verdict": "assess",
+  "summary": "全托管向量检索的代名词：serverless 免运维、规模弹性好；闭源按量计费+数据出域+锁定，学习与个人场景性价比低",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://www.pinecone.io/docs/",
+    "https://www.pinecone.io/pricing/"
+  ],
+  "tags": ["rag", "vector-search", "saas"],
+  "matrix": {
+    "形态": "全托管 SaaS",
+    "许可": "闭源",
+    "成本": "按量付费",
+    "混合检索": "sparse+dense",
+    "部署": "仅云",
+    "规模定位": "亿级"
+  }
+}
