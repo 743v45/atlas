@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Octrix · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/dev-automation.html">开发自动化</a><span class="sep">·</span><span>手机端遥控 Coding Agent 客户端</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../happy/report.html">← Happy</a><span class="sep">·</span><a href="../omnara/report.html">Omnara →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#898781" title="评估"><i></i>评</span>
+<h1>Octrix</h1>
+<blockquote><strong>TL;DR</strong>：国产模型（DeepSeek/Kimi）手机遥控的空白位填充者，V2EX 圈内好评；但仓库无 LICENSE 文件与「全栈开源」宣称矛盾，样本少，先评估。</blockquote>
+<ul><li><strong>结论</strong>：assess 评估</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left"><strong>无 LICENSE 文件</strong>（gh API license=null，2026-09-17）——与 V2EX 主帖「全栈开源」宣称矛盾</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/andforce/octrix">https://github.com/andforce/octrix</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">pushed 2026-09-11，⭐117（gh 2026-09-17）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">端</td><td style="text-align:left">iOS / iPadOS / Mac（Apple Silicon）</td><td style="text-align:left">[2][3]</td></tr></tbody></table>
+<h2>为什么关注</h2>
+<ul><li><strong>填补真实空白</strong>：V2EX 主帖（2026-02-03）作者指出国产模型接入类 Codex CLI 后没有官方手机入口，Octrix 的聊天式遥控由此产生价值 [2]。</li><li>桥接十余款 CLI，对 DeepSeek/Kimi 等国产模型场景针对性最强；扫码配对（Host + Relay）；语音输入 [2][3]。</li><li>V2EX 圈内口碑：「UI 克制、无恶心付费策略」（聚合口碑 [3]）。</li></ul>
+<h2>为什么只是 assess</h2>
+<ul><li><strong>license 缺失是硬伤</strong>：无 LICENSE 文件意味着默认版权保留，fork/自托管/二次分发的合法性存疑——「开源」宣称待作者补文件后才能采信 [1]。</li><li>口碑样本高度集中于 V2EX，国际社区几乎无声量；中继架构的安全、数据留存无公开审计 [2]。</li><li>iOS 后台限制下长会话 20 分钟未交互偶发断连（聚合口碑，待验证 [3]）。</li></ul>
+<h2>对比</h2>
+<ul><li>国产模型 + iOS + 免费 + App 四条件目前无替代者；KKCode/FlyCode 样本更少（见 decision-tree 落选节点）[2]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>使用前自行审计中继代码与数据流；「全栈开源」在 LICENSE 补齐前按「源码可见」理解，不是法律意义上的开源 [1]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/andforce/octrix">https://github.com/andforce/octrix</a>（gh 2026-09-17：license=null、⭐117、pushed 2026-09-11）</li><li>口碑调研报告 B — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md（2026-09-17，V2EX 主帖 2026-02-03）</li><li>口碑调研报告 A — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-a.md（2026-09-17）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">assess</td><td style="text-align:left">首次记录：空白位价值真实，LICENSE 缺失压住 verdict</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

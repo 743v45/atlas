@@ -30,9 +30,9 @@
   },
   "stats": {
     "source_repo": "pingcap/tidb",
-    "stars": 40473,
-    "pushed_at": "2026-08-26",
+    "stars": 40535,
+    "pushed_at": "2026-09-16",
     "license": "Apache-2.0",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   }
 }

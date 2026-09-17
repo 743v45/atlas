@@ -19,10 +19,10 @@
   ],
   "stats": {
     "source_repo": "zhom/donutbrowser",
-    "stars": 3719,
-    "pushed_at": "2026-08-26",
+    "stars": 3853,
+    "pushed_at": "2026-09-12",
     "license": "AGPL-3.0",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   },
   "matrix": {
     "反检测层级": "Profile 指纹",

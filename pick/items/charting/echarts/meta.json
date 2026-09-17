@@ -13,12 +13,24 @@
     "https://echarts.apache.org/handbook/zh/get-started（官方入门：option 配置式用法，访问 2026-08-27）",
     "Claude 会话 31db8d0e（2026-08-18）——桑基图问句触发的选型对话与 AI 代写友好度对比"
   ],
-  "tags": ["图表", "AI 代写", "可视化", "自包含 HTML"],
+  "tags": [
+    "图表",
+    "AI 代写",
+    "可视化",
+    "自包含 HTML"
+  ],
   "matrix": {
     "接入方式": "CDN 2 行",
     "配置范式": "声明式 option",
     "交互": "开箱即用",
     "交付物": "单文件 HTML",
     "许可": "Apache-2.0"
+  },
+  "stats": {
+    "source_repo": "apache/echarts",
+    "stars": 67335,
+    "pushed_at": "2026-09-16",
+    "license": "Apache-2.0",
+    "collected_at": "2026-09-17"
   }
 }

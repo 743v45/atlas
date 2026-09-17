@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T3 Code · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/dev-automation.html">开发自动化</a><span class="sep">·</span><span>手机端遥控 Coding Agent 客户端</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../paseo/report.html">← Paseo</a><span class="sep">·</span><a href="../vibe-kanban/report.html">Vibe Kanban →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>T3 Code</h1>
+<blockquote><strong>TL;DR</strong>：多 CLI 统一控制面里讨论度最高（Theo 团队），但 token 消耗 3~5x 放大 bug（#7338）+ 官方自认极早期，等磨稳再看。</blockquote>
+<ul><li><strong>结论</strong>：hold 观望</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/pingdotgg/t3code">https://github.com/pingdotgg/t3code</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">pushed 2026-09-16，⭐22,865（gh 2026-09-17）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">端</td><td style="text-align:left">iOS / Android / Web / Electron 桌面</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">包装对象</td><td style="text-align:left">Claude Code / Codex / Cursor CLI / OpenCode / Grok Build 等</td><td style="text-align:left">[1][2]</td></tr></tbody></table>
+<h2>为什么不选（hold 理由）</h2>
+<ul><li><strong>账单雷</strong>：issue #7338「[Bug]: Extremely high usage」——配合 Claude Code 时 API token 消耗比原生高 3~5 倍的用户报告；对 BYO Key 用户是真金白银的损失 [2][3]。</li><li><strong>官方自认极早期</strong>：README 明写 "We are very very early… Expect bugs"、"(mostly) not accepting contributions"——不接受社区 PR 的快速迭代项目 [1][3]。</li><li><strong>版本回归史</strong>：0.0.28 引入断连（用户回退 0.0.27，「since .28 it became unusable」，2026-07-12）；某机器断网时持续重连会冻结本机全部线程的报告 [3]。</li><li>模型由底层 CLI 订阅决定，不是统一 BYO 池 [3]。</li></ul>
+<h2>对比</h2>
+<ul><li>讨论度第一、包装广度第一，但成熟度垫底——「观望与尝鲜首选」是两份口碑报告一致的定位 [3]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>alpha 期 issue 密度极高，生产依赖前等：#7338 修复确认 + 稳定版发布 + 接受外部 PR [2][3]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/pingdotgg/t3code">https://github.com/pingdotgg/t3code</a>（gh 2026-09-17：MIT、⭐22863、pushed 2026-09-16）</li><li>Issue #7338 — <a href="https://github.com/pingdotgg/t3code/issues/7338">https://github.com/pingdotgg/t3code/issues/7338</a>（已复核存在）</li><li>口碑调研报告 B — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md（2026-09-17）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录：token 放大 bug + alpha，半年后重估</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

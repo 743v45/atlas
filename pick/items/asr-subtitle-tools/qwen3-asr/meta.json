@@ -20,10 +20,10 @@
   ],
   "stats": {
     "source_repo": "QwenLM/Qwen3-ASR",
-    "stars": 3422,
+    "stars": 3549,
     "pushed_at": "2026-06-26",
     "license": "Apache-2.0",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   },
   "matrix": {
     "形态": "模型（transformers/vLLM）",

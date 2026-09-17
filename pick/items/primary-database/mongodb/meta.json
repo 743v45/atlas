@@ -30,9 +30,9 @@
   },
   "stats": {
     "source_repo": "mongodb/mongo",
-    "stars": 28507,
-    "pushed_at": "2026-08-26",
+    "stars": 28560,
+    "pushed_at": "2026-09-14",
     "license": "NOASSERTION",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   }
 }

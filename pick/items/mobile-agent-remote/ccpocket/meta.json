@@ -1,0 +1,36 @@
+{
+  "name": "CC Pocket",
+  "repo": "https://github.com/K9i-0/ccpocket",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "小而美的 Claude/Codex 手机遥控桥：审批流与目录锁死做得最规矩，Tailscale 直连不碰云；短板是社区样本少、只覆盖两家族 CLI。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/K9i-0/ccpocket",
+    "https://github.com/K9i-0/ccpocket/blob/main/SECURITY.md",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md"
+  ],
+  "tags": [
+    "claude-code",
+    "codex",
+    "bridge",
+    "tailscale",
+    "flutter"
+  ],
+  "matrix": {
+    "形态": "原生App桥接",
+    "许可": "MIT",
+    "成本": "免费·BYO",
+    "模型接入": "Claude·Codex",
+    "手机端": "iOS/Android",
+    "代码路径": "本机Bridge"
+  },
+  "stats": {
+    "source_repo": "K9i-0/ccpocket",
+    "stars": 1069,
+    "pushed_at": "2026-09-15",
+    "license": "MIT",
+    "collected_at": "2026-09-17"
+  }
+}

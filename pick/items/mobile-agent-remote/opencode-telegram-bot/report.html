@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>opencode-telegram-bot · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/dev-automation.html">开发自动化</a><span class="sep">·</span><span>手机端遥控 Coding Agent 客户端</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../opencode-mobile-dzianisv/report.html">← OpenCode Mobile (dzianisv)</a><span class="sep">·</span><a href="../paseo/report.html">Paseo →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>opencode-telegram-bot</h1>
+<blockquote><strong>TL;DR</strong>：保活与推送全场最强（TG 通道），命令面完整；但代码全过 Telegram 云端是合规雷，diff 体验灾难——只当通知器，不当遥控器。</blockquote>
+<ul><li><strong>结论</strong>：hold 观望</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/grinev/opencode-telegram-bot">https://github.com/grinev/opencode-telegram-bot</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">pushed 2026-09-13，⭐1,159（gh 2026-09-17）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">命令面</td><td style="text-align:left">/status /new /abort /sessions /projects /worktree /messages /revert /fork /task</td><td style="text-align:left">[2]</td></tr></tbody></table>
+<h2>为什么不选（hold 理由）</h2>
+<ul><li><strong>代码资产出本机</strong>：项目上下文、交互过程全部经 Telegram 云端存储转发——个人项目勉强，公司代码合规禁区 [2][3]。</li><li><strong>diff 体验灾难</strong>：TG 消息形态无法承载红绿 diff，大改动刷屏 [3]。</li><li>Bot token + user ID + OpenCode Basic Auth 全是敏感凭据，bot 账号被盗 = 远程命令入口；Docker 部署下 /open /ls /attach 等功能不可用（网络命名空间限制）[2]。</li></ul>
+<h2>为什么仍值得记录</h2>
+<ul><li><strong>推送/保活天花板</strong>：TG 后台常驻网络是全场最稳的通知通道，「任务完成/中断提醒」场景无可替代；/task 支持预定任务，/revert /fork 支持从历史分叉重试 [2]。</li><li>定位应是 <strong>OpenCode 的通知器/轻遥控</strong>，与原生 App 客户端（dzianisv）组合使用而非替代 [2][3]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>若用：限定允许的 Telegram 用户 ID、最小权限 token、Agent 跑在隔离目录/容器、留操作日志 [2]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/grinev/opencode-telegram-bot">https://github.com/grinev/opencode-telegram-bot</a>（gh 2026-09-17：MIT、⭐1,159、pushed 2026-09-13）</li><li>口碑调研报告 B — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md（2026-09-17）</li><li>口碑调研报告 A — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-a.md（2026-09-17）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录：通知器价值真实，遥控器定位不成立</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -18,10 +18,10 @@
   ],
   "stats": {
     "source_repo": "clawbrowser/clawbrowser",
-    "stars": 28,
-    "pushed_at": "2026-08-05",
+    "stars": 39,
+    "pushed_at": "2026-09-16",
     "license": "MIT",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   },
   "matrix": {
     "反检测层级": "stealth 插件",

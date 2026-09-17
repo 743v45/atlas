@@ -1,0 +1,37 @@
+{
+  "name": "Paseo",
+  "repo": "https://github.com/getpaseo/paseo",
+  "homepage": "https://paseo.sh",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "多 Agent 异构编排第一：/paseo-handoff 跨 harness 交棒 + 零遥测自托管；代价是配置复杂度、license 文件非标准、走订阅时额度折损。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/getpaseo/paseo",
+    "https://github.com/getpaseo/paseo/releases/tag/v0.1.65",
+    "https://apps.apple.com/cn/app/paseo-remote-coding-agents/id6758887924",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md"
+  ],
+  "tags": [
+    "orchestration",
+    "multi-agent",
+    "self-hosted",
+    "daemon"
+  ],
+  "matrix": {
+    "形态": "daemon编排",
+    "许可": "Apache-2.0*",
+    "成本": "免费·BYO",
+    "模型接入": "多CLI包装",
+    "手机端": "iOS/Android/Web",
+    "代码路径": "直连或E2E中继"
+  },
+  "stats": {
+    "source_repo": "getpaseo/paseo",
+    "stars": 17468,
+    "pushed_at": "2026-09-16",
+    "license": "NOASSERTION",
+    "collected_at": "2026-09-17"
+  }
+}

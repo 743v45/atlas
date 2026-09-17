@@ -21,10 +21,10 @@
   ],
   "stats": {
     "source_repo": "modelscope/FunASR",
-    "stars": 20035,
-    "pushed_at": "2026-08-26",
+    "stars": 20371,
+    "pushed_at": "2026-09-16",
     "license": "MIT",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   },
   "matrix": {
     "形态": "工具链+Docker 服务",

@@ -1,0 +1,23 @@
+{
+  "name": "Claude Remote Control（官方）",
+  "homepage": "https://code.claude.com",
+  "license": "Proprietary",
+  "verdict": "hold",
+  "summary": "纯 Claude 场景的零配置官方入口，但 preview 状态口碑差（HN:「clunky and buggy prerelease」）、单会话、终端必须开着——等官方磨稳。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://code.claude.com",
+    "https://hn-tldr.com/posts?page=116",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md"
+  ],
+  "tags": ["official", "claude-code", "proprietary"],
+  "matrix": {
+    "形态": "官方App",
+    "许可": "闭源",
+    "成本": "Claude订阅",
+    "模型接入": "Claude系",
+    "手机端": "ClaudeApp",
+    "代码路径": "Anthropic通道"
+  }
+}

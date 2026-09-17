@@ -1,0 +1,37 @@
+{
+  "name": "ClaudeCodeUI (CloudCLI)",
+  "repo": "https://github.com/siteboon/claudecodeui",
+  "license": "AGPL-3.0",
+  "verdict": "hold",
+  "summary": "免装 App 的自托管 Web 路线代表（iPad 体验尚可），但锁屏必断、明文 WebSocket issue、大会话 CPU 130%——临时凑合可以，不做生产力主力。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/siteboon/claudecodeui",
+    "https://github.com/siteboon/claudecodeui/issues/190",
+    "https://github.com/siteboon/claudecodeui/issues/204",
+    "https://github.com/siteboon/claudecodeui/issues/206",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md"
+  ],
+  "tags": [
+    "web-ui",
+    "self-hosted",
+    "claude-code",
+    "cursor-cli"
+  ],
+  "matrix": {
+    "形态": "Web自托管",
+    "许可": "AGPL-3.0",
+    "成本": "免费·BYO",
+    "模型接入": "Claude·CursorCLI",
+    "手机端": "浏览器/PWA",
+    "代码路径": "纯自托管"
+  },
+  "stats": {
+    "source_repo": "siteboon/claudecodeui",
+    "stars": 13709,
+    "pushed_at": "2026-09-16",
+    "license": "AGPL-3.0",
+    "collected_at": "2026-09-17"
+  }
+}

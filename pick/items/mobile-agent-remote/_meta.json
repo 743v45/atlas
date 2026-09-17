@@ -1,0 +1,6 @@
+{
+  "name": "手机端遥控 Coding Agent 客户端",
+  "description": "手机上远程查看/审批/驱动本机 AI 编程 Agent（Claude Code / Codex / OpenCode）的客户端选型：原生 App / Web 自托管 / Bot 三条路线；免费开源 + BYO 模型优先，闭源官方产品仅作对照",
+  "order": 9,
+  "columns": ["形态", "许可", "成本", "模型接入", "手机端", "代码路径"]
+}

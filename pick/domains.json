@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-27",
+  "updated": "2026-09-17",
   "domains": [
     {
       "slug": "browser-agents",
@@ -33,7 +33,8 @@
       "name": "开发自动化",
       "description": "AI 自动化软件开发的平台栈选型：协作/远程层、规划大脑层、可观测层的组合——单工具不够就组栈。",
       "categories": [
-        "automation-platform"
+        "automation-platform",
+        "mobile-agent-remote"
       ]
     },
     {

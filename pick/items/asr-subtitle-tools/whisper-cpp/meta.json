@@ -18,10 +18,10 @@
   ],
   "stats": {
     "source_repo": "ggerganov/whisper.cpp",
-    "stars": 53196,
-    "pushed_at": "2026-08-25",
+    "stars": 53704,
+    "pushed_at": "2026-09-15",
     "license": "MIT",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   },
   "matrix": {
     "形态": "C/C++ 运行时",

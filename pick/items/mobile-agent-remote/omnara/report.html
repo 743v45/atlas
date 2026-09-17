@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omnara · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/dev-automation.html">开发自动化</a><span class="sep">·</span><span>手机端遥控 Coding Agent 客户端</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../octrix/report.html">← Octrix</a><span class="sep">·</span><a href="../opencode-mobile-doza62/report.html">OpenCode Mobile (doza62) →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Omnara</h1>
+<blockquote><strong>TL;DR</strong>：云托管开箱即用第一：零网络配置、审批策略引擎 + Watch 联动；代码默认过其云端是隐私代价，「停更」传言已证伪（2026-09 仍活跃）。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/omnara-ai/omnara">https://github.com/omnara-ai/omnara</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">pushed 2026-09-16，⭐2,852（gh 2026-09-17）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">端</td><td style="text-align:left">iOS App / Web dashboard / 终端（<code>pip install omnara</code>）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">背景</td><td style="text-align:left">YC S25</td><td style="text-align:left">[3]</td></tr></tbody></table>
+<h2>为什么选（作为 trial）</h2>
+<ul><li><strong>免运维首选</strong>：Managed Cloud 一键用，无需公网 IP/隧道/自建；手机断连重连率低，网络平滑度属第一梯队（云基建支撑）[2][3]。</li><li><strong>审批做成策略引擎</strong>：高危 tool 动作多级拦截 + 手机推送；Apple Watch 联动 [2][3]。</li><li><strong>「停更」传言证伪</strong>：调研报告 B 依第三方索引判断 2025-09 后停更——gh API 直查 pushed_at=2026-09-16，项目活跃，回到现役候选 [1]。</li></ul>
+<h2>为什么不是 adopt</h2>
+<ul><li><strong>默认架构代码过第三方云</strong>：会话数据流经其托管服务器；开源版可自托管 VPC，但多数用户冲云版去，隐私口碑弱于 Happy/Paseo/CC Pocket [2][3]。</li><li>模型面窄：主要同步 Claude Code 会话，非跨 Agent 通用工作区；依赖终端/PTY，Windows 需 WSL（issue #72 <code>termios</code> 缺失，2025-08）[3]。</li><li>免费额度有限，商业化转化推得较紧（聚合口碑，待验证 [3]）。</li></ul>
+<h2>对比</h2>
+<ul><li>vs Catnip（落选节点）：同为「本机不在场」路线，Omnara 自带云与账号体系，Catnip 绑 GitHub Codespaces [3]。</li><li>vs Happy：Omnara 赢在免配置与 Watch；Happy 赢在 E2EE 与语音 [3]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>云版使用前确认代码/会话出本机的边界是否可接受；敏感仓库走自托管部署 [2][3]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/omnara-ai/omnara">https://github.com/omnara-ai/omnara</a>（gh 2026-09-17：Apache-2.0、⭐2,852、pushed 2026-09-16）</li><li>口碑调研报告 B — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md（2026-09-17，停更说法证伪记录在案）</li><li>口碑调研报告 A — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-a.md（2026-09-17）</li><li>官网 — <a href="https://www.omnara.com">https://www.omnara.com</a></li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：修正「停更」误判；隐私架构决定其上限</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

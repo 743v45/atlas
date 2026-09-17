@@ -18,10 +18,10 @@
   ],
   "stats": {
     "source_repo": "browserbase/stagehand",
-    "stars": 24066,
-    "pushed_at": "2026-08-26",
+    "stars": 24301,
+    "pushed_at": "2026-09-16",
     "license": "MIT",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   },
   "matrix": {
     "形态": "SDK (TS/Py)",

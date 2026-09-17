@@ -1,0 +1,35 @@
+{
+  "name": "OpenCode Mobile (doza62)",
+  "repo": "https://github.com/doza62/opencode-mobile",
+  "license": "MIT",
+  "verdict": "hold",
+  "summary": "iOS 侧功能最全的 OpenCode 客户端（Face ID/Haptic/原生 Git），但 2026-02-25 后停更半年 + 作者自认 beta 重连问题，iOS 用户暂无可靠 BYO 客户端。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/doza62/opencode-mobile",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-a.md"
+  ],
+  "tags": [
+    "opencode",
+    "ios",
+    "react-native",
+    "byo-model"
+  ],
+  "matrix": {
+    "形态": "原生App客户端",
+    "许可": "MIT",
+    "成本": "免费·BYO",
+    "模型接入": "任意BYO",
+    "手机端": "iOS/Android/Web",
+    "代码路径": "直连无中继"
+  },
+  "stats": {
+    "source_repo": "doza62/opencode-mobile",
+    "stars": 271,
+    "pushed_at": "2026-02-25",
+    "license": "MIT",
+    "collected_at": "2026-09-17"
+  }
+}

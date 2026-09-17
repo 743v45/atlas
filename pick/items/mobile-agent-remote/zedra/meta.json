@@ -1,0 +1,38 @@
+{
+  "name": "Zedra",
+  "repo": "https://github.com/tanlethanh/zedra",
+  "homepage": "https://zedra.dev",
+  "license": "MIT",
+  "verdict": "assess",
+  "summary": "技术上最有含金量：Rust+GPUI 120fps + Iroh QUIC 纯 P2P 零中继；但官方自认早期 breaking changes，中文输入法有适配问题，先评估再动。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/tanlethanh/zedra",
+    "https://zedra.dev",
+    "https://news.ycombinator.com/item?id=48420833",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md"
+  ],
+  "tags": [
+    "p2p",
+    "quic",
+    "gpui",
+    "rust",
+    "privacy"
+  ],
+  "matrix": {
+    "形态": "原生App编辑器",
+    "许可": "MIT",
+    "成本": "免费·BYO",
+    "模型接入": "Claude·Codex",
+    "手机端": "iOS/Android",
+    "代码路径": "P2P直连"
+  },
+  "stats": {
+    "source_repo": "tanlethanh/zedra",
+    "stars": 223,
+    "pushed_at": "2026-09-15",
+    "license": "MIT",
+    "collected_at": "2026-09-17"
+  }
+}

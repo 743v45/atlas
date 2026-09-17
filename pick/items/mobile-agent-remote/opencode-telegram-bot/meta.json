@@ -1,0 +1,35 @@
+{
+  "name": "opencode-telegram-bot",
+  "repo": "https://github.com/grinev/opencode-telegram-bot",
+  "license": "MIT",
+  "verdict": "hold",
+  "summary": "保活与推送全场最强（TG 通道），命令面完整；但代码全过 Telegram 云端是合规雷，diff 体验灾难——只当通知器，不当遥控器。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/grinev/opencode-telegram-bot",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-a.md"
+  ],
+  "tags": [
+    "telegram",
+    "bot",
+    "opencode",
+    "notifications"
+  ],
+  "matrix": {
+    "形态": "TelegramBot",
+    "许可": "MIT",
+    "成本": "免费·BYO",
+    "模型接入": "任意BYO",
+    "手机端": "Telegram",
+    "代码路径": "过TG云端"
+  },
+  "stats": {
+    "source_repo": "grinev/opencode-telegram-bot",
+    "stars": 1159,
+    "pushed_at": "2026-09-13",
+    "license": "MIT",
+    "collected_at": "2026-09-17"
+  }
+}

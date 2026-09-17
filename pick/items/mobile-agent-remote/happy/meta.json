@@ -1,0 +1,40 @@
+{
+  "name": "Happy",
+  "repo": "https://github.com/slopus/happy",
+  "homepage": "https://happy.engineering",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "Claude/Codex 手机遥控的高频默认：E2EE + 语音独门，跨设备续接体验最好；但 2026-01 的 Codex 移动审批失灵 issue 证明核心闭环仍会断裂。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/slopus/happy",
+    "https://github.com/slopus/happy/issues/489",
+    "https://github.com/slopus/happy/issues/496",
+    "https://github.com/slopus/happy/issues/503",
+    "https://happy.engineering",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md"
+  ],
+  "tags": [
+    "claude-code",
+    "codex",
+    "e2ee",
+    "voice",
+    "react-native"
+  ],
+  "matrix": {
+    "形态": "原生App桥接",
+    "许可": "MIT",
+    "成本": "免费·BYO",
+    "模型接入": "Claude·Codex",
+    "手机端": "iOS/Android/Web",
+    "代码路径": "E2E中继"
+  },
+  "stats": {
+    "source_repo": "slopus/happy",
+    "stars": 23805,
+    "pushed_at": "2026-09-16",
+    "license": "MIT",
+    "collected_at": "2026-09-17"
+  }
+}

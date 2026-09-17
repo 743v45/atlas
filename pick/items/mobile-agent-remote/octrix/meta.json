@@ -1,0 +1,35 @@
+{
+  "name": "Octrix",
+  "repo": "https://github.com/andforce/octrix",
+  "license": null,
+  "verdict": "assess",
+  "summary": "国产模型（DeepSeek/Kimi）手机遥控的空白位填充者，V2EX 圈内好评；但仓库无 LICENSE 文件与「全栈开源」宣称矛盾，样本少，先评估。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/andforce/octrix",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-a.md"
+  ],
+  "tags": [
+    "ios",
+    "deepseek",
+    "kimi",
+    "china"
+  ],
+  "matrix": {
+    "形态": "原生App桥接",
+    "许可": "无LICENSE",
+    "成本": "免费·BYO",
+    "模型接入": "多CLI包装",
+    "手机端": "iOS",
+    "代码路径": "LAN或私钥中继"
+  },
+  "stats": {
+    "source_repo": "andforce/octrix",
+    "stars": 117,
+    "pushed_at": "2026-09-11",
+    "license": "NOASSERTION",
+    "collected_at": "2026-09-17"
+  }
+}

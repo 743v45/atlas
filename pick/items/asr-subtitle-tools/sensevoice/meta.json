@@ -21,10 +21,10 @@
   ],
   "stats": {
     "source_repo": "FunAudioLLM/SenseVoice",
-    "stars": 9150,
-    "pushed_at": "2026-08-18",
+    "stars": 9319,
+    "pushed_at": "2026-09-10",
     "license": "MIT",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   },
   "matrix": {
     "形态": "模型（GGUF/ONNX）",

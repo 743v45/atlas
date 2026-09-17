@@ -1,0 +1,35 @@
+{
+  "name": "Vibe Kanban",
+  "repo": "https://github.com/BloopAI/vibe-kanban",
+  "license": "Apache-2.0",
+  "verdict": "assess",
+  "summary": "多 Agent 并行编排的看板天花板，但定位是任务队列而非手机审批闭环：流程重、手机仅浏览器、母公司 2026-04 倒闭后转社区维护。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/BloopAI/vibe-kanban",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-a.md"
+  ],
+  "tags": [
+    "kanban",
+    "orchestration",
+    "worktree",
+    "self-hosted"
+  ],
+  "matrix": {
+    "形态": "自托管看板",
+    "许可": "Apache-2.0",
+    "成本": "免费·BYO",
+    "模型接入": "多CLI包装",
+    "手机端": "浏览器",
+    "代码路径": "纯本地内网"
+  },
+  "stats": {
+    "source_repo": "BloopAI/vibe-kanban",
+    "stars": 28100,
+    "pushed_at": "2026-09-16",
+    "license": "Apache-2.0",
+    "collected_at": "2026-09-17"
+  }
+}

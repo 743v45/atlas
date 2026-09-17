@@ -1,0 +1,35 @@
+{
+  "name": "OpenCode Mobile (dzianisv)",
+  "repo": "https://github.com/dzianisv/opencode-mobile",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "Android 上「免费 + 开源 + 任意 BYO 模型 + 原生 App」的唯一全满足解：直连自托管 opencode server、无中继、持续更新、被官方收录。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/dzianisv/opencode-mobile",
+    "https://github.com/sst/opencode/pull/669",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md"
+  ],
+  "tags": [
+    "opencode",
+    "android",
+    "byo-model",
+    "open-source"
+  ],
+  "matrix": {
+    "形态": "原生App客户端",
+    "许可": "MIT",
+    "成本": "免费·BYO",
+    "模型接入": "任意BYO",
+    "手机端": "Android",
+    "代码路径": "直连无中继"
+  },
+  "stats": {
+    "source_repo": "dzianisv/opencode-mobile",
+    "stars": 169,
+    "pushed_at": "2026-08-20",
+    "license": "MIT",
+    "collected_at": "2026-09-17"
+  }
+}

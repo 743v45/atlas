@@ -1,0 +1,36 @@
+{
+  "name": "T3 Code",
+  "repo": "https://github.com/pingdotgg/t3code",
+  "homepage": "https://t3.codes",
+  "license": "MIT",
+  "verdict": "hold",
+  "summary": "多 CLI 统一控制面里讨论度最高（Theo 团队），但 token 消耗 3~5x 放大 bug（#7338）+ 官方自认极早期，等磨稳再看。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/pingdotgg/t3code",
+    "https://github.com/pingdotgg/t3code/issues/7338",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md"
+  ],
+  "tags": [
+    "control-plane",
+    "multi-cli",
+    "theo",
+    "alpha"
+  ],
+  "matrix": {
+    "形态": "控制面·转交CLI",
+    "许可": "MIT",
+    "成本": "免费·订阅绑定",
+    "模型接入": "多CLI包装",
+    "手机端": "iOS/Android/Web",
+    "代码路径": "本地server+relay"
+  },
+  "stats": {
+    "source_repo": "pingdotgg/t3code",
+    "stars": 22865,
+    "pushed_at": "2026-09-16",
+    "license": "MIT",
+    "collected_at": "2026-09-17"
+  }
+}

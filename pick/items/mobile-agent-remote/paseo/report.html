@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paseo · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/dev-automation.html">开发自动化</a><span class="sep">·</span><span>手机端遥控 Coding Agent 客户端</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../opencode-telegram-bot/report.html">← opencode-telegram-bot</a><span class="sep">·</span><a href="../t3code/report.html">T3 Code →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Paseo</h1>
+<blockquote><strong>TL;DR</strong>：多 Agent 异构编排第一：/paseo-handoff 跨 harness 交棒 + 零遥测自托管；代价是配置复杂度、license 文件非标准、走订阅时额度折损。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0（license 文件带自定义版权头，GitHub 识别为 NOASSERTION；正文为 Apache-2.0，gh 2026-09-17 解码确认）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/getpaseo/paseo">https://github.com/getpaseo/paseo</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">pushed 2026-09-16，⭐17,468（gh 2026-09-17）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">端</td><td style="text-align:left">iOS / Android / Web / CLI / 桌面</td><td style="text-align:left">[1][3]</td></tr><tr><td style="text-align:left">支持 harness</td><td style="text-align:left">Claude Code / Codex / Copilot / OpenCode / Pi 等</td><td style="text-align:left">[1][3]</td></tr></tbody></table>
+<h2>为什么选（作为 trial）</h2>
+<ul><li><strong>异构编排能力独一档</strong>：本地 daemon 调度多个 CLI，<code>/paseo-handoff</code> 让 Claude 规划、Codex 执行跨 harness 交棒；<code>/paseo-committee</code> 多 Agent 评审；worktree 并行隔离——四方对比中「跨模型调度」单项公认完胜 [3][4]。</li><li><strong>隐私主张干净</strong>：零遥测、无强制登录、本地 daemon + TCP/Tailscale 直连或可选 E2E relay [1][3]。</li><li><strong>App Store 中文好评真实可查</strong>：「非常好用，直连的速度快」（2026-05-31）、「移动CC天花板」（2026-04-15）[2]。</li><li><strong>修复节奏扎实</strong>：v0.1.65（2026-05-03）系统性修 daemon 断线、relay 重连循环、崩溃日志缺失、Apple Silicon 错装 Intel 包 CPU 100% 等 [3]。</li></ul>
+<h2>为什么不是 adopt</h2>
+<ul><li><strong>Anthropic 订阅额度折损</strong>：社区引维护者回应称 Paseo 内走 Claude Code 订阅会消耗不同 credit 池，「实际使用可能只剩一部分额度」——订阅党账单雷 [3]。</li><li><strong>复杂度天然高</strong>：daemon + 多 harness + relay 概念面大，只想手机批准单个 Claude 任务时是过度设计 [3]。</li><li>早期稳定性缺口有痕迹：「always ask 权限选项崩溃」（App Store 2026-05-16）；v0.1.65 修复项反向证明此前不稳 [2][3]。</li><li>license 文件非标准 SPDX（虽正文 Apache-2.0），企业合规场景需自行确认 [1]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs Happy：Paseo 是编排层，Happy 是体验层；单 Claude/Codex 用户选 Happy 更轻 [3]。</li><li>vs Vibe Kanban：Paseo 保留完整审批闭环与流式输出；Vibe Kanban 是任务队列粒度（见其条目）[3]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>并行 4+ Agent 时 daemon 有并发冲突崩溃报告（待验证，聚合口碑 [3]）。</li><li>本机 daemon 机器必须常开；合盖即断 [3]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 + LICENSE 解码 — <a href="https://github.com/getpaseo/paseo">https://github.com/getpaseo/paseo</a>（gh 2026-09-17：⭐17,468、pushed 2026-09-16）</li><li>App Store 评论页 — <a href="https://apps.apple.com/cn/app/paseo-remote-coding-agents/id6758887924">https://apps.apple.com/cn/app/paseo-remote-coding-agents/id6758887924</a>（评论 2026-04 至 2026-06）</li><li>口碑调研报告 B — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md（2026-09-17，issue/release 经 GitHub API 复核）</li><li>口碑调研报告 A — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-a.md（2026-09-17，/paseo-handoff 编排叙事）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：编排第一但额度折损 + 复杂度限制其作为默认</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

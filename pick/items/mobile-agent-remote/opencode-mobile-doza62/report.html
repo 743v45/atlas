@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenCode Mobile (doza62) · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/dev-automation.html">开发自动化</a><span class="sep">·</span><span>手机端遥控 Coding Agent 客户端</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../omnara/report.html">← Omnara</a><span class="sep">·</span><a href="../opencode-mobile-dzianisv/report.html">OpenCode Mobile (dzianisv) →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>OpenCode Mobile (doza62)</h1>
+<blockquote><strong>TL;DR</strong>：iOS 侧功能最全的 OpenCode 客户端（Face ID/Haptic/原生 Git），但 2026-02-25 后停更半年 + 作者自认 beta 重连问题，iOS 用户暂无可靠 BYO 客户端。</blockquote>
+<ul><li><strong>结论</strong>：hold 观望</li><li><strong>核实日期</strong>：2026-09-17</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/doza62/opencode-mobile">https://github.com/doza62/opencode-mobile</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left"><strong>pushed 2026-02-25，⭐271（gh 2026-09-17）——半年未更新</strong></td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">端</td><td style="text-align:left">iOS / Android / Web（React Native）</td><td style="text-align:left">[1][2]</td></tr></tbody></table>
+<h2>为什么不选（hold 理由）</h2>
+<ul><li><strong>停更半年</strong>：gh API 直查最后 push 2026-02-25。此类贴上游 <code>opencode serve</code> API 的薄客户端，上游一变就失配，半年不动是硬风险 [1]。</li><li><strong>作者自认 beta 且问题具体</strong>：2026-03 作者称 "finally working (still beta quality)"；已知问题含权限请求截断、会话状态不自动刷新、重连时键盘隐藏 [2]。</li><li><strong>iOS 重连顽疾</strong>：App Store 用户反馈后台回切白屏断连、需冷启动重连（聚合口碑 [3]）。</li><li>部分版本无法渲染多选一审批题，任务后台静默卡死——审批闭环断裂（聚合口碑，待验证 [3]）。</li></ul>
+<h2>对比</h2>
+<ul><li>vs dzianisv（Android adopt）：同生态同架构，但维护节奏差一档（8 月 vs 2 月）[1][2]。</li><li>iOS 侧现状：doza62 停更、Shahfarzane 停更（2026-01-15）、KKCode/FlyCode 样本极少——<strong>iOS 的 BYO 路线暂无可靠选项</strong>，这是本类别当前最大空白 [2]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>若仍要在 iOS 试 BYO：doza62 仍是功能最全候选，需接受「停更 + beta」双重前提，并自备 Tailscale/隧道 [2][3]。</li><li>复活信号（重新 push、跟进上游 API 版本声明）出现时重估 [1]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/doza62/opencode-mobile">https://github.com/doza62/opencode-mobile</a>（gh 2026-09-17：MIT、⭐271、pushed 2026-02-25）</li><li>口碑调研报告 B — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md（2026-09-17，作者 beta 自述）</li><li>口碑调研报告 A — raw/2026-09-17/web/mobile-agent-remote-google-ai-report-a.md（2026-09-17，App Store 重连吐槽）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-17</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录：功能最全但停更半年压死</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-17 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

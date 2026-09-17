@@ -1,0 +1,36 @@
+{
+  "name": "Omnara",
+  "repo": "https://github.com/omnara-ai/omnara",
+  "homepage": "https://www.omnara.com",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "云托管开箱即用第一：零网络配置、审批策略引擎 + Watch 联动；代码默认过其云端是隐私代价，「停更」传言已证伪（2026-09 仍活跃）。",
+  "updated": "2026-09-17",
+  "verified": "2026-09-17",
+  "sources": [
+    "https://github.com/omnara-ai/omnara",
+    "https://www.omnara.com",
+    "raw/2026-09-17/web/mobile-agent-remote-google-ai-report-b.md"
+  ],
+  "tags": [
+    "cloud",
+    "mission-control",
+    "claude-code",
+    "approval"
+  ],
+  "matrix": {
+    "形态": "云指挥台",
+    "许可": "Apache-2.0",
+    "成本": "免费+云额度",
+    "模型接入": "Claude系",
+    "手机端": "iOS/Web",
+    "代码路径": "云同步可自托管"
+  },
+  "stats": {
+    "source_repo": "omnara-ai/omnara",
+    "stars": 2852,
+    "pushed_at": "2026-09-16",
+    "license": "Apache-2.0",
+    "collected_at": "2026-09-17"
+  }
+}

@@ -30,9 +30,9 @@
   },
   "stats": {
     "source_repo": "yugabyte/yugabyte-db",
-    "stars": 10500,
-    "pushed_at": "2026-08-26",
+    "stars": 10539,
+    "pushed_at": "2026-09-16",
     "license": "NOASSERTION",
-    "collected_at": "2026-08-27"
+    "collected_at": "2026-09-17"
   }
 }
