@@ -78,7 +78,7 @@
 <p>排查的起点是一次容器内报错:<code>kubectl exec</code> 进 <code>deploy/&lt;svc&gt;</code> 想跑 <code>node</code> 做 DNS 查询,报 <code>exec: "node": executable file not found in $PATH</code>——这个镜像不是 node 基础镜像,是编译型二进制直接打进去的,容器里可用的工具是 <code>nslookup</code> / <code>getent</code> / <code>nc</code> / <code>wget</code>。</p>
 <p>顺带发现第二个问题:查询用的域名后缀是把<strong>内部集群代号误当 DNS 域</strong>(形如把集群编号拼进 <code>svc.cluster.&lt;代号&gt;</code>)。集群真实 DNS 域是不是 <code>cluster.local</code> 看 Pod 的 resolv.conf 就知道:</p>
 <pre><code class="lang-">search &lt;ns&gt;.svc.cluster.local svc.cluster.local cluster.local</code></pre>
-<p>修正为 <code>&lt;svc&gt;.&lt;ns&gt;.svc.cluster.local</code>(或短名走 search 补全)后,解析正常到 Service 的 ClusterIP——「不存在的那条」整个集群都不会解析,<code>fud3</code> 之类的后缀只是被误当成域名用的代号。</p>
+<p>修正为 <code>&lt;svc&gt;.&lt;ns&gt;.svc.cluster.local</code>(或短名走 search 补全)后,解析正常到 Service 的 ClusterIP——「不存在的那条」整个集群都不会解析,<code>fudN</code> 之类的后缀只是被误当成域名用的代号。</p>
 <h2>二、核心知识点:deploy 只引用不存储</h2>
 <p>一个典型服务的配置全景(当日实测的一套):</p>
 <ul><li><strong>容器启动命令</strong>:<code>/app/&lt;svc&gt; -c /app/&lt;config&gt;.yaml</code>——主配置文件是挂载进去的。</li><li><strong>主配置来自 ConfigMap</strong>:该 cm 只有一个 key(如 <code>config.yaml</code>),挂载到容器的 <code>/app/&lt;config&gt;.yaml</code>。</li><li><strong>账密不在配置文件里</strong>:配置块里写了数据库地址/库名但<strong>没有 username/password</strong>——它们走 <code>envFrom</code> 的 <strong>Secret</strong> 注入成环境变量,进程启动时自己读。</li><li><strong>证书/杂项文件</strong>:若干 cm(证书.crt、seller.json 之类)以 volume 挂到指定路径。</li></ul>
@@ -106,7 +106,7 @@ kubectl get secret &lt;name&gt; -o go-template='{{range $k,$v := .data}}{{$k}}{{
 <h2>出处</h2>
 <ul><li>源对话归档:../../../conversations/2026-08-17-k8s-config-storage.md(2026-08-17)</li><li>原始会话:~/.claude/projects/-Users-taevas/94e8bf7d-1f7d-432d-8d29-d6e109c5c984.jsonl</li><li>关联条目:<a href="../k8s-kubectl-cheatsheet/">k8s-kubectl-cheatsheet</a>(命令全景)、<a href="../tencent-tke-access/">tencent-tke-access</a></li></ul>
   </article>
-  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+  <footer>生成于 2026-08-31 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
 </body>
 </html>
