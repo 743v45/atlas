@@ -1,0 +1,23 @@
+{
+  "name": "Are.na",
+  "homepage": "https://www.are.na",
+  "verdict": "assess",
+  "summary": "研究型链式 moodboard：适合主题深挖与「信息轨迹」，UI 风格检索效率低于 Cosmos/Savee。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://www.are.na",
+    "https://medium.com/@kylamedina/saving-and-organizing-creative-inspiration-a-comparison-of-cosmos-are-na-savee/",
+    "https://www.reddit.com/r/Design/",
+    "raw/2026-09-22/web/moodboard-cosmos-savee-arena-tavily.json",
+    "raw/2026-09-22/web/pricing-cosmos-savee-arena-tavily.json"
+  ],
+  "tags": ["moodboard", "research", "curation"],
+  "matrix": {
+    "形态": "链式moodboard",
+    "覆盖": "社区频道池",
+    "搜索力": "频道串联",
+    "成本": "Free+$7/月",
+    "口碑": "学术设计圈好"
+  }
+}

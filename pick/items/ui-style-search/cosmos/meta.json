@@ -1,0 +1,24 @@
+{
+  "name": "Cosmos",
+  "homepage": "https://www.cosmos.so",
+  "verdict": "trial",
+  "summary": "AI 视觉搜索天花板：按色板/风格搜 + 以图找图；astroturfing 指控压口碑，好评采信打折。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://www.cosmos.so",
+    "https://qdrant.tech/case-study/cosmos/",
+    "https://www.midwestdesignmag.com/articles/is-cosmos-the-new-pinterest",
+    "https://www.wix.com/blog/cosmos-app-review",
+    "https://www.reddit.com/r/Design/",
+    "raw/2026-09-22/web/moodboard-cosmos-savee-arena-tavily.json"
+  ],
+  "tags": ["ai-search", "visual-search", "moodboard", "inspiration"],
+  "matrix": {
+    "形态": "AI视觉搜索",
+    "覆盖": "全网图采集",
+    "搜索力": "色板/风格/以图搜图",
+    "成本": "Free+$8/月",
+    "口碑": "好评多·营销争议"
+  }
+}

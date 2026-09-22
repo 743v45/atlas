@@ -1,0 +1,20 @@
+{
+  "name": "SaaS Landing Page",
+  "homepage": "https://saaslandingpage.com",
+  "verdict": "assess",
+  "summary": "SaaS 落地页垂直：tech stack 与字体筛选独一份；样本量与更新频率待验证。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://saaslandingpage.com",
+    "https://softwarethug.com/best-landing-page-inspiration-sites/"
+  ],
+  "tags": ["saas", "landing-page", "inspiration"],
+  "matrix": {
+    "形态": "落地页画廊",
+    "覆盖": "SaaS垂直",
+    "搜索力": "tech stack/字体筛选",
+    "成本": "免费",
+    "口碑": "盘点好评·样本少"
+  }
+}

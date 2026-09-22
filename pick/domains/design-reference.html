@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>设计参考 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .masthead { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .masthead .sub { color: var(--muted); font-size: .92rem; }
+  .masthead .figures { margin-left: auto; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+  #filter {
+    width: 100%; padding: .5rem .8rem; margin-bottom: .6rem; font-size: .95rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text);
+  }
+  .chips { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .chip {
+    padding: .1rem .7rem; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--card); color: var(--muted); cursor: pointer; font-size: .8rem; font-family: var(--font-body);
+  }
+  .chip.active { color: var(--chip-c); border-color: var(--chip-c); font-weight: 600; }
+  .category { margin-bottom: 2.1rem; animation: drawer .4s ease both; }
+  .category:nth-child(1) { animation-delay: .02s } .category:nth-child(2) { animation-delay: .07s }
+  .category:nth-child(3) { animation-delay: .12s } .category:nth-child(4) { animation-delay: .17s }
+  @keyframes drawer { from { opacity: 0; transform: translateY(7px) } to { opacity: 1; transform: none } }
+  @media (prefers-reduced-motion: reduce) { .category { animation: none } }
+  .category h2 { font-size: 1.32rem; margin: 0 0 .5rem; display: flex; align-items: center; gap: .65rem; }
+  .gan {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.75em; height: 1.75em; border: 1.5px solid var(--text); border-radius: 5px;
+    font-size: .82em; font-family: var(--font-display); line-height: 1; flex-shrink: 0;
+  }
+  .cmp { font-size: .8rem; font-weight: normal; margin-left: auto; font-family: var(--font-body); }
+  .idx-table { display: table; table-layout: fixed; }
+  .idx-table th {
+    font-size: .73rem; color: var(--muted); font-weight: 500; text-align: left; font-family: var(--font-body);
+    cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .idx-table th:focus-visible { outline-offset: -2px; }
+  .idx-table th.sorted-asc::after { content: " ↑"; color: var(--link); }
+  .idx-table th.sorted-desc::after { content: " ↓"; color: var(--link); }
+  .idx-table td { border-bottom: 1px solid var(--border); font-size: .82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .idx-table td:first-child { width: 7.5rem; }
+  .idx-table td.num, .idx-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-family: var(--font-mono); font-size: .78rem; }
+  .idx-table td.mx { color: var(--muted); }
+  .idx-table td.warn { color: var(--accent); }
+  .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
+  .idx-table .tool-name { font-weight: 600; }
+  .push-stale { color: var(--danger); }
+  .stale-flag {
+    margin-left: .45rem; padding: 0 .4rem; border: 1px solid var(--accent); border-radius: 999px;
+    color: var(--accent); font-size: .68rem; font-family: var(--font-body); white-space: nowrap;
+  }
+  .collected-note { color: var(--muted); font-size: .75rem; margin-top: .3rem; font-family: var(--font-mono); }
+  .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
+  /* 域列表（顶层索引）与域页 */
+  .domain {
+    margin-bottom: 1.3rem; padding: 1rem 1.2rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+  }
+  .domain h2 { margin: 0 0 .35rem; display: flex; align-items: center; gap: .65rem; font-size: 1.3rem; }
+  .domain h2 a { color: inherit; text-decoration: none; }
+  .domain h2 a:hover { color: var(--link); }
+  .domain .figures { margin-left: auto; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); font-weight: 400; }
+  .domain-desc { margin: .1rem 0 .7rem; color: var(--muted); font-size: .9rem; font-family: var(--font-body); }
+  .cat-chips { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .cat-chip {
+    display: inline-flex; align-items: baseline; gap: .4rem; padding: .18rem .8rem;
+    border: 1px solid var(--border); border-radius: 999px; background: var(--bg);
+    text-decoration: none; color: var(--text); font-size: .85rem; font-family: var(--font-body);
+  }
+  .cat-chip:hover { border-color: var(--link); color: var(--link); }
+  .cat-chip span { color: var(--muted); font-family: var(--font-mono); font-size: .72rem; }
+  .cat-count { font-size: .74rem; color: var(--muted); font-weight: 400; font-family: var(--font-mono); }
+  .kingdom-name {
+    font-size: 1.05rem; color: var(--muted); font-weight: 600; margin: 1.6rem 0 .6rem;
+    border-bottom: 1px dashed var(--border); padding-bottom: .3rem;
+  }
+  .omni-wrap { position: relative; margin-bottom: 1.4rem; }
+  #omni {
+    width: 100%; padding: .55rem .9rem; font-size: .98rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 9px; background: var(--card); color: var(--text);
+  }
+  .omni-results {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 10;
+    background: var(--card); border: 1px solid var(--border); border-radius: 9px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.10); overflow: hidden;
+  }
+  .omni-results a, .omni-none {
+    display: flex; align-items: baseline; gap: .6rem; padding: .45rem .9rem;
+    text-decoration: none; color: var(--text); font-size: .88rem; font-family: var(--font-body);
+  }
+  .omni-results a:hover { background: color-mix(in srgb, var(--link) 6%, transparent); }
+  .omni-results b { font-weight: 600; }
+  .omni-v { font-size: .74rem; color: var(--muted); }
+  .omni-d { margin-left: auto; font-size: .76rem; color: var(--muted); font-family: var(--font-mono); }
+  @media (max-width: 720px) {
+    body { padding: 1rem .7rem 2.5rem; }
+    .category { overflow-x: auto; }
+    .category h2 { font-size: 1.12rem; }
+    .masthead .figures { display: none; }
+    .idx-table { min-width: 640px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><span>设计参考</span><span class="sep">·</span><span>1 类 18 条</span></nav>
+  <div class="masthead">
+    <h1>设计参考</h1>
+    <span class="sub">UI 风格与真实产品参考的检索平台选型：截图库、风格画廊、AI 视觉搜索三条路线，口碑为一等维度。</span>
+  </div>
+  <input id="filter" type="search" placeholder="按名称 / 结论 / 标签过滤…" autocomplete="off">
+  <div class="chips">
+    <button class="chip active" data-verdict="all">全部</button>
+    <button class="chip" data-verdict="adopt" style="--chip-c:#0ca30c">推荐</button><button class="chip" data-verdict="trial" style="--chip-c:#fab219">试用</button><button class="chip" data-verdict="assess" style="--chip-c:#898781">评估</button><button class="chip" data-verdict="hold" style="--chip-c:#d03b3b">观望</button>
+  </div>
+  <section class="category" id="ui-style-search" data-search="ui 风格搜索平台">
+    <h2>UI 风格搜索平台 <span class="cat-count">18 条</span> <a class="cmp" href="../items/ui-style-search/comparison.html">横评 →</a></h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>形态</th><th>覆盖</th><th>搜索力</th><th>成本</th><th>口碑</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="Are.na"
+          data-search="are.na 研究型链式 moodboard：适合主题深挖与「信息轨迹」，ui 风格检索效率低于 cosmos/savee。 moodboard research curation">
+        <td class="tool-name"><a href="../items/ui-style-search/arena/report.html" title="研究型链式 moodboard：适合主题深挖与「信息轨迹」，UI 风格检索效率低于 Cosmos/Savee。">Are.na</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">链式moodboard</td><td class="mx">社区频道池</td><td class="mx">频道串联</td><td class="mx">Free+$7/月</td><td class="mx">学术设计圈好</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Awwwards"
+          data-search="awwwards 获奖网站风向标：视觉天花板但口碑分裂——可用性常被批「bad practices」，当风向标用别当范式抄。 web-design awards inspiration trends">
+        <td class="tool-name"><a href="../items/ui-style-search/awwwards/report.html" title="获奖网站风向标：视觉天花板但口碑分裂——可用性常被批「bad practices」，当风向标用别当范式抄。">Awwwards</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">竞赛/评审画廊</td><td class="mx">获奖站精选</td><td class="mx">类型/技术/配色</td><td class="mx">浏览免费·提交收费</td><td class="mx">风向标·可用性争议</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Behance"
+          data-search="behance 完整 case study 深度参考：免费、项目全流程可溯；检索体验弱于库型平台。 community case-study portfolio">
+        <td class="tool-name"><a href="../items/ui-style-search/behance/report.html" title="完整 case study 深度参考：免费、项目全流程可溯；检索体验弱于库型平台。">Behance</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">作品集社区</td><td class="mx">全领域案例</td><td class="mx">分类/工具/配色</td><td class="mx">免费</td><td class="mx">深度参考稳</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Cosmos"
+          data-search="cosmos ai 视觉搜索天花板：按色板/风格搜 + 以图找图；astroturfing 指控压口碑，好评采信打折。 ai-search visual-search moodboard inspiration">
+        <td class="tool-name"><a href="../items/ui-style-search/cosmos/report.html" title="AI 视觉搜索天花板：按色板/风格搜 + 以图找图；astroturfing 指控压口碑，好评采信打折。">Cosmos</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">AI视觉搜索</td><td class="mx">全网图采集</td><td class="mx">色板/风格/以图搜图</td><td class="mx">Free+$8/月</td><td class="mx">好评多·营销争议</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="-1"
+          data-push="" data-name="Dribbble"
+          data-search="dribbble 概念稿+ai slop 化：「真实实现参考」价值崩塌（r/uxdesign 2025-26），只当审美方向板。 community inspiration hold">
+        <td class="tool-name"><a href="../items/ui-style-search/dribbble/report.html" title="概念稿+AI slop 化：「真实实现参考」价值崩塌（r/UXDesign 2025-26），只当审美方向板。">Dribbble</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">设计社区</td><td class="mx">概念稿为主</td><td class="mx">颜色/时间/tags</td><td class="mx">免费</td><td class="mx">崩塌中</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="Godly"
+          data-search="godly 网站视觉风格画廊的品味天花板：人工策展 + 日更「astronomically good」；找风格风向的默认入口。 web-design inspiration curation gallery">
+        <td class="tool-name"><a href="../items/ui-style-search/godly/report.html" title="网站视觉风格画廊的品味天花板：人工策展 + 日更「astronomically good」；找风格风向的默认入口。">Godly</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">风格画廊</td><td class="mx">日更策展</td><td class="mx">浏览+基础筛选</td><td class="mx">免费</td><td class="mx">一致偏好</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Land-book"
+          data-search="land-book 落地页风格综合策展第一梯队：按行业/配色/类型筛，免费可用。 landing-page inspiration curation">
+        <td class="tool-name"><a href="../items/ui-style-search/land-book/report.html" title="落地页风格综合策展第一梯队：按行业/配色/类型筛，免费可用。">Land-book</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">落地页画廊</td><td class="mx">多行业策展</td><td class="mx">行业/配色/类型</td><td class="mx">免费</td><td class="mx">第一梯队</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Lapa Ninja"
+          data-search="lapa ninja 免费落地页量大管饱：7,300+ 落地页 + 15,000+ 全页截图（官网 2026-09）；社区口碑 top 5。 landing-page inspiration free">
+        <td class="tool-name"><a href="../items/ui-style-search/lapa-ninja/report.html" title="免费落地页量大管饱：7,300+ 落地页 + 15,000+ 全页截图（官网 2026-09）；社区口碑 top 5。">Lapa Ninja</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">落地页画廊</td><td class="mx">7300+页·量大</td><td class="mx">行业/类型/配色</td><td class="mx">免费</td><td class="mx">社区top5</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="-1"
+          data-push="" data-name="Mobbin"
+          data-search="mobbin 真实产品 ui 截图/流程库的付费天花板：三端覆盖 + flow 组织 + figma/mcp 生态；trustpilot 差评集中在免费墙而非产品力。 ui ux screenshots flows figma-plugin mcp">
+        <td class="tool-name"><a href="../items/ui-style-search/mobbin/report.html" title="真实产品 UI 截图/流程库的付费天花板：三端覆盖 + flow 组织 + Figma/MCP 生态；Trustpilot 差评集中在免费墙而非产品力。">Mobbin</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">截图·流程库</td><td class="mx">500k+屏·3端</td><td class="mx">多维筛选+MCP</td><td class="mx">Free+Pro$10/月</td><td class="mx">社区公认·付费墙差评</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Nicelydone"
+          data-search="nicelydone saas 真实 ui 静态库第一梯队：199,600+ screens / 12,500+ flows（官网 2026-09）；saas 场景可平替 mobbin。 saas ui screenshots flows patterns">
+        <td class="tool-name"><a href="../items/ui-style-search/nicelydone/report.html" title="SaaS 真实 UI 静态库第一梯队：199,600+ screens / 12,500+ flows（官网 2026-09）；SaaS 场景可平替 Mobbin。">Nicelydone</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">截图·流程库</td><td class="mx">199k+屏·SaaS</td><td class="mx">按产品/流程/组件</td><td class="mx">免费层+订阅</td><td class="mx">盘点常客</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Page Flows"
+          data-search="page flows 完整用户流程的录屏库：看「怎么流」而非「长什么样」的垂直第一；trustpilot 3.7，个人版定价未核实。 ux flows video user-journeys">
+        <td class="tool-name"><a href="../items/ui-style-search/pageflows/report.html" title="完整用户流程的录屏库：看「怎么流」而非「长什么样」的垂直第一；Trustpilot 3.7，个人版定价未核实。">Page Flows</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">流程录屏库</td><td class="mx">头部产品流程</td><td class="mx">按流程/产品</td><td class="mx">免费样本+订阅</td><td class="mx">实用好评3.7</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="-1"
+          data-push="" data-name="Pinterest"
+          data-search="pinterest 量最大但已不可靠：ai slop 泛滥 + 官方过滤器失效（r/pinterest 2025-26），ui 风格检索默认不选。 moodboard image-search hold">
+        <td class="tool-name"><a href="../items/ui-style-search/pinterest/report.html" title="量最大但已不可靠：AI slop 泛滥 + 官方过滤器失效（r/Pinterest 2025-26），UI 风格检索默认不选。">Pinterest</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">图片搜索社区</td><td class="mx">全网最大</td><td class="mx">关键词+视觉推荐</td><td class="mx">免费</td><td class="mx">AI slop重灾区</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Refero"
+          data-search="refero 搜索体验最强的 mobbin challenger：按 section/tag/文本搜真实产品截图；free 层仅约 3% 库存，覆盖广度与 android 端弱于 mobbin。 ui design-search screenshots web saas">
+        <td class="tool-name"><a href="../items/ui-style-search/refero/report.html" title="搜索体验最强的 Mobbin challenger：按 section/tag/文本搜真实产品截图；Free 层仅约 3% 库存，覆盖广度与 Android 端弱于 Mobbin。">Refero</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">截图·搜索库</td><td class="mx">Web+SaaS为主</td><td class="mx">section/文本搜</td><td class="mx">Free+Pro$10/月</td><td class="mx">搜索力好评</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="SaaS Landing Page"
+          data-search="saas landing page saas 落地页垂直：tech stack 与字体筛选独一份；样本量与更新频率待验证。 saas landing-page inspiration">
+        <td class="tool-name"><a href="../items/ui-style-search/saas-landing-page/report.html" title="SaaS 落地页垂直：tech stack 与字体筛选独一份；样本量与更新频率待验证。">SaaS Landing Page</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">落地页画廊</td><td class="mx">SaaS垂直</td><td class="mx">tech stack/字体筛选</td><td class="mx">免费</td><td class="mx">盘点好评·样本少</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Savee"
+          data-search="savee 设计师私人收藏夹标准器：瀑布流体验最好；免费层 200 saves 限制，注意与同名印度公司无关。 moodboard inspiration curation">
+        <td class="tool-name"><a href="../items/ui-style-search/savee/report.html" title="设计师私人收藏夹标准器：瀑布流体验最好；免费层 200 saves 限制，注意与同名印度公司无关。">Savee</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">moodboard收藏夹</td><td class="mx">设计师公池</td><td class="mx">浏览+关注流</td><td class="mx">Free+$8/月</td><td class="mx">设计师首选之一</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="SiteInspire"
+          data-search="siteinspire 老牌网站策展：style/type/subject 三轴筛选仍然好用；无移动端画廊，更新节奏待验证。 web-design inspiration curation">
+        <td class="tool-name"><a href="../items/ui-style-search/siteinspire/report.html" title="老牌网站策展：style/type/subject 三轴筛选仍然好用；无移动端画廊，更新节奏待验证。">SiteInspire</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">风格画廊</td><td class="mx">老牌大库</td><td class="mx">style/type/subject</td><td class="mx">免费</td><td class="mx">老牌稳</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Typewolf"
+          data-search="typewolf 排版风格速查标准器：trending 字体 + 配对 + 按字体看实站；与 fonts in use 组合覆盖排版灵感。 typography fonts inspiration">
+        <td class="tool-name"><a href="../items/ui-style-search/typewolf/report.html" title="排版风格速查标准器：trending 字体 + 配对 + 按字体看实站；与 Fonts In Use 组合覆盖排版灵感。">Typewolf</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">排版速查/画廊</td><td class="mx">字体趋势+实站</td><td class="mx">按字体/风格</td><td class="mx">免费</td><td class="mx">老牌速查稳</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="站酷 ZCOOL"
+          data-search="站酷 zcool 国内生态可访问的设计师社区：作品展示+赛事型；作为 ui 截图参考库弱于 mobbin 系，国内网络环境下的补充。 china community inspiration">
+        <td class="tool-name"><a href="../items/ui-style-search/zcool/report.html" title="国内生态可访问的设计师社区：作品展示+赛事型；作为 UI 截图参考库弱于 Mobbin 系，国内网络环境下的补充。">站酷 ZCOOL</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">设计社区</td><td class="mx">国内全领域</td><td class="mx">分类/榜单</td><td class="mx">免费</td><td class="mx">国内最大·参考型弱</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      </tbody>
+    </table>
+    
+  </section>
+  <footer>生成于 2026-09-22 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
+</main>
+<script>
+  // 文本过滤 + verdict chips + 表头排序（类别内，点击切换升降序）
+  const VERDICT_ORDER = {"adopt": 0, "trial": 1, "assess": 2, "hold": 3};
+  const input = document.getElementById('filter');
+  let verdictF = 'all';
+  const chips = [...document.querySelectorAll('.chip')];
+
+  function applyFilter() {
+    document.querySelectorAll('.category').forEach(sec => {
+      let visible = 0;
+      sec.querySelectorAll('tbody tr').forEach(tr => {
+        const q = input.value.trim().toLowerCase();
+        const hitText = !q || tr.dataset.search.includes(q) || sec.dataset.search.includes(q);
+        const hitVerdict = verdictF === 'all' || tr.dataset.verdict === verdictF;
+        const hit = hitText && hitVerdict;
+        tr.classList.toggle('hidden', !hit);
+        if (hit) visible++;
+      });
+      sec.classList.toggle('hidden', visible === 0);
+    });
+  }
+  input.addEventListener('input', applyFilter);
+  chips.forEach(ch => ch.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    ch.classList.add('active');
+    verdictF = ch.dataset.verdict;
+    applyFilter();
+  }));
+
+  document.querySelectorAll('.idx-table th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const table = th.closest('table');
+      const tbody = table.querySelector('tbody');
+      const key = th.dataset.sort;
+      const asc = !th.classList.contains('sorted-asc');
+      table.querySelectorAll('th').forEach(t => t.classList.remove('sorted-asc', 'sorted-desc'));
+      th.classList.add(asc ? 'sorted-asc' : 'sorted-desc');
+      [...tbody.querySelectorAll('tr')].sort((a, b) => {
+        let va = a.dataset[key], vb = b.dataset[key];
+        if (key === 'stars') return (Number(va) - Number(vb)) * (asc ? 1 : -1);
+        if (key === 'verdict') return ((VERDICT_ORDER[va] ?? 9) - (VERDICT_ORDER[vb] ?? 9)) * (asc ? 1 : -1);
+        if (key === 'push') return String(va).localeCompare(String(vb)) * (asc ? 1 : -1);
+        return va.localeCompare(vb, 'zh') * (asc ? 1 : -1);
+      }).forEach(tr => tbody.appendChild(tr));
+    });
+  });
+</script>
+</body>
+</html>

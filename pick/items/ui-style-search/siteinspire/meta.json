@@ -1,0 +1,23 @@
+{
+  "name": "SiteInspire",
+  "homepage": "https://www.siteinspire.com",
+  "verdict": "assess",
+  "summary": "老牌网站策展：style/type/subject 三轴筛选仍然好用；无移动端画廊，更新节奏待验证。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://www.siteinspire.com",
+    "https://colorlib.com/wp/showcase-inspiration-sites-web-design",
+    "https://webflow.com/blog/web-design-inspiration",
+    "raw/2026-09-22/web/web-gallery-awwwards-godly-tavily.json",
+    "raw/2026-09-22/web/inspiration-overview-tavily.json"
+  ],
+  "tags": ["web-design", "inspiration", "curation"],
+  "matrix": {
+    "形态": "风格画廊",
+    "覆盖": "老牌大库",
+    "搜索力": "style/type/subject",
+    "成本": "免费",
+    "口碑": "老牌稳"
+  }
+}

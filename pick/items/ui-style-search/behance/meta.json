@@ -1,0 +1,23 @@
+{
+  "name": "Behance",
+  "homepage": "https://www.behance.net",
+  "verdict": "trial",
+  "summary": "完整 case study 深度参考：免费、项目全流程可溯；检索体验弱于库型平台。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://www.behance.net",
+    "https://colorlib.com/wp/showcase-inspiration-sites-web-design",
+    "https://www.reddit.com/r/Design/",
+    "raw/2026-09-22/web/inspiration-overview-tavily.json",
+    "raw/2026-09-22/web/moodboard-cosmos-savee-arena-tavily.json"
+  ],
+  "tags": ["community", "case-study", "portfolio"],
+  "matrix": {
+    "形态": "作品集社区",
+    "覆盖": "全领域案例",
+    "搜索力": "分类/工具/配色",
+    "成本": "免费",
+    "口碑": "深度参考稳"
+  }
+}

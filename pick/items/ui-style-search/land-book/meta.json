@@ -1,0 +1,22 @@
+{
+  "name": "Land-book",
+  "homepage": "https://land-book.com",
+  "verdict": "trial",
+  "summary": "落地页风格综合策展第一梯队：按行业/配色/类型筛，免费可用。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://land-book.com",
+    "https://www.saasui.design/blog/best-saas-landing-page-design-inspiration-sites",
+    "https://designerup.co/blog/incredible-web-design-inspiration-galleries",
+    "raw/2026-09-22/web/landing-page-galleries-tavily.json"
+  ],
+  "tags": ["landing-page", "inspiration", "curation"],
+  "matrix": {
+    "形态": "落地页画廊",
+    "覆盖": "多行业策展",
+    "搜索力": "行业/配色/类型",
+    "成本": "免费",
+    "口碑": "第一梯队"
+  }
+}

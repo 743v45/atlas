@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-17",
+  "updated": "2026-09-22",
   "domains": [
     {
       "slug": "browser-agents",
@@ -55,6 +55,14 @@
       ]
     },
     {
+      "slug": "design-reference",
+      "name": "设计参考",
+      "description": "UI 风格与真实产品参考的检索平台选型：截图库、风格画廊、AI 视觉搜索三条路线，口碑为一等维度。",
+      "categories": [
+        "ui-style-search"
+      ]
+    },
+    {
       "slug": "workflow-tools",
       "name": "工作流工具",
       "description": "写文档、看仓库、收通知、排字符、画图表——日常工具链的散件选型。",
@@ -93,7 +101,8 @@
       "name": "日常工具",
       "description": "工作流散件",
       "domains": [
-        "workflow-tools"
+        "workflow-tools",
+        "design-reference"
       ]
     }
   ]

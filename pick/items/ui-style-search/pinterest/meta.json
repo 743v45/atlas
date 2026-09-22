@@ -1,0 +1,22 @@
+{
+  "name": "Pinterest",
+  "homepage": "https://www.pinterest.com",
+  "verdict": "hold",
+  "summary": "量最大但已不可靠：AI slop 泛滥 + 官方过滤器失效（r/Pinterest 2025-26），UI 风格检索默认不选。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://www.reddit.com/r/Pinterest/",
+    "https://www.reddit.com/r/UI_Design/",
+    "raw/2026-09-22/web/pinterest-ai-slop-tavily.json",
+    "raw/2026-09-22/web/moodboard-cosmos-savee-arena-tavily.json"
+  ],
+  "tags": ["moodboard", "image-search", "hold"],
+  "matrix": {
+    "形态": "图片搜索社区",
+    "覆盖": "全网最大",
+    "搜索力": "关键词+视觉推荐",
+    "成本": "免费",
+    "口碑": "AI slop重灾区"
+  }
+}

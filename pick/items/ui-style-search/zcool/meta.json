@@ -1,0 +1,21 @@
+{
+  "name": "站酷 ZCOOL",
+  "homepage": "https://www.zcool.com.cn",
+  "verdict": "assess",
+  "summary": "国内生态可访问的设计师社区：作品展示+赛事型；作为 UI 截图参考库弱于 Mobbin 系，国内网络环境下的补充。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://www.zcool.com.cn",
+    "https://nexmoe.com/",
+    "raw/2026-09-22/web/zcool-chinese-platforms-tavily.json"
+  ],
+  "tags": ["china", "community", "inspiration"],
+  "matrix": {
+    "形态": "设计社区",
+    "覆盖": "国内全领域",
+    "搜索力": "分类/榜单",
+    "成本": "免费",
+    "口碑": "国内最大·参考型弱"
+  }
+}

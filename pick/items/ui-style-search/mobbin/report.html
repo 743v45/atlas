@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mobbin · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/design-reference.html">设计参考</a><span class="sep">·</span><span>UI 风格搜索平台</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../lapa-ninja/report.html">← Lapa Ninja</a><span class="sep">·</span><a href="../nicelydone/report.html">Nicelydone →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>Mobbin</h1>
+<blockquote><strong>TL;DR</strong>：真实产品 UI 截图/流程库的付费天花板：三端覆盖 + flow 组织 + Figma/MCP 生态；Trustpilot 差评集中在免费墙而非产品力。</blockquote>
+<ul><li><strong>结论</strong>：adopt 推荐</li><li><strong>核实日期</strong>：2026-09-22</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">商业闭源 SaaS：iOS/Android/Web 真实产品截图 + 完整 flow</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">规模</td><td style="text-align:left">500,000+ screens / 1,000+ apps（2026 评测口径）；Mobbin MCP 官宣口径 600,000+（2026-08-13）</td><td style="text-align:left">[2][4]</td></tr><tr><td style="text-align:left">成本</td><td style="text-align:left">Free 层 + Pro ≈ $10/月（年付；UK 年付 £8/月，2026-08 评测）</td><td style="text-align:left">[2][5]</td></tr><tr><td style="text-align:left">生态</td><td style="text-align:left">Figma 插件、团队 collection、Mobbin MCP（2026-08 发布）</td><td style="text-align:left">[1][4]</td></tr></tbody></table>
+<h2>为什么选（adopt）</h2>
+<ul><li><strong>覆盖与组织是硬差距</strong>：500k+ 真实截图按 app / flow / screen type / platform 组织，且按 flow 而非散图组织——「研究 onboarding 时拿到的是有序步骤而非随机截图」[2]。第三方盘点（colorlib 2026-03）将其单独列为「Mobile &amp; web app UI patterns」品类且标注人工策展 [5]。</li><li><strong>社区口碑为赛道第一</strong>：r/UXDesign 讨论将其视为 UX/UI pattern 参考的默认工具；Instagram 设计圈评论「Mobbin is way better for real design inspo（than Dribbble）」（2026-05）[3]。</li><li><strong>AI 生态卡位</strong>：2026-08 发布 Mobbin MCP，600k+ 设计库可被 coding agent 直查——「查真实实现」从人肉浏览延伸到 agent 通道 [4]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>Trustpilot 2.5/5「Poor」（2026-06-06 快照）</strong>：差评集中在免费层几乎无内容、paywall 全程遮挡、web 分类受限——是商业模式差评而非产品力差评；付费后口碑反转（coolcuration 长测「earns its keep」）[6][2]。</li><li>免费层仅可浏览最新收录 app + 有限搜索 + 3 个 collection——把它当免费工具用会体验很差 [2]。</li><li>2026 出现「Did Mobbin get worse」社区讨论（方向未证实，待验证）[7]。</li><li>商业闭源，无 gh stats 可刷。</li></ul>
+<h2>对比</h2>
+<ul><li>vs Refero：Mobbin 赢在覆盖广度与 flow 组织；Refero 赢在 section 级搜索力（见 refero 条目）。</li><li>vs Page Flows：Mobbin 是静态截图库；「看流程怎么走」的录屏垂直归 Page Flows。</li><li>vs Dribbble/Pinterest：本条目收录的都是真实产品实现，规避了概念稿与 AI slop——这正是 2025-26 社区从 Dribbble 流向 Mobbin 系的原因 [3]。</li></ul>
+<h2>来源</h2>
+<ol><li>Mobbin 官网（含官方证言「indispensable in the modern designer's toolbox」）— <a href="https://mobbin.com">https://mobbin.com</a>（检索 2026-09-22）</li><li>Coolcuration: Mobbin Review (2026) — <a href="https://coolcuration.com/mobbin-review-is-it-worth-it">https://coolcuration.com/mobbin-review-is-it-worth-it</a>（extract 留档 raw/2026-09-22/web/coolcuration-mobbin-review-2026.md，2026-09-22）</li><li>口碑检索（r/UXDesign、Instagram 评论）— raw/2026-09-22/web/mobbin-reviews-tavily.json、mobbin-vs-pageflows-tavily.json（2026-09-22）</li><li>Punit Chawla: Mobbin MCP 发布 — <a href="https://www.youtube.com/watch?v=rsLX46Nd8KE">https://www.youtube.com/watch?v=rsLX46Nd8KE</a>（2026-08-13，600k+ 口径）</li><li>Colorlib: 16 Best Web Design Inspiration Sites（2026-03 更新，对比表）— <a href="https://colorlib.com/wp/showcase-inspiration-sites-web-design">https://colorlib.com/wp/showcase-inspiration-sites-web-design</a>（extract 留档，2026-09-22）</li><li>Trustpilot: mobbin.com — <a href="https://www.trustpilot.com/review/mobbin.com">https://www.trustpilot.com/review/mobbin.com</a>（2026-06-06 快照，2.5/5）</li><li>r/UXDesign: Did Mobbin get worse — <a href="https://www.reddit.com/r/UXDesign/comments/1wgqkjd/did_mobbin_get_worse">https://www.reddit.com/r/UXDesign/comments/1wgqkjd/did_mobbin_get_worse</a>（2026，仅标题层证据，待验证）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-22</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录：真实 UI 参考库默认选择，付费墙差评不构成产品力风险</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-22 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

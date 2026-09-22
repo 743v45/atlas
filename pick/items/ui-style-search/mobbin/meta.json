@@ -1,0 +1,23 @@
+{
+  "name": "Mobbin",
+  "homepage": "https://mobbin.com",
+  "verdict": "adopt",
+  "summary": "真实产品 UI 截图/流程库的付费天花板：三端覆盖 + flow 组织 + Figma/MCP 生态；Trustpilot 差评集中在免费墙而非产品力。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://mobbin.com",
+    "https://coolcuration.com/mobbin-review-is-it-worth-it",
+    "https://www.trustpilot.com/review/mobbin.com",
+    "https://www.youtube.com/watch?v=rsLX46Nd8KE",
+    "raw/2026-09-22/web/mobbin-reviews-tavily.json"
+  ],
+  "tags": ["ui", "ux", "screenshots", "flows", "figma-plugin", "mcp"],
+  "matrix": {
+    "形态": "截图·流程库",
+    "覆盖": "500k+屏·3端",
+    "搜索力": "多维筛选+MCP",
+    "成本": "Free+Pro$10/月",
+    "口碑": "社区公认·付费墙差评"
+  }
+}

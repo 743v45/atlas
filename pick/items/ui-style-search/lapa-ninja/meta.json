@@ -1,0 +1,21 @@
+{
+  "name": "Lapa Ninja",
+  "homepage": "https://www.lapa.ninja",
+  "verdict": "trial",
+  "summary": "免费落地页量大管饱：7,300+ 落地页 + 15,000+ 全页截图（官网 2026-09）；社区口碑 top 5。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://www.lapa.ninja",
+    "https://www.reddit.com/r/userexperience/",
+    "raw/2026-09-22/web/landing-page-galleries-tavily.json"
+  ],
+  "tags": ["landing-page", "inspiration", "free"],
+  "matrix": {
+    "形态": "落地页画廊",
+    "覆盖": "7300+页·量大",
+    "搜索力": "行业/类型/配色",
+    "成本": "免费",
+    "口碑": "社区top5"
+  }
+}

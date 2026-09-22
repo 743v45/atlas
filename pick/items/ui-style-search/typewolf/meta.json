@@ -1,0 +1,23 @@
+{
+  "name": "Typewolf",
+  "homepage": "https://www.typewolf.com",
+  "verdict": "trial",
+  "summary": "排版风格速查标准器：trending 字体 + 配对 + 按字体看实站；与 Fonts In Use 组合覆盖排版灵感。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://www.typewolf.com",
+    "https://www.typewolf.com/site-of-the-day",
+    "https://fontsinuse.com",
+    "https://gofishdigital.com/blog/typeface-inspiration/",
+    "raw/2026-09-22/web/darkmode-typewolf-tavily.json"
+  ],
+  "tags": ["typography", "fonts", "inspiration"],
+  "matrix": {
+    "形态": "排版速查/画廊",
+    "覆盖": "字体趋势+实站",
+    "搜索力": "按字体/风格",
+    "成本": "免费",
+    "口碑": "老牌速查稳"
+  }
+}

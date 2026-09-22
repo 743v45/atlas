@@ -1,0 +1,23 @@
+{
+  "name": "Awwwards",
+  "homepage": "https://www.awwwards.com",
+  "verdict": "trial",
+  "summary": "获奖网站风向标：视觉天花板但口碑分裂——可用性常被批「bad practices」，当风向标用别当范式抄。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://www.awwwards.com",
+    "https://colorlib.com/wp/showcase-inspiration-sites-web-design",
+    "https://www.reddit.com/r/web_design/",
+    "raw/2026-09-22/web/web-gallery-awwwards-godly-tavily.json",
+    "raw/2026-09-22/web/inspiration-overview-tavily.json"
+  ],
+  "tags": ["web-design", "awards", "inspiration", "trends"],
+  "matrix": {
+    "形态": "竞赛/评审画廊",
+    "覆盖": "获奖站精选",
+    "搜索力": "类型/技术/配色",
+    "成本": "浏览免费·提交收费",
+    "口碑": "风向标·可用性争议"
+  }
+}

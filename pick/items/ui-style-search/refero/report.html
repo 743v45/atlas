@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refero · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/design-reference.html">设计参考</a><span class="sep">·</span><span>UI 风格搜索平台</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../pinterest/report.html">← Pinterest</a><span class="sep">·</span><a href="../saas-landing-page/report.html">SaaS Landing Page →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Refero</h1>
+<blockquote><strong>TL;DR</strong>：搜索体验最强的 Mobbin challenger：按 section/tag/文本搜真实产品截图；Free 层仅约 3% 库存，覆盖广度与 Android 端弱于 Mobbin。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-09-22</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">商业闭源 SaaS：Web/SaaS/iOS 真实产品截图 + flow + pattern</td><td style="text-align:left">[1][3]</td></tr><tr><td style="text-align:left">定位</td><td style="text-align:left">「Design research for humans and AI」（Refero 2.0，2024-08-17 Product Hunt 日榜 #3）</td><td style="text-align:left">[2][5]</td></tr><tr><td style="text-align:left">成本</td><td style="text-align:left">Free（约 3% 库存）+ Pro $10/月（年付 $120）+ Team $12/月，学生 5 折（2026-08-03 官方定价页核对）</td><td style="text-align:left">[4]</td></tr><tr><td style="text-align:left">端</td><td style="text-align:left">Web + SaaS 为主 + 部分 iOS；Android 覆盖存疑</td><td style="text-align:left">[3][6]</td></tr></tbody></table>
+<h2>为什么选（作为 trial）</h2>
+<ul><li><strong>搜索力是独门强项</strong>：按页面 section（pricing table / 404 / empty state）、组合 tag、甚至文本内容搜——「找产品页带插画的例子 = 两个 tag 组合即达」（uxcel 资源盘点 + 官网）[1][3]。</li><li><strong>「真实产品」路线与 Mobbin 同盟军</strong>：Product Hunt 评价集中在「strong search, filters, real products rather than polished concept shots」[2]。</li><li><strong>r/UI_Design 存在「refero or mobbin」抉择帖</strong>——它已进入与 Mobbin 二选一的讨论层级 [6]。</li></ul>
+<h2>为什么不是 adopt</h2>
+<ul><li><strong>覆盖窄于 Mobbin</strong>：Web/SaaS 强、iOS 部分、Android 存疑（二手说法，待验证）——「查移动端实现」场景不完整 [3][6]。</li><li>Free 层仅约 3% 库存，比 Mobbin 免费层更紧 [4]。</li><li>与 Mobbin 同价（Pro 均 $10/月年付，2026-08 核对），广度优先时无价格优势 [4]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs Mobbin：同价位下 Mobbin 赢广度与三端覆盖，Refero 赢 section 级搜索粒度；SaaS/web 重度团队可双开。</li><li>vs Nicelydone：Refero 全行业，Nicelydone SaaS 垂直更专。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>Android 覆盖为二手口径（Gummble 对比文，利益相关），<strong>待验证</strong> [6]。</li><li>商业闭源，无 gh stats 可刷。</li></ul>
+<h2>来源</h2>
+<ol><li>Refero 官网（UX Patterns 分类）— <a href="https://refero.design">https://refero.design</a>（检索 2026-09-22）</li><li>Product Hunt: Refero Reviews (2026) — <a href="https://www.producthunt.com/products/refero/reviews">https://www.producthunt.com/products/refero/reviews</a>（检索 2026-09-22）</li><li>Uxcel: Top 7 Resources for UX/UI Designers — <a href="https://uxcel.com/blog/ux-ui-design-resources">https://uxcel.com/blog/ux-ui-design-resources</a>（检索 2026-09-22）</li><li>Refframe: 参照双方官方定价页核对 — <a href="https://refframe.com/blog/refframe-vs-refero">https://refframe.com/blog/refframe-vs-refero</a>（2026-08-03 核对，2026-09-22 检索）</li><li>Product Hunt: Refero 2.0 #3 of the day（2024-08-17）— raw/2026-09-22/web/appstore-screenshots-pttrns-tavily.json</li><li>口碑检索（r/UI_Design 抉择帖、Gummble 覆盖对比）— raw/2026-09-22/web/refero-reviews-tavily.json、pricing-mobbin-refero-tavily.json（2026-09-22）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-09-22</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：搜索力独门但覆盖窄于 Mobbin，SaaS/web 团队优先试用</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-09-22 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

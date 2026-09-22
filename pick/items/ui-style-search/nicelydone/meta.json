@@ -1,0 +1,21 @@
+{
+  "name": "Nicelydone",
+  "homepage": "https://nicelydone.club",
+  "verdict": "trial",
+  "summary": "SaaS 真实 UI 静态库第一梯队：199,600+ screens / 12,500+ flows（官网 2026-09）；SaaS 场景可平替 Mobbin。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://nicelydone.club",
+    "https://softwarethug.com/best-landing-page-inspiration-sites/",
+    "raw/2026-09-22/web/mobbin-vs-pageflows-tavily.json"
+  ],
+  "tags": ["saas", "ui", "screenshots", "flows", "patterns"],
+  "matrix": {
+    "形态": "截图·流程库",
+    "覆盖": "199k+屏·SaaS",
+    "搜索力": "按产品/流程/组件",
+    "成本": "免费层+订阅",
+    "口碑": "盘点常客"
+  }
+}

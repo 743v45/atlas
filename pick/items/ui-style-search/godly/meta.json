@@ -1,0 +1,22 @@
+{
+  "name": "Godly",
+  "homepage": "https://godly.website",
+  "verdict": "adopt",
+  "summary": "网站视觉风格画廊的品味天花板：人工策展 + 日更「astronomically good」；找风格风向的默认入口。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://godly.website",
+    "https://madebyshape.co.uk/web-design-guides/best-web-design-inspiration-sites",
+    "raw/2026-09-22/web/web-gallery-awwwards-godly-tavily.json",
+    "raw/2026-09-22/web/inspiration-overview-tavily.json"
+  ],
+  "tags": ["web-design", "inspiration", "curation", "gallery"],
+  "matrix": {
+    "形态": "风格画廊",
+    "覆盖": "日更策展",
+    "搜索力": "浏览+基础筛选",
+    "成本": "免费",
+    "口碑": "一致偏好"
+  }
+}

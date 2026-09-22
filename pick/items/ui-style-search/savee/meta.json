@@ -1,0 +1,23 @@
+{
+  "name": "Savee",
+  "homepage": "https://savee.it",
+  "verdict": "trial",
+  "summary": "设计师私人收藏夹标准器：瀑布流体验最好；免费层 200 saves 限制，注意与同名印度公司无关。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://savee.it",
+    "https://medium.com/@kylamedina/saving-and-organizing-creative-inspiration-a-comparison-of-cosmos-are-na-savee/",
+    "https://www.reddit.com/r/Design/",
+    "raw/2026-09-22/web/moodboard-cosmos-savee-arena-tavily.json",
+    "raw/2026-09-22/web/pricing-cosmos-savee-arena-tavily.json"
+  ],
+  "tags": ["moodboard", "inspiration", "curation"],
+  "matrix": {
+    "形态": "moodboard收藏夹",
+    "覆盖": "设计师公池",
+    "搜索力": "浏览+关注流",
+    "成本": "Free+$8/月",
+    "口碑": "设计师首选之一"
+  }
+}

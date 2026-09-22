@@ -1,0 +1,21 @@
+{
+  "name": "Page Flows",
+  "homepage": "https://pageflows.com",
+  "verdict": "trial",
+  "summary": "完整用户流程的录屏库：看「怎么流」而非「长什么样」的垂直第一；Trustpilot 3.7，个人版定价未核实。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://pageflows.com",
+    "https://www.trustpilot.com/review/pageflows.com",
+    "raw/2026-09-22/web/mobbin-vs-pageflows-tavily.json"
+  ],
+  "tags": ["ux", "flows", "video", "user-journeys"],
+  "matrix": {
+    "形态": "流程录屏库",
+    "覆盖": "头部产品流程",
+    "搜索力": "按流程/产品",
+    "成本": "免费样本+订阅",
+    "口碑": "实用好评3.7"
+  }
+}

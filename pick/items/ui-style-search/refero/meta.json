@@ -1,0 +1,24 @@
+{
+  "name": "Refero",
+  "homepage": "https://refero.design",
+  "verdict": "trial",
+  "summary": "搜索体验最强的 Mobbin challenger：按 section/tag/文本搜真实产品截图；Free 层仅约 3% 库存，覆盖广度与 Android 端弱于 Mobbin。",
+  "updated": "2026-09-22",
+  "verified": "2026-09-22",
+  "sources": [
+    "https://refero.design",
+    "https://www.producthunt.com/products/refero/reviews",
+    "https://uxcel.com/blog/ux-ui-design-resources",
+    "https://refframe.com/blog/refframe-vs-refero",
+    "raw/2026-09-22/web/refero-reviews-tavily.json",
+    "raw/2026-09-22/web/pricing-mobbin-refero-tavily.json"
+  ],
+  "tags": ["ui", "design-search", "screenshots", "web", "saas"],
+  "matrix": {
+    "形态": "截图·搜索库",
+    "覆盖": "Web+SaaS为主",
+    "搜索力": "section/文本搜",
+    "成本": "Free+Pro$10/月",
+    "口碑": "搜索力好评"
+  }
+}
