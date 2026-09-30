@@ -21,10 +21,10 @@
   ],
   "stats": {
     "source_repo": "ultrafunkamsterdam/nodriver",
-    "stars": 4751,
+    "stars": 4796,
     "pushed_at": "2026-05-13",
     "license": "AGPL-3.0",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   },
   "matrix": {
     "反检测层级": "无中间层直连",

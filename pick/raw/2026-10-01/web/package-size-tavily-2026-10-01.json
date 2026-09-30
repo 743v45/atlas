@@ -1,0 +1,58 @@
+{
+  "query": "taro uni-app 编译 包体积 基座 运行时 大小 对比",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://mpxjs.cn/articles/performance.html",
+      "title": "小程序框架运行时性能大测评 | Mpx 框架",
+      "content": "### 框架运行时体积 ​\n\n由于不是所有框架都能够使用`webpack-bundle-analyzer`得到精确的包体积占用，这里我通过将各框架生成的demo项目体积减去native编写的demo项目体积作为框架的运行时体积。\n\n| demo总体积(KB) | 框架运行时体积(KB) |\n --- |\n| native | 27 | 0 |\n| wepy2 | 66 | 39 |\n| uniapp | 114 | 87 |\n| mpx | 78 | 51 |\n| chameleon | 136 | 109 |\n| mpvue | 103 | 76 |\n| kbone | 395 | 368 |\n| taro next | 183 | 156 |\n\n该项测试的结论为：  \n native > wepy2 > mpx > mpvue > uniapp > chameleon > taro next > kbone\n\n结论分析： [...] | count | size(KB) |\n --- |\n| native | 14 | 803 |\n| wepy2 | 3514 | 1124 |\n| mpvue | 16 | 2127 |\n| uniapp | 14 | 274 |\n| mpx | 8 | 261 |\n| chameleon | 2515 | 319 |\n| kbone | 22 | 10572 |\n| taro next | 9 | 2321 |\n\n该项测试的结论为：  \n mpx > uniapp > native > chameleon > wepy2 > taro next > mpvue > kbone\n\n结论分析： [...] | delete(all) | add(1000) | update(1) | update(all) | delete(1) |\n ---  --- \n| native | 32.8 | 295.6 | 92.2 | 92.2 | 83 |\n| wepy2 | 56.8 | 726.4 | 49.2 | 535 | 530.8 |\n| uniapp | 43.6 | 584.4 | 54.8 | 144.8 | 131.2 |\n| mpx | 41.8 | 489.6 | 52.6 | 169.4 | 165.6 |\n| chameleon | 39 | 765.6 | 95.6 | 237.8 | 144.8 |\n| mpvue | 103.6 | 669.4 | 404.4 | 414.8 | 433.6 |\n| kbone | 120.2 | 4978 | 2356.4 | 2419.4 | 2357 |\n| taro next | 126.6 | 3930.6 | 1607.8 | 1788.6 | 2318.2 |",
+      "score": 0.6747586,
+      "raw_content": null,
+      "id": "8ae0df-00"
+    },
+    {
+      "url": "https://damao2250.github.io/2021/07/25/Taro%E4%B8%8Euni-app%E5%AF%B9%E6%AF%94",
+      "title": "Taro与uni-app对比 | Damao",
+      "content": "# 两者的对比\n\n## 共同点\n\n 两者都是用主流框架开发的\n 都能支持微信、百度、支付宝、今日头条等小程序，H5，以及iOS和Android的App\n 均支持使用npm/yarn安装管理第三方依赖\n 均支持使用ES6甚至更新的ES规范\n 均支持使用less/scss/ts等预编译器\n 均支持进行应用状态管理，taro支持Redux，uni-app支持vuex\n\n## 差异点 [...] Taro   uni-app\n\n小程序\n\n发布日期:   2021-07-25\n\n更新日期:   2026-09-08\n\n文章字数:   890\n\n阅读时长:   3 分\n\n阅读次数:\n\n# Taro和uni-app的介绍\n\n## Taro的介绍\n\n Taro 是一个开放式跨端跨框架解决方案，支持使用 React/Vue/Nerv 等框架来开发 微信 / 京东 / 百度 / 支付宝 / 字节跳动 / QQ 小程序 / H5 / RN 等应用。\n 官方文档：\n Github地址：\n\n## uni-app的介绍\n\n uni-app 是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉/淘宝）、快应用等多个平台。\n 官方文档：\n Github地址：\n\n# 两者的对比\n\n## 共同点 [...] | Taro | uni-app |\n --- |\n| 开发技术栈 | React框架开发 | Vue框架开发 |\n| 开发工具 | 官方未特别推荐IDE | 官方推荐HBuilderX,开发工具可视化的方式比较简单，HBuilderX内置相关环境，开箱即用，无需配置nodejs |\n| 跨端程度 | 微信 / 京东 / 百度 / 支付宝 / 字节跳动 / QQ 小程序 / H5 / RN | 微信/支付宝/百度/头条/QQ/钉钉/淘宝小程序、快应用、iOS、Android、Web（响应式） |\n| 版本升级差异 | 1.X与2.X之间没有做平滑升级，版本差异太大，升级版本会导致各种不兼容的bug；3.X则属于开放式架构的改动，采用了重运行时的架构 | 无版本升级影响 |\n| 物料市场 | NutUI、Taro UI；物料市场活跃度低，更新速度慢 | uni-ui、uView UI、mui；插件市场活跃度高，插件数量多，更新速度快 |\n| 社区活跃度 | GitHub Issuse、Discussions | GitHub Issuse、官网社区问答 |",
+      "score": 0.66203266,
+      "raw_content": null,
+      "id": "6cee67-01"
+    },
+    {
+      "url": "https://vuemini.org/guide/comparisons",
+      "title": "比较 | Vue Mini",
+      "content": "Taro 3 / Remax / kbone / Rax 运行时，这四个方案的实现细节略有不同，但可以大致归为同一类。Taro 3 / kbone / Rax 运行时，这三个方案是通过模拟实现 DOM API 来让现有的 Web 框架可以跑在小程序上，最终通过模拟的 DOM API 生成 VDOM，而 Remax 是实现了一个自定义的 react-reconciler 直接承接 React 生成的 VDOM。最终它们都是将 VDOM 作为小程序组件的 data 发送给模版，然后通过模版语法在运行时暴力递归 VDOM 生成最终的 UI 树。可以了解到这类方案是重运行时的，很暴力，但有效。可是这类方案也是带着原罪出生的，主要问题有两个：一个是这类方案都带有一个很大的运行时，一个 Hello World 小程序，Taro 3 的大小是 280KB，Remax 更是达到了 305KB，而作为对比 Vue Mini 只有 26KB，虽然这样的对比并不严谨，但大致也可以说明问题。另一个问题是这类方案有很大的性能开销，页面稍微复杂一点卡顿几乎无法避免，而 Vue Mini [...] Taro 2 是个很有想象力的方案（Rax 编译时与 Taro 2 基本类似），你可以像写 React 一样写小程序，它通过编译时的静态分析将你的类 React 组件还原成原生语法。可是这其中有个致命的问题，React Render Function / JSX 是极其动态的，而原生语法的 Template 是比较静态的。都知道把静态模版编译为动态渲染函数不难，反过来却难如登天。也就是这个根本原因导致 Taro 2 有很多难以解决的问题，Taro 团队可能也意识到这条路是个死胡同，所以 Taro 3 抛弃了编译时方案。而 Vue Mini 目前只是一个轻量的纯运行时库，它并不依赖任何编译时手段。\n\n## Taro 3 / Remax / kbone / Rax 运行时 ​ [...] uni-app 与 Vue Mini 的区别主要在两个方面，一是实现方案不同，二是设计哲学不同。uni-app 会在每个小程序组件实例初始化时创建一个对应的 Vue 组件实例，uni-app 会在小程序组件与 Vue 组件之间做同步，开发者的代码运行在 Vue 组件上。小程序组件的 Properties 变化了就同步给 Vue 组件，小程序组件的生命周期被触发了就去调用 Vue 组件的生命周期。反过来开发者声明的响应式数据变化了会经由 Vue 组件同步给小程序组件。Vue Mini 并没有这样的影子组件，Vue Mini 就是直接将响应式数据同步给小程序组件，方法与生命周期也都是直接添加到小程序组件上。事实上 Vue Mini 根本没有 Vue 组件的概念，只有小程序组件。相比而言，Vue Mini 的设计更简洁，抽象更少，自然也更不容易出错。而且 Vue Mini 的体积更小，内存占用更少，理论上速度也更快。另外 uni-app 与 Vue Mini 的设计哲学也不同。uni-app 是尽可能靠近 Vue，努力将 Vue 渲染到小程序，我甚至觉得 uni-app",
+      "score": 0.62358373,
+      "raw_content": null,
+      "id": "2448cf-02"
+    },
+    {
+      "url": "https://docs.taro.zone/blog/2019-03-12-mini-program-framework-full-review",
+      "title": "小程序框架全面测评 | Taro 文档",
+      "content": "从第三方贡献者数量来看，`Taro` 在这一方面领先，并且 `Taro` 的一些核心包/功能（MobX、CSS Modules、alias）也是由第三方开发者贡献的。除此之外，腾讯开源的 `omi` 框架小程序部分也是基于 Taro 完成的。\n\n`WePY` 在腾讯开源计划的加持下在这一方面也有不错的表现；`mpvue` 由于停滞开发了很久就比较落后了；可能是产品策略的原因，`uni-app` 在开源建设上并不热心，甚至有些部分代码都没有开源；`chameleon` 刚刚开源不久，但它的代码和测试用例都非常规范，以后或许会有不错的表现。\n\n那么这一轮的对比结果是：\n\n`Taro` > `WePY` > `mpvue` > `chameleon` > `uni-app`\n\n最后补一个总的生态对比图表：\n\n## 未来​\n\n从各框架已经公布的规划来看： [...] 但值得一提的是 `chameleon` 有一套自研多态协议，编写多端代码的体验会好许多，可以说是一个能戳到多端开发痛点的功能。`uni-app` 则有一套独立的条件编译语法，这套语法能同时作用于 `js`、样式和模板文件。`Taro` 可以在业务逻辑中根据环境变量使用条件编译，也可以直接使用条件编译文件（类似 React Native 的方式）。\n\n在移动端方面，`uni-app` 基于 `weex` 定制了一套 `nvue` 方案 弥补 `weex` API 的不足；`Taro` 则是暂时基于 `expo` 达到同样的效果；`chameleon` 在移动端则有一套 SDK 配合多端协议与原生语言通信。\n\nH5 方面，`chameleon` 同样是由多态协议实现支持，`uni-app` 和 `Taro` 则是都在 H5 实现了一套兼容的组件库和 API。\n\n`mpvue` 和 `WePY` 都提供了转换各端小程序的功能，但都没有 h5 和移动端的支持。\n\n所以最后一轮对比的结果是：\n\n`chameleon` > `Taro`、`uni-app` > `mpvue` > `WePY` [...] 缺点有：\n\n1. 交互复杂时难以写出高性能的代码，这类框架的设计就必然导致 `JS` 和 `Native` 之间需要通信，类似于手势操作这样频繁地触发通信就很可能使得 UI 无法在 16ms 内及时绘制。React Native 有一些声明式的组件可以避免这个问题，但声明式的写法很难满足复杂交互的需求。\n2. 由于没有渲染引擎，使用各端的原生组件渲染，相同代码渲染的一致性没有第一种高。\n\n#### 3. JavaScript 编译型​\n\n这类框架就是我们这篇文章的主角们：`Taro`、`WePY` 、`uni-app` 、 `mpvue` 、 `chameleon`，它们的原理也都大同小异：先以 JavaScript 作为基础选定一个 DSL 框架，以这个 DSL 框架为标准在各端分别编译为不同的代码，各端分别有一个运行时框架或兼容组件库保证代码正确运行。",
+      "score": 0.5521781,
+      "raw_content": null,
+      "id": "c47325-03"
+    },
+    {
+      "url": "https://en.uniapp.dcloud.io/select.html",
+      "title": "uni-app选型评估23问 | uni-app",
+      "content": "在做小程序时，小程序所有的api都可以使用；而输出到App时，原生渲染引擎、原生sdk集成和混写都支持，使得原生的所有api都可以使用。\n\n同时注意，条件编译不同于代码里if逻辑判断。条件编译块里的代码或指定的文件，只有在特定平台才会被编译进去，不会把不能用的其他平台代码混在一个包里。如果大量使用if判断，会增大体积和影响性能，而条件编译则没有这些问题，减少包体积，减少互相的干扰。\n\nuni-app的手机端用户体验如何？\n\n使用`uni-app`开发的微信小程序，因为智能的处理的数据的diff，比大多人手写的原生小程序的性能还好。详细数据评测参考：\n\n`uni-app`打包成App后，支持webview渲染和weex原生渲染这2种引擎，可以任由开发者切换使用。 [...] uni-app uni-app\n\nuni-app x\n\nuni-app\n\nuni-app\n\nuni-app x\n\nuniCloud\n\nHBuilder\n\nuniMPSdk\n\nIntroduction\n\nuni-app选型评估23问\n\nThis page is translated by Google Cloud Translation API\n\nSwitch to Chinese\n\n#### # uni-app选型评估23问\n\n如果你关心竞品对比，这里有几份详尽对比：\n\n1. 多端开发框架对比横评，参考：\n2. 只做App，flutter、react native等App跨平台框架对比，参考：\n3. 只做小程序，原生wxml开发、wepy、mpvue、taro的对比，\n4. uni-app和微信原生开发的详细比较评测，参考：\n\nuni-app 有哪些已上线的成功案例？\n\nuni-app是当今主流的开发框架，DCloud有900万开发者，uni统计手机端月活10亿，华为、阿里、腾讯、抖音、美团、京东、快手、vivo都在用，案例参考uni-app 应用案例\n\nuni-app收费吗？ [...] 内置了webpack/vite\n NPM 包管理系统，详见参考\n es6+ 语法（发布时会自动编译为es5），详见参考\n 各种预处理器（less、scss、stylus、typescript）\n uni-app的官方ide：HBuilderX，在vue、json、markdown、代码提示、操作效率上，有非常明显的优势，可帮助开发者大幅提高工作效率\n uni-app同时也提供了cli方式，可使用其他开发工具如vscode开发，当然开发效率不如HBuilderX。对比详见\n HBuilder也提供了cli，参考\n\nuni-app 生态开放性如何？能否直接利用现有前端社区资源？\n\n`uni-app` 提供了开放性的生态：",
+      "score": 0.44840267,
+      "raw_content": null,
+      "id": "bbf4ed-04"
+    },
+    {
+      "url": "https://cloud.tencent.com/developer/article/2685943",
+      "title": "2026 跨端框架横评：FinClip vs Taro vs uni-app vs Remax vs mPaaS 五款工具技术+业务双维度测评-腾讯云开发者社区-腾讯云",
+      "content": "腾讯云计算（北京）有限责任公司 京ICP证150476号 |  京ICP备11018762号 [...] ## 2026 跨端框架横评：FinClip vs Taro vs uni-app vs Remax vs mPaaS 五款工具技术+业务双维度测评\n\n# 2026 跨端框架横评：FinClip vs Taro vs uni-app vs Remax vs mPaaS 五款工具技术+业务双维度测评\n\n作者头像\n\n原创声明：本文系作者授权腾讯云开发者社区发表，未经许可，不得转载。\n\n如有侵权，请联系 cloudcommunity@tencent.com 删除。\n\n### 社区\n\n### 活动\n\n### 圈层\n\n### 关于\n\n### 腾讯云开发者\n\n扫码关注腾讯云开发者\n\n扫码关注腾讯云开发者\n\n领取腾讯云代金券\n\n### 热门产品\n\n### 热门推荐\n\n### 更多推荐\n\nCopyright © 2013 - 2026 Tencent Cloud. All Rights Reserved. 腾讯云 版权所有\n\n深圳市腾讯计算机系统有限公司 ICP备案/许可证号：粤B2-20090059粤公网安备44030502008569号",
+      "score": 0.39277983,
+      "raw_content": null,
+      "id": "4e3e57-05"
+    }
+  ],
+  "response_time": 1.07,
+  "request_id": "ef18bd91-37d7-4e35-a573-e3a6c4ad8b70"
+}

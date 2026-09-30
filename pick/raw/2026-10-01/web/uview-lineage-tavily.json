@@ -1,0 +1,58 @@
+{
+  "query": "uview-plus uview2 社区维护 fork 延续",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://uview-plus.jiangruyi.com/cooperation/about.html",
+      "title": "交流反馈 | uview-plus - 全面兼容nvue/鸿蒙/uni-app-x的uni-app生态框架 - uni-app UI框架",
+      "content": "交流群： 点击链接加入群聊【uview-plus@uniapp交流群16】： 1077425203(16群) 2854196310(15群已满) 996152014(14群已满) 1040164027(13群已满) 1030262168(12群已满) 972326824(11群已满) 915634191(10群已满) 133521230(9群已满) 981203770(8群已满) 974526823(7群已满) 778074130(6群已满) 135756675(5群已满) 819859964(4群已满) 231903965(3群已满) 776036021(2群已满) 495929039(1群已满)\n\n注意：\n\n有用户反馈误解，再此澄清下，目前uview-plus并不是uView2.x官方发布的，是我们另一个团队fork开源的源码，修改后发布的产品，仍然要感谢uView2.x开发者，不过出于对Vue3支持的需要，所以fork了一个版本同时希望也能帮到人同样有Vue3需求的大家。\n\n  \n\n### # 研发组 [...] ### # 展望未来\n\nuview-plus的目标是继承uViewUI2.x，也成为的uniapp生态的标杆，自由且免费开源。  \n 对此，uview-plus有清晰且明确的计划安排，uview-plus将会全面兼容nvue，适配暗黑模式，整合unicloud，加入更多组件和模板等。  \n 但是，一个人的力量是不够的：\n\n1. 为了开源，理想和自由，您可以加入uview-plus的研发工作组，我们一起并肩奋战。\n2. 如果您是做UI开发的同学，uview-plus同样欢迎，因为uview-plus需要内外兼修。\n3. 如果您是个积极活跃的人，那么也欢迎您加入uview-plus的QQ群成为管理员。\n\n  \n\n### # 捐赠uview-plus的研发\n\n  \n\n### # 赞助商\n\nuview-plus拥有众多用户，且文档详尽，经得起推敲，受得住考验，官方网站每天有数万IP访问量，如果您认为这些有助于您公司的业务推广，可以成为uview-plus的赞助商， 我们会在适当的位置展示您的推广内容。 [...] uview-plus - 全面兼容nvue/鸿蒙/uni-app-x的uni-app生态框架 - uni-app UI框架 uview-plus\n\n我的\n\n### # 交流反馈\n\nuview-plus为采用MIT (opens new window)许可证的开源项目，uview-plus是基于uView2.x修改发布的，感谢uView2.x，使用完全免费。欢迎加QQ群交流反馈，一起学习，共同进步。",
+      "score": 0.70944256,
+      "raw_content": null,
+      "id": "bc1ff0-00"
+    },
+    {
+      "url": "https://uview-plus.jiangruyi.com/components/changelog.html",
+      "title": "更新日志 | uview-plus - 全面兼容nvue/鸿蒙/uni-app-x的uni-app生态框架 - uni-app UI框架",
+      "content": "`2024`\n\n  + 变更form-item的rule属性变更为rules\n  + 优化公共mixin改造为按需导入语法\n  + 优化slider组件重构优化\n  + 优化index-list组件重构优化\n  + 优化input组件maxlength默认中从-1改为140\n  + 优化小程序下steps和grid都统一采用css的grid布局\n `2024`\n\n  + 新增增加瀑布流与图片懒加载组件\n  + 修复去除安卓steps提示不支持\n  + 新增typescript支持\n  + 优化组件内uni.$u用法改为import引入\n + 优化日常修复\n + 修改 修改原版uview2的代码使其支持vue3模式下运行\n\n←  对比1.X   升级指南  → [...] + 修复 H5 下 index.js 组件自动注册：移除对 import.meta.glob 的运行时函数判断，确保 Vite 编译期宏正常展开\n  + 新增 统一 up-canvas 画布承载，迁移二维码/条形码/裁剪/海报/上传等组件的直接 canvas 使用，并补充跨端绘制、导出与像素读写能力\n  + 变更 up-button 非 nvue 普通按钮默认宽度由 100% 调整为 auto，避免横向布局挤压相邻内容；size=\"large\" 仍全宽，需要全宽请显式设置 custom-style 或外层宽度\n  + 修复 waterfall 在列高未稳定时可能只渲染左侧一列；markdown 依赖改为 mjs 模块导入提升打包兼容性\n  + 新增 calendar 透传 overlay、duration、overlayStyle、overlayOpacity、zIndex、safeAreaInsetBottom、safeAreaInsetTop、bgColor 等弹层属性；pageInline 可通过 safeAreaInsetBottom=false 关闭底部安全区 [...] + 修复 table2 超出隐藏与属性行为补齐，修复微信小程序重复 slot name=\"cell\" 报错（#839）\n  + 新增 calendar 顶部时分秒选择（enableTime / timePrecision / defaultTime）、区间返回格式 rangeResultMode、今天按钮与 todayColor，完善区间模式“今天”表现\n  + 修复 picker 异步 columns 时 defaultIndex 不更新（#841）；pageInline 日历隐藏挂载首日偏移；datetime-picker 遮罩关闭与 pageInline 滚动默认值；number-box 最小值限制导致无法输入（#914）\n  + 新增 单行日历 up-calendar-strip、tabs shapeMode 多形态、up-guide 首屏引导、tabbar 风格与动态图标、signature clear 方法",
+      "score": 0.5363378,
+      "raw_content": null,
+      "id": "1711f3-01"
+    },
+    {
+      "url": "https://ext.dcloud.net.cn/plugin?name=uview-plus",
+      "title": "零云®uview-plus3.0重磅发布，全面的Vue3鸿蒙跨端移动组件库，组件丰富维护更新稳定。 - DCloud 插件市场",
+      "content": "### 多平台快速开发的UI框架\n\n\n\n1. 保持选项式API，尽可能兼容原有uview2各种API，比如mixins，方便大家升级更容易；\n2. 新手友好，保持原汁原味js，二次开发方便，未使用typescript重写，但带有独立的类型申明包；\n\n### uview-ultra v4 (uni-app-x版本)\n\n1. 尽可能保持原有组件的API一致，方便大家升级；\n2. 使用uts + 组合式API架构级全新重构，但仍然保持源码的简易，不封装过于复杂，便于修改。\n\n## 可视化设计\n\nuview-plus现已推出免费可视化设计，可以方便的进行页面可视化设计，导出源码即可使用。极大提高前端页面开发效率；如产品经理设计师直接使用更可作为高保真高可用原型制作工具，让设计稿即代码，无需传统的设计稿开发还原步骤。\n\n \n\n## 文档\n\n官方文档： 备用文档：\n\n## 预览\n\n您可以通过微信扫码，查看最佳的演示效果。\n\n| H5 | 微信小程序 | 安卓 | 鸿蒙Next（已上架） |\n ---  --- |\n|\n\n## 链接\n\n 官方文档\n 更新日志\n 升级指南\n 关于我们 [...] 新增 verify:app-local-icon-font 回归校验，覆盖 static 路径、两端兜底、插件复制行为与关闭开关\n H5 与小程序行为不变，仍使用 config.iconUrl [...] 新增 u-flex（up-flex）通用 flexbox 容器组件，跨端同名同默认，作为页面 view 之上的一层弹性布局落点，免去每处手写 display:flex 与各类对齐样式，让行列布局在 H5、小程序、App 各端保持一致表现。\n\n 支持 direction 主轴方向 row / column / row-reverse / column-reverse（默认 row）\n 支持 justify 主轴对齐 flex-start / flex-end / center / space-between / space-around / space-evenly，并兼容 start / end 简写\n 支持 align 交叉轴对齐 flex-start / flex-end / center / stretch / baseline（默认 stretch）\n 支持 wrap 是否换行（默认 false）与 gap 子元素间距（任意单位，自动 addUnit 处理）\n 支持 customStyle 外部样式深合并，暴露 click 点击事件",
+      "score": 0.47416916,
+      "raw_content": null,
+      "id": "36891e-02"
+    },
+    {
+      "url": "https://uview-plus.jiangruyi.com",
+      "title": "uview-plus - 全面兼容nvue/鸿蒙/uni-app-x的uni-app生态框架 - uni-app UI框架",
+      "content": "uview-plus - 全面兼容nvue/鸿蒙/uni-app-x的uni-app生态框架 - uni-app UI框架 uview-plus\n\n我的\n\nuview-plus，是uni-app生态最优秀的UI框架，全面的组件和便捷的工具会让您信手拈来，如鱼得水\n\n# 多平台快速开发的UI框架\n\n## uview-plus，是全面兼容nvue的uni-app生态框架，全面的组件和便捷的工具会让您信手拈来，如鱼得水，基于uView2.0初步修改，后续会陆续修复vue3兼容性，以及组合式API改造等。\n\nuview-plus\n\n四大利器，为您保驾护航\n\n \n\n  ### 指南\n\n  涵盖uniapp各个方面，给开发者方向指导和设计理念，让您茅塞顿开，一马平川\n \n\n  ### 组件\n\n  众多组件覆盖开发过程的各个需求，组件功能丰富，多端兼容。让您快速集成，开箱即用\n \n\n  ### 工具库\n\n  众多的贴心小工具，是您开发过程中召之即来的利器，让您飞镖在手，百步穿杨\n \n\n  ### 布局\n\n  收集众多的常用页面和布局，减少开发者的重复工作，让您专注逻辑，事半功倍\n\n一次编写，多端发布 [...] 一次编写，多端发布\n\n \n\n  ### 安卓\n\n  Android\n \n\n  ### Apple\n\n  IOS\n \n\n  ### 微信小程序\n\n  Mini Program\n \n\n  ### H5\n\n  Mobile Web\n\n \n\n  ### QQ小程序\n\n  QQ Miniprogram\n \n\n  ### 百度小程序\n\n  Smart Program\n \n\n  ### 支付宝小程序\n\n  Alipay MiniProgram\n \n\n  ### 头条小程序\n\n  Toutiao MiniProgram\n\nCopyright 2026 uview-plus | 苏ICP备19052127号-3",
+      "score": 0.29083025,
+      "raw_content": null,
+      "id": "eacde6-03"
+    },
+    {
+      "url": "https://www.uviewui.com",
+      "title": "uView 2.0 - 全面兼容 nvue 的 uni-app 生态框架 - uni-app UI 框架",
+      "content": "### 微信小程序\n\n  Mini Program\n \n\n  ### H5\n\n  Mobile Web\n\n \n\n  ### QQ小程序\n\n  QQ Miniprogram\n \n\n  ### 百度小程序\n\n  Smart Program\n \n\n  ### 支付宝小程序\n\n  Alipay MiniProgram\n \n\n  ### 头条小程序\n\n  Toutiao MiniProgram\n\nCopyright 2025 uView UI | 粤ICP备19025822号 [...] uView 2.0 - 全面兼容 nvue 的 uni-app 生态框架 - uni-app UI 框架 uView\n\nuView UI，是 uni-app 生态最优秀的 UI 框架，全面的组件和便捷的工具会让您信手拈来，如鱼得水\n\n# 多平台快速开发的UI框架\n\n## uView UI，是全面兼容nvue的uni-app生态框架，全面的组件和便捷的工具会让您信手拈来，如鱼得水\n\nuView\n\n四大利器，为您保驾护航\n\n \n\n  ### 指南\n\n  涵盖uniapp各个方面，给开发者方向指导和设计理念，让您茅塞顿开，一马平川\n \n\n  ### 组件\n\n  众多组件覆盖开发过程的各个需求，组件功能丰富，多端兼容。让您快速集成，开箱即用\n \n\n  ### 工具库\n\n  众多的贴心小工具，是您开发过程中召之即来的利器，让您飞镖在手，百步穿杨\n \n\n  ### 布局\n\n  收集众多的常用页面和布局，减少开发者的重复工作，让您专注逻辑，事半功倍\n\n一次编写，多端发布\n\n \n\n  ### 安卓\n\n  Android\n \n\n  ### Apple\n\n  IOS\n \n\n  ### 微信小程序",
+      "score": 0.21678194,
+      "raw_content": null,
+      "id": "b38c0c-04"
+    },
+    {
+      "url": "https://www.npmjs.com/package/uview-plus",
+      "title": "uview-plus",
+      "content": "⚠️\n\nnpm tokens that bypass 2FA are being restricted — account changes (Aug 2026) and direct publishing (Jan 2027). Learn how to prepare →\n\n×\n\nskip to:contentpackage searchsign in\n\n   Pro\n   Teams\n   Pricing\n   Documentation\n\nnpm\n\n\n\n\n\n[](\n\n1.   尽可能保持原有组件的API一致，方便大家升级；\n2.   使用uts + 组合式API架构级全新重构，但仍然保持源码的简易，不封装过于复杂，便于修改。\n\n## 可视化设计\n\n[](\n\nuview-plus现已推出免费可视化设计，可以方便的进行页面可视化设计，导出源码即可使用。极大提高前端页面开发效率；如产品经理设计师直接使用更可作为高保真高可用原型制作工具，让设计稿即代码，无需传统的设计稿开发还原步骤。\n\nImage 7\n\nImage 8\n\n## 文档\n\n[](\n\n官方文档：\n\n## 预览\n\n[]( [...] 官方文档：\n\n## 预览\n\n[](\n\n您可以通过微信扫码，查看最佳的演示效果。\n\n| H5 | 微信小程序 | 安卓 | 鸿蒙Next（已上架） |\n ---  --- |\n| Image 9 | Image 10 | Image 11 | Image 12 |\n\nImage 13\n\n## 链接\n\n[](\n\n   官方文档\n   更新日志\n   升级指南\n   关于我们\n\n## 关于PR\n\n[](\n\n> 我们非常乐意接受各位的优质PR，但在此之前我希望您了解uview-plus是一个需要兼容多个平台的（小程序、h5、ios app、android app）包括nvue页面、vue页面。 所以希望在您修复bug并提交之前尽可能的去这些平台测试一下兼容性。最好能携带测试截图以方便审核。非常感谢！\n\n## 安装\n\n[](\n\n#### uni-app插件市场链接 —— \n\n[](\n\n请通过官网安装文档了解更详细的内容\n\n## 快速上手\n\n[](\n\n请通过快速上手了解更详细的内容\n\n## 使用方法\n\n[](\n\n配置easycom规则后，自动按需引入，无需`import`组件，直接引用即可。 [...] 7,565\n\n### Version\n\n3.8.113\n\n### License\n\nnone\n\n### Last publish\n\n4 days ago\n\n### Collaborators\n\n   Image 14: ijry ijry \n\nAnalyze security with SocketCheck bundle sizeView package healthExplore dependencies\n\nReport malware\n\n## Footer\n\n[](\n\n[](\n\n### Support\n\n   Help\n   Advisories\n   Status\n   Contact npm\n\n### Company\n\n   About\n   Blog\n   Press\n\n### Terms & Policies\n\n   Policies\n   Terms of Use\n   Code of Conduct\n   Privacy\n\nViewing uview-plus version 3.8.113",
+      "score": 0.18710332,
+      "raw_content": null,
+      "id": "04425d-05"
+    }
+  ],
+  "response_time": 0.85,
+  "request_id": "c0b58cc4-c15a-4e3e-8544-2cb2345980c3"
+}

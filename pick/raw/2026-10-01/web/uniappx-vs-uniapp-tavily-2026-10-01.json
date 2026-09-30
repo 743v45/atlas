@@ -1,0 +1,58 @@
+{
+  "query": "uni-app x 和 uni-app 区别 uts 原生 定位",
+  "follow_up_questions": null,
+  "answer": "uni‑app 是基于 Vue.js 的 JavaScript / Vue2 Hybrid 框架，业务逻辑运行在 js 引擎和 WebView 中，性能相对略逊，原生能力只能通过插件或条件编译桥接；而 uni‑app X 则把主语言改为 UTS（Unified TypeScript Syntax），所有业务逻辑和扩展插件均用 UTS 编写，编译时直接生成 Android Kotlin、iOS Swift、鸿蒙 ArkTS 等原生代码并使用原生组件渲染，省去 js 引擎和 WebView，能够在每个平台直接调用系统原生 API。于是 uni‑app X 定位为面向高‑性能、原生体验的全平台开发范式，适合对性能和体积要求较高的应用；uni‑app 则更适合快速开发中小项目，侧重跨平台统一 API 的便利性。两者都可以使用 UTS 插件，但在 uni‑app X 中 UTS 是唯一的开发语言，而在传统 uni‑app 中仍以 JavaScript 为主，仅在插件层面使用 UTS。",
+  "images": [],
+  "results": [
+    {
+      "url": "https://blog.csdn.net/mss359681091/article/details/145168886",
+      "title": "uni-appx 和 uni-app 的区别，该如何选择？",
+      "content": "_uni_ _-_ _app_ _和_ _uni_ _-_ _app_ X是DCloud推出的跨平台开发框架。_uni_ _-_ _app_ 基于Vue.js，支持多平台开发，但性能略逊；而 _uni_ _-_ _app_ X采用UTS语言 _和_ 原生渲染，性能更优但学习曲线较高。两者适用于不同场景：_uni_ _-_ _app_ 适合快速开发中小项目，_uni_ _-_ _app_ X则更适合性能敏感型应用。开发者可根据项目需求 _选择_ 合适方案。\n\nIEM模型，地表粗糙度模拟\n\n利用微波反演土壤水分时候，利用IEM模型可以实现对随机地表的模拟\n\n   关于我们\n   招贤纳士\n   商务合作\n   寻求报道\n   协议专区\n   Image 66400-660-0108\n   Image 67kefu@csdn.net\n   Image 68在线客服\n    工作时间 8:30-22:00 [...] AI写代码 javascript 运行\n\n   1\n   2\n   3\n   4\n   5\n   6\n   7\n   8\n   9\n   10\n\n在 uni-app x 里，可以直接调用 OS 的能力，不受限制，语法是 `uts` 的语法，但需要了解什么功能在原生里是哪个 `api` 。\n\n使用 `uni.getSystemInfoSync` 则比较简单，看 `uni` 的文档即可，且可跨平台。\n\n其实，`uni.getSystemInfoSync` 的内部实现就是一个 `uts` 模块，底层使用了一样的代码，也是`import` 了 `android.os.Build` 。\n\nuni.的api ，大多是 `uts` 开发的，它们会陆续开源在 `uni-api` 。\n\n插件市场也有很多做好的 `uts` 插件，方便开发者拿来即用。\n\nuni-app js 引擎版，支持 plus API 和 weex API。但 uni-app x 中，🚫不再支持这些API。 [...] 8-31\n\n本文详细介绍了从Vue/_UniApp_ 转向 _UniApp_ X开发时需要注意的核心变化,包括语言从JS变为UTS(_Uni_ TypeScript)以及渲染方式的差异。UTS作为强类型语言,要求变量、方法、参数等必须有明确的类型定义,这虽然提高了性能 _和_ 减少了运行时错误,但也带来了开发习惯上的挑战。文章深入解析了UTS强类型开发的要点,如类型明确、函数参数...\n\n[_uni_ _-_ _appx_ 实战指南[代码]资源](\n\n8-28\n\n_uni_ _-_ _app_ x 提供了更直接的原生 api 调用能力(通过 uts 直接调用原生 代码 ),而传统的 _uni_ _-_ _app_ 则需要通过插件或条件编译调用扩展模块(如使用 _uni_ .requirenativeplugin 来调用原生插件)。 因此,我们可以说在统一 api 的调用方式上大体相似,但在具体语法(类型系统)_和_ 原生能力调用上存在差异。 5. 示例...\n\n_UniApp_ 云打包避坑指南：iOS证书类型选错导致打包失败的解决方案\n\nweixin_29205061的博客",
+      "score": 0.8660535,
+      "raw_content": null,
+      "id": "a1a698-00"
+    },
+    {
+      "url": "https://juejin.cn/post/7503974160264069156",
+      "title": "uni-app x 正式支持鸿蒙，又一个原生级全平台框架落地其实在很久之前的《浅谈 uts + uvue 下的 uni- - 掘金",
+      "content": "具体来说，就是 uni-app 不再是运行在 jscore 的跨平台框架，它是“基于 Web 技术栈开发，运行时编译为原生代码”的模式，相信这种模式大家应该也不陌生了，简单说就是：js（uts） 代码在打包时会直接编译成原生代码：\n\n| 目标平台 | uts 编译后的原生语言 |\n --- |\n| Android | Kotlin |\n| iOS | Swift |\n| 鸿蒙 | ArkTS |\n| Web / 小程序 | JavaScript |\n\n甚至极端一点说，uni-app x 可以不需要单独写插件去调用平台 API，你可以直接在 uts 代码里引用平台原生 API ，因为你的代码本质上也是会被编译成原生代码，所以 uts ≈ native code ，只是使用时需要配置上对应的条件编译(如 `APP-ANDROID`、`APP-IOS` )支持： [...] 可以看到，在 uni-app x 你是可以“代码混写”的，所以与传统的 uni-app 不同，uni-app 依赖于定制 TypeScript 的 uts 和 uvue 编译器：\n\n uts 和 ts 有相同的语法规范，并支持绝大部分 ES6 API ，在编译时会把内置的如`Array`、`Date`、`JSON`、`Map`、`Math`、`String` 等内置对象转为 Kotlin、Swift、ArkTS 的对象等，所以也不需要有 uts 之类的虚拟机，另外 uts 编译器在处理特定平台时，还会调用相应平台的原生编译器，例如 Kotlin 编译器和 Swift 编译器\n uvue 编译器基于 Vite 构建，并对它进行了扩展，大部分特性（如条件编译）和配置项（如环境变量）与 uni-app 的 Vue3 编译器保持一致，并且支持 less、sass、ccss 等 CSS 预处理器，例如 uvue 的核心会将开发者使用 Vue 语法和 CSS 编写的页面，编译并渲染为 ArkUI [...] 稀土掘金 稀土掘金\n\n# uni-app x 正式支持鸿蒙，又一个原生级全平台框架落地\n\n恋猫de小郭\n\n6,881   阅读8分钟\n\n其实在很久之前的《浅谈 uts + uvue 下的 uni-app x 是什么》我们就聊过 uni-app x ，相信在此之前大家对于 uni-app 的印象应该都是在小程序居多，虽然 uni-app 也可以打包客户端 app，甚至有基于 weex 的 nvue 支持，但是其效果只能说是“一言难尽”，而这里要聊的 uni-app x ，其实就是 DCloud 在跨平台这两年的新尝试。\n\n说起 uni-app x 其实已经被我遗忘很久了，虽然在去年的鸿蒙 Next 的发布会时 uni-app 有被提及，只是当时也没看到 uni-app x 的身影，而今天恰哈在朋友圈看到了 DCloud 开发分享的文章，才发现 uni-app x 已经完成了它全平台的最后一环：\n\n从 uni-app x 自己的定位看，官方表示：uni-app x 的目标并非简单地改进跨平台框架的性能，而是为原生应用开发提供一种统一的、跨平台的编码范式 。",
+      "score": 0.8524574,
+      "raw_content": null,
+      "id": "8d7f18-01"
+    },
+    {
+      "url": "https://en.uniapp.dcloud.io/uni-app-x/uts",
+      "title": "UTS 介绍 | uni-app",
+      "content": "也就是说，uts可以在uni-app中使用，也可以在uni-app x中使用。\n\n 在uni-app中，主编程语言是js。uts可以开发原生插件，包括API插件和组件插件。\n 在uni-app x中，主编程语言是uts。不管是应用逻辑还是扩展插件，均使用uts编程，没有js。\n\n如果插件作者，开发了uts插件，也可以同时在uni-app和uni-app x中使用。比如这2个uts插件：\n\n 电量：\n lottie组件：\n\n这2个uts插件，一个是api插件，一个是组件插件，它们同时兼容uni-app和uni-app x。\n\n本文是 uts 的基本语法介绍。\n\n 想了解 uni-app 下如何开发 uts插件，另见文档\n 想了解 uni-app x，另见文档\n\n## # 类型声明\n\njs是无类型的，TypeScript 的 type 就是类型的意思，给js加上了类型。它的类型定义方式是在变量名后面通过加冒号和类型来进行定义。\n\nuts 中声明变量可以用 let 或 const，详见下。\n\n### # 变量定义（let） [...] 过去在js引擎下运行支持的语法，大部分在uts的处理下也可以平滑的在kotlin和swift中使用。但有一些无法抹平，需要使用条件编译。和uni-app的条件编译类似，uts也支持条件编译。写在条件编译里的，可以调用平台特有的扩展语法。\n\n### # 用途和关系\n\nuts是一门语言。也仅是一门语言，不包含ui框架。\n\nuvue是DCloud提供的跨平台的、基于vue语法的ui框架。\n\nuts相当于js，uvue相当于html和css。它们类似于v8和webkit的关系、类似于dart和flutter的关系。\n\nuts这门语言，有2个用途：\n\n1. 开发uni-app 和 uni-app x 的原生扩展插件：因为uts可以调用所有原生能力。\n2. uts和uvue一起组合，开发原生级的项目，也就是 uni-app x 项目\n\n从HBuilderX 3.9起，支持uni-app x项目。\n\nuni-app x 开发App时，输出的是纯原生的App（Android上就是kotlin的app），里面没有js引擎和webview。详见uni-app x [...] 上述示例仅在 uni-app x 的uvue页面生效。uni-app js引擎版，不支持在页面里写uts代码，只支持在uts插件里写uts代码。\n\n### # 类型自动推导\n\n现代语言（ts、kotlin、swift），都具备自动识别字面量，进行类型推导的功能。\n\n即：如果开发者声明变量的同时，进行了初始化赋值。那么编译器可以根据赋值的字面量，自动推导出变量类型，不必开发者显式声明。\n\n在定义变量时如果直接赋值字面量，而不使用冒号声明类型，也可以合法运行。\n\n如下2种写法都是合法的，两个变量都是string类型：\n\n```\n// 以下每组写法是等价的 let = \"hello\"// 根据字面量 \"hello\"，自动推导为string类型 let: string = \"hello\" let: string = \"hello\" let = true// 根据字面量 true，自动推导为boolean类型 let: boolean = true// 以上为字符串和布尔的字面量类型自动推导，数字和数组也支持字面量类型推导，但规则比较复杂，需另见文档\n```",
+      "score": 0.8399576,
+      "raw_content": null,
+      "id": "b79c34-02"
+    },
+    {
+      "url": "https://doc.dcloud.net.cn/uni-app-x",
+      "title": "uni-app x 是什么？ | uni-app x",
+      "content": "很多内置组件，也是开源的uvue组件，在每个组件文档右上角可以点击源码仓库链接查看。\n\n更多组件介绍，详见\n\n## # API\n\nuni-app x 支持的API包括：\n\n`uni.`\n\nuni-app x 不会限制任何原生API的调用，在每个平台都可以调用其平台所有原生能力：\n\nuni.的api，大多是uts开发的，在每个API文档右上角可以点击源码仓库链接查看。\n\n插件市场也有很多做好的uts插件，方便开发者拿来即用。uts插件\n\n老uni-app，支持 plus API 和 weex API。但 uni-app x 中，不再支持这些API。\n\n更多API介绍，详见\n\n## # CSS\n\nuni-app x 在web和小程序，支持完成的浏览器css，在app平台，由于是原生渲染，支持的css的子集。\n\n主要差异包括：\n\n其他差异详见 css文档\n\n## # 插件生态\n\nuni-app x 的插件生态，以uni\\_modules为主。这是一种面向全端的、统一的插件管理方案。 [...] 因为 uni-app x蒸汽模式 已经兼容js/ts写法，开发者可以方便的将 老uni-app 升级到 uni-app x蒸汽模式。所以 老uni-app 的app平台的维护意义也不大了。\n\n不再维护不是下线，而是没有重大问题的话（如新手机不兼容）不会再更新了。\n\n如果只开发小程序，那使用 uni-app 或 uni-app x 哪个都差不多。如果开发App，那么推荐改用 uni-app x。另外未来 uni-app x 的web平台也会升级蒸汽模式，而 老uni-app不会升级。所以后续web平台也推荐使用 uni-app x。\n\n不管 uni-app 还是 uni-app x，都支持uts插件生态，原生扩展的api插件是复用的。但原生组件插件在老uni-app 和 uni-app x 蒸汽模式之间不能复用。\n\n包括官方的API也是复用的，比如电量API uni.getbatteryinfo ，它们使用uts开发，在 uni-app 和 uni-app x 上，调用的都是一套代码。\n\n本章节是概述性FAQ。蒸汽模式性能相关的FAQ，另见蒸汽模式\n\n加群交流 [...] 它容纳支持各种平台的原生库管理方案，包括npm、Android仓储、iOS Swift PM、CocoaPods、鸿蒙ohpm。\n\n可以引入web和原生的各种生态库。\n\n如果不开发原生插件，仅使用纯js库，在蒸汽模式下，npm上众多库也可以直接在App平台使用，比如vue-pinia、day.js等。而vdom模式则需要uts适配库才能在App平台使用。\n\n但需注意小程序和App平台不支持window等api，对dom api的支持也有限。详见DOM API。所以尽量选用那些适配小程序的NPM库，比如echarts-for-weixin\n\nuni插件市场 是跨端插件的聚集地，前端插件可以去npm找，但原生插件更推荐在这里找。\n\nuni-app x 的插件生态，基于uts插件。这是一种面向全端的、统一的插件管理方案。\n\n目前已经有数千款插件支持 uni-app x，它们发布在uni插件市场\n\nuts插件通过统一的interface，约束了所有平台的API的输入输出，甚至错误码，保障了跨平台调用的一致性。\n\nuts插件有多种开发方式：",
+      "score": 0.8173562,
+      "raw_content": null,
+      "id": "a75de2-03"
+    },
+    {
+      "url": "https://www.nutpi.net/thread?topicId=1645",
+      "title": "uni-app x：开启全平台原生开发新时代 - 坚果派",
+      "content": "编译原生化：直接编译为ArkTS，无中间层损耗\n 渲染原生化：使用原生组件与渲染引擎\n 跨平台统一API：封装网络、文件系统、多媒体等基础能力\n 零延迟架构：逻辑层与视图层共享原生进程，避免跨语言通信延迟\n\n这种设计让开发者既能享受Web技术栈的开发效率，又能获得媲美原生应用的性能体验。\n\n## 二、与传统uni-app的差异化定位\n\n| 特性对比 | uni-app | uni-app x |\n --- \n| 架构模式 | HybridApp架构 | 语言翻译架构 |\n| 渲染方式 | WebView渲染 | 原生组件+原生渲染 |\n| 性能表现 | 适合中低性能需求 | 高性能场景最优选 |\n| 鸿蒙适配方式 | Webview容器适配 | 原生代码转换 |\n\nuni-app x更适合对性能体验有更高要求的开发者，特别适用于游戏、图形渲染、复杂交互等场景。\n\n## 三、解决传统跨平台框架痛点\n\n在当前技术环境下，开发者面临多平台开发的困境： [...] LOGO\n\n 文章\n 问答\n 帮助中心\n\n 注册\n 登录\n\nuni-app\n\n# uni-app x：开启全平台原生开发新时代\n\n2025-05-14 20:17:14\n\n1339次阅读\n\n0个评论\n\n最后修改时间：2025-05-15 00:08:09\n\n# uni-app x：开启全平台原生开发新时代\n\n在2025年数字技术发展的关键节点上，国产操作系统正在经历从愿景走向现实的深刻变革。DCloud于5月12日发布的HBuilderX4.64正式版，标志着uni-app x已实现对鸿蒙、Android、iOS、Web、微信小程序等主流平台的全覆盖，为开发者带来了全新的跨平台开发体验。\n\n## 一、技术革新：Web技术栈与原生性能的完美融合\n\nuni-app x的突破性在于其独特的设计理念：“开发态基于Web技术栈，运行时编译为原生代码”。开发者可以继续使用熟悉的Vue语法与类TypeScript的UTS语言构建项目，而当编译至鸿蒙平台时，代码将被转换为鸿蒙NEXT的原生语言ArkTS，并基于ArkUI引擎运行。这种架构实现了： [...] 1. 单平台开发成本高且难以维护\n2. Flutter等框架存在性能瓶颈\n3. 鸿蒙系统缺乏官方跨平台支持\n4. 跨平台框架普遍存在原生能力调用延迟\n\nuni-app x通过以下方式解决了这些痛点：\n\n 原生性能：直接编译为原生代码，无JS引擎和WebView渲染\n 原生API直连：无需插件封装即可调用系统原生API\n 生态扩展性：拥有数千款支持鸿蒙next的插件\n 平滑迁移路径：与传统uni-app项目保持高度兼容性\n\n## 四、国产操作系统的战略意义\n\n鸿蒙系统的适配已经从\"做不做\"的讨论，转变为\"如何高效做\"的实践阶段。uni-app x作为连接开发者与国产操作系统的桥梁，通过以下方式助力技术转型：\n\n1. 降低迁移成本：传统Web/uni-app项目可低成本迁移至鸿蒙平台\n2. 提升开发效率：一套代码实现多端运行，减少重复开发工作\n3. 保障性能体验：原生性能确保应用在各平台的流畅体验\n4. 促进生态繁荣：丰富的插件市场加速应用功能扩展\n\n## 五、行业展望",
+      "score": 0.7913865,
+      "raw_content": null,
+      "id": "2eb47d-04"
+    },
+    {
+      "url": "https://cloud.tencent.com/developer/article/2526236",
+      "title": "UniApp X：鸿蒙原生开发的机会与DCloud的崛起之路·优雅草卓伊凡-腾讯云开发者社区-腾讯云",
+      "content": "| 对比维度 | 传统UniApp（Hybrid） | UniApp X（原生编译） |\n --- \n| 架构模式 | WebView渲染（逻辑层+视图层分离） | 直接编译为原生代码（Kotlin/Swift/ArkTS） |\n| 性能表现 | 接近Web，中低负载场景适用 | 接近原生，适合高性能应用（提升50%+） |\n| 开发语言 | JavaScript/Vue2 | UTS（TypeScript超集，强类型检查） |\n| 原生能力调用 | 需插件桥接 | 直接调用系统API（无中间层） |\n| 包体积 | 较大（含WebView核心） | 更小（去除WebView冗余代码） |\n| 适用场景 | 快速开发、中小型应用 | 高性能应用、大型项目（如电商、社交） |\n\n核心优势：\n\n 性能飞跃：逻辑层与视图层均在原生进程运行，避免跨语言通信延迟。\n 开发体验：完整TypeScript支持，减少低级错误，兼容Vue3语法（Composition API）。\n 生态扩展：已有数千款插件支持鸿蒙NEXT，DCloud还计划举办 2025插件大赛 进一步丰富生态。 [...] UniApp X 是 DCloud 推出的下一代跨平台开发框架，其核心革新在于“开发态基于Web技术栈，运行时编译为原生代码”。在鸿蒙（HarmonyOS NEXT）平台上，UniApp X 的适配方案如下：\n\n1. 编译为ArkTS原生代码\n    UniApp X 使用 UTS（Unified TypeScript Syntax） 语言编写业务逻辑，编译到鸿蒙平台时，UTS 代码会被转换为 ArkTS（鸿蒙原生开发语言），并直接运行在 ArkUI 渲染引擎上，完全脱离 WebView 和 JS 引擎，实现真正的原生性能。\n    示例：\n\n代码语言：javascript\n\n复制\n\n```\nimport deviceInfo from '@ohos.deviceInfo'; console.log(\"设备类型：\" + deviceInfo.deviceType); // 直接调用鸿蒙API\n``` [...] 1. 原生UI渲染\n    UniApp X 的组件（如 、）会被编译为 ArkUI 原生控件，而非 WebView 渲染，因此交互流畅度可媲美纯原生开发。\n    在性能测试中，UniApp X 的 100个Slider同步滑动 示例，比传统跨平台方案更丝滑，无掉帧问题。\n2. 无缝调用鸿蒙原生API\n    开发者无需额外封装插件，即可直接调用鸿蒙系统的 数万原生API（如设备信息、文件系统、传感器等），大幅降低开发门槛。\n3. 双引擎适配策略\n    存量项目：仍可使用 UniApp（WebView方案） 快速迁移至鸿蒙，适合已有H5/小程序项目。\n    新项目：推荐 UniApp X（原生方案），适用于高性能要求的应用（如游戏、复杂交互场景）。\n\n##### 二、UniApp X为何优越于传统UniApp？",
+      "score": 0.7613083,
+      "raw_content": null,
+      "id": "852783-05"
+    }
+  ],
+  "response_time": 2.5,
+  "request_id": "09a14796-4fde-4a17-8e18-b28fe0142801"
+}

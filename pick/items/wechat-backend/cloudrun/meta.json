@@ -1,0 +1,27 @@
+{
+  "name": "微信云托管",
+  "homepage": "https://cloud.weixin.qq.com",
+  "verdict": "trial",
+  "summary": "微信云托管是存量服务与自定义运行时的官方路线——任意语言容器+callContainer 免鉴权免域名白名单，按量计费精确到 100 毫秒；新建轻应用优先云开发，冷启动与常驻成本是主要权衡。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://developers.weixin.qq.com/minigame/dev/wxcloudrun/src/Billing/price.html",
+    "https://cloud.weixin.qq.com",
+    "https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html"
+  ],
+  "tags": [
+    "wechat",
+    "miniprogram",
+    "container",
+    "cloud-run",
+    "serverless"
+  ],
+  "matrix": {
+    "形态": "官方容器托管",
+    "微信集成": "免鉴权·免域名白名单",
+    "计费": "按量·¥0.02975/时起",
+    "运维负担": "低·有冷启动",
+    "锁定风险": "中·容器可迁"
+  }
+}

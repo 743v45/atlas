@@ -1,0 +1,34 @@
+{
+  "name": "vant-weapp",
+  "repo": "https://github.com/youzan/vant-weapp",
+  "homepage": "https://youzan.github.io/vant-weapp/",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "微信原生小程序组件库事实标准——⭐18.4k、教程与 AI 语料最厚、v1.11.7 稳定可用；代价是 2024-10 起进入慢修模式，新特性基本停摆",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/youzan/vant-weapp",
+    "https://youzan.github.io/vant-weapp/"
+  ],
+  "tags": [
+    "miniprogram",
+    "wechat",
+    "ui",
+    "weapp"
+  ],
+  "matrix": {
+    "技术栈": "原生 wxml",
+    "组件规模": "约 68 组件目录",
+    "主题/暗黑": "CSS 变量定制，无暗黑",
+    "维护活性": "慢修（2025-04 后无功能提交）",
+    "许可": "MIT"
+  },
+  "stats": {
+    "source_repo": "youzan/vant-weapp",
+    "stars": 18457,
+    "pushed_at": "2026-05-09",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

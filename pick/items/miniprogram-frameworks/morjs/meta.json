@@ -1,0 +1,35 @@
+{
+  "name": "mor",
+  "repo": "https://github.com/eleme/morjs",
+  "homepage": "https://mor.ele.me/",
+  "license": "MIT",
+  "verdict": "assess",
+  "summary": "饿了么 DSL 转换型多端框架——微信/支付宝 DSL 互转 8+ 端、零运行时开销，但公开维护近乎停摆（最后稳定版 2024-05、npm 周下载 13），采用前须评估自维护承诺。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/eleme/morjs",
+    "https://github.com/eleme/morjs/releases"
+  ],
+  "tags": [
+    "miniprogram",
+    "cross-platform",
+    "dsl",
+    "conversion"
+  ],
+  "matrix": {
+    "形态": "DSL 转换框架",
+    "语法": "微信/支付宝 DSL",
+    "多端能力": "小程序×8+·Web",
+    "Skyline 适配": "待验证·无公开文档",
+    "生态": "饿了么系·近停摆",
+    "许可": "MIT"
+  },
+  "stats": {
+    "source_repo": "eleme/morjs",
+    "stars": 2113,
+    "pushed_at": "2025-11-06",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

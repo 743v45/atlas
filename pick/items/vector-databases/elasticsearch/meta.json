@@ -25,9 +25,9 @@
   },
   "stats": {
     "source_repo": "elastic/elasticsearch",
-    "stars": 77923,
-    "pushed_at": "2026-09-17",
+    "stars": 78160,
+    "pushed_at": "2026-09-30",
     "license": "NOASSERTION",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   }
 }

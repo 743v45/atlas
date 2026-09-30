@@ -1,0 +1,31 @@
+{
+  "name": "Unity / 团结引擎 微信小游戏转换",
+  "repo": "https://gitee.com/wechat-minigame/minigame-transform",
+  "homepage": "https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform.html",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "存量 Unity 项目的移植通道——官方转换工具+团结引擎双轨可用，但 4MB 首包残酷、调优链长；新项目不要为此从 Unity 起步。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform.html",
+    "https://gitee.com/wechat-minigame/minigame-transform",
+    "https://unity.cn/tuanjie/legal/terms-of-service",
+    "https://unity.com/cn/products/pricing-updates",
+    "https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines"
+  ],
+  "tags": [
+    "minigame",
+    "wechat",
+    "unity",
+    "porting"
+  ],
+  "matrix": {
+    "形态": "WebGL 转换方案",
+    "2D/3D": "3D 见长（Unity 系）",
+    "微信适配": "官方转换工具·通道活",
+    "包体表现": "4MB 首包残酷",
+    "许可/费用": "引擎订阅·个人版免费",
+    "上手路径": "限存量 Unity 项目"
+  }
+}

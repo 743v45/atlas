@@ -30,9 +30,9 @@
   },
   "stats": {
     "source_repo": "cockroachdb/cockroach",
-    "stars": 32560,
-    "pushed_at": "2026-09-16",
+    "stars": 32538,
+    "pushed_at": "2026-09-24",
     "license": "NOASSERTION",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   }
 }

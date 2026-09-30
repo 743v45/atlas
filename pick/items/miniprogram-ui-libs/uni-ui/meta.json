@@ -1,0 +1,34 @@
+{
+  "name": "uni-ui",
+  "repo": "https://github.com/dcloudio/uni-ui",
+  "homepage": "https://uniapp.dcloud.net.cn/component/ui.html",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "DCloud 官方 uni-app 组件库——全端兼容（含 uni-app x 方向）、npm 2.3 万下载/月的生态标配；GitHub releases 通道失灵，判活要看 npm 与 push",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/dcloudio/uni-ui",
+    "https://uniapp.dcloud.net.cn/component/ui.html"
+  ],
+  "tags": [
+    "uniapp",
+    "dcloud",
+    "ui",
+    "official"
+  ],
+  "matrix": {
+    "技术栈": "uni-app（含 uni-app x）",
+    "组件规模": "60+ 组件",
+    "主题/暗黑": "主题定制（暗黑待验证）",
+    "维护活性": "活跃（2026-09 push）",
+    "许可": "MIT"
+  },
+  "stats": {
+    "source_repo": "dcloudio/uni-ui",
+    "stars": 2091,
+    "pushed_at": "2026-09-30",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

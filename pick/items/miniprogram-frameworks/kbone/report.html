@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>kbone · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序开发框架</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../morjs/report.html">mor →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>kbone</h1>
+<blockquote><strong>TL;DR</strong>：腾讯 Web 同构过渡方案——把存量 Web 项目搬进小程序的历史答案，重运行时（官方自测口径 368KB）叠加约一年无 push、无 release，社区共识是别拿它做新项目。</blockquote>
+<ul><li><strong>结论</strong>：hold 观望</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">无 GitHub release（releases/latest 返回 404，gh 2026-10-01）；以 npm 子包（miniprogram-render 等）发布</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">BSD-3-Clause（gh license API 报 NOASSERTION；LICENSE 为腾讯自定义文本「Kbone is licensed under the BSD 3-Clause License, except for the third-party components listed below」，2026-10-01 解码）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/Tencent/kbone">https://github.com/Tencent/kbone</a>（⭐4,919、pushed 2025-10-20——截至 2026-10-01 约 11 个月无 push，gh 2026-09-30）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">归属</td><td style="text-align:left">腾讯（wechat-miniprogram 组织生态）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么不选（作为 hold）</h2>
+<ul><li><strong>定位已被时代消化</strong>：kbone 的使命是「微信小程序和 Web 端同构」——用模拟 DOM/BOM 的适配层让 Vue/React Web 项目几乎零改造跑进小程序。这解决的是 2019-2021 年「存量 Web 迁小程序」的过渡问题；如今 Taro/uni-app 均已原生支持编译到 H5 与小程序双端，同构需求的正解变成了「跨端框架反向覆盖」，kbone 的生态位被两端挤压 [3][4]。</li><li><strong>重运行时是硬伤</strong>：Vue Mini 比较页把 kbone 与 Taro 3/Remax 归为同一类「模拟 DOM API + 运行时递归 VDOM 生成 UI 树」的重运行时方案 [4]；Mpx 官方自测运行时体积 368KB（同口径下 mpx 51KB、uni-app 87KB，约 2020 年数据、利益相关降权采信）——包体积敏感的小程序场景里这个基座开销最难接受 [5]。</li><li><strong>维护停摆</strong>：repo pushed 2025-10-20（约 11 个月无 push）、无 release 机制（gh 2026-09-30/2026-10-01）[1][2]。</li><li><strong>社区共识明确</strong>：2025 年第三方横评一句话收尾——「kbone 只适合迁移过渡，别拿它做新项目」，同文决策树将其标注为过渡方案 [3]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs Taro/uni-app：Web 端与小程序端双兼容的需求，Taro/uni-app 以「编译到两端」实现且各自生态活跃；kbone 以「运行时同构」实现但停更——同一需求两条路线，社区已用脚投票。</li><li>vs 原生：kbone 项目在小程序端跑在 WebView 渲染 + 模拟 DOM 适配层上 [4]，而 Skyline 只支持 glass-easel 组件框架、绕开 WebView DOM 体系 [6]——kbone 的同构机制与 Skyline 架构不兼容（推断），性能敏感路径与微信新特性均不占优。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>新项目采用 = 接手无主代码</strong>：11 个月无 push、无 release 渠道，遇到基础库破坏性变更无人响应 [1][2]。</li><li><strong>存量迁移项目的兜底认知</strong>：若 2026 年仍要用 kbone，只应作为「存量 Web 代码暂时跑进小程序」的过渡态，并同步规划向 Taro/uni-app 或原生重写的退路 [3]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub — Tencent/kbone（gh 2026-09-30：⭐4,919、pushed 2025-10-20；LICENSE 解码 BSD-3-Clause 2026-10-01，留档 <code>raw/2026-09-30/gh/Tencent-kbone.json</code>、<code>raw/2026-10-01/gh/kbone-LICENSE-decoded.txt</code>）</li><li>GitHub Releases API — releases/latest 返回 404（gh 2026-10-01，留档 <code>raw/2026-10-01/gh/releases-npm-license-snapshot-2026-10-01.md</code>）</li><li>掘金 — 「还在纠结小程序用原生还是框架？5 种方案全拆解」（2025，「别拿它做新项目」原文）— <a href="https://juejin.cn/post/7647438301876191258">https://juejin.cn/post/7647438301876191258</a>（留档 <code>raw/2026-09-30/web/uniapp-skyline-support-tavily.md</code>）</li><li>Vue Mini — 比较页（kbone 归类模拟 DOM 重运行时方案）— <a href="https://vuemini.org/guide/comparisons">https://vuemini.org/guide/comparisons</a>（访问 2026-10-01，留档 <code>raw/2026-10-01/web/package-size-tavily-2026-10-01.json</code>）</li><li>Mpx 官方 — 框架运行时性能测评（kbone 368KB，约 2020，评测方利益相关降权采信）— <a href="https://mpxjs.cn/articles/performance.html">https://mpxjs.cn/articles/performance.html</a>（留档同上）</li><li>微信开放文档 — glass-easel 适配指引（Skyline 只支持 glass-easel 组件框架）— <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/glass-easel/migration.html">https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/glass-easel/migration.html</a>（访问 2026-09-30，留档 <code>raw/2026-09-30/web/native-skyline-tavily.md</code>）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录：Web 同构过渡方案，重运行时 + 停摆 + 社区共识「别做新项目」</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

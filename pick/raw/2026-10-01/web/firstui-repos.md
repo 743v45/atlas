@@ -1,0 +1,5 @@
+{"description":"First UI 是一套基于uni-app开发的组件化、可复用、易扩展、低耦合的跨平台移动端UI 组件库。全面兼容App-Nvue、App-vue、小程序（微信、支付宝、百度、字节、QQ）、H5。文档地址：https://doc.firstui.cn  （当前为vue版本示例）","name":"FirstUI","pushed_at":"2024-06-12T03:31:42Z","stargazers_count":513}
+{"description":"FirstUI-alipay 是一套基于支付宝小程序开发的组件化、可复用、易扩展、低耦合的原生支付宝小程序UI组件库。即将上线，敬请期待！","name":"FirstUI-alipay","pushed_at":"2022-01-20T02:37:43Z","stargazers_count":2}
+{"description":"First UI  是一套基于uni-app开发的组件化、可复用、易扩展、低耦合的跨平台移动端UI 组件库。全面兼容App-Nvue、App-vue、小程序（微信、支付宝、百度、字节、QQ）、H5。文档地址：https://doc.firstui.cn （当前为nvue版本示例）","name":"FirstUI-nvue","pushed_at":"2024-06-11T00:43:17Z","stargazers_count":4}
+{"description":"FirstUI（unix）组件库，一款适配 uni-app x 的轻量、简洁、高效、全面的移动端组件库。(FirstUI (unix) component library is a lightweight, concise, efficient, and comprehensive mobile component library that is compatible with uni app x.)","name":"FirstUI-uvue","pushed_at":"2025-02-24T10:22:34Z","stargazers_count":59}
+{"description":"FirstUI-weixin 是一套基于微信小程序开发的组件化、可复用、易扩展、低耦合的原生微信小程序UI组件库。文档地址：https://wxdoc.firstui.cn","name":"FirstUI-weixin","pushed_at":"2024-06-12T00:30:42Z","stargazers_count":88}

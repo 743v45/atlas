@@ -1,0 +1,50 @@
+{
+  "query": "vant-weapp 组件 数量 65 组件列表 官方文档",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://ext.dcloud.net.cn/plugin?id=100",
+      "title": "Vant Weapp - DCloud 插件市场",
+      "content": "评论列表 撰写评论 向官方投诉\n\n暂无用户评论。\n\n加载更多...)\n\n没有更多评论了。\n\n 他的插件\n\n### Vantui Weapp For Uni-app\n\nvant vantui 小程序组件\n\n（83）\n\nvantUI的微信小程序组件在uni-app上的运行示例，可以运行vant所有组件到微信和App端\n\n 下载 30571\n\n 赞赏 1\n\n### Vant Weapp\n\nvant vantui vantWeapp 小程序组件 ui组件\n\n（40）\n\n轻量、可靠的小程序 UI 组件库\n\n 下载 14237\n\n 赞赏 0\n\n### mpvue-picker\n\nmpvue mpvue-picker 选择器 城市选择器\n\n（72）\n\n基于 mpvue 框架的小程序选择控件\n\n 下载 6448\n\n 赞赏 0\n\n### threejs-uni\n\nThree.js 3D\n\n（14）\n\nThree.js适配uni-app\n\n 下载 3139\n\n 赞赏 0\n\n### lottie-uni\n\nlottie 动画 lottie-miniprogram 动画插件\n\n（10） [...] ```\n  默认按钮 主要按钮 警告按钮 危险按钮  \n```\n\nTips\n\n `vant-weapp` 仅支持小程序/App ,暂不支持H5 。\n 小程序组件需要放在项目根目录下的`wxcomponents`文件夹。\n 注意数据和事件绑定的差异，使用时应按照`vue`的数据和事件绑定方式。\n 原事件命名以短横线分隔的需要手动修改小程序组件源码为驼峰命名，比如：`this.$emit('left-click')修改为this.$emit('leftClick')`\n `vant-weapp`各组件文档请参考vant-weapp 使用文档\n `uni-app` 小程序组件使用规范请参考 uni-app 小程序组件支持\n 关联阅读 vant 使用心得\n\n#### 隐私、权限声明\n\n##### 1. 本插件需要申请的系统权限列表：\n\n无\n\n##### 2. 本插件采集的数据、发送的服务器地址、以及数据用途说明：\n\n无\n\n##### 3. 本插件是否包含广告，如包含需详细说明广告表达方式、展示频率：\n\n无\n\n#### 许可协议\n\n##### MIT协议\n\n评论列表 撰写评论 向官方投诉 [...] 1. 前端组件\n2. 小程序组件\n\n### Vant Weapp vant vantui vantWeapp 小程序组件 ui组件\n\n轻量、可靠的小程序 UI 组件库\n\n作者：  来自互联网\n\n下载人数: 8,414      下载次数: 14,237        收藏人数:  213\n\n 概述\n 评论\n\n## 平台兼容性\n\n小程序自定义组件的通用使用方式详见：uni-app中使用小程序自定义组件教程\n\n## vant Weapp\n\n> Vant Weapp 是有赞移动端组件库 Vant 的小程序版本，两者基于相同的视觉规范，提供一致的 API 接口，助力开发者快速搭建小程序应用。\n\n## 预览\n\n## 在uni-app中使用vant-weapp\n\n1. 下载代码\n\n   方式一： 点击页面右上角`下载` ，将下载代码拷贝到项目根目录。 `（注：此方式下载代码可能不是最新版）`\n\n   方式二：",
+      "score": 0.61668247,
+      "raw_content": null,
+      "id": "a52c40-00"
+    },
+    {
+      "url": "https://github.com/youzan/vant-weapp",
+      "title": "GitHub - youzan/vant-weapp: 轻量、可靠的小程序 UI 组件库 · GitHub",
+      "content": "| .npmrc | | .npmrc |  |  |\n| .prettierignore | | .prettierignore |  |  |\n| .prettierrc | | .prettierrc |  |  |\n| .stylelintrc | | .stylelintrc |  |  |\n| LICENSE | | LICENSE |  |  |\n| README.md | | README.md |  |  |\n| babel.config.js | | babel.config.js |  |  |\n| jest.config.js | | jest.config.js |  |  |\n| package.json | | package.json |  |  |\n| postcss.config.js | | postcss.config.js |  |  |\n| rsbuild.config.ts | | rsbuild.config.ts |  |  | [...] | tsconfig.example.json | | tsconfig.example.json |  |  |\n| tsconfig.json | | tsconfig.json |  |  |\n| tsconfig.lib.json | | tsconfig.lib.json |  |  |\n| vant.config.mjs | | vant.config.mjs |  |  |\n| yarn.lock | | yarn.lock |  |  |\n| View all files | | | [...] ## Repository files navigation\n\nlogo\n\nlogo\n\n### 轻量、可靠的小程序 UI 组件库\n\nnpm version\n\n\n小程序已经支持使用 npm 安装第三方包，详见 npm 支持\n\n### 方式二. 下载代码\n\n直接通过 git 下载 Vant Weapp 源代码，并将 `dist` 目录拷贝到自己的项目中。\n\n`dist`\n\n## 使用组件\n\n以按钮组件为例，只需要在 json 文件中引入按钮对应的自定义组件即可\n\n接着就可以在 wxml 中直接使用组件\n\n## 在开发者工具中预览\n\n打开微信开发者工具，把`vant-weapp/example`目录添加进去就可以预览示例了。\n\n`vant-weapp/example`\n\nPS：关于 `van-area` Area 省市区选择组件，地区数据初始化可以直接在云开发环境中导入`vant-weapp/example/database_area.JSON` 文件使用。\n\n`van-area`\n`vant-weapp/example/database_area.JSON`\n\n## 基础库版本",
+      "score": 0.5835125,
+      "raw_content": null,
+      "id": "f25ea1-01"
+    },
+    {
+      "url": "https://docs.taro.zone/docs/vant",
+      "title": "使用 Vant Weapp | Taro 文档",
+      "content": "},  { { from: 'src/components/vant-weapp/dist/common/index.wxss',  from:  'src/components/vant-weapp/dist/common/index.wxss',  to: 'dist/components/vant-weapp/dist/common/index.wxss',  to:  'dist/components/vant-weapp/dist/common/index.wxss',  },  },  { { from: 'src/components/vant-weapp/dist/calendar/index.wxs',  from:  'src/components/vant-weapp/dist/calendar/index.wxs',  to: 'dist/components/vant-weapp/dist/calendar/index.wxs',  to:  'dist/components/vant-weapp/dist/calendar/index.wxs',  }, [...] },  },  { { from: 'src/components/vant-weapp/dist/calendar/utils.wxs',  from:  'src/components/vant-weapp/dist/calendar/utils.wxs',  to: 'dist/components/vant-weapp/dist/calendar/utils.wxs',  to:  'dist/components/vant-weapp/dist/calendar/utils.wxs',  },  },  { { from: 'src/components/vant-weapp/dist/calendar/calendar.wxml',  from:  'src/components/vant-weapp/dist/calendar/calendar.wxml',  to: 'dist/components/vant-weapp/dist/calendar/calendar.wxml',  to: [...] to:  'dist/components/vant-weapp/dist/calendar/calendar.wxml',  },  },  { { from: 'src/components/vant-weapp/dist/calendar/components/month/index.wxs',  from:  'src/components/vant-weapp/dist/calendar/components/month/index.wxs',  to: 'dist/components/vant-weapp/dist/calendar/components/month/index.wxs',  to:  'dist/components/vant-weapp/dist/calendar/components/month/index.wxs',  },  },  ],  ],  options: {},  options:  {},  },  }, } }",
+      "score": 0.5439058,
+      "raw_content": null,
+      "id": "b946d9-02"
+    },
+    {
+      "url": "https://cn.investing.com/equities/eaton-company-profile",
+      "title": "伊顿(ETN)公司简介,联系方式,官网,高管档案_英为财情Investing.com",
+      "content": "| Silvio Napoli | Independent Director | 2019 | 61 |\n| Darryl L. Wilson | Independent Director | 2021 | 62 |\n| Karen Ann K. Terrell | Independent Director | 2024 | 65 |\n| Gerald Johnson | Independent Director | 2025 | 63 | [...] aaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\n解锁策略\n\n工具\n\n日历\n\n财经日历财报日历节假日日历美联储利率观测器美债收益率曲线\n\n更多工具\n\n选股器货币换算器\n\n安装我们的APP扫描二维码，安装APP [...] 52 周范围\n\n311.92478.00\n\n## 伊顿公司公司档案\n\n伊顿公司简介。此公司档案包括伊顿(ETN)公司所处行业，业务概况，地址，联系方式，官网和高管档案资料。\n\nEaton Corporation PLC是一家动力管理公司。该公司的Electrical Americas部门包括电气元件、工业元件、配电和组件、住宅产品、单相电能质量和连接、三相电能质量和布线设备等。电气全球部门包括电气元件、工业元件、配电和组件、单相和三相电能质量以及服务。车辆部门从事汽车、轻型卡车和商用车的传动系统、动力系统和关键部件的设计、制造、营销和供应。航空航天部门是商业和军事用途的航空航天燃料、液压和气动系统以及工业应用过滤系统的供应商。eMobility部门设计、制造、营销和供应机械、电气和电子组件和系统。\n\n行业\n\n机械、工具、重型车辆、火车和轮船\n\n板块\n\n工业\n\n员工\n\n97303\n\n市场\n\n美国\n\n## 联络信息\n\n地址\n\nEaton House 30 Pembroke Road, Dublin, D04 Y0C2, Ireland\n\n电话\n\n353 1 637 2900\n\n网站",
+      "score": 0.023422228,
+      "raw_content": null,
+      "id": "cbed94-03"
+    },
+    {
+      "url": "https://cn.investing.com/equities/oracle-corp-company-profile",
+      "title": "甲骨文(ORCL)公司简介,联系方式,官网,高管档案_英为财情Investing.com",
+      "content": "Title: 甲骨文(ORCL)公司简介,联系方式,官网,高管档案_英为财情Investing.com\n# 甲骨文公司 (ORCL). 甲骨文公司简介。此公司档案包括甲骨文(ORCL)公司所处行业，业务概况，地址，联系方式，官网和高管档案资料。. Oracle Corp提供适用于企业信息技术（IT）环境的产品和服务。该公司的业务包括云和许可、硬件和服务。其产品和服务包括通过各种IT部署模型交付的应用程序和基础架构产品。这些模型包括本地部署、基于云的部署和混合部署。其Oracle云服务产品包括Oracle软件即服务（SaaS）和Oracle云基础设施（OCI）产品，后者提供集成的应用程序堆栈和通过基于云的部署模型交付的基础设施服务。其Oracle云服务代表客户将IT组件，包括软件、硬件和服务集成到基于云的IT环境中。其Oracle云许可和本地许可部署产品包括Oracle应用程序、Oracle数据库和Oracle中间件软件产品等。. 2300 Oracle Way, Austin, 78741, United States. Ellison | Co-Founder, Chairman & CTO | 2014 | 82 |. Sicilia | Chief Executive Officer & Director | 2025 | 54 |. Magouyrk | Chief Executive Officer & Director | 2025 | 39 |. Henley | Executive Vice Chairman of the Board | 2014 | 81 |. | Safra Ada Catz | Executive Vice Chair | 2025 | 64 |. Boskin | Independent Director | 1994 | 80 |. Chizen | Lead Independent Director | 2008 | 71 |. Berg | Independent Director | 1997 | 79 |. Moorman | Independent Director | 2018 | 74 |. | Rona Alison Fairhead | Independent Director | 2019 | 65 |. | Awo Ablo | Independent Director | 2022 | 53 |. | 中际旭创 | 895.86 | -2.89% | 1,848.66万 |  |. | 国瓷材料 | 70.00 | +1.45% | 1.37亿 |  |. | CXMT | 56.20 | -4.13% | 1.52亿 |  |. | 中国巨石 | 43.06 | -5.61% | 1.93亿 |  |. | 昆船智能 | 17.98 | +20.03% | 3,384.51万 |  |. | 霍莱沃 | 37.94 | +19.99% | 597.64万 |  |. | 海峡创新 | 10.81 | +19.98% | 1.62亿 |  |. | 超频三 | 9.56 | +11.81% | 1.04亿 |  |. | Seeya Tech | 45.02 | -12.68% | 828.02万 |  |. | 香雪制药 | 5.62 | -11.22% | 1,666.53万 |  |. | 逸豪新材 | 58.43 | -10.82% | 1,767.35万 |  |. | 诺诚健华 | 29.86 | -10.60% | 3,031.83万 |  |. | 华宝股份 | 26.60 | -10.10% | 3,080.09万 |  |. | 加加食品 | 6.54 | -10.04% | 1,158.39万 |  |. | Malayan Banking | 10.22 | +0.99% | 499.04万 |  |. | 马来西亚大众银行 | 4.80 | -0.41% | 909.57万 |  |. | 顶级手套 | 0.76 | -3.85% | 3,999.62万 |  |. | 云顶集团 | 1.88 | 0.00% | 320.56万 |  |. | Aa Aaaaaaaaaa | 14.55 | +64.91% | 23.99 |. | Aaa Aaaaa Aaaaaaaaa | 6.55 | +58.95% | 10.41 |. | Aaaaaaaa A | 70.71 | +57.47% | 111.35 |. | Aaaaa Aaa Aaaa Aaa | 15.91 | +57.40% | 25.04 |. 未经**Fusion Media**及/或数据提供商书面许可，禁止使用、存储、复制、展现、修改、传播或分发本网站所含数据。提供本网站所含数据的供应商及交易所保留其所有知识产权。.",
+      "score": 0.021224413,
+      "raw_content": null,
+      "id": "1a03d9-04"
+    }
+  ],
+  "response_time": 0.88,
+  "request_id": "68daddc6-ba1b-4b19-830c-3bdfd2709ac1"
+}

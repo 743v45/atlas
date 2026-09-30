@@ -1,0 +1,37 @@
+{
+  "name": "Three.js（微信小游戏）",
+  "repo": "https://github.com/mrdoob/three.js",
+  "homepage": "https://threejs.org",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "引擎极活跃但微信通道冻结——官方适配层停在 0.108（2023-05），社区方案也已停更，仅限复用既有 three 代码的场景。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/mrdoob/three.js",
+    "https://github.com/wechat-miniprogram/threejs-miniprogram",
+    "https://github.com/deepkolos/three-platformize",
+    "https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines"
+  ],
+  "tags": [
+    "minigame",
+    "wechat",
+    "renderer",
+    "3d"
+  ],
+  "matrix": {
+    "形态": "3D 渲染库",
+    "2D/3D": "仅 3D",
+    "微信适配": "官方适配层停更",
+    "包体表现": "锁旧版本·社区方案",
+    "许可/费用": "MIT·免费",
+    "上手路径": "代码 DIY"
+  },
+  "stats": {
+    "source_repo": "mrdoob/three.js",
+    "stars": 116095,
+    "pushed_at": "2026-09-30",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

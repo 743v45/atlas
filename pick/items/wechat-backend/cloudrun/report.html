@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>微信云托管 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小程序后端方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../cloudbase/report.html">← 微信云开发 / CloudBase</a><span class="sep">·</span><a href="../leancloud/report.html">LeanCloud →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>微信云托管</h1>
+<blockquote><strong>TL;DR</strong>：微信云托管是存量服务与自定义运行时的官方路线——任意语言容器+callContainer 免鉴权免域名白名单，按量计费精确到 100 毫秒；新建轻应用优先云开发，冷启动与常驻成本是主要权衡。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">官方容器托管：任意语言（Java/PHP/NodeJS/Python/Go 等）+ 框架模板（Spring Boot/Express/Django/Laravel 等），负载自动扩缩容，计费精确到 100 毫秒</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">计费</td><td style="text-align:left">按量付费、先用后付、每日结算；实例 0.25 核 0.5G ¥0.02975/时起、1 核 2G ¥0.119/时；数据库算力 0.25（约 0.25 核 0.5G）¥0.0855/时起；首个环境赠免费额度 3 个月（官网宣称价值 400 元）（价格查询 2026-09-30）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">增值服务</td><td style="text-align:left">出口固定 IP 等特殊需求按包年包月先付后用，每环境独立计费</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">可用性</td><td style="text-align:left">官网宣称超 99.99%（营销口径）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">官网/文档在线、定价页为现行口径（采集 2026-09-30）；属微信云服务产品线，与云开发同官网入口</td><td style="text-align:left">[1][2]</td></tr></tbody></table>
+<h2>为什么选（作为 trial——存量服务/自定义运行时路线）</h2>
+<ul><li><strong>存量服务免改造上云</strong>：任意语言与框架的现有工程直接容器化部署，模板覆盖主流栈——这是「服务已经写好了」场景下唯一顺滑的官方路径；云开发的函数模型要求按函数拆解重构，不适合整体迁移 [2]。</li><li><strong>免域名白名单是官方明文特权</strong>：小程序网络使用规范原文——「如使用微信云托管作为后端服务，则可无需配置通讯域名（在小程序内通过 callContainer 和 connectContainer 通过微信私有协议向云托管服务发起 HTTPS 调用和 WebSocket 通信）」；自建路线最繁琐的白名单/备案/HTTPS 三关中，域名两关直接消失 [3]。</li><li><strong>微信侧鉴权照单全收</strong>：微信私有协议自动获取 OpenID、UnionID 登录态；无需维护 access_token 与证书，免鉴权调用微信开放接口；免加解密处理微信平台消息推送 [2]。</li></ul>
+<h2>为什么不是 adopt</h2>
+<ul><li><strong>新建轻应用没有理由绕过云开发</strong>：数据库/存储/支付公众号集成是现成 BaaS 一件套（云开发 2026-05 集成中心后差距更大）；云托管只解决「跑起来」，数据层还要自配 MySQL/对象存储 [4][5]。</li><li><strong>按量常驻成本高于套餐制</strong>：1 核 2G 实例常驻约 ¥0.119/时 ≈ 85 元/月，数据库算力另计（0.25 规格 ¥0.0855/时 ≈ 61 元/月）——对比云开发基础套餐 ¥19.9/月，轻量场景贵一个量级；冷启动需「设置常驻不销毁」消除，又是常驻成本 [1][4]。</li><li>数据库规格自动弹性伸缩（无需手动指定）——省心但账单弹性需要盯；每日结算，先用餐后付 [1]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs 微信云开发：同为私有协议免鉴权，差异在抽象层——函数（事件驱动、按调用计费）vs 容器（常驻/按秒计费、任意运行时）；选型问句是「服务是新建的还是已存在的」[2][4]。</li><li>vs 自建后端：多买了「免运维+免域名白名单+微信就近接入+防 DDoS」，少的是机器级控制权与固定成本的确定性 [2][3]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>按量付费需建账单告警；增值服务（出口固定 IP 等）先付后用、每环境独立计费 [1]。</li><li>冷启动：默认缩容到零，C 端首请求延迟敏感场景要么设常驻（付费）要么接受抖动 [2]。</li><li>待验证：大促瞬时扩容的实际账单弹性（官方无 2026 年基准数据）；数据库自动伸缩的计费上限行为 [1]。</li></ul>
+<h2>来源</h2>
+<ol><li>微信云托管产品定价（微信开放文档）— <a href="https://developers.weixin.qq.com/minigame/dev/wxcloudrun/src/Billing/price.html">https://developers.weixin.qq.com/minigame/dev/wxcloudrun/src/Billing/price.html</a>（采集 2026-09-30，留档 raw/2026-09-30/web/wechat-cloudrun-cloud.weixin.qq.com.md）</li><li>微信云托管官网 — <a href="https://cloud.weixin.qq.com">https://cloud.weixin.qq.com</a>（tvly extract 2026-09-30，留档 raw/2026-09-30/web/wechat-cloudrun-home-cloud.weixin.qq.com.md）</li><li>小程序网络使用规范（callContainer 免域名原文）— <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html">https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html</a>（采集 2026-10-01，留档 raw/2026-10-01/web/wechat-network-doc-developers.weixin.qq.com.md）</li><li>微信云开发价格计算器 — <a href="https://cloud.weixin.qq.com/cloudbase/price">https://cloud.weixin.qq.com/cloudbase/price</a>（采集 2026-09-30，成本对照）</li><li>CloudBase 平台更新日志（集成中心）— <a href="https://docs.cloudbase.net/changelog">https://docs.cloudbase.net/changelog</a>（采集 2026-09-30）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：存量服务/自定义运行时官方路线；新建轻应用优先云开发</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

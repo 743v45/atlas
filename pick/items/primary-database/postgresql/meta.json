@@ -32,9 +32,9 @@
   },
   "stats": {
     "source_repo": "postgres/postgres",
-    "stars": 22128,
-    "pushed_at": "2026-09-17",
+    "stars": 22248,
+    "pushed_at": "2026-09-30",
     "license": "NOASSERTION",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   }
 }

@@ -19,10 +19,10 @@
   ],
   "stats": {
     "source_repo": "browserbase/stagehand",
-    "stars": 24316,
-    "pushed_at": "2026-09-17",
+    "stars": 25492,
+    "pushed_at": "2026-09-30",
     "license": "MIT",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   },
   "matrix": {
     "反检测层级": "平台+代理",

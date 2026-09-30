@@ -1,0 +1,58 @@
+{
+  "query": "微信小游戏 分包 包体上限 主包4M 总包 30M 官方文档",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://docs.cocos.com/creator/3.8/manual/zh/editor/publish/subpackage.html",
+      "title": "小游戏分包 | Cocos Creator",
+      "content": "## 微信小游戏 ​\n\n在微信小游戏的构建中，Asset Bundle 的配置也会按照规则自动生成到微信小游戏发布包目录下的 `game.json` 配置文件中。\n\n> 注意：微信小游戏需要特定的版本才能支持分包功能。微信 6.6.7 客户端，2.1.0 及以上基础库开始支持，请更新至最新客户端版本，开发者工具请使用 1.02.1806120 及以上版本。更新了开发者工具后不要忘记修改开发者工具中的 详情 -> 本地设置 -> 调试基础库 为 2.1.0 及以上：\n\n### 分包加载包大小的限制 ​\n\n 整个微信小游戏所有分包大小不超过 30M\n 单个分包不限制大小\n 主包大小不能超过 4M\n\n具体请参考 微信小游戏分包加载官方文档。\n\n## 抖音小游戏 ​\n\n在抖音小游戏的构建中，Asset Bundle 的配置也会按照规则自动生成到抖音小游戏发布目录下的 game.json 配置文件中。 profile\n\ngame.json 中具体的字段含义，可以参考文档：抖音小游戏配置。\n\n### 分包大小限制 ​ [...] ### 分包大小限制 ​\n\n ​小游戏整体包（小游戏包整个目录）大小不超过 20MB；​\n 单个主包不超过 4MB；​\n 单个分包大小不超过 20MB。\n\n> 抖音小游戏开放数据域文件类似子包，该文件 / 目录的大小不超过 4MB。​\n\n详情请参考文档：抖音小游戏分包加载。\n\n## 淘宝小游戏 ​\n\n在淘宝小游戏的构建中，Asset Bundle 的配置也会按照规则自动生成到淘宝小游戏发布包目录下的 `setting.json` 配置文件中。\n\n### 分包加载包大小的限制 ​\n\n 整个淘宝小游戏所有分包大小不超过 20M\n 单个分包不能超过 5M\n 主包大小不能超过 4M\n\n具体请参考 淘宝小游戏分包加载官方文档。\n\n## vivo 小游戏 ​\n\n在 vivo 小游戏的构建中，Asset Bundle 的配置也会按照规则自动生成到 vivo 小游戏发布包 `vivo-mini-game/src` 目录下的 `manifest.json` 配置文件中。以配置 `scene` 文件夹为例： [...] 将 目标平台 设置成需要分包的小游戏平台，压缩类型 设置为 小游戏分包。\n 小游戏分包只能放在本地，不能配置为远程包，所以 配置为远程包 项为锁住状态，不可勾选。\n\n配置完成后点击右上方的 打勾 按钮，这个文件夹就被配置成 Asset Bundle 了。\n\n## 构建 ​\n\n在构建时，需要将 构建发布 面板中的 主包压缩类型 设置为 小游戏分包。具体说明可参考文档 Asset Bundle — 压缩类型。\n\n项目构建完成后，这个 Asset Bundle 文件夹会被打包到小游戏平台发布包目录下的 subpackages 文件夹中。该文件夹中包含的每个文件夹都是一个 Asset Bundle。\n\n例如：将 Hello World 工程中的 `assets/scene` 文件夹在微信小游戏平台配置为 Asset Bundle，那么项目构建后将会在微信小游戏发布包目录下生成 `subpackages/scene` 文件夹。`scene` 文件夹就是一个 Asset Bundle。\n\n## 微信小游戏 ​",
+      "score": 0.79196626,
+      "raw_content": null,
+      "id": "722c1f-00"
+    },
+    {
+      "url": "https://developers.weixin.qq.com/minigame/dev/guide/base-ability/subPackage/useSubPackage.html",
+      "title": "分包加载 | 微信开放文档",
+      "content": "小游戏\n\n 小程序\n 小游戏\n 公众号\n 服务号\n 开放平台\n 企业微信\n 微信支付\n 视频号\n 微信小店\n 智能对话\n 腾讯小微\n 教育平台\n\n在游戏下暂无结果，查看其它业务相关内容 >\n\n + 云开发\n  + 云托管\n\n开发\n\n取消\n\n- 指南\n\n# # 分包加载\n\n### # 分包加载包大小的限制\n\n 整个小游戏所有主包+分包大小不超过 30M\n 主包不超过 4M\n 单个普通分包不限制大小\n 单个独立分包不超过 4M\n\n## # 使用方法\n\n### # 1. 分包配置\n\n```\n├── game.js ├── game.json ├── images │ ├── a.png │ ├── b.png ├── stage1 │ └── game.js │ └── images │ ├── 1.png │ ├── 2.png └── stage2.js \n```\n\n`game.json` 中的配置： [...] 微信 6.6.7 以下客户端开发版/体验版因历史兼容问题无法打开分包小游戏，正式发布版不受影响。如果不打算兼容老版本，开发者可以通过 mp 小程序后台配置端屏蔽 2.1.0 以下基础版的用户。\n\nThe translations are provided by WeChat Translation and are for reference only. In case of any inconsistency and discrepancy between the Chinese version and the English version, the Chinese version shall prevail.Incorrect translation. Tap to report. [...] 同时，wx.loadSubpackage 会返回一个 LoadSubpackageTask，可以通过 LoadSubpackageTask 获取当前下载进度。\n\n```\nconst =. loadSubpackage({name: 'stage1',// name 可以填 name 或者 root success: function(res){// 分包加载成功后通过 success 回调}, fail: function(res){// 分包加载失败通过 fail 回调}}). onProgressUpdate(res =>{. log('下载进度',.). log('已经下载的数据长度',.). log('预期需要下载的数据总长度',.)})\n```\n\n### # 3. 分包预加载\n\n基础库版本3.4.9及以上版本支持",
+      "score": 0.7672197,
+      "raw_content": null,
+      "id": "97803f-01"
+    },
+    {
+      "url": "https://forum.cocos.org/t/topic/157835",
+      "title": "V7投稿|微信小游戏分包最佳实践 - Creator 3.x - Cocos中文社区",
+      "content": "学习学习，大佬，assets/game文件设置为小游戏分包了之后，是不是不能设为远程包了？那远程包和分包怎么合理分配目录结构呢？\n\n根据需要来就行。目录建议是水平平行结构，不要做嵌套。 然后根据需要，来设置是远程包还是非远程包。\n\n大佬，有没有办法把引擎代码包放到分包中去？\n\n可以  \n自己定义下分包就行  \n付费的话，可以参考：Cocos Store\n\n满足最新的3.8.3版本吗？2.X版本自己实现过\n\n可以，可以看更新日志  \n\nimage\n\nimage464×792 43.2 KB\n\nimage\n\n是我需要的，感谢\n\n我只想说NB\n\ncocos3.8同一项目打包小游戏微信渠道打包的大小相比于其他的相差很大，有大佬知道为什么吗？\n\n大佬 5302 应该怎么解决\n\n先收藏，得空的时候拜读\n\n请问大佬，在小游戏中有不有必要做资源的预加载\n\n屏幕截图 2024-11-02 164825\n\n屏幕截图 2024-11-02 164825843×372 26.9 KB\n\n  \n原本只有不到3mb的包体,在微信开发者工具编译后会增大到超过4mb,这是正常的吗 [...] image\n\n如果觉得默认的配置还不够满意，可以自己进一步裁剪引擎，达到最小化功能。\n\n## 附1：分包常用知识\n\n## 附2：小游戏分包机制\n\n随着小游戏的玩法越来越丰富，开发者对于扩大包大小的需求越来越强烈，所以众多小游戏平台都推出了分包加载这一个功能。\n\n所谓的分包加载，即把游戏内容按一定规则拆分这几包，在首次启动时先下载必要的包，这个必要的包我们称为「主包」，开发者可以在主包内触发其它分包的下载，从而把首次启动的下载耗时分散到游戏运行中。\n\n## 附3：分包限制\n\n目前小游戏分包大小有以下限制：\n\n独立分包是小游戏中一种特殊类型的分包，可以独立于主包和其他分包运行，对于一些大厅子游戏玩法的游戏很好用，今天暂不讨论。\n\n希望这篇文章能够帮助到大家！\n\n回头这篇文章会以“最佳实践”纳入官方文档，也希望各位开发者提交最佳实践相关文章 PR 到官方文档仓库。\n\n修改过的HelloWorld： \n\n今晚8点，麒麟子直播间见！\n\n很牛逼的文章，赞\n\n学习学习，大佬，assets/game文件设置为小游戏分包了之后，是不是不能设为远程包了？那远程包和分包怎么合理分配目录结构呢？ [...] Cocos中文社区\n\n# V7投稿|微信小游戏分包最佳实践\n\n`Error: 系统错误，错误码：80051,source\nsize 9424KB exceed max limit 4MB`\n\n相信 90% 的朋友第一次发布小游戏时，都会遇上首包限制的问题。  \nimage  \n社区中有非常多关于如何减少首包大小的文章，但在 Cocos Creator 3.8 版本发布之后，引擎自带分包功能已经非常强大，在不改动引擎机制的情况下，就足以应对常见项目需求。\n\nimage\n\n今天我们就以 Cocos Creator 自带的 Hello World 为例，一步步实现包体优化，最终效果如下：\n\n| 项目 | 优化后 | 优化前 |\n --- \n| 总包大小 | 3.73MB | 9.22MB |\n| 主包大小 | 2.14MB | 9.22MB |\n| 分包大小 | 1.59MB | 9.22MB |\n| cocos-js | 1.68MB | 3.95MB |\n| 包数量 | 2 | 1 |\n\n具体情况可以点开下图查看：  \nimage\n\nimage\n\n接下来，我们从新建项目开始，一步步优化。",
+      "score": 0.7576693,
+      "raw_content": null,
+      "id": "b0ec48-02"
+    },
+    {
+      "url": "https://developers.weixin.qq.com/minigame/dev/guide/base-ability/code-package.html",
+      "title": "代码包 | 微信开放文档",
+      "content": "小游戏\n\n 小程序\n 小游戏\n 公众号\n 服务号\n 开放平台\n 企业微信\n 微信支付\n 视频号\n 微信小店\n 智能对话\n 腾讯小微\n 教育平台\n\n在游戏下暂无结果，查看其它业务相关内容 >\n\n + 云开发\n  + 云托管\n\n开发\n\n中文\n\nEN\n\n取消\n\n- 指南\n\n# # 代码包\n\n## # 版本类型\n\n代码包分为 开发版、体验版、正式版 三种：\n\n 开发版：每个开发者在开发过程中点击“预览”生成的版本，每个小游戏可以有多个开发版，对于每个开发者本地只能有一个开发版；开发版代码包只能通过扫码获得；\n 体验版：通过在管理后台将特定开发版设置成体验版得到的版本，每个小游戏只能有一个体验版；\n 正式版：正式发布在线上的版本，每个小游戏只能有一个正式版；\n\n## # 包大小限制\n\n代码包总大小不能超过 30M，单个分包不限制大小，主包不超过 4M。关于分包更多信息，可以参考 分包加载。\n\n## # 缓存与清理机制\n\n代码包下载到客户端后会被缓存起来，以便于下次离线打开。代码包清理的时机由算法动态计算，但可以认为在手机存储空间足够的情况下，代码包都不会被主动清理。 主动清理： [...] 用户主动在历史列表删除小游戏（下拉任务栏删除不算）时，代码包会被清理。\n 用户在设置-通用-存储空间，可以清除缓存。\n\n## # 文件类型 [...] 60. ico\n61. ktx\n62. lmani\n63. lml\n64. pkm\n65. prefab\n66. scene\n67. skel\n68. wasm\n69. xml",
+      "score": 0.7190094,
+      "raw_content": null,
+      "id": "7dbfe9-03"
+    },
+    {
+      "url": "https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages.html",
+      "title": "分包加载 | 微信开放文档",
+      "content": "小程序\n\n 小程序\n 小游戏\n 公众号\n 服务号\n 开放平台\n 企业微信\n 微信支付\n 视频号\n 微信小店\n 智能对话\n 腾讯小微\n 教育平台\n\n在小程序下暂无结果，查看其它业务相关内容 >\n\n + 行业能力\n  + 商业能力\n  + 多端能力\n  + 服务市场\n  + 城市服务\n  + 付费能力\n  + 拓展能力\n + 云开发\n  + 云托管\n AI 能力\n\n开发\n\n取消\n\n- 指南\n\n# # 分包加载\n\n> 微信客户端 6.6.0，基础库 1.7.3 及以上版本开始支持。开发者工具请使用 1.01.1712150 及以上版本，可点此下载。\n\n在构建小程序分包项目时，构建会输出一个或多个分包。每个使用分包小程序必定含有一个主包。所谓的主包，即放置默认启动页面/TabBar 页面，以及一些所有分包都需用到公共资源/JS 脚本；而分包则是根据开发者的配置进行划分。\n\n 整个小程序所有分包大小不超过 30M（服务商代开发的小程序不超过 20M）\n 单个分包/主包大小不能超过 2M\n\n 使用分包\n 独立分包\n 分包预下载\n 分包异步化 [...] The translations are provided by WeChat Translation and are for reference only. In case of any inconsistency and discrepancy between the Chinese version and the English version, the Chinese version shall prevail.Incorrect translation. Tap to report.",
+      "score": 0.70531887,
+      "raw_content": null,
+      "id": "c4d5d2-04"
+    },
+    {
+      "url": "https://blog.asroads.com/post/cae68173.html",
+      "title": "微信小游戏分包实践 | Asroads'Blog",
+      "content": "Asroads'Blog 君子不器\n\n微信小游戏分包实践\n\n发布于: 2019-07-23   更新于: 2025-04-22   分类于: game   阅读次数:\n\n 分享到 Weibo\n 分享到 Twitter\n 分享到 Facebook\n 分享到 Google+\n 分享到 LinkedIn\n 分享到 QQ\n 分享到 Telegram\n\n小游戏\n\n随着小游戏开发的日益精进，游戏本身的包体也越来越大，官方开始制定的4M包体，已经开始不能满足要求，微信官方也早早为开发者做了准备，给出了小游戏分包方案，本身分包功能官方文档已经写的很详细，只要照着做，基本都能实现，只是我在Laya2.0的版本实践中，还是遇到了一些坑和一些注意事项。\n\n### 分包环境\n\n> 微信 6.6.7 客户端，2.1.0 及以上基础库开始支持，请更新至最新客户端版本，开发者工具请使用 1.02.1806120 及以上版本，可点此下载\n\n### 分包限制\n\n 整个小游戏所有分包大小不超过 8M\n 单个分包/主包大小不能超过 4M\n\n### 使用方法\n\n首先我们需要在`game.js`中配置分包的路径 [...] res.totalBytesExpectedToWrite) }) } ``` | [...] | ``` 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 ``` | ``` {{ \"deviceOrientation\": \"portrait\", \"deviceOrientation\": \"portrait\", \"showStatusBar\": false, \"showStatusBar\": false false, \"networkTimeout\": {\"networkTimeout\":{ \"request\": 10000, \"request\": 10000, \"connectSocket\": 10000, \"connectSocket\": 10000, \"uploadFile\": 10000, \"uploadFile\": 10000, \"downloadFile\": 10000 \"downloadFile\": 10000 },}, \"subpackages\": [\"subpackages\":[ {{ \"name\": \"res\", \"name\": \"res\", \"root\": \"subpackage/\"",
+      "score": 0.6964752,
+      "raw_content": null,
+      "id": "a74d12-05"
+    }
+  ],
+  "response_time": 0.8,
+  "request_id": "73336bc5-4965-4bc0-9e67-50f4086d4310"
+}

@@ -21,10 +21,10 @@
   ],
   "stats": {
     "source_repo": "FireRedTeam/FireRedASR2S",
-    "stars": 684,
+    "stars": 696,
     "pushed_at": "2026-06-02",
     "license": "Apache-2.0",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   },
   "matrix": {
     "形态": "模型+官方 CLI",

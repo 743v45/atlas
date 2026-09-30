@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22",
+  "updated": "2026-10-01",
   "domains": [
     {
       "slug": "browser-agents",
@@ -35,6 +35,17 @@
       "description": "主数据库与存储引擎选型，以 PostgreSQL 为锚——用到不够用为止。",
       "categories": [
         "primary-database"
+      ]
+    },
+    {
+      "slug": "wechat-dev",
+      "name": "微信生态开发",
+      "description": "微信小程序/小游戏的四层选型闭环：应用逻辑怎么写（框架），游戏怎么渲染（引擎），界面组件从哪来（UI 库），后端放哪（云开发/云托管/自建/BaaS）——层间自由组合，主评微信端、多端能力单列标记。",
+      "categories": [
+        "miniprogram-frameworks",
+        "minigame-engines",
+        "miniprogram-ui-libs",
+        "wechat-backend"
       ]
     },
     {
@@ -85,6 +96,14 @@
         "knowledge-docs",
         "ai-app-dev",
         "dev-automation"
+      ]
+    },
+    {
+      "slug": "app-dev",
+      "name": "应用开发",
+      "description": "端侧应用的完整技术栈",
+      "domains": [
+        "wechat-dev"
       ]
     },
     {

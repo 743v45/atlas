@@ -1,0 +1,36 @@
+{
+  "name": "Supabase",
+  "repo": "https://github.com/supabase/supabase",
+  "homepage": "https://supabase.com",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "开源 Postgres BaaS 头部（⭐111k，pushed 2026-09-30）——出海场景的默认后端；国内无节点、直连偏慢但不用梯子可用，且 *.supabase.co 过不了小程序域名备案关——国内主线不选。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/supabase/supabase",
+    "https://kuizuo.me/blog/use-supabase-as-backend-service",
+    "https://tcb.cloud.tencent.com/blog/2026/04/22/solo-company-tech-stack-2026"
+  ],
+  "tags": [
+    "supabase",
+    "postgres",
+    "baas",
+    "overseas",
+    "opensource"
+  ],
+  "matrix": {
+    "形态": "开源 BaaS·Postgres",
+    "微信集成": "无·域名过不了备案",
+    "计费": "免费档·Pro $25/月",
+    "运维负担": "零运维",
+    "锁定风险": "低中·Postgres 可迁"
+  },
+  "stats": {
+    "source_repo": "supabase/supabase",
+    "stars": 110941,
+    "pushed_at": "2026-09-30",
+    "license": "Apache-2.0",
+    "collected_at": "2026-10-01"
+  }
+}

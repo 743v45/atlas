@@ -1,0 +1,58 @@
+{
+  "query": "mpx 滴滴 小程序框架 skyline 支持",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://didi.github.io/mpx/articles/2.0.html",
+      "title": "2.0 · mpx文档",
+      "content": "您当前浏览的是旧版文档，不再维护更新，点击这里跳转Mpx全新官网\n\n# 滴滴小程序框架Mpx发布2.0，支持小程序跨平台开发，可直接转换已有微信小程序\n\n> 作者：董宏平 (hiyuki)\n\nMpx是一款致力于提高小程序开发体验和效率的增强型小程序框架，目前在滴滴公司内部支撑了包括滴滴出行小程序，滴滴出行广场小程序，青桔单车，黑马电单车，小桔养车，小桔加油在内的小程序生态；自去年11月开源以来，Mpx也吸纳了众多外部开发者的加入，基于Mpx开发了开走吧，好免街，花忆等小程序。\n\n长期以来，Mpx优秀的开发体验和强大的稳定性得到了内外开发者的一致认可和好评，这非常符合Mpx的设计初衷。但是在各大厂商陆续推出自己的小程序平台，且各家的技术标准都不统一的今天，单纯地提高某一个平台的开发体验已经不能满足广大小程序开发者们的诉求，`一套代码在多小程序平台运行`已经成为一个现实上的刚需。为了解决这个小程序开发的痛点，Mpx发布了2.0版本，适配了目前业内已经发布的所有小程序平台(微信、支付宝、百度、头条、qq)，并且提供了直接将现有微信小程序编译输出到其他平台运行的能力。 [...] Mpx2.0版本新增的主要特性主要包含：\n\n 完整支持了目前业内已发布的所有小程序平台(微信，支付宝，百度，qq，头条)；\n Mpx小程序跨平台开发，支持将已有的Mpx微信项目编译输出到其他已支持的小程序平台中运行，点击查看详情；\n 小程序原生组件跨平台编译，支持将已有的微信原生组件编译输出到其他已支持的小程序平台中运行；\n 深度分包优化，编译过程中进行精准分包资源判断，所有分包only的资源(组件、js、外部样式、外部模板、wxs，图像媒体等)都会精确输出到分包目录中；\n render函数中完整支持wxs模块，关于render函数点击查看详情；\n 支持了模板引入，内联wxs，自定义tabbar，workers，云开发等原生能力，进一步完善原生兼容性。\n\n同业内主流的小程序跨端框架相比，Mpx更专注于小程序开发本身，在小程序开发中具备以下优势： [...] 在2.0版本中我们进一步完善了Mpx的原生兼容性，跟进支持了各个小程序平台最新的技术能力，如自定义tabbar，分包预加载，workers，云开发等能力，同时补齐了一些1.x版本遗漏的支持。得益于此，对于使用原生小程序开发的开发者来说，迁移Mpx的成本几乎为0，用户只需将对应页面组件的构造函数替换为Mpx提供的createPage/createCompnent，即可使用Mpx提供的各种增强能力。\n\n## 未来规划\n\n i18n\n ts支持\n 单元测试支持\n\n# results matching \"\"\n\n# No results matching \"\"",
+      "score": 0.79883134,
+      "raw_content": null,
+      "id": "bd910a-00"
+    },
+    {
+      "url": "https://juejin.cn/post/7647438301876191258",
+      "title": "还在纠结小程序用原生还是框架？5 种方案全拆解，选错多写 2 周代码！微信小程序派系，原生派说性能好，跨端派说效率高，最 - 掘金",
+      "content": "## 怎么选？决策树一张图搞定\n\n`你的需求是什么？ \n├── 只做微信小程序，追求极致性能 \n│   └── 原生开发 ✅ \n├── React 团队，有多端需求 \n│   └── Taro ✅ \n├── Vue 团队，快速交付 + 多端 \n│   └── uni-app ✅ \n├── 小程序复杂业务，性能敏感 \n│   └── MPX ✅ \n└── 已有 Web 项目要迁移 \n    └── kbone ✅（过渡方案）`\n\n## 一句话总结\n\n选框架的核心逻辑就两条：你用什么语法，你要不要跨端。\n\n如果你的项目只跑微信、对性能有要求——别犹豫，原生就是最优解。Skyline 渲染引擎加持下的原生小程序，性能远超任何跨端方案。\n\n如果你要一套代码多端跑——先看团队技术栈，React 选 Taro，Vue 选 uni-app。如果是滴滴级别的复杂业务，认真考虑 MPX。\n\nkbone 只适合迁移过渡，别拿它做新项目。\n\n别为了用框架而用框架，也别为了\"纯粹\"而拒绝框架。选对了是效率，选错了是坑。\n\n如果你觉得这篇文章对你有帮助，欢迎点赞、收藏、转发给身边的朋友一起学习！ [...] WXML/WXSS\n|\n否\n|\n⭐⭐\n|\n⭐⭐⭐⭐⭐\n|\n单平台、极致性能\n|\n|\nTaro\n|\nNervJS/taro\n|\nReact/Vue\n|\n多端\n|\n⭐⭐\n|\n⭐⭐⭐⭐\n|\nReact 团队、多端需求\n|\n|\nuni-app\n|\ndcloudio/uni-app\n|\nVue\n|\n多端\n|\n⭐\n|\n⭐⭐⭐⭐\n|\nVue 团队、快速交付\n|\n|\nMPX\n|\ndidi/mpx\n|\n类Vue增强\n|\n小程序多端+Web\n|\n⭐⭐\n|\n⭐⭐⭐⭐⭐\n|\n滴滴级复杂业务\n|\n|\nkbone\n|\nTencent/kbone\n|\nWeb原生\n|\nWeb+小程序\n|\n⭐⭐⭐\n|\n⭐⭐⭐\n|\nWeb 项目迁移\n|\n\n## 1. 原生开发：最稳的选择\n\n微信官方提供的开发方式：WXML + WXSS + JavaScript，用微信开发者工具编写和调试。\n\n2025 年的新变化： Skyline 渲染引擎已经正式稳定，配合 Worklet 动画机制，原生小程序的性能天花板又被拉高了一截。手势冲突、列表卡顿这些老问题，Skyline 基本解决。\n\n优点：\n\n性能天花板，没有中间层损耗 [...] 缺点：\n\n小程序端性能比原生略逊，复杂列表可能卡顿\n\n部分高级 API 需条件编译，多端适配有隐形成本\n\nHBuilderX 绑定较深，CLI 项目体验稍差\n\n社区商业化氛围重，免费插件质量参差不齐\n\n适合： Vue 团队、快速交付项目、需要同时出小程序+H5+App 的场景。\n\n## 4. MPX：滴滴出品，复杂业务的首选\n\nGitHub: didi/mpx\n\n滴滴前端团队打造，专门针对小程序深度增强的框架，不走\"全平台\"路线，专注把小程序做好。\n\n核心特点：\n\n类 Vue 语法但做了深度增强（响应式、依赖收集、组合式 API、模板编译）\n\n小程序多端支持（微信/支付宝/百度/字节/QQ/京东）+ Web 平台\n\n独创的\"局部运行时\"方案，框架运行时压缩 + gzip 仅 14KB，性能接近原生\n\n优点：\n\n性能最接近原生，复杂列表场景表现优异\n\n深度优化小程序开发体验：增强指令、状态管理（支持 Pinia）、分包异步化\n\n滴滴出行大规模验证（滴滴出行、花小猪、青桔单车等全线产品），稳定性有保障\n\n构建产物干净，运行时开销极小\n\n配套组件库 mpx-cube-ui 已开源",
+      "score": 0.77650476,
+      "raw_content": null,
+      "id": "5208b9-01"
+    },
+    {
+      "url": "https://mpxjs.cn/articles/1.0.html",
+      "title": "滴滴开源小程序框架Mpx | Mpx 框架",
+      "content": "Skip to content\n\nMpx 框架\n\n外观\n\n# 滴滴开源小程序框架Mpx ​\n\n> 作者：hiyuki\n\nMpx是一款致力于提高小程序开发体验的增强型小程序框架，通过Mpx，我们能够以最先进的web开发体验(Vue + Webpack)来开发生产性能深度优化的小程序，Mpx具有以下一些优秀特性：\n\n 数据响应特性(watch/computed)\n 增强的模板语法(动态组件/样式绑定/类名绑定/内联事件函数/双向绑定等)\n 深度性能优化(原生自定义组件/基于依赖收集和数据变化的setData)\n Webpack编译(npm/循环依赖/Babel/ESLint/css预编译/代码优化等)\n 单文件组件开发 testtest123\n 状态管理(Vuex规范/多实例/可合并)\n 跨团队合作(packages)\n 逻辑复用能力(mixins)\n 脚手架支持\n 小程序自身规范的完全支持\n 支付宝小程序的支持\n\n## 设计思路 ​ [...] ## 技术实现 ​\n\n小程序刚推出时不支持自定义组件，无法进行组件化开发，当时最早的小程序框架WePY做的核心工作就是支持了小程序的组件化开发，后来的mpvue也基于Vue做了类似的工作。由于当时的小程序本身不支持自定义组件，WePY和mpvue的组件化支持都是基于编译做的组件化封装，用户编写的组件模板会被编译为Page中模板的一部分，在组件中定义的数据会被编译为Page中的数据，对组件进行数据更新也会基于路径映射调用Page.setData。这个方案在当时的技术条件下确实是一个唯一解，但该方案在复杂的小程序应用中会存在明显性能问题，原因在于该方案中页面的数据量会很大，而且每个组件的局部更新实际上都会成为页面级别的全局更新，在组件较多的页面中容易引发性能问题。在小程序自定义组件推出后，我们通过性能测试确认了该方案解决了上述组件封装方案中的性能问题。由于自定义组件在当时是一个最新的技术标准，业内的小程序框架都未支持，而我们本身的业务又有复杂小程序的开发需求，于是我们就基于小程序自定义组件规范启动了Mpx框架的设计与开发\n\nPage与Component setData性能对照 [...] ## 设计思路 ​\n\n目前业界主流的小程序框架主要有WePY，mpvue和Taro，这三者都是将其他的语法规范转译为小程序语法规范，我们称其为转译型框架。不同于上述三者，Mpx是一款基于小程序语法规范的增强型框架，我们使用Vue中优秀的语法特性增强了小程序，而不是让用户直接使用vue语法来开发小程序，之所以采用这种设计主要是基于如下考虑：\n\n 转译型框架无法支持源框架的所有语法特性(如Vue模板中的动态特性或React中动态生成的jsx)，用户在使用源框架语法进行开发时可能会遇到不可预期的错误，具有不确定性\n 小程序本身的技术规范在不断地更新进步，许多新的技术规范在转译型框架中无法支持或需要很高的支持成本，而对于增强型框架来说只要新的技术规范不与增强特性冲突，就能够直接支持\n\n## 技术实现 ​",
+      "score": 0.7154444,
+      "raw_content": null,
+      "id": "0674d9-02"
+    },
+    {
+      "url": "https://github.com/didi/mpx",
+      "title": "GitHub - didi/mpx: Mpx，一款具有优秀开发体验和深度性能优化的增强型跨端小程序框架 · GitHub",
+      "content": "## 成功案例\n\n微信小程序\n\n|\n|  |\n| 滴滴出行 | 出行广场 | 滴滴公交 | 滴滴金融 | 滴滴外卖 | 司机招募 | 小桔加油 |\n|\n| 彗星英语 | 番薯借阅 | 疫查查应用 | 小桔养车 | 学而思直播课 | 小猴启蒙课 | 科创书店 |\n|\n| 在武院 | 三股绳Lite | 学而思优选课 | 食享会 | 青铜安全医生 | 青铜安全培训 | 视穹云机械 |\n|\n| 店有生意通 | 花小猪打车 | 橙心优选 | 小二押镖 | 顺鑫官方微商城 | 嘀嗒出行 | 汉行通Pro |\n|\n| 交圈 | 青桔单车 | 滴滴顺风车 | 滴滴代驾 | 新桔代驾 | 标贝知音 |\n\n其他平台小程序：\n\n|\n|  |\n| 滴滴出行(支付宝) | 小桔充电(支付宝) | 唯品会(QQ) | 口袋证件照(百度) | 唯品会(百度) | 唯品会(字节) |\n\n更多案例，若你也在使用Mpx框架开发小程序，并想分享给大家，请填在此issue中。\n\n## 交流\n\n提供 微信群 / QQ群 两种交流方式\n\n#### 添加MPX入群小助手等待受邀入群\n\n#### 扫码进入QQ群 [...] ## Repository files navigation\n\nMpx, 一款具有优秀开发体验和深度性能优化的增强型跨端框架，支持小程序、Web 与 React Native（iOS / Android / Harmony）输出。\n\ntest-status docs-status\n\n## 官网及文档\n\n欢迎访问，跟随我们提供的文档指南使用 Mpx 进行跨端开发。\n\n## 近期更新\n\n基于 Mpx 的移动端基础组件库 mpx-cube-ui 已经开源，更多详情查看这里。\n\nMpx 2.9 版本正式发布，支持原子类、SSR和构建产物体积优化，更多详情查看这里，迁移指南查看这里，相关指南及 API 参考文档已更新。\n\n## 简介\n\nMpx 是一款致力于提升开发体验和用户体验的增强型跨端框架，通过 Mpx，我们能够以类 Vue 的开发体验高效优雅地构筑出高性能跨端应用，在所有开放的小程序平台、Web 平台以及 React Native（iOS / Android / Harmony）环境中运行。\n\n### 输出平台支持 [...] 跨端输出 React Native (支持输出到 iOS、Android 与 Harmony，延续 Mpx 单文件组件、模板、样式、运行时和 API 适配能力)\n TypeScript支持 (基于ThisType实现了完善的类型推导)\n I18n国际化\n 单元测试\n E2E测试\n 原子类\n SSR\n 运行时渲染方案",
+      "score": 0.6450534,
+      "raw_content": null,
+      "id": "45738f-03"
+    },
+    {
+      "url": "https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/features.html",
+      "title": "Skyline 渲染引擎 / 概览 / 特性 | 微信开放文档",
+      "content": "### # 5. 样式计算更快\n\nSkyline 通过精简 WXSS 特性大幅简化了样式计算的流程。在样式更新上，与 WebView 全量计算不同，Skyline 使用局部样式更新，可以避免对 DOM 树的多次遍历。Skyline 与小程序框架结合也更为紧密，例如： Skyline 结合组件系统实现了 WXSS 样式隔离、基于 wx:for 实现了节点样式共享（相比于 WebView 推测式样式共享更为精确、高效）。在节点变更、内联样式和继承样式的更新上，Skyline 也进行了一些优化，从而保证样式计算的性能。\n\n此外，对于 rpx 单位，我们直接在样式计算阶段原生支持，这样避免了在 JS 层面做太多额外的计算。 [...] 小程序支持页面使用 WebView 或 Skyline 任一模式进行渲染，Skyline 页面可以和 WebView 页面混跳，故开发者可以页面粒度或分包粒度按需适配。\n\n```\n// page.json// skyline 渲染{\"renderer\": \"skyline\"}// webview 渲染{\"renderer\": \"webview\"}\n```\n\n```\n// app.json{\"subPackages\":[{\"root\": \"packageA\", \"pages\":[\"pages/cat\"], \"componentFramework\":\"glass-easel\", \"renderer\": \"skyline\",},],}\n```\n\n  \n\n## # 提供更好的性能\n\nSkyline 在渲染流程上较 WebView 更为精简，其对节点的渲染有着更精确的控制，尽量避免不可见区域的布局和绘制，以此来保证更高的渲染性能。WebView 由于其整体设计不同以及兼容性等问题，渲染流水线的实现更加冗长复杂。 [...] 支持常用手势的识别，如缩放、拖动、双击等，并能够渲染线程同步监听手势、执行手势相关逻辑；\n 支持手势协商处理，能够在遇到手势冲突（常见于滚动容器下）时决定让哪个手势生效，以实现更顺畅的动画衔接。\n\n### # 3. 自定义路由\n\n页面间中转进行自定义的转场动画，在原生应用里也是一个很常见的交互动画。在原来的小程序架构下，每个页面都是独立的 WebView 渲染，互相隔离，其跨页能力是基本不具备的。因此，Skyline 提供了基于 Worklet 机制的 自定义路由模块，能实现市面上大多数页面转场动画效果。\n\n### # 4. 共享元素动画\n\n支持 跨页面共享元素，能够很方便地将上一个页面的元素“共享”到下一个页面，并伴随着过渡动画，同时支持了一套可定制化接口，能实现自定义的过渡动画。\n\n### # 5. 内置组件扩展\n\n对内置组件的扩展也是重要一环，特别是 scroll-view 组件，很多交互动画与滚动息息相关，Skyline 添加了很多在 Web 下很难做到又非常重要的特性。",
+      "score": 0.62330866,
+      "raw_content": null,
+      "id": "831709-04"
+    },
+    {
+      "url": "https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/miniapp/handbook/devtools/skyline-beta.html",
+      "title": "Skyline 渲染引擎 | 微信开放文档",
+      "content": "小程序\n\n 小程序\n 小游戏\n 公众号\n 服务号\n 开放平台\n 企业微信\n 微信支付\n 视频号\n 微信小店\n 智能对话\n 腾讯小微\n 教育平台\n\n在小程序下暂无结果，查看其它业务相关内容 >\n\n 指南\n 框架\n 组件\n API\n 服务端\n 平台能力 · 多端能力\n\n  + 行业能力\n  + 商业能力\n  + 多端能力\n  + 服务市场\n  + 城市服务\n  + 付费能力\n  + 拓展能力\n 工具\n 云服务\n\n  + 云开发\n  + 云托管\n AI 能力\n\n开发\n\n中文\n\nEN\n\n取消\n\n- 平台能力\n\n# # Skyline 渲染引擎\n\n多端 SDK 支持 Skyline 渲染引擎，开发者可通过目前开放的 Beta 版本结合下方教程指引来进行体验。\n\n 该功能要求：Android SDK >= 1.2.0；iOS SDK >= 1.2.5（建议使用最新的 SDK）\n\n## # 一、准备工作\n\n请先将你的小程序代码适配 Skyline 渲染引擎，可查看 Skyline 渲染引擎官方文档。\n\n## # 二、开启体验\n\n1、先将工具升级到最新 nightly 版本。 [...] 2、在 project.miniapp.json 文件中勾选 Android 或 iOS 中的 Skyline SDK。\n\n Android 中使用 Skyline 需要同时勾选 XWeb 模块。\n\n3、重新打包生成 IPA 或者 APK 即可。\n\n \n\n## # 三、确认效果\n\n可以通过以下方式确认应用已支持 Skyline 渲染功能：\n\n将 vConsole 功能打开，vConsole 按钮上会展示当前页面的渲染类型，如果是 Skyline 类型的页面，则会有 Skyline 标识。\n\nThe translations are provided by WeChat Translation and are for reference only. In case of any inconsistency and discrepancy between the Chinese version and the English version, the Chinese version shall prevail.Incorrect translation. Tap to report.",
+      "score": 0.59401023,
+      "raw_content": null,
+      "id": "0af4a8-05"
+    }
+  ],
+  "response_time": 1.58,
+  "request_id": "a25e575f-80c8-4c68-a939-7dfdafd6b2bf"
+}

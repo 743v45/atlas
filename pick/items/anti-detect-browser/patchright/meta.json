@@ -19,10 +19,10 @@
   ],
   "stats": {
     "source_repo": "Kaliiiiiiiiii-Vinyzu/patchright",
-    "stars": 4612,
-    "pushed_at": "2026-09-13",
+    "stars": 4725,
+    "pushed_at": "2026-09-30",
     "license": "Apache-2.0",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   },
   "matrix": {
     "反检测层级": "CDP 补丁",

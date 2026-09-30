@@ -1,0 +1,37 @@
+{
+  "name": "uni-app",
+  "repo": "https://github.com/dcloudio/uni-app",
+  "homepage": "https://uniapp.dcloud.net.cn/",
+  "license": "Apache-2.0",
+  "verdict": "adopt",
+  "summary": "Vue 系全端事实标准——一套代码 10+ 端、DCloud 插件市场生态最厚，框架开源（Apache-2.0）与 HBuilderX 闭源 IDE 双轨并存；微信端 Skyline 靠编译层配置透传，组件库适配参差。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/dcloudio/uni-app",
+    "https://ask.dcloud.net.cn/question/151186",
+    "https://uniapp.dcloud.net.cn/quickstart-cli.html",
+    "https://doc.dcloud.net.cn/uni-app-x/"
+  ],
+  "tags": [
+    "miniprogram",
+    "cross-platform",
+    "vue",
+    "skyline"
+  ],
+  "matrix": {
+    "形态": "编译型跨端框架",
+    "语法": "Vue2/Vue3",
+    "多端能力": "10+端·含App/鸿蒙",
+    "Skyline 适配": "支持·配置透传",
+    "生态": "DCloud 插件市场·周下载 3.6 万",
+    "许可": "Apache-2.0"
+  },
+  "stats": {
+    "source_repo": "dcloudio/uni-app",
+    "stars": 41614,
+    "pushed_at": "2026-09-30",
+    "license": "Apache-2.0",
+    "collected_at": "2026-10-01"
+  }
+}

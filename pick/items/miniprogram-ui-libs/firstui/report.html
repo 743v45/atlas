@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FirstUI · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序 UI 组件库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../tdesign/report.html">TDesign 小程序 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>FirstUI</h1>
+<blockquote><strong>TL;DR</strong>：商业闭源 uni-app 组件库——免费版功能受限、VIP ¥399/永久且商用条款严苛，UNI 版与微信版公开渠道均停更于 2024-06——新项目不建议采用</blockquote>
+<ul><li><strong>结论</strong>：hold 观望</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">开源免费版 Apache-2.0；商业版闭源（VIP 源码不公开分发）</td><td style="text-align:left">[1][5]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/FirstUI/FirstUI">https://github.com/FirstUI/FirstUI</a>（⭐513、pushed 2024-06-12，gh 2026-09-30）；微信原生版 FirstUI-weixin（⭐88、pushed 2024-06-12，gh 2026-10-01）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">最新版本</td><td style="text-align:left">UNI 版 v2.4.01（2024-06-12，DCloud 插件市场）；微信小程序版 V2.4.0（2024-06-12，官方 changelog 页顶条）</td><td style="text-align:left">[3][4]</td></tr><tr><td style="text-align:left">价格</td><td style="text-align:left">VIP ¥399/永久（官网会员权益页，查询 2026-09-30）；SaaS/外包批量授权 ¥2,999～¥16,999/永久（官方 FAQ，查询 2026-09-30）</td><td style="text-align:left">[5][6]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">公开渠道全停：GitHub org 各仓 push 止于 2024-06-12（uni-app x 方向 FirstUI-uvue 至 2025-02-24）、DCloud 市场与官方 changelog 同日（2024-06-12）——至今 28 个月无公开更新</td><td style="text-align:left">[1][2][3][4]</td></tr></tbody></table>
+<h2>为什么不选（hold）</h2>
+<ul><li><strong>公开停更 28 个月</strong>：三条公开证据链同日指向 2024-06-12——GitHub org（FirstUI 与 FirstUI-weixin 均 pushed 2024-06-12）、DCloud 插件市场最新 v2.4.01（2024-06-12）、官方 changelog 最新 V2.4.0（2024-06-12）。「付费才有的 VIP 渠道是否仍在私下更新」无法验证——「待验证」，但对新项目而言付 ¥399 买一个无法验证活跃度的闭源组件库，风险收益不成立 [1][2][3][4]。</li><li><strong>付费墙切割核心组件</strong>：官方更新日志与 FAQ 组件表显示 Calendar、Cascader、Select、Upload、Qrcode、Barcode、Waterfall、Table、Poster、Charts 等大量常用组件为 VIP 专属——免费版是残缺体验（2026-09-30 留档）[3][6]。</li><li><strong>商用条款严苛</strong>：官方 FAQ 明确——不可用于开源项目、不可发布到公开渠道、不可用于外包项目（除非双方均为 VIP）、不可转让/出售源码；SaaS/外包需按用户数买断（¥2,999～¥16,999）[6]。</li><li><strong>口碑长期负面</strong>：知乎官方文章评论区（2022–2025）高频差评：「更新有点慢」「跑路了，没有更新了」「开源收费 吃相难看」「不要买。被坑」（2025-03-11）——与停更证据链互相印证 [7]。</li><li><strong>替代充分</strong>：同类 uni-app 库（wot-design-uni / uni-ui / uview-plus）全部 MIT 免费且 2026-09 仍在活跃更新——FirstUI 的差异化只剩模板颜值，不足以对冲闭源+停更风险（gh 2026-09-30～10-01 核实）[8]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs wot-design-uni / uni-ui / uview-plus：三者免费开源且活跃；FirstUI 组件颜值与物料商城是差异点，但停更+闭源+商用限制使其在所有三场景（个人快速开发/团队长期维护/多端复用）均出局 [8]。</li><li>若确需其模板：单次买断拿源码做一次性参考，不作为依赖引入——此用法也需接受其不可用于开源/外包的条款约束 [6]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>VIP 私下更新可能性</strong>——「待验证」：向官方会员群求证 2024-06 后是否有会员源码更新；有则可将本条降级评估，但公开证据不足时 hold 维持 [1][3][4]。</li><li><strong>uni-app x 方向尝试停滞</strong>：FirstUI-uvue（uni-app x 版）pushed 2025-02-24 后未再更新（gh 2026-10-01）——新架构方向同样失速 [2]。</li><li>复核触发：官网/插件市场出现 2026 年新版本，或官方公告恢复更新。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/FirstUI/FirstUI">https://github.com/FirstUI/FirstUI</a>（gh 2026-09-30：Apache-2.0、⭐513、pushed 2024-06-12）</li><li>FirstUI org — <a href="https://github.com/FirstUI">https://github.com/FirstUI</a>（gh 2026-10-01：FirstUI-weixin ⭐88 pushed 2024-06-12；FirstUI-uvue ⭐59 pushed 2025-02-24；留档 raw/2026-10-01/web/firstui-repos.md）</li><li>DCloud 插件市场 — <a href="https://ext.dcloud.net.cn/plugin?id=7646">https://ext.dcloud.net.cn/plugin?id=7646</a>（访问 2026-09-30：最新 v2.4.01，2024-06-12；VIP 组件清单，留档 raw/2026-09-30/web/firstui-dcloud-market.md）</li><li>微信小程序版 changelog — <a href="https://wxdoc.firstui.cn/docs/log.html">https://wxdoc.firstui.cn/docs/log.html</a>（访问 2026-10-01：最新 V2.4.0，2024-06-12，留档 raw/2026-10-01/web/firstui-wxdoc-log.md）</li><li>官网会员权益 — <a href="https://www.firstui.cn/right">https://www.firstui.cn/right</a>（查询 2026-09-30：「免费开源版本组件」「¥399/永久 VIP会员版」，留档 raw/2026-09-30/web/firstui-price.md）</li><li>官方 FAQ（版权与价格）— <a href="https://wxdoc.firstui.cn/docs/FAQ.html">https://wxdoc.firstui.cn/docs/FAQ.html</a>（查询 2026-09-30：商用限制条款、SaaS 授权 ¥2,999/¥8,999/¥16,999、VIP 组件对照表，留档 raw/2026-09-30/web/firstui-changelog.md）</li><li>知乎评论区 — <a href="https://zhuanlan.zhihu.com/p/504348632">https://zhuanlan.zhihu.com/p/504348632</a>（2022-05～2025-06 评论，留档 raw/2026-09-30/web/firstui-changelog.md）</li><li>同类对照 — <a href="https://github.com/Moonofweisheng/wot-design-uni">https://github.com/Moonofweisheng/wot-design-uni</a>、<a href="https://github.com/dcloudio/uni-ui">https://github.com/dcloudio/uni-ui</a>、<a href="https://github.com/ijry/uview-plus">https://github.com/ijry/uview-plus</a>（gh 2026-09-30～10-01：均 MIT、2026-09 有 push）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录：公开渠道停更 28 个月 + 闭源 + 商用条款严苛（预判 assess，依证据修正为 hold）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

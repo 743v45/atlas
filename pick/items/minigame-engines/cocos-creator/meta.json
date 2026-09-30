@@ -1,0 +1,38 @@
+{
+  "name": "Cocos Creator",
+  "repo": "https://github.com/cocos/cocos-engine",
+  "homepage": "https://www.cocos.com/creator",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "微信小游戏的默认答案——官方文档推荐+引擎插件（引擎可留客户端）+一站式构建，2D/3D 全覆盖、编辑器免费，新项目首选。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/cocos/cocos-engine",
+    "https://www.cocos.com/creator",
+    "https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html",
+    "https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines"
+  ],
+  "tags": [
+    "minigame",
+    "wechat",
+    "game-engine",
+    "2d",
+    "3d"
+  ],
+  "matrix": {
+    "形态": "完整引擎+编辑器",
+    "2D/3D": "2D+3D 均衡",
+    "微信适配": "官方推荐·引擎插件",
+    "包体表现": "引擎入插件省首包",
+    "许可/费用": "MIT·编辑器免费",
+    "上手路径": "编辑器·中文教程最厚"
+  },
+  "stats": {
+    "source_repo": "cocos/cocos-engine",
+    "stars": 9838,
+    "pushed_at": "2026-09-21",
+    "license": "NOASSERTION",
+    "collected_at": "2026-10-01"
+  }
+}

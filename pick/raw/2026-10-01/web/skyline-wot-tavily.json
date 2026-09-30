@@ -1,0 +1,50 @@
+{
+  "query": "wot-design-uni skyline 不支持",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://github.com/Moonofweisheng/wot-design-uni",
+      "title": "GitHub - Moonofweisheng/wot-design-uni: 一个基于Vue3+TS开发的uni-app组件库，提供70+高质量组件，支持暗黑模式、国际化和自定义主题。 · GitHub",
+      "content": "## Used by\n\nYou can’t perform that action at this time. [...] ### Uh oh!\n\n  There was an error while loading. Please reload this page.\n Notifications  You must be signed in to change notification settings\n Fork 339\n Star  2.3k\n\nBranchesTags\n\nOpen more actions menu\n\n## Latest commit\n\n## History\n\n1,415 Commits\n\n1,415 Commits\n\n## Folders and files [...] | uni-ku-root | 一个模拟 App.vue 原有能力的根组件插件 |",
+      "score": 0.45304462,
+      "raw_content": null,
+      "id": "c9318f-00"
+    },
+    {
+      "url": "https://unibest.tech/base/7-ui",
+      "title": "UI 库替换篇 | unibest 官方文档",
+      "content": "Skip to content\n\nunibest4.1.1\n\n赞助位\n\n#### Ruoyi-Plus-Uniapp\n\nRuoyi-Plus-Uniapp\n\nAI驱动全栈开发，一套代码三端交付，框架即文档\n\n#### ccfly\n\nccfly\n\n稳定、快速、无限制的 Claude Code 体验。开发效率提升 10 倍，从这里开始。\n\n#### FinClip\n\nFinClip\n\n无需重构，非侵入集成SKD就搞定！装下无限小程序，你的APP也能变”微信“\n\n# UI 库替换篇 ​\n\n> 2026-04-25 更新：脚手架新增 `wot-ui-v2` 选项（`@wot-ui/ui`），并在交互中前置显示；`wot-ui` 表示 `v1`（`wot-design-uni`）用于兼容老项目。\n\ntxt [...] ## 卸载 wot-ui 库 ​\n\n卸载 `wot-ui` 过程如下：\n\n 1. 删除 `wot-ui` 库：\n\nsh\n\n```\n pnpm un wot-design-uni  pnpm  un wot-design-uni\n```\n\n 1. `pages.config.ts` 文件 `easycom.custom` 删除相关配置：\n\ndiff\n\n```\neasycom: {easycom: { autoscan: true, autoscan: true, custom: { custom: {- '^wd-(.)': 'wot-design-uni/components/wd-$1/wd-$1.vue', - '^wd-(.)': 'wot-design-uni/components/wd-$1/wd-$1.vue', }, },},},\n```\n\n 1. `tsconfig.json` 文件 `compilerOptions.types` 删除相关配置：\n\ndiff [...] diff\n\n```\n\"types\": [\"types\": [ \"@dcloudio/types\", \"@dcloudio/types\", \"@types/wechat-miniprogram\", \"@types/wechat-miniprogram\", - \"wot-design-uni/global.d.ts\", - \"wot-design-uni/global.d.ts\", \"./components.d.ts\", \"./components.d.ts\", \"./global.d.ts\" \"./global.d.ts\"]]\n```\n\n## 安装 `uview-pro` 库 ​\n\n 1. 安装 `uview-pro` 库：\n\nsh\n\n```\npnpm add uview-pro pnpm  add uview-pro\n```\n\n 1. 引入 uView Pro 主库\n\n在项目`src` 目录中的 `main.ts` 中，引入并使用 `uView Pro` 的工具库。\n\ndiff",
+      "score": 0.42663267,
+      "raw_content": null,
+      "id": "f504a5-01"
+    },
+    {
+      "url": "https://codercup.github.io/unibest-docs/base/7-ui",
+      "title": "UI 库替换篇 | unibest",
+      "content": "卸载 `wot-ui` 过程如下：\n\n 1. 删除 `wot-ui` 库：\n\nsh\n\n```\n pnpm un wot-design-uni  pnpm un wot-design-uni\n```\n\n 1. `pages.config.ts` 文件 `easycom.custom` 删除相关配置：\n\ndiff\n\n```\neasycom: {easycom: { autoscan: true, autoscan: true, custom: { custom: {- '^wd-(.)': 'wot-design-uni/components/wd-$1/wd-$1.vue', - '^wd-(.)': 'wot-design-uni/components/wd-$1/wd-$1.vue', }, },},},\n```\n\n 1. `tsconfig.json` 文件 `compilerOptions.types` 删除相关配置：\n\ndiff [...] diff\n\n```\n\"types\": [\"types\": [ \"@dcloudio/types\", \"@dcloudio/types\", \"@types/wechat-miniprogram\", \"@types/wechat-miniprogram\", - \"wot-design-uni/global.d.ts\", - \"wot-design-uni/global.d.ts\", \"./components.d.ts\", \"./components.d.ts\", \"./global.d.ts\" \"./global.d.ts\"]]\n```\n\n## 安装 `uni-ui` 库 ​\n\n 1. 安装 `uni-ui` 库：\n\nsh\n\n```\npnpm add @dcloudio/uni-ui pnpm add @dcloudio/uni-ui\n```\n\n 1. `pages.config.ts` 文件 `easycom.custom` 添加相关配置：\n\ndiff [...] Skip to content \n\nOn this page\n\n# UI 库替换篇 ​\n\n## 默认 UI 库 ​\n\n`unibest` 经过几次更迭，先后使用 `uni-ui`、`uv-ui`作为默认 UI 库，目前使用 `wot-ui` 为默认 UI 库。\n\n`wot-ui` 是 `vue3+ts` 编写的全端支持的 UI 库，编码体验比 `uv-ui` 更好；而官方维护的 `uni-ui` 则样式略丑，组件较少，故弃之。\n\n> `wot-ui` 全称 `wot-design-uni`，是 `wot-design` 的 `uniapp` 版本，文档地址：.\n\n很多群友反馈有其他 `UI` 库的需求，那么更换 `UI 库` 需要哪些步骤呢？\n\n 先卸载原有的 `wot-ui` 库\n 再安装其他 `UI 库`\n\n下面我们简单描述一下更换 2 个主流 `UI库` —— `uni-ui` + `uv-ui` 的过程。\n\n> 当然也支持同时存在多个 `UI 库`，有 ES 摇树特性，不必担心打包后的体积。\n\n## 卸载 wot-ui 库 ​\n\n卸载 `wot-ui` 过程如下：",
+      "score": 0.34966648,
+      "raw_content": null,
+      "id": "d00d1a-02"
+    },
+    {
+      "url": "https://ext.dcloud.net.cn/plugin?id=13889",
+      "title": "wot-design-uni 基于vue3+Typescript的高颜值组件库 - DCloud 插件市场",
+      "content": "### Bug Fixes | Bug 修复\n\n 修复 Segmented 选项点击时无论是否改变选中值都会触发 change 的问题 (#1326) (5657aa6), closes #1323\n 修复 table 组件表头文字溢出样式异常的问题 (#1297) (5e186ea), closes #1182 #1058\n 修复wd-drop-menu-item组件在popup数据较多在滚动区下拉时和页面onPullDownRefresh之间的冲突 (#1113) (73027c0), closes #1107\n\n## 1.12.4（2025-08-28） 下载此版本 \"下载此版本\")\n\n### 1.12.4 (2025-08-28)\n\n### Bug Fixes | Bug 修复\n\n 修复 Upload 设置 multiple 无效的问题 (#1250) (784aab4)\n\n查看更多 \n\n## 平台兼容性\n\n#### uni-app(4.0) [...] 1. 前端组件\n2. vue 组件\n\n### wot-design-uni 基于vue3+Typescript的高颜值组件库 wot-design-uni 国际化 组件库 vue3 暗黑模式\n\n作者：  不如摸鱼去   \n\n下载人数: 7,660      下载次数: 19,324        收藏人数:  727\n\n插件\n\n  下载插件并导入HBuilderX) \n\n注意：导入uni\\_modules规范插件需要使用 3.1.0 以上版本的 HBuilderX\n\n示例\n\n  使用 HBuilderX 导入示例项目)    下载示例项目ZIP)\n\n 赞赏（138）\n\n本站所有收费插件均支持免费试用，切勿私下交易或购买不可正常试用的插件，而造成不必要的纠纷。\n\n 概述\n 评论\n\n## 更新记录\n\n## 1.14.0（2026-01-04） 下载此版本 \"下载此版本\")\n\n## 1.14.0 (2026-01-04)\n\n### Bug Fixes | Bug 修复 [...] 修复黑暗模式下demo页面样式异常 (397c883)\n 补充 Button 组件的 getRealtimePhoneNumber 仅支持微信小程序 (7466c91)\n 补全一些缺失的文档 (b0bb46d)\n 调整 Gap 文档描述错误的问题 (1a9f626)\n 调整文档站点域名为 wot-ui.cn (4c8cdb8)\n 更新快速上手项目链接 (d86dd18)\n 添加 vscode 代码提示插件 (c3c6eb1)\n 添加博客链接地址 (d7272eb)\n 添加关于全局反馈方案和最佳实践分享的文档 (a4d2550)\n 添加赞助渠道 (3564bce)\n 文档首页新增快速上手模板和公众号的入口 (e80b0df)\n 优化演示 Demo 在小屏幕上的显示效果 (#1296) (0dbdde9)\n 优化演示demo显示效果 (868b5ad), closes #1269\n 友情链接支持一行最多四个 (4810db7)\n 添加 img 组件 transformAssetUrls 配置介绍 (#1259) (96cf9c7)",
+      "score": 0.34145126,
+      "raw_content": null,
+      "id": "a2c29c-03"
+    },
+    {
+      "url": "https://wot-design-uni.pages.dev/en-US/guide/introduction",
+      "title": "Introduction | Wot UI",
+      "content": "Skip to content\n\nWot UI1.14.0\n\nEnglish\n\n简体中文\n\nEnglish\n\n简体中文\n\nAppearance\n\n赞助位\n\n成为赞助商\n\n# Introduction ​\n\nThe `wot-design-uni` component library is built on `vue3` + `Typescript`, following the design specifications of `wot design`. It provides 80+ high-quality components, supports dark mode, internationalization, and custom themes, aiming to provide developers with unified UI interactions while improving development efficiency.\n\n## Quick Start ​\n\nPlease refer to the Quick Start documentation.",
+      "score": 0.28953284,
+      "raw_content": null,
+      "id": "88ac97-04"
+    }
+  ],
+  "response_time": 1.02,
+  "request_id": "16e058ef-4e7c-4dcb-98a3-baf8d9ad554c"
+}

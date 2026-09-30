@@ -1,0 +1,35 @@
+{
+  "name": "uview-plus",
+  "repo": "https://github.com/ijry/uview-plus",
+  "homepage": "https://uview-plus.jiangruyi.com",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "uView 官方双仓冻结（2025-01）后的社区接棒者——uView2 API 高兼容 + 3.7 万 npm 下载/月的高频更新；uView 谱系 fork 生态，长期维护看接棒者",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/ijry/uview-plus",
+    "https://uview-plus.jiangruyi.com"
+  ],
+  "tags": [
+    "uniapp",
+    "uview",
+    "vue3",
+    "nvue",
+    "ui"
+  ],
+  "matrix": {
+    "技术栈": "uni-app Vue2/3+nvue",
+    "组件规模": "142 组件目录",
+    "主题/暗黑": "主题定制（暗黑待验证）",
+    "维护活性": "高频小版本（2026-09-28）",
+    "许可": "MIT"
+  },
+  "stats": {
+    "source_repo": "ijry/uview-plus",
+    "stars": 719,
+    "pushed_at": "2026-09-28",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

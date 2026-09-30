@@ -1,0 +1,35 @@
+{
+  "name": "FirstUI",
+  "repo": "https://github.com/FirstUI/FirstUI",
+  "homepage": "https://www.firstui.cn",
+  "license": "Apache-2.0",
+  "verdict": "hold",
+  "summary": "商业闭源 uni-app 组件库——免费版功能受限、VIP ¥399/永久且商用条款严苛，UNI 版与微信版公开渠道均停更于 2024-06——新项目不建议采用",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/FirstUI/FirstUI",
+    "https://www.firstui.cn",
+    "https://ext.dcloud.net.cn/plugin?id=7646"
+  ],
+  "tags": [
+    "uniapp",
+    "ui",
+    "commercial",
+    "closed-source"
+  ],
+  "matrix": {
+    "技术栈": "uni-app 双版（UNI+微信原生）",
+    "组件规模": "免费版子集，VIP 全量",
+    "主题/暗黑": "主题定制（文档在营）",
+    "维护活性": "停更（公开渠道 2024-06 起）",
+    "许可": "Apache-2.0（开源版）+商业"
+  },
+  "stats": {
+    "source_repo": "FirstUI/FirstUI",
+    "stars": 513,
+    "pushed_at": "2024-06-12",
+    "license": "Apache-2.0",
+    "collected_at": "2026-10-01"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "WeUI",
+  "repo": "https://github.com/wechat-miniprogram/weui-miniprogram",
+  "homepage": "https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/weui",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "微信官方视觉组件库——扩展库引入不占包体积是独门优势，但仅 22 组件、更新缓慢，只适合轻量场景或对官方视觉有硬要求的界面",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/wechat-miniprogram/weui-miniprogram",
+    "https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/weui"
+  ],
+  "tags": [
+    "miniprogram",
+    "wechat",
+    "ui",
+    "official"
+  ],
+  "matrix": {
+    "技术栈": "原生 wxml（扩展库）",
+    "组件规模": "22 组件",
+    "主题/暗黑": "微信官方视觉，定制弱",
+    "维护活性": "慢（npm 2024-11 后无发版）",
+    "许可": "MIT"
+  },
+  "stats": {
+    "source_repo": "wechat-miniprogram/weui-miniprogram",
+    "stars": 2429,
+    "pushed_at": "2026-04-28",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

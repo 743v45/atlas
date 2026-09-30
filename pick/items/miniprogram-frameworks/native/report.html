@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>微信小程序原生开发 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序开发框架</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../mpx/report.html">← Mpx</a><span class="sep">·</span><a href="../taro/report.html">Taro →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>微信小程序原生开发</h1>
+<blockquote><strong>TL;DR</strong>：微信官方原生开发是微信单端与性能敏感场景的默认答案——Skyline 渲染引擎 + glass-easel 组件框架把性能天花板拉到最高、新特性首发先到原生，代价是私有语法与零多端能力。</blockquote>
+<ul><li><strong>结论</strong>：adopt 推荐</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">微信官方小程序框架（WXML/WXSS/JS·TS + 微信开发者工具），非开源项目、无仓库与 star 概念</td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">版本</td><td style="text-align:left">基础库 3.x 线；Skyline 正式版随基础库 3.0.0 发布（2023-07 官方公告）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">Skyline 端支持</td><td style="text-align:left">Android 8.0.33+ / iOS 8.0.34+ / 开发者工具 Stable 1.06.2307260+；Windows、Mac 未支持（规划中）、企业微信未支持（开发中）（2026-09-30 查官方兼容表）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃</td><td style="text-align:left">微信官方持续迭代（基础库/开发者工具滚动发版），新能力（Skyline、glass-easel、worklet）全部首发于原生</td><td style="text-align:left">[1][3]</td></tr></tbody></table>
+<h2>为什么选（作为 adopt）</h2>
+<ul><li><strong>性能天花板</strong>：官方口径 Skyline 应用后加载速度可提升 50%+，渲染管线精简、样式局部更新、rpx 原生计算（2023-07 官方发布，2026-09-30 复核文档仍在）[2][4]。第三方 2025 年横评结论一致：「Skyline 渲染引擎已经正式稳定，配合 Worklet 动画机制，原生小程序的性能天花板又被拉高了一截」「只跑微信、对性能有要求——原生就是最优解」[5]。</li><li><strong>架构换代红利</strong>：Skyline 创建独立渲染线程并把 JS 逻辑移入 AppService 独立上下文，减少 WebView 实例开销与 JSBridge 通信；glass-easel 新组件框架（Skyline 只支持 glass-easel）替代 exparser，启动与 setData 延迟更低 [3][4]。</li><li><strong>渐进迁移无门槛</strong>：Skyline 支持按页面粒度或分包粒度开启、与 WebView 页面混跳，不支持的环境自动回退 WebView，存量项目可逐页适配 [1][4]。</li><li><strong>特性首发权</strong>：worklet 动画、手势体系、scroll-view 列表反转、WXML 子树截图等 Skyline 增强能力均先在原生 DSL 上提供；跨端框架的对应支持全部是追赶者（Taro worklet 自 4.0.8 才支持且需半编译）[4][见 taro 报告]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs Taro / uni-app：跨端框架带运行时或编译抽象层，微信单端视角下性能上限低于原生；其价值在多端复用与语法栈迁移，不在微信端性能（见 <code>../comparison.md</code> 运行时体积行）[5]。</li><li>vs Mpx：Mpx 编译输出原生 DSL、不动运行时，性能最接近原生；但增强语法仍是二次抽象，性能敏感页面的最终答案仍是原生 [见 mpx 报告]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>私有语法栈</strong>：WXML/WXSS 非 Web 标准，技能与代码资产不可迁移到 Web/App；团队若有多端预期，原生不是起点 [5]。</li><li><strong>Skyline 是 CSS 子集 + 默认值差异</strong>：默认 flex 布局与 border-box 盒模型（与 Web 默认不同）、不支持 inline 布局、不支持原生导航栏（需 <code>navigationStyle: custom</code> 自绘）、SVG 渲染与组件 animate 接口不支持；官方推荐开启「默认 Block 布局 + 默认 ContentBox」贴近 Web 习惯 [1][4]。</li><li><strong>平台覆盖不全</strong>：Skyline 在 Windows/Mac/企业微信端未支持（官方规划中/开发中，2026-09-30 查），跑多端微信矩阵的项目必须保留 WebView 兼容轨 [1]。</li><li><strong>组件库生态位</strong>：官方 weui + 云开发是第一方配套，但第三方组件库丰富度低于 Vue/React 通用生态，复杂中后台式页面开发效率低于框架方案 [5]。</li></ul>
+<h2>来源</h2>
+<ol><li>微信开放文档 — Skyline 常见兼容问题（各端支持矩阵、样式兼容策略）— <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/migration/compatibility.html">https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/migration/compatibility.html</a>（访问 2026-09-30，留档 <code>raw/2026-09-30/web/native-skyline-docs-weixin.md</code>）</li><li>微信开放社区公告（转载）— 「小程序新渲染引擎 Skyline 发布正式版」，随基础库 3.0.0，加载速度提升 50%+（2023-07 官方口径）— 留档 <code>raw/2026-09-30/web/native-skyline-tavily.md</code>、<code>raw/2026-09-30/web/native-skyline-status-tavily.md</code></li><li>微信开放文档 — glass-easel 适配指引（Skyline 只支持 glass-easel；WebView 端基础库 3.8.12 起支持）— <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/glass-easel/migration.html">https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/glass-easel/migration.html</a>（访问 2026-09-30）</li><li>微信开放文档 — Skyline 特性（渲染线程架构、CSS 精简与局部更新、页面/分包粒度混用、scroll-view reverse 等）— <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/features.html">https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/features.html</a>（访问 2026-09-30）</li><li>掘金 — 「还在纠结小程序用原生还是框架？5 种方案全拆解」（2025，五方案横评与决策树）— <a href="https://juejin.cn/post/7647438301876191258">https://juejin.cn/post/7647438301876191258</a>（留档 <code>raw/2026-09-30/web/uniapp-skyline-support-tavily.md</code>）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录：微信单端+性能敏感默认答案，Skyline/glass-easel 新架构性能天花板</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "微信云开发 / CloudBase",
+  "homepage": "https://cloud.weixin.qq.com/cloudbase",
+  "verdict": "adopt",
+  "summary": "微信小程序后端的官方 serverless 默认（并入腾讯云 CloudBase 后转型 AI 原生一体化平台）——免鉴权+集成中心把微信支付/公众号接入压到最低成本，个人快速开发首选；代价是腾讯专有栈锁定与计费口径更迭。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://cloud.weixin.qq.com/cloudbase/price",
+    "https://developers.weixin.qq.com/minigame/dev/wxcloud/billing/price.html",
+    "https://docs.cloudbase.net/changelog",
+    "https://github.com/TencentCloudBase/CloudBase-AI-Toolkit",
+    "https://registry.npmjs.org/@cloudbase/js-sdk"
+  ],
+  "tags": [
+    "wechat",
+    "miniprogram",
+    "serverless",
+    "baas",
+    "tencent"
+  ],
+  "matrix": {
+    "形态": "官方 Serverless BaaS",
+    "微信集成": "免鉴权·原生最深",
+    "计费": "免费6个月·¥19.9/月起",
+    "运维负担": "零运维",
+    "锁定风险": "高·专有栈"
+  }
+}

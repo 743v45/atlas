@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supabase · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小程序后端方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../self-hosted/report.html">← 自建后端</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Supabase</h1>
+<blockquote><strong>TL;DR</strong>：开源 Postgres BaaS 头部（⭐111k，pushed 2026-09-30）——出海场景的默认后端；国内无节点、直连偏慢但不用梯子可用，且 *.supabase.co 过不了小程序域名备案关——国内主线不选。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0（supabase/supabase 仓库）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/supabase/supabase">https://github.com/supabase/supabase</a></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">⭐110,941、pushed 2026-09-30（gh 2026-10-01 刷新）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">能力面</td><td style="text-align:left">Postgres 数据库 + Auth + Storage + Realtime + Edge Functions + 自动 REST/GraphQL API + RLS 行级安全</td><td style="text-align:left">[1][2][5]</td></tr><tr><td style="text-align:left">计费</td><td style="text-align:left">免费档（最多 2 项目）；Pro $25/月才有自定义域名（一手博客口径，价格采集 2026-09-30）；支付走 Visa/MasterCard（营销来源印证，打折采信）</td><td style="text-align:left">[2][4]</td></tr></tbody></table>
+<h2>为什么选（作为 trial——出海/海外用户场景）</h2>
+<ul><li><strong>出海正解</strong>：用户在海外时，海外节点+OAuth 全家桶+Postgres 生态是最顺组合——竞品 CloudBase 官方博客也这么分流（出海产品推荐 Next.js+Supabase+Vercel+Stripe，利益相关但方向与第三方一手体验互证）[3]。</li><li><strong>Postgres 是迁移保险</strong>：数据层是标准 Postgres，标准 SQL/迁移工具链成熟；自托管路径存在（开源），阿里云 AnalyticDB 已推 Supabase 兼容服务（帮助文档 2026-07-01 更新）——国内兼容生态在出现 [1][6]。</li><li><strong>零运维+RLS 数据层安全模型</strong>：行级安全策略在数据库层隔离用户数据，Auth/Storage/Realtime 一体 [5]。</li></ul>
+<h2>为什么不是国内主线</h2>
+<ul><li><strong>域名合规关就过不了</strong>：小程序 request 合法域名必须 ICP 备案且不支持 IP/无法备案的境外域名（官方规则 + API 层 45082 错误码硬拦截）——*.supabase.co 无法成为合法域名，国内小程序直连在配置层就卡死；只能经自有中转层（云函数/云托管/自建网关），「BaaS 免后端」价值被架空 [1][7]。</li><li><strong>国内无节点是物理问题</strong>：数据库与 API 全在海外，前端在国内也要跨境调用；Pro 也改变不了（CloudBase 官方博客口径）[3]。</li><li><strong>实测口碑</strong>：一手体验（kuizuo.me 博客）——国内请求偏慢但不用梯子、慢点可接受（个人项目口径；博客无发布日期，以采集日 2026-09-30 为准）。具体延迟数值：跨境 300-800ms 是同博客生态的 Vercel 前端对照数据，Supabase 本体无系统实测；YesApi 营销页称 200-500ms+（营销来源打折采信）——<strong>待验证</strong>：2026 年国内直连拨测 [2][3][4]。</li><li><strong>微信集成零原生</strong>：无 openid 免鉴权、无支付集成、无域名豁免；企业级授权欠缺——不支持 OIDC 提供者与原生 RBAC（Logto 博客口径），多租户 SaaS 场景需外挂身份层 [5]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs 微信云开发：镜像对手——云开发有微信私有协议/支付/备案链路而无 Postgres 生态，Supabase 反之；选型问句是「用户在国内还是海外」[3][7]。</li><li>vs LeanCloud：同为第三方 BaaS，LeanCloud 国内合规无忧但 SDK 冻结（详见 ../leancloud/）；Supabase 生态活跃但国内链路不通——国内第三路线目前没有健康选项 [3][6]。</li><li>自托管替代路径：开源可自托管到国内云，但 CloudBase 博客观点成立——自托管等于把免运维初衷搬回来，且失去托管生态 [3]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>跨境延迟不可通过配置消除（物理距离）；高峰期波动是常态口径 [3]。</li><li>数据出境合规：涉及个人信息的境内业务数据存境外有合规风险——国内 C 端业务直接排除 [3][4]。</li><li>免费档限制与暂停策略的 2026 现状<strong>待验证</strong>（免费 2 项目口径来自博客，无官方快照留档）[2]。</li></ul>
+<h2>来源</h2>
+<ol><li>小程序网络使用规范 + 域名配置 API 错误码 — <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html">https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html</a>、<a href="https://developers.weixin.qq.com/doc/oplatform/openApi/miniprogram-management/domain-management/api_modifyserverdomaindirectly.html">https://developers.weixin.qq.com/doc/oplatform/openApi/miniprogram-management/domain-management/api_modifyserverdomaindirectly.html</a>（采集 2026-10-01，留档 raw/2026-10-01/web/）</li><li>将 Supabase 作为下一个后端服务 — kuizuo.me 一手体验博客（采集 2026-09-30，留档 raw/2026-09-30/web/supabase-cn-latency.md）</li><li>2026 一人公司技术架构：替掉 Next.js+Supabase+Vercel 这套 — CloudBase 官方博客 2026-04-22，<a href="https://tcb.cloud.tencent.com/blog/2026/04/22/solo-company-tech-stack-2026">https://tcb.cloud.tencent.com/blog/2026/04/22/solo-company-tech-stack-2026</a>（竞品立场，与 [2] 互证；留档同上）</li><li>YesApi「Supabase 国内替代」营销页 — <a href="https://www.yesapi.cn/blog/supabase-china-alternative.html">https://www.yesapi.cn/blog/supabase-china-alternative.html</a>（营销来源，数据打折采信；留档同上）</li><li>为什么 AI 初创公司选择 Supabase 以及它的不足之处 — Logto 博客，<a href="https://blog.logto.io/zh-CN/supabase-ai-limitation">https://blog.logto.io/zh-CN/supabase-ai-limitation</a>（采集 2026-09-30）</li><li>阿里云 AnalyticDB Supabase 兼容文档 — <a href="https://help.aliyun.com/zh/analyticdb/analyticdb-for-postgresql/supabase">https://help.aliyun.com/zh/analyticdb/analyticdb-for-postgresql/supabase</a>（页面更新 2026-07-01）</li><li>GitHub — <a href="https://github.com/supabase/supabase">https://github.com/supabase/supabase</a>（gh 2026-10-01 刷新：⭐110,941、pushed 2026-09-30、Apache-2.0；首次采集 2026-09-30 ⭐110,932 留档 raw/2026-09-30/gh/）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：出海场景默认；国内主线因域名备案关+无节点不选</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

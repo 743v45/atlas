@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自建后端 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小程序后端方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../leancloud/report.html">← LeanCloud</a><span class="sep">·</span><a href="../supabase/report.html">Supabase →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>自建后端</h1>
+<blockquote><strong>TL;DR</strong>：自建后端是团队长期维护与多端复用场景的默认——代码与数据资产完全自有、语言框架不限；但要过 ICP 备案+HTTPS+域名白名单三道合规关，运维与安全全部自担。</blockquote>
+<ul><li><strong>结论</strong>：adopt 推荐</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">路线条目：云服务器/容器 + Node/Go/Python/Java 等自选框架（Express/NestJS/Gin/Django/Spring Boot 均可），无单一 vendor；小程序经 wx.request/HTTPS 调用</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">合规三关</td><td style="text-align:left">域名 ICP 备案（API 层硬校验：错误码 45082 need icp license）+ 仅 https/wss（错误码 86100）+ 合法域名白名单制（超限错误码 85016；修改频率限制 86102 每月 50 次）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">微信集成</td><td style="text-align:left">手动接入：access_token 管理、消息加解密、支付回调验签均自行实现；登录态经 code2session 换取 openid 自管</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">—（路线不依赖单一 repo；约束来自微信平台规则，规则页现行有效，采集 2026-10-01）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选（作为 adopt——团队长期维护/多端复用场景默认）</h2>
+<ul><li><strong>资产完全自有</strong>：代码、数据、部署管线不随小程序生态与任何云厂商政策摆布；后端服务同时服务 App/H5/Web 时是天然形态，小程序只是接入端之一——多端复用场景下「微信专用 API」反而是负债。</li><li><strong>语言与工具链无抽象损耗</strong>：任意 AI coding 工具、任意框架、任意数据库直接可用；不像 BaaS 有平台 API 抽象边界，也不像云开发有专有数据模型。</li><li><strong>长期成本确定性</strong>：固定租用成本随包年折扣递减，规模化后固定成本对按量常驻（云托管 1 核 2G 常驻约 85 元/月/实例 [3]）的优势放大——成本结构可预算。</li></ul>
+<h2>合规三关（硬约束，选型前先确认能过）</h2>
+<ol><li><strong>ICP 备案</strong>：官方网络文档明文「域名必须经过 ICP 备案」，且域名配置 API 直接报错拦截（45082）；第三方文章（百度智能云 2025-10，社区口径）补充：备案主体须与小程序主体一致、海外服务器需走微信特殊申请流程 [1][4]。</li><li><strong>HTTPS</strong>：仅支持 https/wss；TLS 1.2+（第三方口径，与官方「https」要求一致），新备案域名 24h 后才可配置 [1][4][5]。</li><li><strong>域名白名单</strong>：request/socket/uploadFile/downloadFile 分类别白名单制；官方文档未标数量上限数值——<strong>修正</strong>：流传的「最多 5 个」出自百度智能云 2025-10 文，与官方指引冲突不采信；腾讯云 CloudBase 官方指引写明单类最多 20 个、且修改次数受限（mp 后台 API 每月 50 次 [2]、扫码授权路径每月 5 次 [3]）[1][3][4]。</li></ol>
+<h2>对比</h2>
+<ul><li>vs 微信云托管：同为容器/运行时自由；自建多拿机器级控制权与成本确定性，少买「免运维+免白名单+微信就近接入」——团队已有运维能力时自建长期更省 [3]。</li><li>vs 微信云开发/CloudBase：云开发把支付/公众号/鉴权封装成集成（2026-05-28 集成中心），自建这些全是手工合规工程；换来的是数据模型自由与可迁移性 [6]。</li><li>vs Supabase/LeanCloud 等 BaaS：省事维度 BaaS 占优，但资产自有维度全部落败；国内 BaaS 另有 SDK 活性风险（详见 ../leancloud/）。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>运维/安全/证书续期/备份/扩容全自担——三场景中只有「团队长期维护」场景养得起这份负担 [1]。</li><li>微信侧新能力无法白拿：免鉴权调用开放接口、消息推送免加解密是官方体系特权；access_token 安全保存（官方明文要求存后台服务器）与支付验签自行实现 [1][6]。</li><li>域名白名单修改有频率限制（每月 50 次 [2]），多环境/灰度域名规划要前置。</li></ul>
+<h2>来源</h2>
+<ol><li>小程序网络使用规范 — <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html">https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html</a>（采集 2026-10-01，留档 raw/2026-10-01/web/wechat-network-doc-developers.weixin.qq.com.md）</li><li>快速配置小程序服务器域名 API（错误码表）— <a href="https://developers.weixin.qq.com/doc/oplatform/openApi/miniprogram-management/domain-management/api_modifyserverdomaindirectly.html">https://developers.weixin.qq.com/doc/oplatform/openApi/miniprogram-management/domain-management/api_modifyserverdomaindirectly.html</a>（采集 2026-10-01，留档 raw/2026-10-01/web/wechat-domain-api-errcode-developers.weixin.qq.com.md；错误码数值原文另见 raw/2026-10-01/web/wechat-domain-limit-tavily.json）</li><li>CloudBase 小程序域名配置指引（单类 20 个/每月修改次数）— <a href="https://docs.cloudbase.net/lowcode/practices/miniapp-guide/downloadfile-guide">https://docs.cloudbase.net/lowcode/practices/miniapp-guide/downloadfile-guide</a>（采集 2026-10-01，留档 raw/2026-10-01/web/wechat-domain-limit-tavily.json）</li><li>服务器与业务域名配置全解析 — 百度智能云社区 2025-10-31，<a href="https://cloud.baidu.com/article/4626869">https://cloud.baidu.com/article/4626869</a>（第三方：备案主体一致/TLS1.2/海外服务器特殊流程采信为社区口径；「最多 5 个」与官方指引冲突不采信）</li><li>微信小程序配置服务器域名和业务域名 — 掘金，<a href="https://juejin.cn/post/7023712285273112606">https://juejin.cn/post/7023712285273112606</a>（HTTPS+ICP 备案、新备案域名 24h 后可配；采集 2026-09-30，留档 raw/2026-09-30/web/selfhosted-backend-developers.weixin.qq.com.md）</li><li>微信云开发官网/集成中心 — <a href="https://cloud.weixin.qq.com/cloudbase">https://cloud.weixin.qq.com/cloudbase</a> + <a href="https://docs.cloudbase.net/changelog">https://docs.cloudbase.net/changelog</a>（采集 2026-09-30）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录：团队长期/多端复用场景默认；三道合规关与全自担运维为代价</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

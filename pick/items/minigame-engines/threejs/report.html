@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three.js（微信小游戏） · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小游戏引擎与渲染方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../pixijs/report.html">← PixiJS</a><span class="sep">·</span><a href="../unity-transform/report.html">Unity / 团结引擎 微信小游戏转换 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Three.js（微信小游戏）</h1>
+<blockquote><strong>TL;DR</strong>：引擎极活跃但微信通道冻结——官方适配层停在 0.108（2023-05），社区方案也已停更，仅限复用既有 three 代码的场景。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用（场景限定：复用既有 three.js 代码、非关键路径）</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">引擎本体</td><td style="text-align:left">mrdoob/three.js（⭐116,086、pushed 2026-09-30、MIT，gh 2026-09-30）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">微信官方适配</td><td style="text-align:left">wechat-miniprogram/threejs-miniprogram：Three.js 小程序 WebGL 适配版，<strong>锁版本 0.108.0</strong>，README 自述「如要更新 threejs 版本可发 PR 或 fork 自行修改」；⭐799、pushed 2023-05-22（gh 2026-09-30）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">社区适配</td><td style="text-align:left">deepkolos/three-platformize（适配微信/淘宝/头条，⭐592、pushed 2021-12、无 LICENSE 文件，gh 2026-10-01）</td><td style="text-align:left">[3]</td></tr><tr><td style="text-align:left">通用垫片</td><td style="text-align:left">weapp-adapter（微信官方示例级 DOM/BOM 桩）</td><td style="text-align:left">[4]</td></tr></tbody></table>
+<h2>为什么选（作为 trial 而非 adopt/hold）</h2>
+<ul><li><strong>「引擎活、通道死」的标本</strong>：three.js 本体是 Web 3D 事实标准、当日仍在推提交 [1]；但微信官方适配层 0.108.0 停在 2023-05——落后主线数年（0.108 上游发布于 2019-08，npm 2026-10-01 查询）[6]，官方明示不再跟进版本 [2]；最著名的社区平台化方案 three-platformize 也停在 2021-12 且无 license 文件 [3]。想用新版本只能 fork 自扛适配 [2]。</li><li><strong>仅存的真实场景</strong>：团队已有 three.js 代码/技能要复用到体积敏感的小 3D 玩法（Cinevva 2026：适合小而定制、对体积敏感的游戏，或团队本来就活在 Three.js 里）[5]；此时锁 0.108 旧版本是可接受的折衷。</li><li><strong>不给 adopt 的原因</strong>：新项目走此路 = 主动选一个无维护通道、版本冻结的 3D 栈；同为 DIY 路线，pixi（2D）的适配负担小一个量级，3D 完整需求应选引擎路线（Cocos/Laya）[4][5]。</li><li><strong>不给 hold 的原因</strong>：适配层虽冻结但可用（小程序 canvas + createScopedThreejs 模式文档齐全）[2]，存量复用场景下它仍是正解。</li></ul>
+<h2>对比</h2>
+<ul><li>vs Cocos/LayaAir 引擎：引擎路线有微信一等适配+编辑器+分包方案；three 路线全部自担 [4][5]。</li><li>vs Unity 转换：同为 3D，Unity 转换面向存量 Unity 工程、有微信官方五阶段支持；three 路线面向存量 Web 3D 代码、支持只有冻结的适配层 [5]。</li><li>vs 裸 WebGL：three 提供场景图/材质/加载器抽象，裸写连这些都要自建 [5]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>版本冻结是硬约束</strong>：0.108 之后的功能/修复全数缺席；配套类库（Controls、loader）需自行传入 THREE 实例，部分缺失（Controls 未适配，2020 年使用记录与 README 口径一致）[2]。</li><li>three-platformize 无 LICENSE 文件——商用前法律状态待验证 [3]。</li><li>微信端 3D 性能调优（内存上限、高性能模式）无官方 three 指引，参照小游戏通用性能文档 [4]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a>（gh 2026-09-30：⭐116,086、pushed 2026-09-30、MIT）</li><li>GitHub 仓库 — <a href="https://github.com/wechat-miniprogram/threejs-miniprogram">https://github.com/wechat-miniprogram/threejs-miniprogram</a>（gh 2026-09-30：⭐799、pushed 2023-05-22、MIT、版本 0.108.0；README 原文见 raw/2026-09-30/web/three-wechat-adapter.md）</li><li>GitHub 仓库 — <a href="https://github.com/deepkolos/three-platformize">https://github.com/deepkolos/three-platformize</a>（gh 2026-10-01：⭐592、pushed 2021-12-12、license null，留档 raw/2026-10-01/gh/minigame-engines-supplement.md）</li><li>微信开放文档「学习进阶指南」— <a href="https://developers.weixin.qq.com/minigame/dev/guide/develop/develop">https://developers.weixin.qq.com/minigame/dev/guide/develop/develop</a>（2026-09-30）</li><li>Cinevva — WeChat Mini Game Engines (2026) — <a href="https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines">https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines</a>（2026-09-30 检索：Three.js 与裸 WebGL 路线定位）</li><li>npm — three 0.108.0 上游发布时间（npm view three time，2026-10-01 查询：2019-08-28，留档 raw/2026-10-01/web/three-0108-npm-date.md）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：本体活跃+通道冻结（0.108/2023-05），存量复用场景限定</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

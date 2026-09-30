@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mor · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序开发框架</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../kbone/report.html">← kbone</a><span class="sep">·</span><a href="../mpx/report.html">Mpx →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#898781" title="评估"><i></i>评</span>
+<h1>mor</h1>
+<blockquote><strong>TL;DR</strong>：饿了么 DSL 转换型多端框架——微信/支付宝 DSL 互转 8+ 端、零运行时开销，但公开维护近乎停摆（最后稳定版 2024-05、npm 周下载 13），采用前须评估自维护承诺。</blockquote>
+<ul><li><strong>结论</strong>：assess 评估</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">最新稳定版 v1.0.113（2024-05-21 发布）；npm latest 为 1.0.114-beta.21（2025-08-15）</td><td style="text-align:left">[2][3]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/eleme/morjs">https://github.com/eleme/morjs</a>（⭐2,113、pushed 2025-11-06——截至 2026-10-01 已约 11 个月无 push，gh 2026-09-30）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃</td><td style="text-align:left">仓库 pushed 2025-11-06、稳定版停发 2 年+；npm @morjs/core 周下载 13（2026-09-22~09-28）</td><td style="text-align:left">[2][3]</td></tr><tr><td style="text-align:left">归属</td><td style="text-align:left">饿了么（eleme org，阿里巴巴/蚂蚁系），微信/支付宝双 DSL 起家</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么不选（作为 assess 而非 trial）</h2>
+<ul><li><strong>公开维护信号近乎停摆</strong>：三重证据同向——最后稳定 release v1.0.113 停在 2024-05-21；repo 最后 push 2025-11-06（约 11 个月前，gh 2026-09-30）；npm 周下载仅 13（窗口 2026-09-22~09-28）[1][2][3]。框架类选型对社区活跃度的最低要求（issue 响应、版本跟进微信基础库）目前无法从公开渠道确认。</li><li><strong>能力定位仍有独特性</strong>：仓库自述「基于小程序 DSL（微信、支付宝）的可扩展多端研发框架，一键转换微信或支付宝小程序为 8+ 端小程序或 Web 应用」——输入就是原生 DSL 而非 React/Vue，转换产物即目标端原生代码、零运行时，这在小程序框架谱系里独一档（阿里系小程序矩阵多端团队的对口工具）[1]。</li><li><strong>assess 而非 hold 的原因</strong>：与 kbone 不同，mor 没有社区共识性的「别用」，其停摆更可能是「饿了么内部使用、开源窗口收窄」而非项目死亡；若团队场景恰是「存量微信+支付宝 DSL 双栈合并」，它仍值得花一天跑通转换评估——结论留到实测之后。</li></ul>
+<h2>对比</h2>
+<ul><li>vs Taro/uni-app/mpx：三者面向「用框架语法写新代码」，mor 面向「把已有微信/支付宝原生代码搬到更多端」——新项目正常情况下不从这里起步；多端新项目按语法栈选前两者。</li><li>vs 原生双栈维护：mor 的价值主张正是替代「微信/支付宝各维护一套原生代码」；若两端差异逻辑少、人工双维护成本低，原生双栈仍更稳（无中间工具链风险）。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>停摆风险即采用风险</strong>：选型时点（2026-10-01）公开仓库 11 个月无 push，若微信基础库/编译环境破坏性变更，修复响应无从预期；采用等于默认接管工具链维护 [1][2]。</li><li><strong>Skyline 适配无公开文档</strong>：官方文档未见 Skyline 渲染引擎适配说明（tvly 检索 2026-10-01 无结果），微信端 Skyline 路线的转换兼容性待验证。</li><li><strong>内部使用无法从外部证实</strong>：饿了么/阿里系内部是否仍在规模使用无公开数据，仓库信号是唯一代理指标（观察名单触发器已设）。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub — eleme/morjs（gh 2026-09-30：⭐2,113、pushed 2025-11-06、MIT、仓库自述 DSL 互转 8+ 端，留档 <code>raw/2026-09-30/gh/eleme-morjs.json</code>）</li><li>GitHub Releases — 最新稳定版 v1.0.113（2024-05-21，gh 2026-10-01，留档 <code>raw/2026-10-01/gh/releases-npm-license-snapshot-2026-10-01.md</code>）</li><li>npm — @morjs/core 周下载 13、latest 1.0.114-beta.21（2025-08-15；窗口 2026-09-22~09-28，2026-10-01 查，同上留档）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">assess</td><td style="text-align:left">首次记录：预判 trial，因公开维护三重停摆证据（release 2024-05/push 2025-11/npm 13 次/周）下修为 assess</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

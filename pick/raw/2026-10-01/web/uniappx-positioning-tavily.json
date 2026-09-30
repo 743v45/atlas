@@ -1,0 +1,58 @@
+{
+  "query": "uni-app x 微信小程序 支持 uni-app 区别 uts 定位",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://blog.csdn.net/mss359681091/article/details/145168886",
+      "title": "uni-appx 和 uni-app 的区别，该如何选择？",
+      "content": "AI写代码 javascript 运行\n\n   1\n   2\n   3\n   4\n   5\n   6\n   7\n   8\n   9\n   10\n\n在 uni-app x 里，可以直接调用 OS 的能力，不受限制，语法是 `uts` 的语法，但需要了解什么功能在原生里是哪个 `api` 。\n\n使用 `uni.getSystemInfoSync` 则比较简单，看 `uni` 的文档即可，且可跨平台。\n\n其实，`uni.getSystemInfoSync` 的内部实现就是一个 `uts` 模块，底层使用了一样的代码，也是`import` 了 `android.os.Build` 。\n\nuni.的api ，大多是 `uts` 开发的，它们会陆续开源在 `uni-api` 。\n\n插件市场也有很多做好的 `uts` 插件，方便开发者拿来即用。\n\nuni-app js 引擎版，支持 plus API 和 weex API。但 uni-app x 中，🚫不再支持这些API。 [...] _uni_ _-_ _app_ _和_ _uni_ _-_ _app_ X是DCloud推出的跨平台开发框架。_uni_ _-_ _app_ 基于Vue.js，支持多平台开发，但性能略逊；而 _uni_ _-_ _app_ X采用UTS语言 _和_ 原生渲染，性能更优但学习曲线较高。两者适用于不同场景：_uni_ _-_ _app_ 适合快速开发中小项目，_uni_ _-_ _app_ X则更适合性能敏感型应用。开发者可根据项目需求 _选择_ 合适方案。\n\nIEM模型，地表粗糙度模拟\n\n利用微波反演土壤水分时候，利用IEM模型可以实现对随机地表的模拟\n\n   关于我们\n   招贤纳士\n   商务合作\n   寻求报道\n   协议专区\n   Image 66400-660-0108\n   Image 67kefu@csdn.net\n   Image 68在线客服\n    工作时间 8:30-22:00 [...] 8-31\n\n本文详细介绍了从Vue/_UniApp_ 转向 _UniApp_ X开发时需要注意的核心变化,包括语言从JS变为UTS(_Uni_ TypeScript)以及渲染方式的差异。UTS作为强类型语言,要求变量、方法、参数等必须有明确的类型定义,这虽然提高了性能 _和_ 减少了运行时错误,但也带来了开发习惯上的挑战。文章深入解析了UTS强类型开发的要点,如类型明确、函数参数...\n\n[_uni_ _-_ _appx_ 实战指南[代码]资源](\n\n8-28\n\n_uni_ _-_ _app_ x 提供了更直接的原生 api 调用能力(通过 uts 直接调用原生 代码 ),而传统的 _uni_ _-_ _app_ 则需要通过插件或条件编译调用扩展模块(如使用 _uni_ .requirenativeplugin 来调用原生插件)。 因此,我们可以说在统一 api 的调用方式上大体相似,但在具体语法(类型系统)_和_ 原生能力调用上存在差异。 5. 示例...\n\n_UniApp_ 云打包避坑指南：iOS证书类型选错导致打包失败的解决方案\n\nweixin_29205061的博客",
+      "score": 0.78963995,
+      "raw_content": null,
+      "id": "886437-00"
+    },
+    {
+      "url": "https://doc.dcloud.net.cn/uni-app-x",
+      "title": "uni-app x 是什么？ | uni-app x",
+      "content": "它容纳支持各种平台的原生库管理方案，包括npm、Android仓储、iOS Swift PM、CocoaPods、鸿蒙ohpm。\n\n可以引入web和原生的各种生态库。\n\n如果不开发原生插件，仅使用纯js库，在蒸汽模式下，npm上众多库也可以直接在App平台使用，比如vue-pinia、day.js等。而vdom模式则需要uts适配库才能在App平台使用。\n\n但需注意小程序和App平台不支持window等api，对dom api的支持也有限。详见DOM API。所以尽量选用那些适配小程序的NPM库，比如echarts-for-weixin\n\nuni插件市场 是跨端插件的聚集地，前端插件可以去npm找，但原生插件更推荐在这里找。\n\nuni-app x 的插件生态，基于uts插件。这是一种面向全端的、统一的插件管理方案。\n\n目前已经有数千款插件支持 uni-app x，它们发布在uni插件市场\n\nuts插件通过统一的interface，约束了所有平台的API的输入输出，甚至错误码，保障了跨平台调用的一致性。\n\nuts插件有多种开发方式： [...] 因为 uni-app x蒸汽模式 已经兼容js/ts写法，开发者可以方便的将 老uni-app 升级到 uni-app x蒸汽模式。所以 老uni-app 的app平台的维护意义也不大了。\n\n不再维护不是下线，而是没有重大问题的话（如新手机不兼容）不会再更新了。\n\n如果只开发小程序，那使用 uni-app 或 uni-app x 哪个都差不多。如果开发App，那么推荐改用 uni-app x。另外未来 uni-app x 的web平台也会升级蒸汽模式，而 老uni-app不会升级。所以后续web平台也推荐使用 uni-app x。\n\n不管 uni-app 还是 uni-app x，都支持uts插件生态，原生扩展的api插件是复用的。但原生组件插件在老uni-app 和 uni-app x 蒸汽模式之间不能复用。\n\n包括官方的API也是复用的，比如电量API uni.getbatteryinfo ，它们使用uts开发，在 uni-app 和 uni-app x 上，调用的都是一套代码。\n\n本章节是概述性FAQ。蒸汽模式性能相关的FAQ，另见蒸汽模式\n\n加群交流 [...] 很多内置组件，也是开源的uvue组件，在每个组件文档右上角可以点击源码仓库链接查看。\n\n更多组件介绍，详见\n\n## # API\n\nuni-app x 支持的API包括：\n\n`uni.`\n\nuni-app x 不会限制任何原生API的调用，在每个平台都可以调用其平台所有原生能力：\n\nuni.的api，大多是uts开发的，在每个API文档右上角可以点击源码仓库链接查看。\n\n插件市场也有很多做好的uts插件，方便开发者拿来即用。uts插件\n\n老uni-app，支持 plus API 和 weex API。但 uni-app x 中，不再支持这些API。\n\n更多API介绍，详见\n\n## # CSS\n\nuni-app x 在web和小程序，支持完成的浏览器css，在app平台，由于是原生渲染，支持的css的子集。\n\n主要差异包括：\n\n其他差异详见 css文档\n\n## # 插件生态\n\nuni-app x 的插件生态，以uni\\_modules为主。这是一种面向全端的、统一的插件管理方案。",
+      "score": 0.7837407,
+      "raw_content": null,
+      "id": "d998f8-01"
+    },
+    {
+      "url": "https://en.uniapp.dcloud.io/uni-app-x/project.html",
+      "title": "uni-app x项目 | uni-app",
+      "content": "uni-app x的项目，在左侧项目管理器的图标是圆形的U（之前是方型的U）。\n\n## # 项目结构\n\nuni-app x的项目结构与uni-app js引擎版的项目结构基本一致。\n\n主要的差别是没有nativeplugins目录和wxcomponents目录。原因是uni-app x不支持uni-app js引擎版的原生语言插件，不支持微信小程序wxml组件。\n\n基于uts的插件，可以在uni-app x和uni-app上通用。\n\n## # 运行\n\n uni-app x基座，只能运行uni-app x项目，包名是io.dcloud.uniappx\n HBuilder基座，可以运行5+App、wap2app和uni-app js引擎版。包名是io.dcloud.HBuilder\n\nuni-app x运行时，控制台右上角可以选择开启原生日志。\n\n目前仅支持真机运行，不支持断点debug。\n\n## # 发行\n\nuni-app x目前只能打包apk。\n\n暂不支持渠道包。\n\n不支持wgt热更新、不支持安心打包。\n\n下载到项目下的uts插件可打包含入。\n\nproducts [...] uni-app uni-app\n\nHBuilder X\n\nuni-app\n\nuni-app\n\nuniCloud\n\nHBuilder X\n\nuniMPSdk\n\nIntroduction\n\n新建\n\n项目结构\n\n运行\n\n发行\n\n# # uni-app x项目\n\n## # 新建\n\n在HBuilder3.9起，新建uni-app项目界面的底部有一个checkbox：uni-app x。勾选后会新建为uni-app x项目。\n\nuni-app x不支持vue2，所以无法同时勾选vue2。\n\nuni-app x的项目，manifest.json中会多一个节点`\"uni-app-x\" : {}`。这是HBuilder识别项目类型的标记。如手动增删这个节点，需对项目点右键\"重新识别项目类型\"\n\n```\n{\"name\":\"hello-uniapp x\", \"appid\": \"__UNI__4517034\", \"description\": \"\", \"versionName\":\"1.0.0\", \"versionCode\": \"100\",\"uni-app-x\":{}}\n``` [...] products\n\nHBuilderXuni-appuniClouduniMPsdk5+Runtimeuni-iduni-searchuniPayuniPushuni-verifysmsuni-starteruni-adminuni-upgrade-centeruni-imuni-aiuni-cms\n\nOperating services\n\nuni-ADuni-statuni-portalSafety topic\n\nDeveloper Services\n\nforumdashboard\n\nuni-appuniCloudnative-supportHBuilderX\n\nMarketplaceOAuth\n\nAbout：  DCloud  Jobs  Terms of service  Privacy policy  acceptable use policy\n\nContact us：  bussiness：bd@dcloud.io  Advertising：uniad@dcloud.io\n\n##### On This Page\n\n新建\n\n项目结构\n\n运行\n\n发行",
+      "score": 0.76847315,
+      "raw_content": null,
+      "id": "06e393-02"
+    },
+    {
+      "url": "https://en.uniapp.dcloud.io/select.html",
+      "title": "uni-app选型评估23问 | uni-app",
+      "content": "1. Web端：uni-app没有限制，同vue2和vue3自身能支持的浏览器版本\n2. 小程序端：uni-app没有限制，同该小程序自身能支持的最低平台\n3. App端：\n    Vue2: Android4.4+、iOS9+。Android4.4已经是2013年发布的手机了。\n    Vue3: 支持的范围是：Android >=5 （使用nvue和vue有区别。某些老国产Android5的rom无法动态升级Android system webview，此时如果使用vue页面需搭配x5内核） , iOS >= 10\n\nuni-app成熟度高吗？\n\n`uni-app`在2018年夏天推出，目前版本成熟，生态资源丰富，是当今主流的开发框架，案例众多，手机端引擎月活已经突破10亿！\n\nuni-app的社区活跃吗？\n\n加入`uni-app`的群就知道，几十个QQ/微信群每天数万条聊天记录，非常活跃。论坛里每天数百个帖子。\n\n插件市场内容也非常丰富，各种轮子方便可用。，并且很多轮子的uni-app版，性能功能都强于微信小程序版。 [...] 在做小程序时，小程序所有的api都可以使用；而输出到App时，原生渲染引擎、原生sdk集成和混写都支持，使得原生的所有api都可以使用。\n\n同时注意，条件编译不同于代码里if逻辑判断。条件编译块里的代码或指定的文件，只有在特定平台才会被编译进去，不会把不能用的其他平台代码混在一个包里。如果大量使用if判断，会增大体积和影响性能，而条件编译则没有这些问题，减少包体积，减少互相的干扰。\n\nuni-app的手机端用户体验如何？\n\n使用`uni-app`开发的微信小程序，因为智能的处理的数据的diff，比大多人手写的原生小程序的性能还好。详细数据评测参考：\n\n`uni-app`打包成App后，支持webview渲染和weex原生渲染这2种引擎，可以任由开发者切换使用。 [...] webview渲染方式，架构和微信小程序一样。微信小程序的Hybrid应用框架是业内体验上的标杆，实践证明这种体验足以承载一线互联网开发商获得上亿用户。uni-app的App端体验同微信小程序，超过其他平台的小程序，超过一般的hybrid框架。\n 原生渲染方式，是DCloud改造了weex引擎，在原生渲染引擎上实现了uni-app的组件和API。达到更优秀的用户体验。\n\n由于有丰富的插件市场，以及支持所有小程序SDK在App端的使用，使得`uni-app`拥有更庞大的应用生态。\n\n只开发小程序，需要uni-app吗？\n\n是的，单独开发小程序，也应该使用uni-app。它比其他小程序框架或原生小程序开发更有优势。原因如下：",
+      "score": 0.7065353,
+      "raw_content": null,
+      "id": "c109f5-03"
+    },
+    {
+      "url": "https://cloud.tencent.com/developer/article/2520388",
+      "title": "uni-app x：开启全平台原生开发新时代-腾讯云开发者社区-腾讯云",
+      "content": "uni-app x 的突破性在于其独特的设计理念：“开发态基于 Web 技术栈，运行时编译为原生代码”。开发者可以继续使用熟悉的 Vue 语法与类 TypeScript 的 UTS 语言构建项目，而当编译至鸿蒙平台时，代码将被转换为鸿蒙 NEXT 的原生语言 ArkTS，并基于 ArkUI 引擎运行。这种架构实现了：\n\n 编译原生化：直接编译为 ArkTS，无中间层损耗\n 渲染原生化：使用原生组件与渲染引擎\n 跨平台统一 API：封装网络、文件系统、多媒体等基础能力\n 零延迟架构：逻辑层与视图层共享原生进程，避免跨语言通信延迟\n\n这种设计让开发者既能享受 Web 技术栈的开发效率，又能获得媲美原生应用的性能体验。\n\n### 二、与传统 uni-app 的差异化定位 [...] 原始发表：2025-05-15，如有侵权请联系 cloudcommunity@tencent.com 删除\n\n渲染\n\napp\n\n开发\n\n开发者\n\n跨平台\n\n目录\n\n 在 2025 年数字技术发展的关键节点上，国产操作系统正在经历从愿景走向现实的深刻变革。DCloud 于 5 月 12 日发布的 HBuilderX4.64 正式版，标志着 uni-app x 已实现对鸿蒙、Android、iOS、Web、微信小程序等主流平台的全覆盖，为开发者带来了全新的跨平台开发体验。\n  + 一、技术革新：Web 技术栈与原生性能的完美融合\n  + 二、与传统 uni-app 的差异化定位\n  + 三、解决传统跨平台框架痛点\n  + 四、国产操作系统的战略意义\n  + 五、行业展望\n\n相关产品与服务\n\n云开发 CloudBase [...] | 特性对比 | uni-app | uni-app x |\n --- \n| 架构模式 | HybridApp 架构 | 语言翻译架构 |\n| 渲染方式 | WebView 渲染 | 原生组件+原生渲染 |\n| 性能表现 | 适合中低性能需求 | 高性能场景最优选 |\n| 鸿蒙适配方式 | Webview 容器适配 | 原生代码转换 |\n\nuni-app x 更适合对性能体验有更高要求的开发者，特别适用于游戏、图形渲染、复杂交互等场景。\n\n### 三、解决传统跨平台框架痛点\n\n在当前技术环境下，开发者面临多平台开发的困境：\n\n1. 单平台开发成本高且难以维护\n2. Flutter 等框架存在性能瓶颈\n3. 鸿蒙系统缺乏官方跨平台支持\n4. 跨平台框架普遍存在原生能力调用延迟\n\nuni-app x 通过以下方式解决了这些痛点：\n\n 原生性能：直接编译为原生代码，无 JS 引擎和 WebView 渲染\n 原生 API 直连：无需插件封装即可调用系统原生 API\n 生态扩展性：拥有数千款支持鸿蒙 next 的插件\n 平滑迁移路径：与传统 uni-app 项目保持高度兼容性",
+      "score": 0.69622743,
+      "raw_content": null,
+      "id": "839a14-04"
+    },
+    {
+      "url": "https://hk.finance.yahoo.com/news/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%BB%E5%B9%B4%E8%B7%A8%E5%A2%83%E8%88%87%E5%A2%83%E5%A4%96%E7%94%A8%E6%88%B6%E4%BD%BF%E7%94%A8%E6%AC%A1%E6%95%B8%E7%AA%81%E7%A0%B450%E5%84%84%E6%AC%A1-095901359.html",
+      "title": "微信小程序去年跨境與境外用戶使用次數突破50億次",
+      "content": "跳至導覽  跳過主要內容  跳至右欄 [...] infocast\n\n# 微信小程序去年跨境與境外用戶使用次數突破50億次\n\ninfocast [...] 條款  及 私隱政策\n\n私隱資訊主頁\n\n## 推薦新聞",
+      "score": 0.08550305,
+      "raw_content": null,
+      "id": "6be026-05"
+    }
+  ],
+  "response_time": 2.03,
+  "request_id": "cfd854af-a874-41f3-9978-11ed001dfebe"
+}

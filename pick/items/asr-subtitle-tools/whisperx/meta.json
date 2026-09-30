@@ -19,10 +19,10 @@
   ],
   "stats": {
     "source_repo": "m-bain/whisperX",
-    "stars": 24077,
-    "pushed_at": "2026-08-30",
+    "stars": 24318,
+    "pushed_at": "2026-09-26",
     "license": "BSD-2-Clause",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   },
   "matrix": {
     "形态": "Python 框架",

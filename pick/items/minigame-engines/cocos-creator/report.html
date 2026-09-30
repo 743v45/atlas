@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cocos Creator · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小游戏引擎与渲染方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../canvas-native/report.html">← 原生 Canvas/WebGL 直写</a><span class="sep">·</span><a href="../layaair/report.html">LayaAir →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>Cocos Creator</h1>
+<blockquote><strong>TL;DR</strong>：微信小游戏的默认答案——官方文档推荐+引擎插件（引擎可留客户端）+一站式构建，2D/3D 全覆盖、编辑器免费，新项目首选。</blockquote>
+<ul><li><strong>结论</strong>：adopt 推荐</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">引擎版本</td><td style="text-align:left">Cocos Creator 3.8.x 稳定线，3.8.6 发布于 2025-04-02；docs 已上线 4.0 手册</td><td style="text-align:left">[3][6]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT（仓库 LICENSE.md 全文为 MIT 文本，署名 Chukong/Yaji；GitHub API 标 NOASSERTION/Other，已人工解码 2026-10-01，留档 <code>raw/2026-10-01/gh/minigame-engines-supplement.md</code>）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/cocos/cocos-engine">https://github.com/cocos/cocos-engine</a>（⭐9,837、pushed 2026-09-21，gh 2026-09-30）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">编辑器授权</td><td style="text-align:left">免费下载；企业支持/定制工具/更多授权类型走商务合作（cocos.com 2026-10-01）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">引擎仓库 pushed 2026-09-21、非 archived（gh 2026-09-30）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选（作为 adopt）</h2>
+<ul><li><strong>微信端事实标准</strong>：微信官方「学习进阶指南」把 Cocos Creator 与 LayaAir 列为推荐直接阅读文档的游戏引擎，并明确说引擎已针对小游戏平台做好适配、开发者无需关注底层 [7]；Cocos 官方文档提供微信小游戏一键构建（Build 面板选平台、AppID、开放数据域模板、引擎原生代码分包、分离引擎即微信小游戏引擎插件、高性能模式开关）[3]。</li><li><strong>包体分水岭优势</strong>：引擎可经「微信小游戏引擎插件」分离——引擎部分由微信客户端内置，不占游戏包体；而 LayaAir 等引擎运行时要占自己的包预算（Cinevva 2026：对 4MB 里每一 KB 都要抠的 3D 游戏，Cocos 内置插件可能是决定性因素）[4]。现行包体口径：主包 ≤4MB、超出走远程资源（微信官方限制，经 Cocos 文档转述，2026-09-30 快照）[3]；主包+所有分包合计 ≤30MB、单个普通分包不限制大小（微信「分包加载」官方文档，2026-10-01 快照）[9]。</li><li><strong>教程与生态最厚</strong>：Bilibili 上 Cocos Creator 3.8 系统教程播放量 77.8 万（2026-09-30 快照检索）[6]；微信 2026 年 IAP 首发 110% 激励（基础 70%+首发 40%，上限 400 万）等商业化政策生态亦以 Cocos 教程覆盖最全 [5][8]。</li><li><strong>多端出口宽</strong>：一套工程发布微信/抖音/支付宝/OPPO/vivo/小米及原生 App（引擎 README 自述 + 各平台构建文档）[1][3]——多端能力见 comparison.md 参考列，不计入决策权重。</li></ul>
+<h2>对比</h2>
+<ul><li>vs LayaAir：同为微信一等适配+编辑器路线；差异在 Cocos 引擎可入微信插件省首包、社区体量大一档，LayaAir 主打 3D 工作流叙事（详见 <code>../layaair/</code>）[4]。</li><li>vs Unity 转换：Unity 路线是「存量项目移植工具」，4MB 首包对 Unity WebGL 构建极其残酷；新项目无 Unity 存量时不构成对手（详见 <code>../unity-transform/</code>）[4]。</li><li>vs 渲染库（pixi/three）与裸 Canvas：微信官方对 PixiJS/ThreeJS 路线的口径是「可以做但要自己适配、不推荐无经验开发者」[7]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>引擎与编辑器是两回事</strong>：GitHub 上开源的是引擎（MIT）；编辑器本体闭源免费分发，企业服务/定制授权走商务——商用前核对 cocos.com 当时口径（2026-10-01 快照：无按席订阅、无流水分成）[2]。</li><li><strong>高性能模式是双刃剑</strong>：iOS 高性能模式显著提 FPS 但内存上限收紧（2GB RAM 机型限 1GB、3GB 机型限 1.4GB，超限崩溃；eastondev 2026-05 实测记录，待官方一手复核）[5]。</li><li><strong>渠道端政策变动</strong>：小米澎湃 OS 已公告停止 Cocos 导出、要求迁移快游戏联盟标准（dev.mi.com，2026-09-30 快照检索）[10]——多端复用场景发布前逐渠道核实现状。</li><li>微信小游戏发布需要版号/资质流程（IAP 变现），技术选型之外的时间成本要预留 [5]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/cocos/cocos-engine">https://github.com/cocos/cocos-engine</a>（gh 2026-09-30：⭐9,837、pushed 2026-09-21；license 解码 2026-10-01 留档 raw/2026-10-01/gh/minigame-engines-supplement.md）</li><li>Cocos 官网产品页 — <a href="https://www.cocos.com/creator">https://www.cocos.com/creator</a>（2026-10-01：免费下载、企业服务/授权商务入口）</li><li>Cocos Creator 4.0 手册「发布到微信小游戏」— <a href="https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html">https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html</a>（2026-09-30：主包 4MB、分离引擎/引擎插件、高性能模式、开放数据域）</li><li>Cinevva — WeChat Mini Game Engines (2026) — <a href="https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines">https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines</a>（2026-09-30 检索：引擎烘焙进微信客户端、与 LayaAir/Unity 对比；第三方指南，作口碑参照）</li><li>Easton 开发日志 — Cocos Creator 微信小游戏构建调试完全指南 — <a href="https://eastondev.com/blog/zh/posts/dev/20260522-cocos-wechat-mini-game-build">https://eastondev.com/blog/zh/posts/dev/20260522-cocos-wechat-mini-game-build</a>（2026-05-22 发布/2026-07-14 修改，2026-09-30 检索：高性能模式实测、2026 激励政策、包体与内存限制）</li><li>Cocos Creator 3.8.6 发布公告（cocos.com，2025-04-02，留档 raw/2026-09-30/web/cocos-creator-wechat.md）+ Bilibili 教程生态检索（2026-09-30，留档 raw/2026-09-30/web/godot-wechat.md）</li><li>微信开放文档「学习进阶指南」— <a href="https://developers.weixin.qq.com/minigame/dev/guide/develop/develop">https://developers.weixin.qq.com/minigame/dev/guide/develop/develop</a>（2026-09-30：官方推荐 Cocos Creator/LayaAir 文档；PixiJS/ThreeJS 需 weapp-adapter 不推荐新手）</li><li>微信开放文档「2026 年微信小游戏虚拟支付激励政策」— <a href="https://developers.weixin.qq.com/minigame/introduction/commercialization/guide/virtual-payment.html">https://developers.weixin.qq.com/minigame/introduction/commercialization/guide/virtual-payment.html</a>（2026-09-30）</li><li>微信开放文档「分包加载」— <a href="https://developers.weixin.qq.com/minigame/dev/guide/base-ability/subPackage/useSubPackage.html">https://developers.weixin.qq.com/minigame/dev/guide/base-ability/subPackage/useSubPackage.html</a>（2026-10-01：主包+分包 ≤30M、主包 ≤4M；留档 raw/2026-10-01/web/wechat-minigame-package-limit-tvly.json）</li><li>小米开发者文档 — 小米小游戏停止 Cocos 导出、迁移快游戏联盟标准公告 — <a href="https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2165">https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2165</a>（2026-09-30 检索，留档 raw/2026-09-30/web/unity-transform-releases.md）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录：微信端事实标准，引擎插件包体优势+生态最厚</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

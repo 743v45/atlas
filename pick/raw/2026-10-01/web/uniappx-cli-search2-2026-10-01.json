@@ -1,0 +1,50 @@
+{
+  "query": "uni-app x cli 工程 创建 不依赖 HBuilderX",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://uniapp.dcloud.net.cn/quickstart-cli.html",
+      "title": "uni-app官网",
+      "content": "`cli` 创建的项目，编译器安装在项目下。并且不会跟随HBuilderX升级。如需升级编译器，可以参考：更新依赖到指定版本。\n 已经使用`cli`创建的项目，如果想继续在HBuilderX里使用，可以把工程拖到HBuilderX中。注意如果是把整个项目拖入HBuilderX，则编译时走的是项目下的编译器。如果是把src目录拖入到HBuilderX中，则走的是HBuilderX安装目录下plugin目录下的编译器。\n `cli`创建的项目，内置了d.ts，同其他常规npm库一样，可在vscode、webstorm等支持d.ts的开发工具里正常开发并有语法提示。\n 使用HBuilderX创建的项目不带d.ts，HBuilderX内置了uni-app语法提示库。如需把HBuilderX创建的项目在其他编辑器打开并且补充d.ts，可以在项目下先执行 `npm init`，然后`npm i @dcloudio/types -D`，来补充d.ts。\n HBuilderX创建的项目，一样可以使用npm，参考：NPM 支持 [...] ## # cli创建项目和HBuilderX可视化界面创建项目的区别\n\n cli创建的项目，是传统的node项目结构。工程代码在src目录下，编译器在项目下，编译结果在dist目录下。\n HBuilderX可视化创建的项目，是一种免node开发概念。工程代码在项目目录下，编译器在HBuilderX目录下而不是项目下，编译结果在项目的unpackage目录下。\n\n有些习惯了cli的开发者，使用HBuilderX可视化模式时不适应。讲解下它们的差别以及为什么HBuilderX提供了多种方式。\n\n### # cli创建的项目，也可以拖入HBuilderX编辑\n\n首先HBuilderX作为通用编辑器，兼容传统的cli方式开发。不止uni-app的cli，其他框架的cli也可以拖入HBuilderX。\n\n也就是HBuilderX里可以使用可视化界面创建项目，也可以使用cli命令行创建项目，都可以达到和uni-app更好协作的目的。比如pages.json跳转和提示、manifest可视化界面、条件编译、rpx等css单位...众多 for uni-app 的优化都可以使用。 [...] 展示全部\n\n除了HBuilderX可视化界面，也可以使用 `cli` 脚手架，可以通过 `vue-cli` 创建 `uni-app` 项目。\n\n## # 创建uni-app\n\n 创建 vue3 项目\n\n  + 创建以 javascript 开发的工程（如命令行创建失败，请直接访问 gitee 下载模板）\n\n    ```\n    #vite my-vue3-project\n    ```\n\n    示例源码如下，请查看 pre > code 标签中的内容\n\n    ```\n    npx degit dcloudio/uni-preset-vue#vite my-vue3-project\n    ```\n\n    ```\n    #vite-alpha my-vue3-project\n    ```\n\n    示例源码如下，请查看 pre > code 标签中的内容",
+      "score": 0.8591094,
+      "raw_content": null,
+      "id": "2fe8ae-00"
+    },
+    {
+      "url": "https://uniapp.dcloud.io/quickstart-cli",
+      "title": "uni-app官网",
+      "content": "`cli` 创建的项目，编译器安装在项目下。并且不会跟随HBuilderX升级。如需升级编译器，可以参考：更新依赖到指定版本。\n 已经使用`cli`创建的项目，如果想继续在HBuilderX里使用，可以把工程拖到HBuilderX中。注意如果是把整个项目拖入HBuilderX，则编译时走的是项目下的编译器。如果是把src目录拖入到HBuilderX中，则走的是HBuilderX安装目录下plugin目录下的编译器。\n `cli`创建的项目，内置了d.ts，同其他常规npm库一样，可在vscode、webstorm等支持d.ts的开发工具里正常开发并有语法提示。\n 使用HBuilderX创建的项目不带d.ts，HBuilderX内置了uni-app语法提示库。如需把HBuilderX创建的项目在其他编辑器打开并且补充d.ts，可以在项目下先执行 `npm init`，然后`npm i @dcloudio/types -D`，来补充d.ts。\n HBuilderX创建的项目，一样可以使用npm，参考：NPM 支持 [...] ## # cli创建项目和HBuilderX可视化界面创建项目的区别\n\n cli创建的项目，是传统的node项目结构。工程代码在src目录下，编译器在项目下，编译结果在dist目录下。\n HBuilderX可视化创建的项目，是一种免node开发概念。工程代码在项目目录下，编译器在HBuilderX目录下而不是项目下，编译结果在项目的unpackage目录下。\n\n有些习惯了cli的开发者，使用HBuilderX可视化模式时不适应。讲解下它们的差别以及为什么HBuilderX提供了多种方式。\n\n### # cli创建的项目，也可以拖入HBuilderX编辑\n\n首先HBuilderX作为通用编辑器，兼容传统的cli方式开发。不止uni-app的cli，其他框架的cli也可以拖入HBuilderX。\n\n也就是HBuilderX里可以使用可视化界面创建项目，也可以使用cli命令行创建项目，都可以达到和uni-app更好协作的目的。比如pages.json跳转和提示、manifest可视化界面、条件编译、rpx等css单位...众多 for uni-app 的优化都可以使用。 [...] 展示全部\n\n除了HBuilderX可视化界面，也可以使用 `cli` 脚手架，可以通过 `vue-cli` 创建 `uni-app` 项目。\n\n## # 创建uni-app\n\n 创建 vue3 项目\n\n  + 创建以 javascript 开发的工程（如命令行创建失败，请直接访问 gitee 下载模板）\n\n    ```\n    #vite my-vue3-project\n    ```\n\n    示例源码如下，请查看 pre > code 标签中的内容\n\n    ```\n    npx degit dcloudio/uni-preset-vue#vite my-vue3-project\n    ```\n\n    ```\n    #vite-alpha my-vue3-project\n    ```\n\n    示例源码如下，请查看 pre > code 标签中的内容",
+      "score": 0.8591094,
+      "raw_content": null,
+      "id": "6a4bdd-01"
+    },
+    {
+      "url": "https://uniapp.dcloud.net.cn/worktile/auto/uniapp-cli-project.html",
+      "title": "uni-app官网",
+      "content": "创建 `cli` 工程，详见\n\n如果之前是HBuilderX工程，则把HBuilderX工程内的文件（除 unpackage、node\\_modules 目录）拷贝至 vue-cli 工程的 src 目录。 在 vue-cli 工程内重新安装 npm 依赖（如果之前使用了 npm 依赖的话）\n\ncli创建项目时若选择`hello uni-app`模板，可看到其中已经自带部分测试例。\n\n注意：相关依赖不能高于以下版本\n\n```\n27.0.4 - -27.5.1\n```\n\n示例源码如下，请查看 pre > code 标签中的内容\n\n```\njest@27.0.4 jest-environment-node@27.5.1\n```\n\n已有 `cli` 工程\n\n1. 更新依赖包 `@dcloudio/` >= `2.0.0-alpha-27920200613002`\n2. 安装依赖包 `@dcloudio/uni-automator`\n\n```\nnpm install\n```\n\n示例源码如下，请查看 pre > code 标签中的内容 [...] uni-app官网 uni-app官网\n\nuni-app x\n\nHBuilder X\n\nuni 小程序 sdk\n\n App扩展规范 HTML5 Plus\n 微信小程序\n 支付宝小程序\n 百度小程序\n 抖音小程序\n 飞书小程序\n 钉钉小程序\n QQ小程序\n 快手小程序\n 京东小程序\n 华为快应用\n 360小程序\n Weex\n 鸿蒙元服务\n 小红书小程序\n\nuni-app x\n\nuniCloud\n\nHBuilder X\n\nuni 小程序 sdk\n\nuni-ad广告\n\n开发者服务\n\nuni-app\n\n简体中文\n\n GitHub\n\n工程化\n\nuni-app cli项目\n\nH5平台测试流程\n\nApp-Android测试流程\n\nApp-iOS测试流程\n\n微信小程序测试流程\n\n测试示例\n\n屏幕截图示例\n\nIM交流群\n\n## # uni-app cli项目\n\n> 本文档仅适用于CLI工程。\n\n创建 `cli` 工程，详见 [...] 1. 测试结果\n\n```\n> - NODE_ENV = UNI_PLATFORM = - - - - --\"--auto-port\" \"9520\": 1, 1 Tests: 4, 4 Snapshots: 0 Time: 14.,\n```\n\n示例源码如下，请查看 pre > code 标签中的内容\n\n```\n> cross-env NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch \"--auto-port\" \"9520\" Test Suites: 1 passed, 1 total Tests: 4 passed, 4 total Snapshots: 0 total Time: 14.995s, estimated 16s\n```\n\n### # 测试示例\n\n使用 hello uni-app 工程测试 H5 平台\n\n1. 创建 `cli` 项目，选择 `hello uni-app`\n\n```\n-p#alpha my-hello-uni-app # 进入项目目录 cd\n```",
+      "score": 0.8156003,
+      "raw_content": null,
+      "id": "7ad87e-02"
+    },
+    {
+      "url": "https://houbb.github.io/2021/11/15/uniapp-02-quick-start-cli",
+      "title": "uniapp 跨平台框架-02-快速开始 cli 安装 | Echo Blog",
+      "content": "已经使用cli创建的项目，如果想继续在HBuilderX里使用，可以把工程拖到HBuilderX中。注意如果是把整个项目拖入HBuilderX，则编译时走的是项目下的编译器。\n\n如果是把src目录拖入到HBuilderX中，则走的是HBuilderX安装目录下plugin目录下的编译器。\n\ncli版如果想安装less、scss、ts等编译器，需自己手动npm安装。在HBuilderX的插件管理界面安装无效，那个只作用于HBuilderX创建的项目。\n\n## 开发工具的区别\n\ncli创建的项目，内置了d.ts，同其他常规npm库一样，可在vscode、webstorm等支持d.ts的开发工具里正常开发并有语法提示。\n\n使用HBuilderX创建的项目不带d.ts，HBuilderX内置了uni-app语法提示库。如需把HBuilderX创建的项目在其他编辑器打开并且补充d.ts，可以在项目下先执行 npm init，然后npm i @types/uni-app -D，来补充d.ts。 [...] web cross-plateform uni-app sh\n\n# uniapp 跨平台框架-02-快速开始 cli 安装\n\n Posted by houbb on November 15, 2021\n\n# vue-cli\n\n除了HBuilderX可视化界面，也可以使用 cli 脚手架，可以通过 vue-cli 创建 uni-app 项目。\n\n# 环境安装\n\n全局安装vue-cli\n\n```\ncnpm install -g @vue/cli \n```\n\n# 创建uni-app\n\n使用正式版（对应HBuilderX最新正式版）\n\n```\nvue create -p dcloudio/uni-preset-vue my-project \n```\n\n使用alpha版（对应HBuilderX最新alpha版）\n\n```\nvue create -p dcloudio/uni-preset-vue#alpha my-alpha-project \n```\n\n此时，会提示选择项目模板，初次体验建议选择 `hello uni-app` 项目模板，如下所示： [...] dev 和 build 模式的区别： dev 模式有 SourceMap 可以方便的进行断点调试； build 模式会将代码进行压缩，体积更小更适合发布为正式版应用； 进行 环境判断 时，dev 模式 process.env.NODE\\_ENV 的值为 development，build 模式 process.env.NODE\\_ENV 的值为 production。 使用cli创建项目和使用HBuilderX可视化界面创建项目有什么区别\n\n# 使用cli创建项目和使用HBuilderX可视化界面创建项目有什么区别\n\n## 编译器的区别\n\ncli 创建的项目，编译器安装在项目下。并且不会跟随HBuilderX升级。如需升级编译器，执行 npm update，或者手动修改 package.json 中的 uni 相关依赖版本后执行 npm install。更新后可能会有新增的依赖并不会自动安装，手动安装缺少的依赖即可。 HBuilderX可视化界面创建的项目，编译器在HBuilderX的安装目录下的plugin目录，随着HBuilderX的升级会自动升级编译器。",
+      "score": 0.78611463,
+      "raw_content": null,
+      "id": "f35853-03"
+    },
+    {
+      "url": "https://uniapp.dcloud.net.cn/quickstart?id=_1-%E9%80%9A%E8%BF%87-hbuilderx-%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2",
+      "title": "uni-app快速上手 | uni-app官网",
+      "content": "#### # 开发工具的区别\n\n `cli`创建的项目，内置了d.ts，同其他常规npm库一样，可在vscode、webstorm等支持d.ts的开发工具里正常开发并有语法提示。\n 使用HBuilderX创建的项目不带d.ts，HBuilderX内置了uni-app语法提示库。如需把HBuilderX创建的项目在其他编辑器打开并且补充d.ts，可以在项目下先执行 `npm init`，然后`npm i @types/uni-app -D`，来补充d.ts。\n 但vscode等其他开发工具，在vue或uni-app领域，开发效率比不过HBuilderX。详见：\n 发布App时，仍然需要使用HBuilderX。其他开发工具无法发布App，但可以发布H5、各种小程序。如需开发App，可以先在HBuilderX里运行起来，然后在其他编辑器里修改保存代码，代码修改后会自动同步到手机基座。\n 如果使用`cli`创建项目，那下载HBuilderX时只需下载10M的标准版即可。因为编译器已经安装到项目下了。\n 对 `cli` 使用有疑问，欢迎扫码加入 uni-app 微信交流群讨论： [...] #### # 编译器的区别\n\n `cli` 创建的项目，编译器安装在项目下。并且不会跟随HBuilderX升级。如需升级编译器，执行 `npm update`，或者手动修改 package.json 中的 uni 相关依赖版本后执行 `npm install`。更新后可能会有新增的依赖并不会自动安装，手动安装缺少的依赖即可。\n HBuilderX可视化界面创建的项目，编译器在HBuilderX的安装目录下的plugin目录，随着HBuilderX的升级会自动升级编译器。\n 已经使用`cli`创建的项目，如果想继续在HBuilderX里使用，可以把工程拖到HBuilderX中。注意如果是把整个项目拖入HBuilderX，则编译时走的是项目下的编译器。如果是把src目录拖入到HBuilderX中，则走的是HBuilderX安装目录下plugin目录下的编译器。\n `cli`版如果想安装less、scss、ts等编译器，需自己手动npm安装。在HBuilderX的插件管理界面安装无效，那个只作用于HBuilderX创建的项目。\n\n#### # 开发工具的区别 [...] 3. 在快应用联盟工具中，导入生成的快应用联盟项目，测试项目代码运行正常后，点击”构建“打包正式版，在快应用联盟后台上传\n\n发布为快应用(webview) - 华为：\n\n1. 入驻华为快应用，参考：华为快应用教程。\n2. 在HBuilderX中顶部菜单依次点击 \"发行\" => \"快应用-华为\"，即可在 `/unpackage/dist/build/quickapp-webview` 生成华为快应用项目代码。\n\n   \n3. 在华为开发者工具中，导入生成的华为快应用项目，测试项目代码运行正常后，点击”构建“打包正式版，在 华为快应用后台上传\n\n发布为QQ小程序： 内容同上，不再重复。\n\n发布的快捷键是`Ctrl+u`。同样可拉下快速发布菜单并按数字键选择。\n\n# # 2. 通过vue-cli命令行\n\n除了HBuilderX可视化界面，也可以使用 `cli` 脚手架，可以通过 `vue-cli` 创建 `uni-app` 项目。\n\n## # 环境安装\n\n全局安装vue-cli\n\n```\nnpm install -g @vue/cli \n```",
+      "score": 0.78572035,
+      "raw_content": null,
+      "id": "734319-04"
+    }
+  ],
+  "response_time": 1.01,
+  "request_id": "e1b8dd16-6fad-46c4-916a-812ede4c9790"
+}

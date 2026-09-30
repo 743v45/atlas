@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeanCloud · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小程序后端方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../cloudrun/report.html">← 微信云托管</a><span class="sep">·</span><a href="../self-hosted/report.html">自建后端 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>LeanCloud</h1>
+<blockquote><strong>TL;DR</strong>：国内 BaaS 老兵服务仍在营（价格页活跃、商用版最低消费 30 元/天），但客户端 JS SDK 自 2023-10、服务端 leanengine 自 2021-08 起无新版，微信端无深度集成——新项目观望。</blockquote>
+<ul><li><strong>结论</strong>：hold 观望</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">SDK MIT（leancloud/javascript-sdk）；服务为商业闭源托管</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/leancloud/javascript-sdk">https://github.com/leancloud/javascript-sdk</a>（客户端 JS SDK）</td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">JS SDK ⭐341、pushed 2024-07-04、未 archived（gh 2026-09-30）；npm leancloud-storage 最新 4.15.2 发布于 2023-10-11——主版本近 3 年无新版；服务端 Node SDK leanengine 最新 3.8.0 发布于 2021-08-03——5 年无新版；聚合仓 leancloud/leancloud-sdk 已 archived</td><td style="text-align:left">[1][2][7]</td></tr><tr><td style="text-align:left">公司存续</td><td style="text-align:left">leancloud.cn 价格页在线且含在售套餐（采集 2026-09-30）；国际版 leancloud.app 独立运营；官网宣称服务 240,000+ 开发者（营销口径）</td><td style="text-align:left">[3][4]</td></tr><tr><td style="text-align:left">计费</td><td style="text-align:left">开发版免费（API 请求 3 万次/天、并发 3 线程、无自动备份）；商用版按量+最低消费 30 元/天：数据存储 API 请求 1.0 元/万次、存储 0.10 元/GB/天、云引擎 512MB 2 元/天、即时通讯登录用户 15 元/万人/天、文件存储 0.16 元/GB/月、HTTPS 流量 0.36 元/GB（价格查询 2026-09-30）</td><td style="text-align:left">[3]</td></tr></tbody></table>
+<h2>为什么不选（hold——新项目不推荐的原因）</h2>
+<ul><li><strong>「公司在营、SDK 冻结」的反差是核心风险</strong>：BaaS 的价值在 SDK/API 持续演进——新微信基础库、新平台能力的适配都经 SDK 发放；客户端主版本冻结近 3 年（2023-10）、服务端 SDK 冻结 5 年（2021-08）意味着适配与新特性支持无人承诺。判断 BaaS 健康度应看包管理器最后发版时间而非公司是否存活 [1][2][7]。</li><li><strong>微信集成无深度优势</strong>：有小程序 SDK 与微信小程序解决方案页，但无免鉴权/私有协议/集成中心级别的深集成——微信集成维度被官方云开发全面覆盖；省事优势不成立 [3][6]。</li><li><strong>价格模式偏旧世代</strong>：商用版 30 元/天最低消费（≈900 元/月门槛）+按活跃用户日计费，对比云开发免费 6 个月+¥19.9/月资源点制，新项目起步成本结构劣势明显（价格均查询于 2026-09-30）[3][6]。</li><li>曾有的位置：AVOS Cloud 2013-09 上线、2014 年独立运营（爱分析历史报道，约 2016-2017 口径），服务知乎/新东方等中大型客户——历史口碑真实，但不改变当下 SDK 冻结的事实 [8]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs 微信云开发/CloudBase：同为国内 BaaS，云开发有私有协议免鉴权+2026 年仍在演进的 AI 工具链（AI Toolkit pushed 2026-09-30），LeanCloud 无一项 [3][6]。</li><li>vs Supabase：镜像短板——LeanCloud 国内节点/合规无忧但 SDK 冻结；Supabase 生态活跃但国内链路不通；两者对比说明国内第三方 BaaS 路线当前没有健康选项 [3][5]。</li><li>vs 自建：LeanCloud 省运维，但专有 API 迁移成本高，且 SDK 冻结放大锁定风险 [1][2]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li>存量用户注意：SDK 双端冻结下，安全补丁与新基础库适配无发版承诺；续费前评估迁移路径（数据导出→Postgres/文档库）[1][2]。</li><li>待验证：LeanCloud 2026 年是否有 SDK 维护恢复或商业路线调整的官方公告（本次仅核到价格页与官网在营证据）[3][4]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub leancloud/javascript-sdk — <a href="https://github.com/leancloud/javascript-sdk">https://github.com/leancloud/javascript-sdk</a>（gh 2026-09-30：⭐341、pushed 2024-07-04、MIT）</li><li>leancloud-storage npm — <a href="https://registry.npmjs.org/leancloud-storage">https://registry.npmjs.org/leancloud-storage</a>（2026-09-30，留档 raw/2026-09-30/web/leancloud-npmjs.com.md）</li><li>LeanCloud 国内站价格页 — <a href="https://www.leancloud.cn/pricing">https://www.leancloud.cn/pricing</a>（采集 2026-09-30，留档 raw/2026-09-30/web/leancloud-pricing-leancloud.cn.md）</li><li>LeanCloud 国际版 — <a href="https://leancloud.app/pricing">https://leancloud.app/pricing</a>（采集 2026-09-30，留档 raw/2026-09-30/web/leancloud-status-2026.md）</li><li>Supabase 条目报告 — ../supabase/</li><li>微信云开发官网与价格 — <a href="https://cloud.weixin.qq.com/cloudbase">https://cloud.weixin.qq.com/cloudbase</a> + <a href="https://cloud.weixin.qq.com/cloudbase/price">https://cloud.weixin.qq.com/cloudbase/price</a>（采集 2026-09-30）</li><li>leanengine npm（服务端 Node SDK）— <a href="https://registry.npmjs.org/leanengine">https://registry.npmjs.org/leanengine</a>（2026-10-01，留档 raw/2026-10-01/web/leanengine-npmjs.com.md）+ leancloud/leancloud-sdk（gh 2026-09-30，archived）</li><li>LeanCloud：BaaS 端切入云服务 — 爱分析（历史背景报道，约 2016-2017 口径），留档 raw/2026-09-30/web/leancloud-status-2026.md</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录：公司在营但 SDK 双端冻结 3-5 年，新项目观望</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

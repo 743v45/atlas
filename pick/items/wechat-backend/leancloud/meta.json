@@ -1,0 +1,36 @@
+{
+  "name": "LeanCloud",
+  "repo": "https://github.com/leancloud/javascript-sdk",
+  "homepage": "https://www.leancloud.cn",
+  "license": "MIT",
+  "verdict": "hold",
+  "summary": "国内 BaaS 老兵服务仍在营（价格页活跃、商用版最低消费 30 元/天），但客户端 JS SDK 自 2023-10、服务端 leanengine 自 2021-08 起无新版，微信端无深度集成——新项目观望。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/leancloud/javascript-sdk",
+    "https://registry.npmjs.org/leancloud-storage",
+    "https://www.leancloud.cn/pricing"
+  ],
+  "tags": [
+    "leancloud",
+    "baas",
+    "china",
+    "hold",
+    "legacy"
+  ],
+  "matrix": {
+    "形态": "国内老牌 BaaS",
+    "微信集成": "有 SDK·无深集成",
+    "计费": "按量·商用版30元/天起",
+    "运维负担": "零运维",
+    "锁定风险": "中高·专有API"
+  },
+  "stats": {
+    "source_repo": "leancloud/javascript-sdk",
+    "stars": 341,
+    "pushed_at": "2024-07-04",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

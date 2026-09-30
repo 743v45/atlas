@@ -105,3 +105,10 @@
 - 选择：新域 `dev-automation`（开发自动化，归「AI 与智能体」界，单类别域——data-storage 有先例）装 `automation-platform`（三层开源栈等平台栈组合选型）；`charting`（图表可视化，「让 AI 写」前提裁决）归现有 workflow-tools 域，域描述追加「画图表」。
 - 否决：automation-platform 并入 prd-tools（PRD 文档工具与平台栈主题错位，分水岭不同）；charting 单独建域（单类别且与 typography 散件同族，不值得）。
 - 入库三条：automation-platform/three-layer-stack（adopt，② 层分叉未拍板如实记录）、charting/echarts（adopt，适用域标注 AI 代写）、knowledge-base/outline 重写为完整生命周期四幕报告（hold 不变）。
+
+### D18 新界 + 新域 — wechat-dev 四层闭环（2026-10-01）
+
+- 选择：新界 `app-dev`（应用开发——端侧应用完整技术栈；微信自成一体，未来公众号/企业微信/鸿蒙等端侧栈有处可归）装新域 `wechat-dev`（微信生态开发），四类别一次落地 24 条目：`miniprogram-frameworks`（6）/ `minigame-engines`（6）/ `miniprogram-ui-libs`（7）/ `wechat-backend`（5）——框架、引擎、UI、后端是四个正交选型，层间自由组合，故四层各自成类别、独立 verdict，典型组合由各类别 decision-tree 串。
+- 否决：挂现有「日常工具」界（微信开发是应用工程不是日常散件，主题错位）；拆两域、后端归 data-storage（后端与主数据库主题相邻但切断选型闭环——用户在 ui-libs/backend 纳入时已定调「独立成块」）。
+- 类内方法决策（用户定调）：主评微信端表现，「多端能力」是对比矩阵独立参考列、不计入 decision.json 权重；决策树在「要不要多端」处分叉。用户画像：通用视角按场景分流（个人快速开发/团队长期维护/多端复用）。
+- 侦察先行：落地前先跑判活侦察（4 agent 并行，90+ 份 gh/tvly 原始证据落 `raw/2026-09-30/`）——WePY/Remax/Chameleon 已 archived、Egret 公司 2022-02 停运、Unity 转换工具 GitHub 仓库 2025-09 被商标封锁、云开发并入 CloudBase 等关键事实先于写作定案；写作与对账流水线再补采至 `raw/2026-10-01/`。

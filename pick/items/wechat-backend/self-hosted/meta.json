@@ -1,0 +1,27 @@
+{
+  "name": "自建后端",
+  "homepage": "https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html",
+  "verdict": "adopt",
+  "summary": "自建后端是团队长期维护与多端复用场景的默认——代码与数据资产完全自有、语言框架不限；但要过 ICP 备案+HTTPS+域名白名单三道合规关，运维与安全全部自担。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html",
+    "https://docs.cloudbase.net/lowcode/practices/miniapp-guide/downloadfile-guide",
+    "https://developers.weixin.qq.com/doc/oplatform/openApi/miniprogram-management/domain-management/api_modifyserverdomaindirectly.html"
+  ],
+  "tags": [
+    "wechat",
+    "miniprogram",
+    "self-hosted",
+    "backend",
+    "route"
+  ],
+  "matrix": {
+    "形态": "云服务器+自选框架",
+    "微信集成": "手动·三道合规关",
+    "计费": "服务器固定租用",
+    "运维负担": "高·全自管",
+    "锁定风险": "低·资产自有"
+  }
+}

@@ -19,10 +19,10 @@
   ],
   "stats": {
     "source_repo": "jianchang512/fireredasr-ui",
-    "stars": 90,
+    "stars": 91,
     "pushed_at": "2025-02-24",
     "license": "Apache-2.0",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   },
   "matrix": {
     "形态": "WebUI（Flask/Gradio）",

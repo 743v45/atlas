@@ -1,0 +1,28 @@
+{
+  "name": "微信小程序原生开发",
+  "homepage": "https://developers.weixin.qq.com/miniprogram/dev/framework/",
+  "verdict": "adopt",
+  "summary": "微信官方原生开发是微信单端与性能敏感场景的默认答案——Skyline 渲染引擎 + glass-easel 组件框架把性能天花板拉到最高、新特性首发先到原生，代价是私有语法与零多端能力。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/migration/compatibility.html",
+    "https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/features.html",
+    "https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/glass-easel/migration.html",
+    "https://juejin.cn/post/7647438301876191258"
+  ],
+  "tags": [
+    "wechat",
+    "miniprogram",
+    "skyline",
+    "native"
+  ],
+  "matrix": {
+    "形态": "官方原生框架",
+    "语法": "WXML/WXSS/JS·TS",
+    "多端能力": "仅微信端",
+    "Skyline 适配": "原生·性能天花板",
+    "生态": "官方组件库+云开发",
+    "许可": "平台绑定·闭源"
+  }
+}

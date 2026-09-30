@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>原生 Canvas/WebGL 直写 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小游戏引擎与渲染方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../cocos-creator/report.html">Cocos Creator →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>原生 Canvas/WebGL 直写</h1>
+<blockquote><strong>TL;DR</strong>：无引擎基线——平台原生但官方文档明确推荐用引擎，仅适合极简 2D/自绘玩法，渲染循环与分包全部自担。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用（场景限定：极简玩法/学习底层/强定制）</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">小游戏 = 只有一个全屏 Canvas 的页面：无 DOM、无 CSS、只能执行 JS，<code>game.js</code> 单入口；Canvas 2D 或 WebGL 直绘 + wx API</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">运行限制</td><td style="text-align:left">不支持 eval / new Function（动态执行 JS 被禁）；ES 标准差异靠基础库 core-js polyfill 抹平</td><td style="text-align:left">[3]</td></tr><tr><td style="text-align:left">适配设施</td><td style="text-align:left">weapp-adapter（官方示例级 DOM/BOM 桩）；社区现代替代 minigame-std（wx API 标准化封装，自称微信 100% 测试通过，JSR 发布）</td><td style="text-align:left">[2][4]</td></tr><tr><td style="text-align:left">官方态度</td><td style="text-align:left">「我们更推荐直接阅读游戏引擎的文档……开发者无需关注底层技术」——官方把直写定位为有经验者的可选项</td><td style="text-align:left">[2]</td></tr></tbody></table>
+<h2>为什么选（作为 trial 而非 hold）</h2>
+<ul><li><strong>它是理解平台的基线</strong>：小游戏环境的一切差异（无 DOM/CSS、eval 禁止、包体 4MB/30MB、分包、远程资源）在直写时暴露得最彻底——学习价值与排查能力都从这里来 [1][2][3]。</li><li><strong>极简玩法的真实可行域</strong>：纯 2D 自绘（计时器、点触、翻牌类）直写代码量小、零引擎依赖、包体最优；现代封装（minigame-std 等）已把 wx API/DOM 差异的相当部分标准化 [4]。</li><li><strong>不给 adopt 的原因</strong>：微信官方明确推荐引擎路线（可视化编辑器、平台适配、分包方案都是引擎代劳）[2]；一旦游戏有场景管理/动画/音频/分包需求，直写的隐藏成本迅速超过引擎学习成本。</li></ul>
+<h2>对比</h2>
+<ul><li>vs 引擎路线（Cocos/Laya）：引擎给出编辑器、资源管线、分包模板与平台能力封装；直写路线换来的是零依赖、零黑盒与最小包体 [2]。</li><li>vs PixiJS：pixi 介于两者之间——给 2D 渲染性能层，不给场景/资源管线 [4][5]。</li><li>微信还有《小游戏可视化制作工具》（无代码拖拽）作为不写代码的官方出口 [2]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>性能优化无护栏</strong>：WebGL 层的批渲染、纹理图集、脏矩形等全靠自修；引擎内置的这些优化在直写时都是可选项而非默认 [2]。</li><li>动态执行 JS 被禁意味着部分热更新/脚本化方案直接不可行 [3]。</li><li>weapp-adapter 是示例级代码，无维护承诺；minigame-std 社区项目体量小，采用前评估其维护节奏（2026-09-30 快照）[4]。</li></ul>
+<h2>来源</h2>
+<ol><li>微信开放文档「开发指南 / 小游戏介绍」— <a href="https://developers.weixin.qq.com/minigame/dev/guide/">https://developers.weixin.qq.com/minigame/dev/guide/</a>（2026-09-30）</li><li>微信开放文档「学习进阶指南」— <a href="https://developers.weixin.qq.com/minigame/dev/guide/develop/develop">https://developers.weixin.qq.com/minigame/dev/guide/develop/develop</a>（2026-09-30：全屏 Canvas 模型、引擎推荐、weapp-adapter、可视化制作工具）</li><li>微信开放文档「JavaScript 支持情况」— <a href="https://developers.weixin.qq.com/minigame/dev/guide/runtime/js-support.html">https://developers.weixin.qq.com/minigame/dev/guide/runtime/js-support.html</a>（2026-09-30：eval/new Function 禁止、core-js polyfill）</li><li>JSR @happy-js/minigame-std — <a href="https://jsr.io/@happy-js/minigame-std">https://jsr.io/@happy-js/minigame-std</a>（2026-09-30：与 Adapter 的关系、微信小游戏 100% 测试自述）</li><li>Cinevva — WeChat Mini Game Engines (2026) — <a href="https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines">https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines</a>（2026-09-30 检索：裸 WebGL 路线定位）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：基线条目，极简/学习场景可行，官方推荐引擎</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小程序开发框架 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序开发框架 · 横评</span></nav>
+  <article>
+<h1>小程序开发框架 · 横评</h1>
+<blockquote>主题：微信小程序的应用逻辑用什么写——原生、React 系、Vue 系、增强型还是 DSL 转换型，六条路线。 用户画像：通用视角按场景分流——个人快速开发 / 团队长期维护 / 多端复用三场景；<strong>主评微信端表现</strong>，「多端能力」为独立参考列、不计入决策矩阵权重（口径见 decision.json note）。 数据核查日：2026-09-30（gh API star/pushed/license）与 2026-10-01（release/npm/下载量/LICENSE 解码/口碑补查）；原始留档 <code>raw/2026-09-30/gh/</code>、<code>raw/2026-09-30/web/</code>、<code>raw/2026-10-01/gh/</code>、<code>raw/2026-10-01/web/</code>。</blockquote>
+<h2>场景速配（先给结论）</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">推荐</th><th style="text-align:left">一句话理由</th></tr></thead><tbody><tr><td style="text-align:left">个人快速开发·微信单端</td><td style="text-align:left"><strong>原生开发</strong></td><td style="text-align:left">官方工具直出、Skyline 渐进开启，无抽象层调试成本 [1][5]</td></tr><tr><td style="text-align:left">个人快速开发·有 Web/App 预期</td><td style="text-align:left"><strong>uni-app</strong>（Vue 栈）或 <strong>Taro</strong>（React 栈）</td><td style="text-align:left">语法迁移成本最低，多端出口现成 [5]</td></tr><tr><td style="text-align:left">团队长期维护·微信为主+可能多端</td><td style="text-align:left"><strong>Taro</strong>（React 团队）/ <strong>uni-app</strong>（Vue 团队）</td><td style="text-align:left">双寡头：活跃维护+生态最厚，v4.3.0 / 周下载 3.2 万、3.6 万 [2][3]</td></tr><tr><td style="text-align:left">团队长期维护·纯微信性能敏感大业务</td><td style="text-align:left"><strong>原生</strong>（或 <strong>Mpx</strong> 换工程化）</td><td style="text-align:left">Skyline 性能天花板只有原生够得着；要响应式/状态管理再上 Mpx [1][4]</td></tr><tr><td style="text-align:left">多端复用·含 App/鸿蒙</td><td style="text-align:left"><strong>uni-app</strong></td><td style="text-align:left">10+ 端覆盖最广，uni-app x 走 UTS 编译 Kotlin/Swift/ArkTS [3]</td></tr><tr><td style="text-align:left">多端复用·小程序矩阵为主</td><td style="text-align:left"><strong>Taro</strong> / <strong>Mpx</strong></td><td style="text-align:left">Taro 生态最厚；滴滴级复杂业务、性能敏感选 Mpx [2][4]</td></tr><tr><td style="text-align:left">存量微信/支付宝 DSL 互转</td><td style="text-align:left">~~mor~~ 谨慎</td><td style="text-align:left">能力对口但公开维护近乎停摆（稳定版 2024-05、npm 周下载 13），先评估自维护 [6]</td></tr><tr><td style="text-align:left">存量 Web 项目搬小程序（过渡）</td><td style="text-align:left">~~kbone~~ 不建议新项目</td><td style="text-align:left">社区共识「别拿它做新项目」[5][7]</td></tr></tbody></table>
+<h2>属性对比矩阵</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">原生开发</th><th style="text-align:left">Taro</th><th style="text-align:left">uni-app</th><th style="text-align:left">Mpx</th><th style="text-align:left">morjs</th><th style="text-align:left">kbone</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">官方原生框架</td><td style="text-align:left">编译型跨端框架</td><td style="text-align:left">编译型跨端框架</td><td style="text-align:left">增强型编译框架</td><td style="text-align:left">DSL 转换框架</td><td style="text-align:left">Web 同构适配层</td></tr><tr><td style="text-align:left">语法</td><td style="text-align:left">WXML/WXSS/JS·TS</td><td style="text-align:left">React/Vue</td><td style="text-align:left">Vue2/Vue3</td><td style="text-align:left">类 Vue 增强 DSL</td><td style="text-align:left">微信/支付宝 DSL</td><td style="text-align:left">Web 框架(Vue/React)</td></tr><tr><td style="text-align:left">多端能力（参考列）</td><td style="text-align:left">仅微信端</td><td style="text-align:left">小程序×10+·H5·RN [2]</td><td style="text-align:left">10+端·含App/鸿蒙 [3]</td><td style="text-align:left">小程序多端+Web·RN [4]</td><td style="text-align:left">小程序×8+·Web [6]</td><td style="text-align:left">微信+Web 双端 [7]</td></tr><tr><td style="text-align:left">Skyline 适配</td><td style="text-align:left">原生·性能天花板 [1]</td><td style="text-align:left">官方支持·worklet 需半编译·长尾 bug 未清 [2]</td><td style="text-align:left">支持·配置透传·组件库适配参差 [3]</td><td style="text-align:left">选项式 API 可用·组合式 worklet 受限 [4]</td><td style="text-align:left">待验证·无公开文档 [6]</td><td style="text-align:left">不支持·WebView 同构与 glass-easel 体系不兼容 [7]</td></tr><tr><td style="text-align:left">运行时/包体积</td><td style="text-align:left">0（基线） [5]</td><td style="text-align:left">带运行时（Taro3 口径 Hello World 280KB；4.x 有优化待实测）[2][8]</td><td style="text-align:left">带编译产物开销（官方自测口径 87KB）[9]</td><td style="text-align:left">最轻一档（官方自测口径 51KB）[9]</td><td style="text-align:left">≈0（转换即原生 DSL）[6]</td><td style="text-align:left">最重（官方自测口径 368KB）[9]</td></tr><tr><td style="text-align:left">维护活跃（pushed / release）</td><td style="text-align:left">官方滚动发版</td><td style="text-align:left">pushed 2026-09-30 / v4.3.0（2026-09-29）[2]</td><td style="text-align:left">pushed 2026-09-30 / npm 2026-09-18 [3]</td><td style="text-align:left">pushed 2026-09-29 / v2.11.1（2026-07-22）[4]</td><td style="text-align:left">pushed 2025-11-06 / v1.0.113（2024-05-21）[6]</td><td style="text-align:left">pushed 2025-10-20 / 无 release [7]</td></tr><tr><td style="text-align:left">⭐（gh 2026-09-30）</td><td style="text-align:left">—（非开源）</td><td style="text-align:left">37,704</td><td style="text-align:left">41,614</td><td style="text-align:left">3,940</td><td style="text-align:left">2,113</td><td style="text-align:left">4,919</td></tr><tr><td style="text-align:left">npm 周下载（2026-09-22~28）</td><td style="text-align:left">—</td><td style="text-align:left">32,352 [10]</td><td style="text-align:left">35,887 [10]</td><td style="text-align:left">2,114 [10]</td><td style="text-align:left">13 [10]</td><td style="text-align:left">—（主包无独立下载量口径）</td></tr><tr><td style="text-align:left">归属背书</td><td style="text-align:left">微信官方</td><td style="text-align:left">京东凹凸实验室</td><td style="text-align:left">DCloud</td><td style="text-align:left">滴滴</td><td style="text-align:left">饿了么（阿里系）</td><td style="text-align:left">腾讯</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left">平台绑定·闭源</td><td style="text-align:left">MIT（NOASSERTION 已解码）[2]</td><td style="text-align:left">Apache-2.0 [3]</td><td style="text-align:left">Apache-2.0 [4]</td><td style="text-align:left">MIT [6]</td><td style="text-align:left">BSD-3-Clause（NOASSERTION 已解码）[7]</td></tr><tr><td style="text-align:left">verdict</td><td style="text-align:left"><strong>adopt</strong></td><td style="text-align:left"><strong>adopt</strong></td><td style="text-align:left"><strong>adopt</strong></td><td style="text-align:left">trial</td><td style="text-align:left">assess</td><td style="text-align:left">hold</td></tr></tbody></table>
+<h2>本类别四条结构性结论（2026-09-30/10-01 快照）</h2>
+<ol><li><strong>Skyline 把性能差距重新变回原生的护城河</strong>：Skyline 随基础库 3.0.0 转正（2023-07 官方口径加载提升 50%+），2025 年第三方横评结论「Skyline 正式稳定后原生性能天花板最高」；跨端框架跟进全都打了折扣——Taro worklet 要半编译且手势 API 有「目前不可用」的开放 bug（gh 2026-09-30），uni-app 无等效 worklet 承诺，kbone 架构性无缘 [1][2][3]。</li><li><strong>跨端框架收敛为双寡头，第一代方案全是死分支</strong>：WePY（2026-03 归档）、mpvue（2022-03 停更）、Remax（2024-03 归档）、Chameleon（2023-01 归档）全部出局，活下来的 taro/uni-app 各自绑定 React/Vue 语法栈——选框架先选语法栈，再在双寡头里二选一 [5]。</li><li><strong>运行时架构决定包体积与性能上限的序列</strong>：编译输出原生 DSL（mor/mpx，≈0~51KB）优于带运行时的抽象层（uni-app 87KB / Taro 156KB 口径 / kbone 368KB，均为约 2020 官方自测、方向性参考）；Taro 的半编译、uni-app 的编译模式都是往「编译型」靠拢的自我修正 [9]。</li><li><strong>license 坑在腾讯系自定义 LICENSE</strong>：taro/kbone 的 gh license API 都报 NOASSERTION，解码后实为 MIT / BSD-3-Clause；WePY 同为腾讯自定义 MIT 类文本（仓库<strong>有</strong> LICENSE 文件）——NOASSERTION ≠ 无许可，必须读原文（<code>raw/2026-10-01/gh/*-LICENSE-decoded.txt</code>）[2][7]。</li></ol>
+<h2>决策矩阵</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">微信端性能表现（w=5）</th><th style="text-align:left">维护活跃（w=5）</th><th style="text-align:left">生态社区（w=4）</th><th style="text-align:left">微信端开发效率（w=4）</th><th style="text-align:left">许可（w=3）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="taro/report.md">Taro</a></td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left"><strong>91</strong> / 105</td></tr><tr><td style="text-align:left"><a href="uni-app/report.md">uni-app</a></td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left"><strong>91</strong> / 105</td></tr><tr><td style="text-align:left"><a href="native/report.md">微信小程序原生开发</a></td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left"><strong>87</strong> / 105</td></tr><tr><td style="text-align:left"><a href="mpx/report.md">Mpx</a></td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left"><strong>83</strong> / 105</td></tr><tr><td style="text-align:left"><a href="morjs/report.md">mor</a></td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left"><strong>61</strong> / 105</td></tr><tr><td style="text-align:left"><a href="kbone/report.md">kbone</a></td><td style="text-align:left">1</td><td style="text-align:left">1</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left"><strong>41</strong> / 105</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-10-01；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<blockquote><strong>注记</strong>：决策矩阵只覆盖所列维度（微信端性能表现/维护活跃/生态社区/微信端开发效率/许可）；「多端能力」按用户口径作为独立参考列不参与加权，维度外风险（Skyline 长尾 bug、mor 停摆、kbone 无 release、运行时数据老化）以各条目 verdict 为准——矩阵总分 Taro/uni-app 微高于原生而三者同为 adopt 并存不是矛盾：矩阵度量「通用三场景的综合值」（跨端框架赢在效率与生态），verdict 度量「该场景该不该用」（纯微信性能敏感场景原生仍是第一答案）。</blockquote>
+<h2>来源</h2>
+<ol><li>微信开放文档 — Skyline 兼容/特性/glass-easel 适配（访问 2026-09-30，留档 <code>raw/2026-09-30/web/native-skyline-docs-weixin.md</code>、<code>native-skyline-tavily.md</code>）</li><li>GitHub — NervJS/taro（gh 2026-09-30；LICENSE 解码与 v4.3.0 release 2026-10-01，留档 <code>raw/2026-10-01/gh/</code>）+ Taro Skyline 文档（docs.taro.zone/docs/skyline）+ Skyline 开放 issue（<code>raw/2026-09-30/gh/taro-skyline-issues.json</code>）</li><li>GitHub — dcloudio/uni-app（gh 2026-09-30）+ DCloud 问答 #151186（Skyline 配置，2023-03）+ Skyline issue（<code>raw/2026-09-30/gh/uniapp-skyline-issues.json</code>）+ uni-app x 定位（doc.dcloud.net.cn/uni-app-x，留档 <code>raw/2026-10-01/web/uniappx-vs-uniapp-tavily-2026-10-01.json</code>）</li><li>GitHub — didi/mpx（gh 2026-09-30）+ issue #1454 维护者回复（2024-04-25，<code>raw/2026-10-01/gh/mpx-issue-1454-comments.json</code>）+ PR #2540（2026-07 open）</li><li>掘金 — 「还在纠结小程序用原生还是框架？5 种方案全拆解」（2025）— <a href="https://juejin.cn/post/7647438301876191258">https://juejin.cn/post/7647438301876191258</a>（留档 <code>raw/2026-09-30/web/uniapp-skyline-support-tavily.md</code>）</li><li>GitHub — eleme/morjs（gh 2026-09-30）+ Releases（2024-05-21）+ npm 周下载 13（2026-10-01 查）</li><li>GitHub — Tencent/kbone（gh 2026-09-30；LICENSE 解码 BSD-3-Clause 与无 release 确认 2026-10-01）+ glass-easel 适配指引</li><li>Vue Mini — 比较页（Taro3/kbone 重运行时口径，访问 2026-10-01）</li><li>Mpx 官方 — 框架运行时性能测评（mpx 51KB/uniapp 87KB/taro next 156KB/kbone 368KB，约 2020，评测方利益相关降权采信）— <a href="https://mpxjs.cn/articles/performance.html">https://mpxjs.cn/articles/performance.html</a>（留档 <code>raw/2026-10-01/web/package-size-tavily-2026-10-01.json</code>）</li><li>npm downloads API — 周下载窗口 2026-09-22~09-28（2026-10-01 查，留档 <code>raw/2026-10-01/gh/releases-npm-license-snapshot-2026-10-01.md</code>）</li></ol>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

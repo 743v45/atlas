@@ -1,0 +1,35 @@
+{
+  "name": "TDesign 小程序",
+  "repo": "https://github.com/Tencent/tdesign-miniprogram",
+  "homepage": "https://tdesign.tencent.com/miniprogram",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "腾讯官方设计系统的小程序实现——2026-09 仍月度发版、57 组件中 61% 已官方适配 Skyline，一套设计语言同时覆盖微信原生与 uni-app",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/Tencent/tdesign-miniprogram",
+    "https://tdesign.tencent.com/miniprogram"
+  ],
+  "tags": [
+    "miniprogram",
+    "wechat",
+    "ui",
+    "tencent",
+    "skyline"
+  ],
+  "matrix": {
+    "技术栈": "原生+uni-app 双栈",
+    "组件规模": "57 组件",
+    "主题/暗黑": "CSS 变量主题（暗黑待验证）",
+    "维护活性": "活跃（2026-09-23 发版）",
+    "许可": "MIT"
+  },
+  "stats": {
+    "source_repo": "Tencent/tdesign-miniprogram",
+    "stars": 1772,
+    "pushed_at": "2026-09-30",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

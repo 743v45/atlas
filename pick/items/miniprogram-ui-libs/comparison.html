@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小程序 UI 组件库 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序 UI 组件库 · 横评</span></nav>
+  <article>
+<h1>小程序 UI 组件库 · 横评</h1>
+<blockquote>主题：小程序的界面组件从哪来——原生 wxml 与 uni-app 两条技术栈、七个候选。 用户画像：通用视角按场景分流——个人快速开发 / 团队长期维护 / 多端复用；主评微信端表现。「多端能力」为对比矩阵独立参考列，不计入决策矩阵权重（见 decision.json note）。 数据核查日：2026-09-30（gh 快照）+ 2026-10-01（补查 gh api / npm / 官方文档）；组件规模为一手目录实测（gh 2026-10-01），价格查询 2026-09-30。原始留档 <code>raw/2026-09-30/</code>、<code>raw/2026-10-01/</code>。</blockquote>
+<h2>场景速配（先给结论）</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">推荐</th><th style="text-align:left">一句话理由</th></tr></thead><tbody><tr><td style="text-align:left">个人快速开发 · 微信原生</td><td style="text-align:left"><strong>vant-weapp</strong></td><td style="text-align:left">事实标准：教程与 AI 语料最厚，出活最快 [1]</td></tr><tr><td style="text-align:left">团队长期维护 · 微信原生</td><td style="text-align:left"><strong>tdesign</strong>（求稳存量选 vant-weapp）</td><td style="text-align:left">腾讯官方月度发版 + Skyline 官方适配唯一选项 [2]</td></tr><tr><td style="text-align:left">要微信官方视觉 / 主包体积敏感</td><td style="text-align:left">weui</td><td style="text-align:left">官方视觉 + 扩展库引入不占包体积 [3]</td></tr><tr><td style="text-align:left">个人快速开发 · uni-app</td><td style="text-align:left"><strong>wot-design-uni</strong></td><td style="text-align:left">Vue3+TS+暗黑+AI 友好（LLMs.txt/MCP），新项目起点干净 [4]</td></tr><tr><td style="text-align:left">团队长期维护 · uni-app</td><td style="text-align:left"><strong>uni-ui</strong></td><td style="text-align:left">DCloud 官方兜底，含 uni-app x 方向跟进 [5]</td></tr><tr><td style="text-align:left">多端复用（含存量 uView 项目迁移）</td><td style="text-align:left">uview-plus</td><td style="text-align:left">uView2 API 高兼容 + 36.8k npm 下载/月高频滚动 [6]</td></tr><tr><td style="text-align:left">要商业级模板颜值（任何场景）</td><td style="text-align:left">无推荐（firstui hold）</td><td style="text-align:left">公开停更 28 个月 + 闭源 + 商用条款严苛 [7]</td></tr></tbody></table>
+<h2>属性对比矩阵</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">vant-weapp</th><th style="text-align:left">tdesign</th><th style="text-align:left">weui</th><th style="text-align:left">wot-design-uni</th><th style="text-align:left">uni-ui</th><th style="text-align:left">uview-plus</th><th style="text-align:left">firstui</th></tr></thead><tbody><tr><td style="text-align:left">技术栈</td><td style="text-align:left">原生 wxml [1]</td><td style="text-align:left">原生+uni-app 双栈 [2]</td><td style="text-align:left">原生 wxml（扩展库）[3]</td><td style="text-align:left">uni-app Vue3+TS [4]</td><td style="text-align:left">uni-app（含 uni-app x）[5]</td><td style="text-align:left">uni-app Vue2/3+nvue [6]</td><td style="text-align:left">uni-app 双版（UNI+微信原生）[7]</td></tr><tr><td style="text-align:left">组件规模</td><td style="text-align:left">约 68 组件目录（实测）[1]</td><td style="text-align:left">57 组件（官方口径）[2]</td><td style="text-align:left">22 组件（实测）[3]</td><td style="text-align:left">80+（官网口径；实测 102 目录）[4]</td><td style="text-align:left">60+（npm 实测 63 目录）[5]</td><td style="text-align:left">142 组件目录（实测，含子组件）[6]</td><td style="text-align:left">免费版子集，VIP 全量 [7]</td></tr><tr><td style="text-align:left">主题/暗黑</td><td style="text-align:left">CSS 变量定制，无暗黑 [1]</td><td style="text-align:left">CSS 变量主题（暗黑待验证）[2]</td><td style="text-align:left">微信官方视觉，定制弱 [3]</td><td style="text-align:left">CSS 变量+暗黑+i18n [4]</td><td style="text-align:left">主题定制（暗黑待验证）[5]</td><td style="text-align:left">主题定制（暗黑待验证）[6]</td><td style="text-align:left">主题定制（文档在营）[7]</td></tr><tr><td style="text-align:left">维护活性</td><td style="text-align:left">慢修（发版止 2024-10，末次功能提交 2025-04）[1]</td><td style="text-align:left">活跃（1.17.0，2026-09-23）[2]</td><td style="text-align:left">慢（npm 1.5.6，2024-11-15）[3]</td><td style="text-align:left">活跃（pushed 2026-09-24）[4]</td><td style="text-align:left">活跃（pushed 2026-09-30；npm 2026-03-26）[5]</td><td style="text-align:left">高频小版本（3.8.126，2026-09-28）[6]</td><td style="text-align:left">停更（公开渠道止 2024-06-12）[7]</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left">MIT [1]</td><td style="text-align:left">MIT [2]</td><td style="text-align:left">MIT [3]</td><td style="text-align:left">MIT [4]</td><td style="text-align:left">MIT [5]</td><td style="text-align:left">MIT [6]</td><td style="text-align:left">Apache-2.0 开源版+商业闭源 [7]</td></tr><tr><td style="text-align:left">⭐(gh 2026-09-30)</td><td style="text-align:left"><strong>18,457</strong></td><td style="text-align:left">1,771</td><td style="text-align:left">15,278(wxss)/2,429(mp)</td><td style="text-align:left">2,300</td><td style="text-align:left">2,091</td><td style="text-align:left">719</td><td style="text-align:left">513</td></tr><tr><td style="text-align:left">npm 月下载(2026-08-30→09-28)</td><td style="text-align:left">18,870 [1]</td><td style="text-align:left"><strong>38,099</strong> [2]</td><td style="text-align:left">2,341 [3]</td><td style="text-align:left">17,492 [4]</td><td style="text-align:left">22,778 [5]</td><td style="text-align:left">36,753 [6]</td><td style="text-align:left">—（非 npm 分发）</td></tr><tr><td style="text-align:left">多端能力（参考列，不计权）</td><td style="text-align:left">微信原生为主</td><td style="text-align:left">微信原生+uni-app</td><td style="text-align:left">微信原生（扩展库）</td><td style="text-align:left">微信/支付宝/钉钉小程序、H5、APP</td><td style="text-align:left">uni-app 全端（含 uni-app x）</td><td style="text-align:left">全端+nvue+鸿蒙方向</td><td style="text-align:left">App(nvue/vue)/五家小程序/H5</td></tr><tr><td style="text-align:left">微信 Skyline</td><td style="text-align:left">无官方适配，社区 bug 3 例开放 [1]</td><td style="text-align:left"><strong>官方适配中 35/57（61%）</strong> [2]</td><td style="text-align:left">未声明（待验证）[3]</td><td style="text-align:left">不支持（issue 关闭「工作量大」）[4]</td><td style="text-align:left">未声明（待验证）[5]</td><td style="text-align:left">未声明（待验证）[6]</td><td style="text-align:left">未声明（待验证）[7]</td></tr><tr><td style="text-align:left">verdict</td><td style="text-align:left"><strong>adopt</strong></td><td style="text-align:left"><strong>adopt</strong></td><td style="text-align:left">trial</td><td style="text-align:left">trial</td><td style="text-align:left">trial</td><td style="text-align:left">trial</td><td style="text-align:left"><strong>hold</strong></td></tr></tbody></table>
+<h2>本类别四条结构性结论（2026-09-30 快照）</h2>
+<ol><li><strong>技术栈是第一分叉，比选库更重要</strong>：原生 wxml（vant-weapp/tdesign/weui）与 uni-app（wot/uni-ui/uview-plus/firstui）之间不可混用——先定技术栈再谈选库；uView 谱系内部还有血统之分（uView2→uview-plus，uView1→uview-pro TS 重写），迁移前先认亲 [6]。</li><li><strong>高 star ≠ 在演进</strong>：vant-weapp ⭐18.5k 但发版止于 2024-10、tdesign ⭐1.8k 却月度发版且 npm 月下载第一（38k vs 19k）——star 度量存量声望，pushed/发版/npm 下载才度量未来 [1][2]。</li><li><strong>Skyline 是微信端新增的隐性分叉</strong>：跨端 web 技术路线（wot/sard）明确不支持或短期无计划；原生阵营只有 tdesign 有官方适配线（61%）——押 Skyline 的项目事实上只能在 tdesign/vant-weapp 里选 [2][4]。</li><li><strong>商业闭源组件库在免费开源供给充分时失去存在空间</strong>：firstui 停更+¥399+商用限制，对照三家 MIT 活跃库——「付费买颜值」模式在小程序组件库赛道已被证伪 [7][8]。</li></ol>
+<h2>决策矩阵</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">微信端适配（w=5）</th><th style="text-align:left">维护活跃（w=5）</th><th style="text-align:left">生态与文档（w=4）</th><th style="text-align:left">组件规模（w=3）</th><th style="text-align:left">许可（w=3）</th><th style="text-align:left">成本（w=3）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="vant-weapp/report.md">vant-weapp</a></td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>97</strong> / 115</td></tr><tr><td style="text-align:left"><a href="tdesign/report.md">TDesign 小程序</a></td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>96</strong> / 115</td></tr><tr><td style="text-align:left"><a href="uview-plus/report.md">uview-plus</a></td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>94</strong> / 115</td></tr><tr><td style="text-align:left"><a href="uni-ui/report.md">uni-ui</a></td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>90</strong> / 115</td></tr><tr><td style="text-align:left"><a href="wot-design-uni/report.md">wot-design-uni</a></td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>89</strong> / 115</td></tr><tr><td style="text-align:left"><a href="weui/report.md">WeUI</a></td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>78</strong> / 115</td></tr><tr><td style="text-align:left"><a href="firstui/report.md">FirstUI</a></td><td style="text-align:left">3</td><td style="text-align:left">1</td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left"><strong>49</strong> / 115</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-10-01；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<blockquote><strong>注记</strong>：决策矩阵只覆盖所列维度；维度外风险（Skyline 不支持、维护断层史、闭源商用条款、fork 断更风险）以各条目 verdict 为准——vant-weapp 矩阵分最高与「tdesign 才是持续演进选项」并存不是矛盾：矩阵度量「当前综合值」，verdict 度量「该场景该不该用」。</blockquote>
+<h2>来源</h2>
+<ol><li>vant-weapp — <a href="https://github.com/youzan/vant-weapp">https://github.com/youzan/vant-weapp</a> + npm @vant/weapp（gh 2026-09-30/10-01，npm 2026-10-01）</li><li>tdesign — <a href="https://github.com/Tencent/tdesign-miniprogram">https://github.com/Tencent/tdesign-miniprogram</a> + Skyline issue #3149 + npm tdesign-miniprogram（gh/npm 2026-10-01）</li><li>weui — <a href="https://github.com/wechat-miniprogram/weui-miniprogram">https://github.com/wechat-miniprogram/weui-miniprogram</a> + <a href="https://github.com/Tencent/weui-wxss">https://github.com/Tencent/weui-wxss</a> + 微信官方文档（gh 2026-10-01，文档 2026-09-30）</li><li>wot-design-uni — <a href="https://github.com/Moonofweisheng/wot-design-uni">https://github.com/Moonofweisheng/wot-design-uni</a> + <a href="https://wot-ui.cn">https://wot-ui.cn</a> + issue #317（gh 2026-10-01，官网 2026-09-30）</li><li>uni-ui — <a href="https://github.com/dcloudio/uni-ui">https://github.com/dcloudio/uni-ui</a> + npm @dcloudio/uni-ui（gh/npm 2026-10-01）</li><li>uview-plus — <a href="https://github.com/ijry/uview-plus">https://github.com/ijry/uview-plus</a> + npm uview-plus + 谱系 raw/2026-09-30/gh/uview1.json、uview2.json、uview-pro.json（gh/npm 2026-09-30/10-01）</li><li>firstui — <a href="https://github.com/FirstUI/FirstUI">https://github.com/FirstUI/FirstUI</a> + DCloud 市场 + wxdoc changelog + 官网会员页（gh 2026-09-30/10-01，价格 2026-09-30）</li><li>sard-uniapp（观察名单）— <a href="https://github.com/sutras/sard-uniapp">https://github.com/sutras/sard-uniapp</a>（gh 2026-09-30：⭐300、pushed 2026-09-11、明确不支持 Skyline）</li></ol>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

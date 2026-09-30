@@ -1,0 +1,58 @@
+{
+  "query": "团结引擎 个人版 免费 订阅 价格 unity.cn",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://www.bilibili.com/opus/1055548711921254403",
+      "title": "团结引擎和Unity国际版的收费差别 - 哔哩哔哩",
+      "content": "2025年04月14日 11:48\n\n仔细对比了一下国际版和团结引擎的收费标准。\n\n国际版Unity：\n\n1、给他人提供服务的开发者，接受服务的对象收入或经营规模低于20万美金的可以用个人版。\n\n2、只是自己用的开发者，有以下两种情况：\n\n    如果是企业，收入和经营规模需要低于20万美金。可以使用免费的个人版。\n\n   如果是个人，使用Unity所产生的收入低于20万美金，就可以使用免费的个人版。\n\n团结引擎：\n\n1、个人版资格和国际版一样，都是收入和财务规模低于20万美金。\n\n2、团结引擎将在用户使用之前填写资料的时候进行资质认证审核。估计是税单之类可以进行收入证明的资料。\n\n3、如果审查下来使用者超过了20万美元，那就必须使用专业版了。新注册用户在资质尚未认证通过前进行打包，项目将从打包后第3天起显示水印。\n\n国际版Unity的专业版价格是一个月200美元。而团结引擎的这个收费政策是2025年6月开始实施。具体专业版的价格还不知道。\n\n    综上所述，团结引擎和国际版本在资格的要求上是一致的。但是使用团结引擎需要提前进行资格审查。通过个人版的审查才能去除水印。 [...] \\\\ 团结引擎没有明确说明审查的对象是否包括用户使用引擎服务所服务的其他客户。暂且认为只审查使用者的资质。\n\n1、\n\n\\\\另附上虚幻引擎的收费标准\n\n一、营收低于100万美元的免费\n\n游戏开发者（产品总营收低于100万美元）\n\n个人及小型企业（年总营收低于100万美元）\n\n教育者和学校（无营收限制）\n\n二、营收高于100万美元的收费，有两种情况：\n\n1、第一种是基于分成的：\n\n如果你创建的游戏或应用程序在生命周期内，直接通过UE产品创造的100万美元以上的营收（无论由谁收取），都需要支付5%的分成费用。\n\n\\\\而在Epic游戏商城中产生的销售收入免分成的\\\\\n\n2、第二种是基于订阅制的，如果你将虚幻引擎用于商业用途，并在过去12个月内超过100万美元的营收。就需要支付席位许可费，每年1850美元。\n\n以上就是Unity和团结引擎还有虚幻的收费标准，其他诸如Godot或者Cocos就不讨论了。 \n\n最后看下来，个人建议说三点：\n\n1、做游戏还真不如做培训啊。做培训的不管是Unity还是虚幻也好，都不怎么收钱。\n\n2、使用团结的宝子们都需要接受资格审查。想省钱就不要那么优秀了。 [...] 3、团结到底能不能对接Unity6的需求，我看是很难很难。在国内如果不想牵涉到任何法律相关的问题，就老老实实使用2022之前的版本吧。\n\n国人  团结  Unity  团结引擎  Unity6\n\n本文为我原创，未经授权禁止转载\n\ncv41333558\n\n分享至\n\n微信扫一扫分享\n\n投诉或建议",
+      "score": 0.76300776,
+      "raw_content": null,
+      "id": "723f92-00"
+    },
+    {
+      "url": "https://unity.com/cn/products",
+      "title": "Unity 方案与定价：Pro、个人版、企业版、行业版 | Unity",
+      "content": "高级功能\n\n包含在您的付费套餐中\n\n3,000 Unity AI 工具每月额度。指定的条款适用于 Unity Credits。\n\n## 比较所有套餐的功能\n\n ### Unity Personal\n\n  免费\n\n  开始吧\n ### Unity Pro\n\n  来自 US$2,310.00 /年\n\n  选择订阅计划\n ### Unity Enterprise\n\n  灵活定价\n\n  联系销售团队\n ### Unity Industry\n\n  灵活定价\n\n  联系销售团队\n\n #### 创作 [...] 联系销售团队\n\n #### 创作\n\n  + -  Unity 引擎\n    -  Unity AI\n       需要每月订阅\n    -  Unity AI 网关\n       需要每月订阅\n    -  Unity AI 鸣谢\n       需要每月订阅\n       2000 元/月\n       3000 元/月\n       3000元/月\n    -  Unity AI 并发 MCP 连接\n       需要每月订阅\n       3\n       5\n       5\n    -  自定义启动画面\n    -  部署到游戏主机\n    -  为 Apple Vision Pro 构建 3D 空间应用程序\n    -  长达 3 年的 LTS 支持\n    -  Build Server 许可证容量\n       额外费用\n    -  源代码访问权限（只读）\n    -  源代码适配\n       额外费用\n       额外费用\n    -  行业特定的解决方案工具包\n    -  Unity Studio\n #### 协作 [...] -  每分钟费用（标准）\n       Linux:0.06美元，Mac:0.07美元，Windows:0.07美元\n       Linux：0.06美元，Mac：0.07美元，Windows：0.07美元\n       Linux：0.06美元，Mac：0.07美元，Windows：0.07美元\n       Linux: 0.06美元 Mac: 0.07美元 Windows: 0.07美元\n    -  免费机器\n       Linux:0.11美元，Mac:0.12美元，Windows:0.12美元\n       Linux：0.11美元，Mac：0.12美元，Windows：0.12美元\n       Linux：0.11美元，Mac：0.12美元，Windows：0.121美元\n       Linux: 0.11美元 Mac: 0.12美元 Windows: 0.12美元\n    -  每分钟费用（超速）\n       Linux:0.18美元，Mac:0.20美元，Windows:0.20美元",
+      "score": 0.72042775,
+      "raw_content": null,
+      "id": "458156-01"
+    },
+    {
+      "url": "https://unity.com/cn/products/unity-personal",
+      "title": "下载 Unity Personal：获取 Unity 免费版 | Unity",
+      "content": "庆祝全球的Unity创作者\n\n适合每个级别\n\nUnity Learn\n\n免费掌握Unity技能专业培训\n\n通过Unity培训师提升您的团队\n\nUnity新手\n\n准备开始\n\n开始您的学习Unity基础路径\n\n你是Unity 新手？开始您的旅程使用指南\n\n可操作的技巧和最佳实践\n\n教育\n\n对于学生\n\n开启您的职业生涯对于教育者\n\n增强您的教学教育资助许可证\n\n将Unity的力量带入您的机构认证\n\n证明您的Unity精通\n\n支持选项\n\n获取帮助\n\n帮助您在Unity中取得成功成功计划\n\n通过专家支持更快实现目标常见问题解答\n\n常见问题解答联系我们\n\n与我们的团队联系\n\n下载 Unity开始使用\n\nHero image\n\n# Unity Personal\n\n使用免费 Unity 版本开始创作。资格要求：Unity Personal 适用于个人和小型组织，这些组织在过去 12 个月的收入和筹集的资金少于 20 万美元。\n\n开始使用\n\n### 我们将把 Unity Personal 的收入和资金限制提高到 200,000 美元。\n\n阅读更多 [...] 阅读更多\n\n为方便起见，此网页已进行机器翻译。我们无法保证翻译内容的准确性或可靠性。如果您对翻译内容的准确性有疑问，请参阅此网页的官方英文版本。\n\n请点击这里。\n\n## 实现您的Vision，使用强大的免费工具\n\n对于任何希望开始将其想法变为现实的创作者，Unity Personal 提供了对世界上使用最广泛的游戏引擎的免费访问。\n\n比较订阅计划\n\n无拘无束地创造\n\n使用 Unity 引擎免费访问，构建任何类型或风格的引人注目的项目。\n\n自定义启动画面\n\n您掌控一切。使用Unity，您可以自定义启动画面，以您或您的客户所需的方式展示项目。\n\n加入行业最大的社区\n\n与游戏行业最大的人才和充满激情的创作者群体建立联系，并通过免费教育资源提升您的技能。\n\n带上合作者\n\n通过 Unity DevOps 和资产管理器与他人合作或备份您的项目，因为它们的范围不断扩大。\n\n## 有用资源\n\nUnity 6\n\n体验我们最新引擎发布的强大功能，为任何Vision提供更快速和更直观的创作。\n\n下载最新的\n\nUnity 6\n\nUnity Learn [...] DevOps\n\n加入社区\n\n成为覆盖全球的、富有激情的创作者群体中的的一员。查找您需要的答案和信息，参与论坛讨论，分享您的想法和反馈，等等。\n\n了解详情\n\nCommunity card\n\n## 通过 Unity Student 计划学习\n\nUnity Student 计划为学生提供专业级的 3D 开发工具和工作流程，这些工具和流程在各个行业的实际工作中都广泛使用。资格要求：请查看Unity 使用条款了解更多信息。\n\n了解详情\n\n## 企业订阅方案\n\n如果您的收入或筹集的资金在过去12个月中超过20万美元，请选择我们的订阅计划之一。更多信息在这里。\n\n## 专业人士选择 Unity Pro\n\nUnity Pro 让你能够开发主机游戏及为 Apple Vision Pro 创建空间应用。\n\n了解详情\n\n## 常见问题解答\n\n如果您在过去12个月中使用Unity的项目收入少于20万美元（或如果您的企业总收入和资金少于20万美元），您有资格使用Unity Personal。\n\n是的。Unity Personal 用户可以持续获得技术更新。",
+      "score": 0.5530473,
+      "raw_content": null,
+      "id": "634a90-02"
+    },
+    {
+      "url": "https://pdf.dfcfw.com/pdf/H3_AP202307191592427828_1.pdf",
+      "title": "金山办公的估值研究",
+      "content": "图29：金山数字办公平台产品 数据来源：公司公告，东吴证券研究所 2）公有云订阅：以民企&中小B 为主，定价199 元/人/年~599 元/人/年不等 根据2022 年报，公有云SaaS 在期付费企业数同比增长 51%，付费企业续约率超 70%，金额续费率超 100%，带动公有云领域相关收入同比增长超 100%。 请务必阅读正文之后的免责声明部分 东吴证券研究所 公司深度研究 21 / 29 图30：金山办公WPS 365 定价体系 数据来源：公司公告，东吴证券研究所  机构订阅—年场地授权付费模型 ToB 场景下的业务模型拆分一直是市场试图解答的问题，考虑到业务披露情况、合 同分散程度、客户方差等因素，目前市场尚无权威模型，我们在此提出一种探索性的框 架。 模型假设：合同一般为三年一签或一年一签，为不限数量的打包授权年付费模式。  用户数：我们假设私有云部署模式下实际交付时有一个“并发访问用户数”和 “实际付费渗透率”的概念，用来应对折扣等落地中间环节；  ARPU：考虑到国内B 段渗透仍在早期，我们以WPS 365 商业基础版定价200 元/人/年为ARPU [...] 月推出 AI 产品内测，2023 年2 月完全开放给所有用户。 请务必阅读正文之后的免责声明部分 东吴证券研究所 公司深度研究 16 / 29 付费模式及定价：免费额度+订阅购买。每位用户/团队有一定免费AI 问答响应额 度 （20~40 次） ， 用完后需要单独购买才可以继续使用， 在任意版本的产品定价基础上额 外支付AI 功能订阅。例如，原Plus 版本定价8 美元/月（年费） ，AI 功能额外支付8 美 元/月（年费）或10 美元/月（月费） ，AI+定价实现翻倍。 用户&收入： 2022 年Notion 用户量约3000 万， 付费用户约400 万， 收入约4350 万 美金（getlatka 数据） 。今年一季度后，Notion 在其官博宣布，自2022 年底发布 Notion AI alpha 后，Notion AI 用户已经突破 400 万。 假设参考ChatGPT 3.5%的付费率，根据96 美元/年的Notion AI 年费测算，估算得 到约1350 万美元的年收入增量。考虑文档产品的场景优势，实际渗透率可能更高。 图19：Notion AI 定价 [...] 14 图17： 2020Q1-2023Q1 爱奇艺会员收入及同比（亿元） .............................................................. 15 图18： 微软Microsoft365 商业版定价梯队，Copilot 提价幅度大超预期 ...................................... 15 图19： Notion AI 定价 ......................................................................................................................... 16 图20： ChatGPT 付费渗透情况 .......................................................................................................... 16 图21： ChatGPT 定价",
+      "score": 0.046313558,
+      "raw_content": null,
+      "id": "74441f-03"
+    },
+    {
+      "url": "https://cryptorank.io/news/feed/da391-2254875",
+      "title": "马斯克旗下 xAI 推出付费订阅套餐 SuperGrok，免费用户将受到更严格限制 | CryptoRank.io",
+      "content": "Mar 27, 2026\n\n< 1min read\n\n 马斯克旗下 xAI 推出付费订阅套餐 SuperGrok，免费用户将受到更严格限制 \n\nPredictions Markets\n\nSee what traders are focused on\n\nView analytics →\n\nPrediction Banner\n\nChainCatcher 消息，据 Tech in Asia 报道，马斯克旗下人工智能公司 xAI 正式推出 Grok 聊天机器人的付费订阅套餐 SuperGrok，免费及基础套餐用户将继续使用 Grok 3，但在查询量和功能上面临更严格限制。\n\nSuperGrok 套餐体系分为三档：入门级 SuperGrok Lite 定价每月 10 美元，可使用 Grok 3.5；标准版 SuperGrok 定价每月 30 美元，高于 OpenAI 的 ChatGPT Plus 及 Anthropic 的 Claude Pro（均约每月 20 美元）；面向重度用户的 SuperGrok Heavy 定价每月 300 美元。此外，xAI 还提供每席每月 30 美元的企业套餐。 [...] Read the article at chaincatcher\n\n### In This News\n\nFunds\n\nPredictions Markets\n\nSee what traders are focused on\n\nView analytics →\n\nPrediction Banner\n\nShare:\n\n### In This News\n\nFunds\n\nMicrosoft\n\nMicrosoft\n\nPredictions Markets\n\nSee what traders are focused on\n\nView analytics →\n\nPrediction Banner\n\nShare: [...] Latest cryptocurrency newsRWA\n\nTokenized stocks, ETFs, bonds and commoditiesHeatmaps\n\nCryptocurrency market state visualizationPrediction Markets\n\nAll-in-one analytics for prediction marketsAlerts\n\nCryptocurrency signals and price alertsDrop Hunting\n\nPotential airdrops and activitiesWidgets\n\nUseful widgets for your siteConverter\n\nCryptocurrency converterMarket Data API\n\nCheck out the details of our API plans\n\nWatchlistPortfolio\n\n/\n\n/\n\n# 马斯克旗下 xAI 推出付费订阅套餐 SuperGrok，免费用户将受到更严格限制\n\nMar 27, 2026",
+      "score": 0.03931676,
+      "raw_content": null,
+      "id": "6a0fdb-04"
+    },
+    {
+      "url": "https://cryptorank.io/zh/price/bornless",
+      "title": "Bornless 价格 | 今日价格、实时图表、USD 转换器、市值 | CryptoRank.io",
+      "content": "资金和支持者\n\n### 描述\n\nThe Bornless 是一款在 Unreal Engine 开发的引人入胜的免费第一人称恐怖射击游戏。\n\n链接\n\nWebsiteX\n\nDiscord\n\n+2\n\n# Bornless 是什么？\n\nThe Bornless 是一款由 Unreal Engine 打造的引人入胜的免费 FPS 恐怖游戏。玩家将与神秘角色一同踏上惊悚旅程，在黑暗危险的环境中穿行，阻止一个不祥的仪式。每个角色都拥有独特的个人物品，协助他们揭开游戏沉浸式世界中潜藏的谜团。\n\n### 热门币种和代币 Flame icon\n\n 30icon\n\n  Quant\n\n  QNT\n\n  $ 242.34\n\n  30.3%\n 405icon\n\n  Flow\n\n  FLOW\n\n  $ 0.03023\n\n  8.85%\n 384icon\n\n  Amp\n\n  AMP\n\n  $ 0.0006249\n 256icon\n\n  Quack AI\n\n  $ 0.02217\n 235icon\n\n  SOON\n\n  $ 0.3341\n icon\n\n  融资轮次\n 150icon\n\n  $ 0.7797 [...] 货币39444\n\n市值$ 2.94T-1.37%\n\n24小时现货交易量$ 50.28B+75.8%\n\n主导BTC56.78%-0.23%ETH11.07%+0.76%\n\n以太坊燃气2.20 Gwei\n\nCryptorank\n\n币\n\n按市值排名的前100种加密货币热门币种和代币跟踪加密货币的市场表现最近30天内新增的加密货币过去24小时增长最快的加密货币按类别排序的加密货币最近达到历史最高价格的加密货币区块链\n\n分析和比较关键区块链指标全球市场数据\n\n全球加密图表：市场情绪和流动生态系统\n\n探索区块链平台：生态系统项目、TVL和其他关键指标\n\n筹款\n\n融资轮次\n\n最近的加密风险投资资金\n\n风险投资基金和投资者的加密投资组合分析仪表板\n\n加密筹款分析仪表板\n\nIDO/ICO\n\nIDO/ICO\n\n即将到来/活跃/过去IDO启动平台ROI\n\n分析IDO启动平台的表现启动平台\n\nIDO/IEO/ICO平台CEX启动平台ROI\n\n分析CEX启动平台的表现启动池\n\n即将到来/活跃/过去分析仪表板\n\n公共代币销售仪表板节点销售\n\n即将到来/活跃/过去\n\n交易所\n\n现货\n\n现货加密交易所永续合约 [...] 现货\n\n现货加密交易所永续合约\n\n永续合约交易所中心化交易所上市表现\n\n分析CEX上市后的投资回报率\n\n代币解锁\n\n代币解锁\n\n代币释放日历和归属计划分析\n\n深入的代币解锁洞察风险投资压力\n\n面临风险投资压力的代币\n\nAPI\n\n市场 API\n\n通过 API 获取实时和历史加密市场数据MCP\n\nAI 原生市场数据访问定价\n\n查看 API 套餐、限制和价格文档\n\nAPI 端点、查询、参数和响应示例\n\n产品\n\n研究\n\n加密市场洞察、报告与媒体人物\n\n人物综合分析新闻\n\n最新加密货币新闻RWA\n\n代币化股票、ETF、债券和大宗商品热力\n\n加密货币市场状态可视化预测市场\n\n面向预测市场的一体化分析警报\n\n加密货币信号和价格提醒空投猎人\n\n潜在空投和活动小部件\n\n您网站的实用小部件转换器\n\n加密货币转换器市场数据 API\n\n查看我们的API计划的详细信息\n\n观察列表投资组合\n\n/\n\n/\n\nBornless\n\n## Bornless\n\n47 个关注列表\n\nGameFi\n\n状态\n\n## 一般信息\n\n资金和支持者\n\n### 描述",
+      "score": 0.028568588,
+      "raw_content": null,
+      "id": "20993d-05"
+    }
+  ],
+  "response_time": 2.41,
+  "request_id": "e43a0eff-e6a9-4571-817f-44764f08addd"
+}

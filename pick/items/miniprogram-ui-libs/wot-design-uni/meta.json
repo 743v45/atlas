@@ -1,0 +1,35 @@
+{
+  "name": "wot-design-uni",
+  "repo": "https://github.com/Moonofweisheng/wot-design-uni",
+  "homepage": "https://wot-ui.cn",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "uni-app 生态 Vue3+TS 组件库新星——80+ 组件、暗黑模式、AI 友好（LLMs.txt/MCP Server），维护活跃；webview 路线不支持微信 Skyline",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/Moonofweisheng/wot-design-uni",
+    "https://wot-ui.cn"
+  ],
+  "tags": [
+    "uniapp",
+    "vue3",
+    "typescript",
+    "ui",
+    "dark-mode"
+  ],
+  "matrix": {
+    "技术栈": "uni-app Vue3+TS",
+    "组件规模": "80+ 组件",
+    "主题/暗黑": "CSS 变量+暗黑+i18n",
+    "维护活性": "活跃（2026-09 push）",
+    "许可": "MIT"
+  },
+  "stats": {
+    "source_repo": "Moonofweisheng/wot-design-uni",
+    "stars": 2300,
+    "pushed_at": "2026-09-24",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

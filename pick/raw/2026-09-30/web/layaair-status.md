@@ -1,0 +1,77 @@
+# tvly search: LayaAir 经营 现状
+- 采集: 2026-09-30, tvly search --json --max-results 8
+
+{
+  "query": "LayaAir 经营 现状",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "http://www.gamelook.com.cn/2024/07/548121",
+      "title": "Layabox CEO谢成鸿：90%的Web3D小游戏用LayaAir，十年初心不改 | 游戏大观 | GameLook.com.cn",
+      "content": "2022年，我们又发布了元宇宙创作工具Layaverse，帮助开发者来创作元宇宙相关的数字内容；到了2023年，我们发布LayaAir 最重要的一个3.0版本，完善了整个工作流。原来的1.0和2.0在3D的创作上面，工作流其实是不完善的。通过我们的努力，以及收购的FairyGUI加入，3.0的工作链真正被开发完成。发布以后，3.0在业界的评价应该算非常之好，大家对这次整个工作流的合理性都评价蛮高的。\n\n创业到今天是十年，我们有哪些成绩？第一，我们是中国第一个商业化成功的3D引擎。做引擎的中国公司很多，但能够把产品推广到社会层面，和海外引擎同台竞技的，我们算第一个。当然2D方面有其他引擎走在我们前面，但3D领域我们是第一个。\n\n第二个成就是，我们已经有了100万的开发者，给这个行业创造了很多价值；还有一个数字是90%：单纯在Web3D微信小游戏中，检测数据显示，我们的占比达到了90%；第四个成绩是，我们和海南陵水政府合作成立了一个小游戏主题产业景点。我们也希望这次合作能为整个产业带来帮助和贡献，同时为陵水的数字化添砖加瓦。 [...] 游戏大观 | GameLook.com.cn \n\n# Layabox CEO谢成鸿：90%的Web3D小游戏用LayaAir，十年初心不改\n\n2024-07-02 • 人物观点\n\n字号\n\n 超大\n 大\n 标准\n 小\n\n【GameLook专稿，未经授权不得转载！】\n\nGameLook报道/6月29日，Layabox在海南陵水举办的“全球小游戏论坛暨LayaAir八周年庆典”上，字节跳动、腾讯、华为等多家平台，以及掌趣科技、4399等游戏开发商到场，共同探讨小游戏产业现状和未来发展趋势。\n\n会上，Layabox CEO谢成鸿以《Layabox-引擎织梦人》为主题发表演讲。据他介绍，LayaAir是中国第一个商业化成功的3D引擎，目前已经拥有百万开发者，且在微信3D小游戏中占比高达90%，且已经大量应用在游戏、教育、工业、军事、航天、元宇宙等行业。\n\n谢成鸿透露，团队坚持十年的背后，旨在搭建一个梦幻的数字世界。这将是一个万亿级别的巨大市场，但目前3D引擎陷入资本回报和投入付出失衡的困境。未来破局亟需拓展用户群体，并由工具人升级为智能伙伴角色。 [...] 另外是工具，刚刚提到要使开发变得更简单。我们的工厂化生产工具，智能化内容生成工具都在筹备开发中。还有一个是信创，我们刚才提到数字世界涉及方方面面、各行各业，有一款能够替代国外引擎的国产引擎，对国家安全发展非常重要，所以现在信创这块我们也在努力，完成了一个信创的1.0版。\n\n第二个是品牌升级。LayaAir原来有很多开发者在全球，但我们市场宣传主要是在国内。今年开始，我们将联合国外一些开发者和平台，帮我们品牌往全球输送。品牌升级包括要打造全球领先的中小型全端游戏引擎，这个“全端引擎”相比Unity和Unreal这种偏App的引擎有一定区别，在Web和App的要求是均发展。\n\n第三个升级是服务升级。包括第一是全球化服务，可能会面向海外开发者提供线上服务，或者是跟当地合作打造更线下的服务；第二是商业化服务，我们会给大家提供更多的增值服务。在保持永远开源、永远免费的基础上，我们也会大力发展一些对开发者来说非常有价值的服务，即开发工具和运营工具里面的服务。\n\n我再谈一下全球3D引擎的未来。",
+      "score": 0.6246834,
+      "raw_content": null,
+      "id": "df59ae-00"
+    },
+    {
+      "url": "https://github.com/layabox/LayaAir",
+      "title": "GitHub - layabox/LayaAir: LayaAir is a fully platform rendering engine with rich 2D/3D rendering capabilities and a mature integrated development platform · GitHub",
+      "content": "LayaAir engine can be released to multiple game platforms with one click. In addition to HTML5 WEB, it also supports the release of Native APP (Android、iOS、Mac、Windows、Linux), mini games (such as WeChat mini-games, ByteDance mini-games, Alipay mini-games, OPPO mini-games,vivo mini-games, and Xiaomi Quick Games). [...] | Name | Name | Last commit message | Last commit date |\n ---  --- |\n| .github/ISSUE\\_TEMPLATE | .github/ISSUE\\_TEMPLATE |  |  |\n| .husky | .husky |  |  |\n| .vscode | .vscode |  |  |\n| bin | bin |  |  |\n| docTool | docTool |  |  |\n| scripts | scripts |  |  |\n| src | src |  |  |\n| tests/native-text-input | tests/native-text-input |  |  |\n| .gitignore | .gitignore |  |  |\n| .gitmodules | .gitmodules |  |  |\n| LICENSE | LICENSE |  |  |\n| README.md | README.md |  |  | [...] | README.zh-CN.md | README.zh-CN.md |  |  |\n| commitlint.config.js | commitlint.config.js |  |  |\n| favicon.ico | favicon.ico |  |  |\n| logo.png | logo.png |  |  |\n| package.json | package.json |  |  |\n| wechatQRcode.jpg | wechatQRcode.jpg |  |  |\n|  |",
+      "score": 0.49685127,
+      "raw_content": null,
+      "id": "3fc325-01"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/LayaBox",
+      "title": "LayaBox - Wikipedia",
+      "content": "[edit]\n\nDuring the International Game Developers Conference held in November 2015, Xie ChengHong announced that a new 3D engine was in development. On 30 June 2016, LayaAir 1.0 was published on its official website, with 3D and VR support features. It comes equipped with UI editor functionality and supports one-time development for full platform release.\n\n## LayaAir 3.0（2023）\n\n[edit]\n\nLayaAir 3.0 was released in June 2023.\n\n## Technology and features\n\n[edit] [...] | Original author | Xie ChengHong (CEO) |\n| Developers | Souyou Network Technology Beijing Co., Ltd. |\n| Release | May 20, 2016; 10 years ago (2016-05-20) |\n| Stable release | |  |  |  --- | | LayaAir | 3.1 / June 30, 2023; 3 years ago (2023-06-30) | | LayaAir | 3.1.0 / November 29, 2023; 2 years ago (2023-11-29) | |\n|  |\n| Written in | English |\n| Operating system | Windows |\n| Available in | English, Chinese |\n| Type | Game engine |\n| License | Freeware |\n| Website | layaair.com | [...] LayaBox (Souyou Network Technology Beijing Co., Ltd.), also known as Laya, is a Chinese-developed freeware framework \"Framework (software)\"), which includes a web-based game engine named LayaAir, targeting mobile and web platforms, as well as online publishing and digital distribution services. It was first announced at the Global Mobile Game Confederation conference in April 2015. It offers a feature set for developing multi-platform games.",
+      "score": 0.4833807,
+      "raw_content": null,
+      "id": "062741-02"
+    },
+    {
+      "url": "https://www.layaair.com/LayaAirEnterprise",
+      "title": "LayaAir企业版介绍",
+      "content": "| LayaAir-企业（VIP）版 | 1、享受1V1的VIP服务，有专业的技术支持团队和核心引擎开发团队，对项目进行专属技术答疑和技术支持，法定工作日上午9点半到下午20点半。  2、可以使用工单系统，对引擎bug进行反馈，并可以查看解决进度。  3、Bug优先解决权：当遇到LayaAir引擎存在Bug，引擎组优先解决。  4、赠送5个LayaAir-企业（普通）版的账号。 | 联系商务 | [...] | 版本 | 包含的内容 | 价格 |\n --- \n| LayaAir-企业（普通）版 | 1、性能监测工具：集成性能检测SDK，多运行平台分析，专业的后台提供优化建议。（检测次数128次）  2、智能资源管理工具：打包、管理项目资源，提升下载速度和加载效率。  3、高性能Spine动画：移动设备可同时渲染3000个Spine动画。  4、强大CPU粒子系统：全新设计，呈现更炫酷的粒子效果。  5、AI生成图片功能免费使用。  6、AI生成天空盒功能免费使用。  7、AI生成音乐功能免费使用。  8、IDE智能控制功能免费使用。  9、持续更新：不断增加新功能和工具，自动更新至企业版。 | 联系商务 |\n| LayaAir-企业（服务）版 | 1、拥有LayaAir-企业（普通）版的所有权益。  2、专业的技术支持团队，进行技术答疑服务（20个企业的小群），服务时间法定工作日的上午10点到下午18点。  3、可以使用工单系统，对引擎bug进行反馈，并可以查看解决进度。 | 联系商务 | [...] 企业VIP开通流程：目前阶段，用户需先联系商务人员进行购买并提供LayaAirIDE用户ID（如何查看ID，见图片）。成功开通后，用户头像将显示特殊标识，同时企业专属插件功能将在插件管理器中自动解锁并可见。具体效果如下图所示：\n\n用户ID VIP成功开通",
+      "score": 0.45159313,
+      "raw_content": null,
+      "id": "465e52-03"
+    },
+    {
+      "url": "https://baike.baidu.com/item/LayaAir/19782570",
+      "title": "LayaAir",
+      "content": "网页新闻贴吧知道网盘图片视频地图文库资讯采购百科\n\n百度首页\n\n登录\n\n注册\n\nImage 1: 百度百科\n\n进入词条 全站搜索国际版帮助\n\n\n\n07:39\n\nLayaAir2.0引擎新手入门篇\n\n13:34\n\nLayaAir-CodingMCP: 零编码一键生成3D小游戏的展示\n\n01:41\n\nImage 9: 订阅更新\n\n订阅更新\n\n0 有用+1\n\n0\n\n全民枪神边境王者\n\n全民枪神边境王者\n\n穿越火线-枪战王者\n\n穿越火线-枪战王者\n\n第7装甲师\n\n第7装甲师\n\n王者别嚣张\n\n王者别嚣张\n\n300大作战\n\n300大作战\n\n我的大刀四十米\n\n我的大刀四十米\n\n拇指射箭\n\n拇指射箭\n\n跳舞的线\n\n跳舞的线\n\n街头扣篮王\n\n街头扣篮王\n\n天空跑酷3D\n\n天空跑酷3D\n\nParkour Race\n\nParkour Race\n\n滚动的天空\n\n滚动的天空\n\n指尖乐动\n\n指尖乐动\n\n滑板冲冲冲\n\n滑板冲冲冲\n\n腾讯桌球\n\n腾讯桌球\n\n大天使之剑H5\n\n大天使之剑H5\n\n消灭病毒\n\n消灭病毒\n\n怼怼三国\n\n怼怼三国\n\n全民大乐斗\n\n全民大乐斗 \n\n## 技术案例\n\n播报\n\n编辑 [...] ## 技术案例\n\n播报\n\n编辑\n\n3D数字技术案例\n\nLayaverse轻量元宇宙众创平台\n\nLayaverse（蓝亚宇宙）是基于LayaAir引擎研发的轻量元宇宙众创平台，该平台拥有众多商业级元宇宙成功案例，服务了包括工信部工业元宇宙协同发展组织、南开大学、五粮液集团、芭莎艺术在内的众多知名品牌。 [1-2]\n\n词条图册 更多图册\n\n1 概述图册\n\n20 词条图片\n\n参考资料\n\n   1\n\n1 基本介绍2 适用领域3 发展历程4 产品功能5 游戏案例6 技术案例\n\n###### 相关搜索\n\n   周大生钻戒\n   瑞克与莫蒂第三季\n   宝宝说话晚是\n   云集微店app下载\n   试管婴儿做一次多少钱\n   应变测试仪\n   cf手游女角色兰黄本\n\nImage 12: 图片\n\nLayaAir\n\n选择朗读音色\n\nImage 13: 成熟女声\n\n成熟女声\n\nImage 14: 成熟男声\n\n成熟男声\n\nImage 15: 磁性男声\n\n磁性男声\n\nImage 16: 年轻女声\n\n年轻女声\n\nImage 17: 情感男声\n\n情感男声\n\n0\n\n0\n\n2x\n\n1.5x\n\n1.25x\n\n1x [...] 1.5x\n\n1.25x\n\n1x\n\n0.75x\n\n0.5x\n\nAudio 1Audio 2\n\n分享到微信朋友圈\n\n打开微信“扫一扫”即可将网页分享至朋友圈\n\n新手上路\n\n成长任务编辑入门编辑规则本人编辑Image 18: new\n\n我有疑问\n\n内容质疑在线客服官方贴吧意见反馈\n\n投诉建议\n\n举报不良信息未通过词条申诉投诉侵权信息封禁查询与解封\n\n©2026 Baidu使用百度前必读|百科协议|隐私政策|百度百科合作平台|京ICP证030173号Image 19\n\n京公网安备11000002000001号\n\n订阅词条 0人已订阅\n\n可以前往 个人中心-订阅词条 查看所有已订阅词条\n\n词条内容更新\n\n当词条有内容变更时，将通过短信和百科站内信通知您\n\n词条热门讨论\n\n当词条有热门讨论时，将通过短信和百科站内信通知您\n\n确认订阅\n\n是否取消订阅更新？\n\n取消订阅后将无法收到当前词条的内容或讨论的更新\n\n取消订阅\n\n再想想",
+      "score": 0.35033303,
+      "raw_content": null,
+      "id": "55da7c-04"
+    },
+    {
+      "url": "https://cn.investing.com/news/economy-news/article-2521145",
+      "title": "2024年中国航空机场行业企业经营现状分析 企业经营情况快速好转【组图】 提供者 前瞻网",
+      "content": "2026年9月28日\n\n[](\n\n七巨头“杀估值”近尾声! Muse与Astra点燃“AI FOMO交易”，科技股大反攻蓄势待发\n\n提供者 智通财经\n\n2026年9月28日\n\n[](\n\n限时特惠：以55折优惠获取我们AI精选的十月优质股票\n\n提供者 Investing.co...\n\n2026年9月28日\n\n[](\n\n黄金在暴跌4%后小幅回升，市场静待美国最新经济数据出炉\n\n提供者 Investing.co...\n\n2026年9月28日\n\n[](\n\n美债利率都5.5%了，全球资产为啥还没爆炸？\n\n提供者 格隆汇\n\n2026年9月27日\n\n[](\n\n油价与加息：双重叙事下的资产演绎\n\n提供者 陶川\n\n2026年9月27日\n\n[](\n\n中美元首会谈达成八点共识——政策周观察第98期\n\n提供者 张瑜\n\n2026年9月28日\n\n[](\n\nA股上半年汇兑损益观察\n\n提供者 张瑜\n\n2026年9月23日\n\n[](\n\n美国PMI明显上行——海外周报第159期\n\n提供者 张瑜\n\n2026年9月27日\n\n更多资讯\n\n股市走势 [...] +0.05\n\n+0.03%\n\n澳大利亚元/美元\")\n\n0.6975\n\n-0.0043\n\n-0.61%\n\n英镑/美元\")\n\n1.3214\n\n-0.0043\n\n-0.32%\n\nBABA\n\n107.64\n\n-1.12\n\n-1.03%\n\n0700\n\n432.00\n\n-7.80\n\n-1.77%\n\nBIDU\n\n86.12\n\n-0.85\n\n-0.98%\n\nJD\n\n26.13\n\n-0.49\n\n-1.82%\n\nAMZN\n\n247.00\n\n+0.85\n\n+0.34%\n\nMETA\n\n719.21\n\n+3.59\n\n+0.50%\n\nAAPL\n\n331.28\n\n-7.12\n\n-2.10%\n\n广告\n\n最热门文章\n\n资讯\n\n分析评论\n\n[](\n\n美股盘前，美债收益率高位震荡！黄金企稳于4100美元，币圈超10万人爆仓\n\n提供者 Investing.co...\n\n2026年9月28日\n\n[](\n\n债券抛售潮持续，Anthropic发布IPO招股说明书——市场动态一览\n\n提供者 Investing.co...\n\n2026年9月28日\n\n[]( [...] 解锁策略\n\n该策略中的股票\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\n解锁策略\n\n该策略中的股票\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\n解锁策略\n\n该策略中的股票\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\n解锁策略\n\n该策略中的股票\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\n解锁策略\n\n该策略中的股票\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\n解锁策略\n\n该策略中的股票\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\naaaa aaaaa aaaa a\n\n解锁策略\n\n日历\n\n财经日历财报日历节假日日历美联储利率观测器美债收益率曲线\n\n更多工具\n\n选股器货币换算器",
+      "score": 0.20051105,
+      "raw_content": null,
+      "id": "89705d-05"
+    },
+    {
+      "url": "https://cn.investing.com/pro/NYSE:ATO/explorer/eps_basic_cont",
+      "title": "ATMOS能源公司 (ATO) 基本每股收益(持续经营的业务) - 英为财情Investing.com",
+      "content": "Bahasa Melayu\n\nTiếng Việt\n\nPress space bar to start a drag.\nWhen dragging you can use the arrow keys to move the item around and escape to cancel.\nSome screen readers may require you to be in focus mode or to use your pass through key [...] 板块公用事业的基本每股收益(持续经营的业务)\n\n| 经济风险区类别 | 发达 |\n| 全部成分股 | 329 |\n| 包括的成分股 | 315 |\n| 分钟 | -2.36 |\n| 最大值 | 8.52 |\n| 中位数 | 0.38 |\n| 平均值 | 1.22 |\n| 标准差 | 1.88 |\n\n用本选股器选股器，可以找到具有相近基本每股收益(持续经营的业务)的公司。\n\n保留所有权利。使用条款\n\n简体中文\n\nEnglish (US)\n\nEnglish (UK)\n\nEnglish (India)\n\nEnglish (Canada)\n\nEnglish (Australia)\n\nEnglish (South Africa)\n\nEnglish (Philippines)\n\nEnglish (Nigeria)\n\nDeutsch\n\nEspañol (España)\n\nEspañol (México)\n\nFrançais\n\nItaliano\n\nPortuguês (Portugal)\n\nPortuguês (Brasil)\n\nBahasa Indonesia\n\nBahasa Melayu [...] 隐藏这个小工具\n\nAtmos Energy于损益表中报告，截至六月 30, 2026止过去十二个月的基本每股收益(持续经营的业务)为8.52。\n\n下表总结了Atmos Energy过去五年的基本每股收益(持续经营的业务)和百分比分析(common size)：\n\n| 财政年度 | 基本每股收益(持续经营的业务) | 营收 | 营收占比 |\n ---  --- |\n| 2021-09-30 | 5.12 | 3,407 | 0.2% |\n| 2022-09-30 | 5.61 | 4,202 | 0.1% |\n| 2023-09-30 | 6.10 | 4,275 | 0.1% |\n| 2024-09-30 | 6.83 | 4,165 | 0.2% |\n| 2025-09-30 | 7.54 | 4,703 | 0.2% |\n\n下表总结了Atmos Energy过去四个季度的基本每股收益(持续经营的业务)和百分比分析(common size)：",
+      "score": 0.02850362,
+      "raw_content": null,
+      "id": "747e93-06"
+    },
+    {
+      "url": "https://cn.investing.com/news/company-news/article-93CH-3223254",
+      "title": "Lundin Mining 2025年第四季度业绩:创纪录营收,实现净现金状态 提供者 Investing.com",
+      "content": "Title: Lundin Mining 2025年第四季度业绩:创纪录营收,实现净现金状态\n#### 热门搜索. ##### 请尝试其他搜索. *   美股盘前，美指期货齐升！布油4连跌，比特币飙升4%逼近8.4万美元. *   纳指100再平衡周一美股开盘前生效 SpaceX(SPCX.US)权重大幅升至2.82%. *   Vanguard Total Stock Mkt Idx Instl Sel. *   PIMCO Commodity Real Ret Strat C. *   Vanguard Total Bond Market Index Adm. *   SG FTSE MIB Gross TR 5x Daily Short Strategy RT 18. *   Vontobel 7X Long Fixed Lever on Natural Gas 8.06. *   BNP Call 500.59 EUR AEX 31Dec99. *   COMMERZBANK AG Put CAC FUT 05/17 31Dec99. # Lundin Mining 2025年第四季度业绩:创纪录营收,实现净现金状态. ## **引言与市场背景**. Lundin Mining Corporation(TSX:LUN)于2026年2月20日公布了2025年第四季度及全年财务业绩,展现了创纪录的营收以及从净债务到净现金状态的显著转变。该公司股价在业绩发布后飙升7.99%至$38.51,接近其52周高点$38.85,过去一年涨幅高达182%。. 这家以铜矿为主的矿业公司报告称,2025年持续经营业务营收达到创纪录的41亿美元,这得益于强劲的生产表现以及超过市场平均水平的有利铜价。该公司在2025年第四季度实现的铜价为每磅$5.89,较上年同期的每磅$4.17上涨41%。. ## **季度业绩亮点**. Lundin Mining在其整个资产组合中交出了稳健的运营业绩,在产量和成本方面均达到或超过指引区间。如公司全年亮点所示,2025年是具有转型意义的一年,实现了战略性的资产组合优化和创纪录的财务表现。. 该公司全年生产铜33.1万吨,处于31.9万至33.7万吨的指引区间内。黄金产量达到14.2万盎司,同样处于13.5万至14.6万盎司的指引区间内。第四季度为这些总量贡献了8.7万吨铜和3.4万盎司黄金。. Caserones在第四季度实现了自Lundin收购以来的最高季度产量,生产铜4万吨。Candelaria贡献了3.4万吨,以更高的处理量抵消了较低的品位。卓越的运营表现延伸至成本管理,公司实现的综合C1现金成本为每磅$1.87,处于原始指引区间每磅$1.95至$2.15的低端。. ## **详细财务分析**. 2025年第四季度营收达到13.5亿美元,其中持续经营业务营收为13亿美元,使全年持续经营业务总营收达到40.5亿美元。铜占第四季度营收的87%,凸显了公司对这一红色金属的战略聚焦。. 按矿山划分的营收明细显示,Caserones和Candelaria是主要贡献者,而Chapada通过其铜金组合提供了多元化。公司受益于从第三季度延迟至第四季度的精矿装运,这增加了销售量并促成了强劲的季度表现。. 调整后EBITDA全年达到19.1亿美元,第四季度贡献6.86亿美元。公司的EBITDA利润率扩张反映了运营效率和价格强势。. 2025年运营自由现金流总计7.74亿美元,仅第四季度就产生了3.88亿美元,展现了强劲的现金转化能力。. ## **资产负债表转型**. 这一转型由多个因素驱动:16.2亿美元的调整后经营现金流、向Boliden出售欧洲资产获得的13.2亿美元收益,以及严格的资本配置。公司投资了6.69亿美元的资本支出,其中包括在扩张性Vicuña项目上的1.67亿美元,同时高效管理营运资本。. 全年资本支出为6.9亿美元,比7.5亿美元的指引低8%,在实现卓越运营的同时展现了资本纪律:. ## **生产成本表现**. 每磅$1.87的综合现金成本相对于原始指引代表了重大成就,反映了运营改善、有利的副产品信贷以及高效的矿山排序。各矿山表现显示Chapada保持了其低成本生产商的地位,而两个智利运营矿山尽管面临通胀压力,仍有效管理了成本。. ## **战略增长项目**. Saúva项目预计在五年第一阶段实现年均产量1.7万吨铜和3.2万盎司黄金,建设将于2026年底前开始,首批矿石目标定在2028年下半年。1.1亿美元的初始资本投资将通过更细的研磨粒度实现更高的回收率,并获取更高品位的材料以抵消Chapada主矿坑品位下降。. 初步经济评估设想峰值产量超过每年50万吨铜,以及80万盎司黄金和2000万盎司白银。该项目采用分阶段开发方式,旨在利用初期阶段的现金流为扩张提供自筹资金,将其定位为具有第一四分位现金成本的多代资产。. ## **前瞻性声明**. 公司预计2026年铜产量为31万至33.5万吨,黄金产量为13.4万至14.9万盎司。综合现金成本预计在每磅$1.90至$2.10之间,各矿山指引反映了整个资产组合的不同成本结构。. 2026年资本支出指引总计9.95亿美元,包括5.5亿美元的维持性资本、3.95亿美元的Vicuña开发资金以及5000万美元的其他扩张项目:. ## **行业竞争地位**. Lundin的2025年业绩使该公司成为一家重要的中型铜生产商,其资产组合集中在稳定的南美管辖区。公司第四季度实现的铜价超过了基准LME定价,反映了有利的精矿条款和高效的营销。凭借处于指引低端的生产成本和净现金资产负债表,Lundin进入2026年时拥有财务灵活性,可以推进其增长管线,同时维持股东回报。. 战略性的资产组合转型——剥离欧洲资产和Eagle,同时与BHP收购Filo/Josemaria权益——创造了一家更专注、以铜为中心的公司,有能力受益于持续的能源转型以及铜在电气化中的关键作用。如果Vicuña项目成功开发,可能使Lundin成为顶级铜生产商,在其整个资产组合中峰值产量可能超过每年80万吨。. ## 最新评论. 《富爸爸穷爸爸》作者再发“崩盘”警告：AI、战争、债务加剧了担忧. | 中际旭创 | 941.00 | +1.57% | 2,096.22万 |  |. | 新易盛 | 456.73 | +2.64% | 3,520.86万 |  |. | 宁德时代 | 297.10 | -1.61% | 4,948.83万 |  |. | CXMT | 56.88 | +2.41% | 2.43亿 |  |. | 亨通光电 | 71.75 | +3.25% | 1.82亿 |  |. | 华仁药业 | 3.29 | +20.07% | 1.88亿 |  |. | 近岸蛋白 | 118.84 | +20.00% | 977.01万 |  |. | 诺禾致源 | 18.18 | +20.00% | 1,789.81万 |  |. | \"ShenGu Co.\" | 37.72 | -34.71% | 1.57亿 |  |. | 利扬芯片 | 36.37 | -12.76% | 3,759.97万 |  |. | 地铁设计 | 17.25 | -10.02% | 1,753.70万 |  |. | 德利股份 | 77.29 | -10.00% | 457.30万 |  |. | 仕净科技 | 5.88 | -9.26% | 2,099.36万 |  |. | 华侨银行OCBC Bank | 31.67 | +0.92% | 461.38万 |  |. | Zetrix AI Bhd | 0.200 | 0.00% | 2.76亿 |  |. | Malayan Banking | 10.38 | +0.58% | 1,212.70万 |  |. | 小米集团－Ｗ | 27.58 | +4.47% | 1.38亿 |  |. AI实力助阵，我们的 **优选股票**一路领跑，轻松**超越标普500**. 实时行情 问问WarrenAI AI精选股 自选组合 提醒 财经要闻 工具. 风险批露: 交易股票、外汇、商品、期货、债券、基金等金融工具或加密货币属高风险行为，这些风险包括损失您的部分或全部投资金额，所以交易并非适合所有投资者。加密货币价格极易波动，可能受金融、监管或政治事件等外部因素的影响。保证金交易会放大金融风险。. 在决定交易任何金融工具或加密货币前，您应当充分了解与金融市场交易相关的风险和成本，并谨慎考虑您的投资目标、经验水平以及风险偏好，必要时应当寻求专业意见。. **Fusion Media**提醒您，本网站所含数据未必实时、准确。本网站的数据和价格未必由市场或交易所提供，而可能由做市商提供，所以价格可能并不准确且可能与实际市场价格行情存在差异。即该价格仅为指示性价格，反映行情走势，不宜为交易目的使用。对于您因交易行为或依赖本网站所含信息所导致的任何损失，**Fusion Media**及本网站所含数据的提供商不承担责任。. 未经**Fusion Media**及/或数据提供商书面许可，禁止使用、存储、复制、展现、修改、传播或分发本网站所含数据。提供本网站所含数据的供应商及交易所保留其所有知识产权。. 本网站的广告客户可能会根据您与广告或广告主的互动情况，向**Fusion Media**支...",
+      "score": 0.020225683,
+      "raw_content": null,
+      "id": "183cd8-07"
+    }
+  ],
+  "response_time": 1.03,
+  "request_id": "fcca4569-7cfb-4599-a739-9b4f9d97c349"
+}

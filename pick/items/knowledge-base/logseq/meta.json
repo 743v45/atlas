@@ -20,10 +20,10 @@
   ],
   "stats": {
     "source_repo": "logseq/logseq",
-    "stars": 44949,
-    "pushed_at": "2026-09-17",
+    "stars": 45098,
+    "pushed_at": "2026-09-30",
     "license": "AGPL-3.0",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   },
   "matrix": {
     "数据形态": "MD（OG）/ SQLite（2.0）",

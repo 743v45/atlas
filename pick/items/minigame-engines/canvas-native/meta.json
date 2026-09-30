@@ -1,0 +1,28 @@
+{
+  "name": "原生 Canvas/WebGL 直写",
+  "homepage": "https://developers.weixin.qq.com/minigame/dev/guide/",
+  "verdict": "trial",
+  "summary": "无引擎基线——平台原生但官方文档明确推荐用引擎，仅适合极简 2D/自绘玩法，渲染循环与分包全部自担。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://developers.weixin.qq.com/minigame/dev/guide/",
+    "https://developers.weixin.qq.com/minigame/dev/guide/develop/develop",
+    "https://jsr.io/@happy-js/minigame-std"
+  ],
+  "tags": [
+    "minigame",
+    "wechat",
+    "canvas",
+    "webgl",
+    "baseline"
+  ],
+  "matrix": {
+    "形态": "裸 Canvas/WebGL",
+    "2D/3D": "2D/3D 裸写",
+    "微信适配": "平台原生·零适配层",
+    "包体表现": "最零依赖",
+    "许可/费用": "无依赖·免费",
+    "上手路径": "官方文档·不推荐新手"
+  }
+}

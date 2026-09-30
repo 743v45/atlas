@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vant-weapp · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序 UI 组件库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../uview-plus/report.html">← uview-plus</a><span class="sep">·</span><a href="../weui/report.html">WeUI →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>vant-weapp</h1>
+<blockquote><strong>TL;DR</strong>：微信原生小程序组件库事实标准——⭐18.4k、教程与 AI 语料最厚、v1.11.7 稳定可用；代价是 2024-10 起进入慢修模式，新特性基本停摆</blockquote>
+<ul><li><strong>结论</strong>：adopt 推荐</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/youzan/vant-weapp">https://github.com/youzan/vant-weapp</a>（⭐18,457、pushed 2026-05-09，gh 2026-10-01）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">最新版本</td><td style="text-align:left">v1.11.7（2024-10-14 发版；npm @vant/weapp 1.11.7，2026-10-01 查询）</td><td style="text-align:left">[2][3]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">近一年仅依赖升级类提交（最后一个功能修复 commit 2025-04-12）；月均 npm 下载 18,870（2026-08-30→09-28）</td><td style="text-align:left">[3][4]</td></tr><tr><td style="text-align:left">姊妹产品</td><td style="text-align:left">youzan/vant（Vue 版，⭐24,385、pushed 2026-09-29，gh 2026-09-30）——注意两者是平行产品线，Vue 主仓的活跃不代表 weapp 库在演进</td><td style="text-align:left">[5]</td></tr></tbody></table>
+<h2>为什么选（作为 adopt）</h2>
+<ul><li><strong>原生小程序赛道的事实标准</strong>：本类别最高 star（⭐18,457，gh 2026-10-01），2017 年开源至今教程、问答与 AI 训练语料最厚——个人快速开发场景出活最快，LLM 生成 vant-weapp 代码的命中率显著高于小众库 [1]。</li><li><strong>组件广度与稳定性兼得</strong>：dist 目录实测 68 个组件目录（含配对子组件，gh 2026-10-01），v1.11.7 经大量生产项目验证；MIT 许可，商用无忧 [1][3]。</li><li><strong>慢修不等于不可用</strong>：小程序 UI 组件库形态已高度成熟，2024-10 后无新特性发布（releases 止于 v1.11.7，2024-10-14）但 npm 下载仍保持 1.9 万/月（2026-08-30→09-28 数据）——存量生态仍在大量使用与验证 [2][4]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs tdesign：vant-weapp 赢在存量生态与语料（star 10 倍差）；tdesign 赢在维护活性（1.17.0，2026-09-23 发版 vs vant-weapp 2024-10）与 Skyline 官方适配（35/57 组件，61%）——团队长期维护且押 Skyline 的项目优先 tdesign，快速出活与求稳优先 vant-weapp [2][6][7]。</li><li>vs weui：组件规模 68 vs 22；weui 有微信官方视觉与扩展库零包体积优势，vant-weapp 是自由定制路线 [8]。</li><li>注意：youzan/vant（Vue）与 youzan/vant-weapp 是两个仓库、两条产品线；「Vant 4 还在活跃更新」不能作为 weapp 库的判活依据 [5]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>发版停滞</strong>：releases 止于 2024-10-14（v1.11.7），2025-04 后无功能类 commit（gh 2026-10-01）——新特性需求（如 Skyline 深度适配）大概率无人响应 [2][3]。</li><li><strong>Skyline 兼容靠社区</strong>：无官方 Skyline 适配声明，issue 区有 skyline 模式下的开放 bug（:host 伪类多出样式、NavBar 不适配、popup 被键盘遮挡，2024-10 至 2025-06 报告，gh 2026-10-01）——押 Skyline 渲染的项目需先验证目标组件 [7]。</li><li>需要持续演进 + 官方兜底的团队，把 tdesign 作为同赛道备选（见 ../tdesign/）。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/youzan/vant-weapp">https://github.com/youzan/vant-weapp</a>（gh 2026-10-01：MIT、⭐18,457、pushed 2026-05-09；dist 实测 68 个组件目录）</li><li>Releases — <a href="https://github.com/youzan/vant-weapp/releases">https://github.com/youzan/vant-weapp/releases</a>（gh 2026-10-01：v1.11.7，2024-10-14）</li><li>Commits — <a href="https://github.com/youzan/vant-weapp/commits">https://github.com/youzan/vant-weapp/commits</a>（gh 2026-10-01：最后一个功能修复 2025-04-12，其后为依赖升级）</li><li>npm — <a href="https://www.npmjs.com/package/@vant/weapp">https://www.npmjs.com/package/@vant/weapp</a>（2026-10-01 查询：1.11.7 / 2024-10-14，近月下载 18,870）</li><li>姊妹仓库 — <a href="https://github.com/youzan/vant">https://github.com/youzan/vant</a>（gh 2026-09-30：⭐24,385、pushed 2026-09-29，Vue 产品线）</li><li>npm — <a href="https://www.npmjs.com/package/tdesign-miniprogram">https://www.npmjs.com/package/tdesign-miniprogram</a>（2026-10-01 查询：1.17.0 / 2026-09-23，近月下载 38,099）</li><li>Skyline 相关 issues — <a href="https://github.com/youzan/vant-weapp/issues">https://github.com/youzan/vant-weapp/issues</a>（gh 2026-10-01 检索 "skyline"：开放 bug 3 例，2024-10～2025-06）</li><li>WeUI 组件库官方文档 — <a href="https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/weui">https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/weui</a>（访问 2026-09-30，留档 raw/2026-09-30/web/sard-ui-search.md）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录：原生赛道事实标准，慢修模式下仍是最稳默认项</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

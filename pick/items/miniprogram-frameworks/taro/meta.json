@@ -1,0 +1,36 @@
+{
+  "name": "Taro",
+  "repo": "https://github.com/NervJS/taro",
+  "homepage": "https://docs.taro.zone/",
+  "license": "MIT",
+  "verdict": "adopt",
+  "summary": "React 系多端小程序事实标准——京东系活跃维护（v4.3.0，2026-09-29 发布），官方支持 Skyline 但 worklet 需半编译且长尾 bug 未清，React 团队多端场景默认答案，微信单端极致性能让位原生。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/NervJS/taro",
+    "https://docs.taro.zone/docs/skyline",
+    "https://github.com/NervJS/taro/releases"
+  ],
+  "tags": [
+    "miniprogram",
+    "cross-platform",
+    "react",
+    "skyline"
+  ],
+  "matrix": {
+    "形态": "编译型跨端框架",
+    "语法": "React/Vue",
+    "多端能力": "小程序×10+·H5·RN",
+    "Skyline 适配": "官方支持·worklet 需半编译",
+    "生态": "京东系·npm 周下载 3.2 万",
+    "许可": "MIT"
+  },
+  "stats": {
+    "source_repo": "NervJS/taro",
+    "stars": 37705,
+    "pushed_at": "2026-09-30",
+    "license": "NOASSERTION",
+    "collected_at": "2026-10-01"
+  }
+}

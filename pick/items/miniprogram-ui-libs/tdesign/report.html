@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TDesign 小程序 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序 UI 组件库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../firstui/report.html">← FirstUI</a><span class="sep">·</span><a href="../uni-ui/report.html">uni-ui →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#0ca30c" title="推荐"><i></i>荐</span>
+<h1>TDesign 小程序</h1>
+<blockquote><strong>TL;DR</strong>：腾讯官方设计系统的小程序实现——2026-09 仍月度发版、57 组件中 61% 已官方适配 Skyline，一套设计语言同时覆盖微信原生与 uni-app</blockquote>
+<ul><li><strong>结论</strong>：adopt 推荐</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/Tencent/tdesign-miniprogram">https://github.com/Tencent/tdesign-miniprogram</a>（⭐1,771、pushed 2026-09-30，gh 2026-10-01）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">最新版本</td><td style="text-align:left">1.17.0（2026-09-23；npm 同版本，2026-10-01 查询）</td><td style="text-align:left">[2][3]</td></tr><tr><td style="text-align:left">组件规模</td><td style="text-align:left">57 组件（官方 Skyline 适配 issue 自述「全体组件 35/57」，2026-08 更新）</td><td style="text-align:left">[4]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">月度级发版（1.16.0 2026-08-06 → 1.16.1 2026-09-09 → 1.17.0 2026-09-23）；npm 月下载 38,099（2026-08-30→09-28），本类别最高</td><td style="text-align:left">[2][3]</td></tr></tbody></table>
+<h2>为什么选（作为 adopt）</h2>
+<ul><li><strong>腾讯官方背景 + 持续演进</strong>：Tencent 官方出品，2026 年保持月度级发版节奏（gh 2026-10-01）；同为 MIT 许可。在 vant-weapp 进入慢修后，它是原生赛道「还有人维护」的主要选项 [1][2]。</li><li><strong>Skyline 是本类别唯一的官方适配线</strong>：官方维护「🚀 Skyline：组件适配进度」跟踪 issue——35/57 组件（61%）已适配，建议 Android + 微信 8.0.49 体验完整功能（issue 更新至 2026-08-25）[4]。微信新渲染引擎迁移趋势下，这是其他候选都没有的投入 [7]。</li><li><strong>双栈覆盖</strong>：仓库自述「Wechat MiniProgram and Uniapp UI components lib」——微信原生与 uni-app 共用一套 TDesign 设计语言，多端复用场景下视觉与组件 API 一致 [1]。</li><li><strong>实际使用量第一</strong>：npm 月下载 38,099（2026-08-30→09-28），高于 @vant/weapp 的 18,870——star 落后（1,771 vs 18,457）但用量领先，属于「新一代默认项」的典型形态 [3][5]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs vant-weapp：tdesign 组件数少一档（57 vs 约 68）但全部在维护，Skyline 官方适配；vant-weapp 存量生态与语料仍最厚。新项目（尤其团队长期维护）tdesign 更稳，快速出活 vant-weapp 更顺 [2][4][5]。</li><li>vs weui：同为腾讯出品，tdesign 是完整设计系统（含主题定制），weui 是微信原生视觉的小集合（22 组件）[4][8]。</li><li>vs wot-design-uni / uview-plus：后两者是 uni-app 编译路线（webview 渲染），tdesign 原生实现可跟进 Skyline；代价是组件生态与社区声量小于 uni-app 侧热门库 [4][7]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>Skyline 适配未完成</strong>：22/57 组件（39%）尚未适配（含 Calendar、Picker、Dialog、Swiper 等常用件，2026-08 清单）——迁移项目需对照官方进度表逐个确认 [4]。</li><li><strong>star 与教程存量小</strong>：⭐1,771（gh 2026-10-01），社区教程与 AI 语料厚度不如 vant-weapp，个人快速开发时遇到问题可参考的中文问答较少 [1][5]。</li><li>暗黑模式官方文档未见明确声明——「待验证」：选型前用官方主题定制文档实测（tdesign.tencent.com/miniprogram）。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/Tencent/tdesign-miniprogram">https://github.com/Tencent/tdesign-miniprogram</a>（gh 2026-10-01：MIT、⭐1,771、pushed 2026-09-30，描述「Wechat MiniProgram and Uniapp UI components lib」）</li><li>Releases — <a href="https://github.com/Tencent/tdesign-miniprogram/releases">https://github.com/Tencent/tdesign-miniprogram/releases</a>（gh 2026-10-01：1.17.0 2026-09-23 / 1.16.1 2026-09-09 / 1.16.0 2026-08-06）</li><li>npm — <a href="https://www.npmjs.com/package/tdesign-miniprogram">https://www.npmjs.com/package/tdesign-miniprogram</a>（2026-10-01 查询：1.17.0 / 2026-09-23，近月下载 38,099）</li><li>Skyline 适配进度 issue #3149 — <a href="https://github.com/Tencent/tdesign-miniprogram/issues/3149">https://github.com/Tencent/tdesign-miniprogram/issues/3149</a>（gh 2026-10-01 抓取：35/57 已适配，更新至 2026-08-25）</li><li>GitHub 仓库 — <a href="https://github.com/youzan/vant-weapp">https://github.com/youzan/vant-weapp</a>（gh 2026-10-01：⭐18,457，对照数据）</li><li>原始快照 — raw/2026-09-30/gh/tdesign-miniprogram.json（gh 2026-09-30）</li><li>WeUI/Skyline 语境 — 微信官方 Skyline 文档（留档 raw/2026-09-30/web/native-skyline-docs-weixin.md）</li><li>WeUI 组件库官方文档 — <a href="https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/weui">https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/weui</a>（访问 2026-09-30）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">adopt</td><td style="text-align:left">首次记录：官方背景 + 月度发版 + Skyline 官方适配唯一选项</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

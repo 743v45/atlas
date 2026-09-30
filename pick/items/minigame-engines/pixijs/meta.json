@@ -1,0 +1,36 @@
+{
+  "name": "PixiJS",
+  "repo": "https://github.com/pixijs/pixijs",
+  "homepage": "https://pixijs.com",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "2D 渲染库 DIY 路线——引擎本体极活跃，微信端靠 weapp-adapter 适配、管线自担，仅适合已有 pixi 资产的前端团队。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/pixijs/pixijs",
+    "https://developers.weixin.qq.com/minigame/dev/guide/develop/develop",
+    "https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines"
+  ],
+  "tags": [
+    "minigame",
+    "wechat",
+    "renderer",
+    "2d"
+  ],
+  "matrix": {
+    "形态": "2D 渲染库",
+    "2D/3D": "仅 2D",
+    "微信适配": "weapp-adapter 自适配",
+    "包体表现": "库小·管线自担",
+    "许可/费用": "MIT·免费",
+    "上手路径": "代码 DIY"
+  },
+  "stats": {
+    "source_repo": "pixijs/pixijs",
+    "stars": 48246,
+    "pushed_at": "2026-09-30",
+    "license": "MIT",
+    "collected_at": "2026-10-01"
+  }
+}

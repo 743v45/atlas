@@ -1,0 +1,58 @@
+{
+  "query": "mpx 框架 skyline 渲染引擎 支持 worklet",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://docs.taro.zone/docs/skyline",
+      "title": "Skyline | Taro 文档",
+      "content": "确保开发者工具右上角 > 详情 > 本地设置里的 将 JS 编译成 ES5 选项被勾选上 (代码包体积会少量增加)\n worklet 动画相关接口仅在 Skyline 渲染模式下才能使用\n\n示例：\n\nconfig/index.js\n\n```\n{{ mini: { mini:  { experimental: { experimental:  { compileMode: true  compileMode:  true  }  }  }  } } }\n```\n\npages/index/behavior.js [...] ```\nexport default definePageConfig({export  default  definePageConfig({ navigationBarTitleText: '首页',  navigationBarTitleText:  '首页',  renderer: 'skyline',  renderer:  'skyline',  componentFramework: 'glass-easel',  componentFramework:  'glass-easel',  navigationStyle: 'custom',  navigationStyle:  'custom', }) })\n```\n\n### 使用 worklet​\n\n在 Taro 中使用 worklet 需要首先开启半编译，开启方法见：半编译模式使用方法。\n\n使用 worklet 动画能力时确保以下两项：详见 worklet 动画 [...] 由凹凸实验室倾力打造的「Deco 设计稿一键生成多端代码」预览版正式上线啦，欢迎免费试用！\n\n版本：4.x\n\n# Skyline\n\nSkyline 的具体内容详见：Skyline 介绍\n\n信息\n\n仅支持在微信小程序使用，worklet 部分从 `4.0.8` 开始支持\n\n## 开启 Skyline​\n\n配置方法和微信小程序相同，开发前请仔细阅读 《微信小程序 Skyline - 起步》。\n\n示例：\n\napp.config.js",
+      "score": 0.7785319,
+      "raw_content": null,
+      "id": "f4065a-00"
+    },
+    {
+      "url": "https://developers.weixin.qq.com/miniprogram/dev/framework/runtime/skyline/introduction.html",
+      "title": "Skyline 渲染引擎 / 概览 / 介绍 | 微信开放文档",
+      "content": "界面更不容易被逻辑阻塞，进一步减少卡顿\n 无需为每个页面新建一个 JS 引擎实例（WebView），减少了内存、时间开销\n 框架可以在页面之间共享更多的资源，进一步减少运行时内存、时间开销\n 框架的代码之间无需再通过 JSBridge 进行数据交换，减少了大量通信时间开销\n\n而与此同时，这个新的架构能很好地保持和原有架构的兼容性，基于 WebView 环境的小程序代码基本上无需任何改动即可直接在新的架构下运行。WXS 由于被移到 AppService 中，虽然逻辑本身无需改动，但询问页面信息等接口会变为异步，效率也可能有所下降；为此，我们同时推出了新的 Worklet 机制，它比原有的 WXS 更靠近渲染流程，用以高性能地构建各种复杂的动画效果。\n\n## # 需要帮助\n\n如果在使用过程中遇到任何问题，可以前往「Skyline 渲染引擎」专区查看说明。 [...] 为了进一步优化小程序性能，提供更为接近原生的用户体验，我们在 WebView 渲染之外新增了一个渲染引擎 Skyline，其使用更精简高效的渲染管线，并带来诸多增强特性，让 Skyline 拥有更接近原生渲染的性能体验。\n\n## # 架构\n\n当小程序基于 WebView 环境下时，WebView 的 JS 逻辑、DOM 树创建、CSS 解析、样式计算、Layout、Paint (Composite) 都发生在同一线程，在 WebView 上执行过多的 JS 逻辑可能阻塞渲染，导致界面卡顿。以此为前提，小程序同时考虑了性能与安全，采用了目前称为「双线程模型」的架构。\n\n在 Skyline 环境下，我们尝试改变这一情况：Skyline 创建了一条渲染线程来负责 Layout, Composite 和 Paint 等渲染任务，并在 AppService 中划出一个独立的上下文，来运行之前 WebView 承担的 JS 逻辑、DOM 树创建等逻辑。这种新的架构相比原有的 WebView 架构，有以下特点： [...] 小程序\n\n 小程序\n 小游戏\n 公众号\n 服务号\n 开放平台\n 企业微信\n 微信支付\n 视频号\n 微信小店\n 智能对话\n 腾讯小微\n 教育平台\n\n在小程序下暂无结果，查看其它业务相关内容 >\n\n + 行业能力\n  + 商业能力\n  + 多端能力\n  + 服务市场\n  + 城市服务\n  + 付费能力\n  + 拓展能力\n + 云开发\n  + 云托管\n AI 能力\n\n开发\n\n取消\n\n- 指南\n\n# # 简介\n\n小程序一直以来采用的都是 AppService 和 WebView 的双线程模型，基于 WebView 和原生控件混合渲染的方式，小程序优化扩展了 Web 的基础能力，保证了在移动端上有良好的性能和用户体验。Web 技术至今已有 30 多年历史，作为一款强大的渲染引擎，它有着良好的兼容性和丰富的特性。 尽管各大厂商在不断优化 Web 性能，但由于其繁重的历史包袱和复杂的渲染流程，使得 Web 在移动端的表现与原生应用仍有一定差距。",
+      "score": 0.76194656,
+      "raw_content": null,
+      "id": "c20ac2-01"
+    },
+    {
+      "url": "https://kelen.cc/posts/mini-program-skyline",
+      "title": "小程序Skyline渲染引擎介绍 - Kelen",
+      "content": "界面更不容易被逻辑阻塞，进一步减少卡顿\n 无需为每个页面新建一个 JS 引擎实例（WebView），减少了内存、时间开销\n 框架可以在页面之间共享更多的资源，进一步减少运行时内存、时间开销\n 框架的代码之间无需再通过 JSBridge 进行数据交换，减少了大量通信时间开销\n\n而与此同时，这个新的架构能很好地保持和原有架构的兼容性，基于 WebView 环境的小程序代码基本上无需任何改动即可直接在新的架构下运行。WXS 由于被移到 AppService 中，虽然逻辑本身无需改动，但询问页面信息等接口会变为异步，效率也可能有所下降；为此，我们同时推出了新的 Worklet 机制，它比原有的 WXS 更靠近渲染流程，用以高性能地构建各种复杂的动画效果。\n\nSkyline 渲染流程图\n\n## 如何开启 Skyline\n\n开启 Skyline 的方式非常简单，只需要在 app.json 文件中，加入以下配置即可，默认是全局\\\\，如果要指定页面开启，可以在页面的单独 json 文件配置\\\\。\n\n```\n\n{\n\n\"renderer\": \"skyline\", [...] 小程序双线程架构\n\n## Skyline 渲染引擎\n\n为了进一步优化小程序性能，提供更为接近原生的用户体验，在 WebView 渲染之外新增了一个渲染引擎 Skyline，其使用更精简高效的渲染管线，并带来诸多增强特性，让 Skyline 拥有更接近原生渲染的性能体验。\n\n## Skyline 架构\n\n双线程架构虽然把 JS 工作放到逻辑层来，但是渲染工作还是相对较复杂，视图层需要进行 DOM 树创建、CSS 解析、样式计算、Layout、Paint (Composite) 等工作，在渲染和动画上还是无法做到媲美原生。\n\n在 Skyline 环境下，Skyline 在原来的双线程模型基础上创建了一条渲染线程来负责 Layout, Composite 和 Paint 等渲染任务，并在 AppService 中划出一个独立的上下文，来运行之前 WebView 承担的 JS 逻辑、DOM 树创建等逻辑。这种新的架构相比原有的 WebView 架构，有以下特点： [...] 永久免费的图片压缩工具 zippic\n\nToggle theme\n\n css\n JavaScript\n 算法\n 框架 / 库\n Rust\n 工具\n 其他\n\n nodejs\n nosql\n 服务器\n Java\n\n移动端\n\n Hybrid App\n 小程序\n\nAI\n\n AI Agent\n AI Tools\n Claude Code\n\n小程序Skyline渲染引擎介绍\n\n# 小程序Skyline渲染引擎介绍\n\n## 小程序框架\n\n小程序系统构架分成两个部分：视图层(WebView) 和 逻辑层(App Service)，这两个部分分别由两个独立线程管理，其中 WXML 模板和 WXSS 样式工作在渲染层，JS 脚本工作在逻辑层。\n\n视图层：也称为渲染层，渲染层用来渲染页面结构，主要由 WebView 进行渲染，一个小程序可以存在多个界面，所以渲染层可能存在多个 WebView 线程。\n\n逻辑层：逻辑层采用 JSCore 线程运行 JS 脚本。逻辑层主要用来逻辑处理、数据请求、接口调用等。\n\n视图层将逻辑层的数据反映成视图，同时将视图层的事件发送给逻辑层。\n\n小程序双线程架构",
+      "score": 0.7610953,
+      "raw_content": null,
+      "id": "041b62-02"
+    },
+    {
+      "url": "https://cloud.tencent.com/developer/article/2312663",
+      "title": "小程序新渲染引擎 Skyline 发布正式版-腾讯云开发者社区-腾讯云",
+      "content": "Worklet 动画机制。在原来双线程的架构下，若要对界面元素做逐帧动画是需要频繁在逻辑层和渲染层之间通信的，这会带来较大的延迟，动画也就不会流畅。而 Worklet 动画正是为了解决这类问题而诞生的，其运行机制与 WXS 类似，但比 WXS 更靠近渲染流程而性能更好，而且支持的特性更多，可扩展性更强，这个是 Skyline 交互动画体系的基础。\n 手势系统。在原生的交互动画里，手势识别与协商是一个很重要的特性，而这块在 Web 体系是缺失的，因此 Skyline 下补全手势系统相关特性，包括常用手势的识别，如缩放、拖动、双击等，还有很重要的手势协商机制，在遇到手势冲突（常见于滚动容器下）时决定让哪个手势生效，以实现更顺畅的动画衔接。\n 自定义路由与共享元素。页面间的自定义转场动画，在原生应用里也是一个很常见的交互动画。在原来的小程序架构下，每个页面都是独立的 WebView 渲染，互相隔离，其跨页能力是基本不具备的。因此，Skyline 提供了一套自定义路由机制，能实现市面上大多数页面转场动画，同时也提供了共享元素机制，能很方便地做到同一元素在页面间飞跃的效果。 [...] 云开发 CloudBase\n\nAI-Native 的全栈应用开发平台，为 AI 驱动的开发流程和终端应用而设计。提供应用开发所需的完整后端资源，包括数据库、服务托管、函数计算、文件存储、Web 应用托管等能力；支持小程序/小游戏、AI Agent 应用、Web 应用等场景；提供 Skills/MCP 工具适配主流 AI 编程工具，避免了开发过程中繁琐的服务端搭建及运维，开发者可以专注于业务逻辑的实现，开发效率更高。\n\n产品介绍产品文档\n\n2026上云采购 | AI焕新·智启新局\n\n ### 社区\n\n  + 技术文章\n  + 技术问答\n  + 技术沙龙\n  + 技术视频\n  + 学习中心\n  + 技术百科\n  + 技术专区\n ### 活动\n\n  + 自媒体同步曝光计划\n  + 邀请作者入驻\n  + 自荐上首页\n  + 技术竞赛\n ### 圈层\n\n  + 腾讯云最具价值专家\n  + 腾讯云架构师技术同盟\n  + 腾讯云创作之星\n  + 腾讯云TDP\n ### 关于\n\n  + 社区规范\n  + 免责声明\n  + 联系我们\n  + 友情链接\n  + MCP广场开源版权声明 [...] 单线程版本组件框架。Skyline 下默认启用了新版本的组件框架 glass-easel，该版本适应了 Skyline 的单线程模型，使得建树流程的耗时有效降低（优化 30%-40%），同时 setData 调用也不再有通信开销。\n 组件下沉。我们将部分内置组件（如 scroll-view、swiper、picker-view 等）直接在底层实现，以追求更流畅的交互体验。此外，我们也将常用的内置组件（view、text、image）从 JS 下沉到原生实现，相当于原生 DOM 节点，有效降低了创建组件的开销（优化 30%）。\n 长列表按需渲染。长列表是一个常用的但又经常遇到性能瓶颈的场景，Skyline 对其做了一些优化，使 scroll-view 组件只渲染在屏节点（用法上有一定的约束），并且增加 lazy mount 机制优化首次渲染长列表的性能，后续我们也计划在组件框架层面进一步支持 scroll-view 的可回收机制，以更大程度降低创建节点的开销。",
+      "score": 0.7293082,
+      "raw_content": null,
+      "id": "6416b0-03"
+    },
+    {
+      "url": "https://vpt.js.org/guides/skyline-mode",
+      "title": "Skyline 模式 | VPT",
+      "content": "}\n\n}\n\n})\n\n```\n\n| 配置 | 作用 |\n --- |\n| `renderer: 'skyline'` | 为页面选择 Skyline 渲染引擎。 |\n| `componentFramework: 'glass-easel'` | 使用支持 Skyline 的组件框架。 |\n| `lazyCodeLoading: 'requiredComponents'` | 按需注入页面所需组件。 |\n| `defaultDisplayBlock` | 将 Skyline 节点的默认布局从 `flex` 调整为 `block`。 |\n| `defaultContentBox` | 将默认盒模型从 `border-box` 调整为 `content-box`，更接近 Web。 |\n| `navigationStyle: 'custom'` | 由应用绘制导航栏，而不是使用微信默认导航栏。 |\n| `skylineRenderEnable` | 控制微信开发者工具是否开启 Skyline 渲染调试。 |\n\n## 开发模式与 Skyline 调试 [...] 跳转到内容\n\n# Skyline 模式\n\nSkyline 是微信小程序的新一代渲染引擎。它减少了传统 WebView 渲染中的跨线程通信，并提供面向复杂交互和高性能动画的渲染能力。\n\n`create-vite-taro` 的默认模板已经生成 Skyline 所需配置。无需安装额外依赖，也没有专用的 vpt 选项；相关设置直接写在 `vpt()` 的 `appJson`、页面配置和 `projectConfigJson` 中。\n\n## 默认配置\n\nSection titled “默认配置”\n\n模板在 `vite.config.ts` 中包含：\n\n```\n\nvpt({\n\n// ...\n\nappJson: {\n\nlazyCodeLoading: 'requiredComponents',\n\nrenderer: 'skyline',\n\ncomponentFramework: 'glass-easel',\n\nrendererOptions: {\n\nskyline: {\n\ndefaultDisplayBlock: true,\n\ndefaultContentBox: true\n\n}\n\n}, [...] navigationStyle: 'custom'\n\n}\n\n},\n\n{\n\npath: 'pages/settings/index',\n\nconfig: {}\n\n}\n\n],\n\nappJson: {\n\nlazyCodeLoading: 'requiredComponents',\n\nrendererOptions: {\n\nskyline: {\n\ndefaultDisplayBlock: true,\n\ndefaultContentBox: true\n\n}\n\n}\n\n}\n\n```\n\n这样首页使用 Skyline，设置页继续使用 WebView。业务组件和导入路径不需要因为渲染引擎不同而改变。\n\n## 适配样式与组件\n\nSection titled “适配样式与组件”\n\nSkyline 尽量保持小程序上层语法不变，但不是浏览器 CSS 的完整实现。迁移时重点检查：",
+      "score": 0.37999994,
+      "raw_content": null,
+      "id": "692950-04"
+    },
+    {
+      "url": "https://hk.finance.yahoo.com/news/%E6%A8%82%E4%BA%AB%E9%9B%86%E5%9C%98-06988-%E8%88%87%E5%8C%97%E4%BA%AC%E7%81%AB%E5%B1%B1%E5%BC%95%E6%93%8E%E7%A7%91%E6%8A%80%E8%A8%82%E7%AB%8B%E5%90%88%E4%BD%9C%E6%A1%86%E6%9E%B6%E5%8D%94%E8%AD%B0-231219479.html",
+      "title": "樂享集團(06988)與北京火山引擎科技訂立合作框架協議",
+      "content": "跳至導覽  跳過主要內容  跳至右欄 [...] infocast\n\n# 樂享集團(06988)與北京火山引擎科技訂立合作框架協議\n\ninfocast\n\n<匯港通訊> 樂享集團(06988)宣布，公司與北京火山引擎科技訂立合作框架協議，公司依托火山引擎在大數據、雲計算、直播等技術優勢，委託其提供包括豆包大模型在內的技術服務；雙方成立專項項目組，開展產品方案整合與定制開發，推動技術成果落地。前述框架協議有效期至2027年3月31日，具體合作細節另行簽署專項協議約定。  \n  \n火山引擎為字節跳動旗下雲與AI服務核心平台，在雲計算、AI大模型、AIGC(人工智能生成內容)及電商直播領域技術積澱深厚。其自研豆包大模型、Seedance AI視頻生成技術及GEO(生成引擎優化)技術體系，可為公司提供全場景企業級AI與數字化解決方案。  \n  \n本次合作是公司推進AI戰略與業務轉型升級的重要里程碑，聚焦AI、AIGC及GEO技術落地，對公司業務提效及長期價值增長具有重大戰略意義。 (ST)\n\n條款  及 私隱政策 [...] 6. now.com 財經\n    7. Fortune Insight\n    8. 28Hse.com\n    9. AM730\n    10. Infocast\n    11. 鉅亨網\n    12. 詠竹坊\n    13. Money Club\n    14. investing.com HK",
+      "score": 0.04880799,
+      "raw_content": null,
+      "id": "3e44f9-05"
+    }
+  ],
+  "response_time": 1.16,
+  "request_id": "d1d49a80-4c2b-4fe4-a3e5-909e67438da4"
+}

@@ -1,0 +1,36 @@
+{
+  "name": "kbone",
+  "repo": "https://github.com/Tencent/kbone",
+  "homepage": "https://wechat-miniprogram.github.io/kbone/docs/",
+  "license": "BSD-3-Clause",
+  "verdict": "hold",
+  "summary": "腾讯 Web 同构过渡方案——把存量 Web 项目搬进小程序的历史答案，重运行时（官方自测口径 368KB）叠加约一年无 push、无 release，社区共识是别拿它做新项目。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/Tencent/kbone",
+    "https://juejin.cn/post/7647438301876191258",
+    "https://vuemini.org/guide/comparisons"
+  ],
+  "tags": [
+    "miniprogram",
+    "isomorphic",
+    "web",
+    "tencent"
+  ],
+  "matrix": {
+    "形态": "Web 同构适配层",
+    "语法": "Web 框架(Vue/React)",
+    "多端能力": "微信+Web 双端",
+    "Skyline 适配": "不支持·WebView 同构",
+    "生态": "腾讯系·停更边缘",
+    "许可": "BSD-3-Clause"
+  },
+  "stats": {
+    "source_repo": "Tencent/kbone",
+    "stars": 4919,
+    "pushed_at": "2025-10-20",
+    "license": "NOASSERTION",
+    "collected_at": "2026-10-01"
+  }
+}

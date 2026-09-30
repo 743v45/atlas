@@ -1,0 +1,58 @@
+{
+  "query": "FirstUI 微信小程序版 更新日志 changelog 2025",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://developers.weixin.qq.com/miniprogram/dev/framework/release",
+      "title": "基础库更新日志 | 微信开放文档",
+      "content": "## # v3.11.0 (2025-10-14)\n\n1. `U` 更新 框架 PC 小程序 picker 组件样式优化\n2. `U` 更新 框架 PC 小游戏横竖屏切换支持 详情\n3. `U` 更新 框架 globalpay 全球收银新增跳端支付\n4. `U` 更新 组件 小游戏擂台赛 详情\n5. `F` 修复 框架 wx.setStorageSync(key undefined) 设置 data 值为 undefined 时会错误的转为空字符串\n6. `F` 修复 框架 开发者工具 InnerAudioContext 连续多次调用 play ，再调用 stop 时音频还在播放\n\n## # v3.10.3 (2025-09-23)\n\n1. `U` 更新 框架 PC 小程序菜单新增静音入口\n2. `U` 更新 框架 PC 小程序菜单新增设置入口\n3. `U` 更新 组件 图文发表与展示组件 limit 属性 详情\n4. `F` 修复 框架 小游戏推荐组件在游戏名超长情况下显示 bug\n\n## # v3.10.2 (2025-09-11) [...] 1. `U` 更新 组件 picker-view-column 无障碍提示语优化\n2. `U` 更新 API wx.getEnterOptionsSync 和 wx.getLaunchOptionsSync 每次调用时都返回一个新的对象\n3. `F` 修复 框架 飞行模式下 wx.request timeout 不符预期的问题\n4. `F` 修复 框架 没有 hoverClass 时，stopPropagation 不生效\n5. `F` 修复 框架 PC 小程序 picker 组件设置 level 后不生效 详情\n6. `F` 修复 框架 vConsole 按钮特定场景下消失\n7. `F` 修复 组件 skyline map 内存泄露\n\n## # v3.10.0 (2025-08-26) [...] 1. `U` 更新 框架 小游戏高性能+模式重构渲染纹理处理异常\n2. `U` 更新 框架 云开发拓展能力支持 FunctionTool 工具调用 详情\n3. `U` 更新 框架 小程序支持鼠标右键点击事件 详情\n4. `U` 更新 框架 video 组件右下角增加视频时长\n5. `U` 更新 框架 优化 getDeviceInfo、getNetworkType、getWindowInfo、getAppBaseInfo 接口性能\n6. `F` 修复 框架 真机调试 network 面板不更新\n7. `F` 修复 框架 自定义组件占位替换应该包裹在独立的同步流中处理\n8. `F` 修复 框架 skyline rich-text web-static 表现异常\n9. `F` 修复 框架 reLaunch / autoReLaunch 时在 onBeforeAppRoute 中调用 getEnterOptionsSync 的结果可能有误\n10. `F` 修复 组件 textarea 行高设置后导致光标与 placeholder 不对齐\n\n## # v3.8.0 (2025-03-25)",
+      "score": 0.8033131,
+      "raw_content": null,
+      "id": "de8d96-00"
+    },
+    {
+      "url": "https://developers.weixin.qq.com/miniprogram/dev/devtools/uplog",
+      "title": "开发者工具更新日志 | 微信开放文档",
+      "content": "1. `A` 新增 公众号网页调试支持云开发\n2. `A` 新增 可视化编辑器支持复制粘贴组件\n3. `A` 新增 游客模式\n4. `A` 新增 自动使用最新的小程序/小游戏定义文件\n5. `A` 新增 云同步保留开发者个人习惯\n6. `A` 新增 小程序漏洞扫描插件\n7. `A` 新增 web-view 调试按钮放到底部栏预览旁边\n8. `A` 新增 错误信息之后增加复制按钮\n9. `U` 优化 小程序\\小游戏的 snippets 代码片段补全\n10. `U` 优化 WXML编辑器插件能力优化\n11. `U` 优化 重构Storage面板，优化展示效果\n12. `U` 优化 针对 5MB 以上的代码包，预览和上传时采用异步方式\n13. `U` 优化 工具授权框的交互和真机一致\n14. `F` 修复 小程序设置静音后，重启项目即失效的问题\n15. `F` 修复 默认占用8001调试端口\n16. `F` 修复 小游戏非独立域 wx.connectSocket 死循环的问题\n17. `F` 修复 部分 windows webview 白屏问题 [...] 1. `A` 新增 公众号网页调试支持云开发\n2. `A` 新增 可视化编辑器支持复制粘贴组件\n3. `A` 新增 游客模式\n4. `A` 新增 自动使用最新的小程序/小游戏定义文件\n5. `A` 新增 云同步保留开发者个人习惯\n6. `A` 新增 小程序漏洞扫描插件\n7. `A` 新增 web-view 调试按钮放到底部栏预览旁边\n8. `A` 新增 错误信息之后增加复制按钮\n9. `U` 优化 小程序\\小游戏的 snippets 代码片段补全\n10. `U` 优化 WXML编辑器插件能力优化\n11. `U` 优化 重构Storage面板，优化展示效果\n12. `U` 优化 针对 5MB 以上的代码包，预览和上传时采用异步方式\n13. `U` 优化 工具授权框的交互和真机一致\n14. `F` 修复 小程序设置静音后，重启项目即失效的问题\n15. `F` 修复 默认占用8001调试端口\n16. `F` 修复 小游戏非独立域 wx.connectSocket 死循环的问题\n17. `F` 修复 部分 windows webview 白屏问题 [...] 17. `U` 优化 模拟器更多功能半屏弹窗，横屏时对齐客户端样式\n18. `F` 修复 分包插件页无法引用分包组件的问题\n19. `F` 修复 小游戏模拟器分离窗口显示不全的问题 反馈详情\n20. `F` 修复 调试器 sensor 面板重力模拟无法使用的问题\n21. `F` 修复 WeappApplication 目录下 Temp 文件占满磁盘问题 反馈详情\n22. `F` 修复 二维码编译打不开的问题 反馈详情\n23. `F` 修复 无手机号小程序无法开通云开发的问题\n24. `F` 修复 多项目窗口切换登录用户后没有同步头像等状态\n25. `F` 修复 代码片段分享失败的问题\n26. `F` 修复 模拟器网络设为 offline，WebSocket 依然能通信的问题反馈详情\n27. `F` 修复 showToast icon 为 error 展示不正确的问题 反馈详情\n28. `F` 修复  中 safe-area-inset-bottom 可能失效的问题\n29. `F` 修复 小游戏开发模式下读取非game.json的json文件时，控制台会输出警告的问题",
+      "score": 0.6778372,
+      "raw_content": null,
+      "id": "0e8789-01"
+    },
+    {
+      "url": "https://zhuanlan.zhihu.com/p/504348632",
+      "title": "宝藏级UI组件库：FirstUI，微信小程序版+uniapp版双版上线，完美支持vue3，顶尖的组件库、强大的功能库、丰富精美的模板库 - 知乎",
+      "content": "新增 UploadVideo 视频上传 组件（VIP组件）。\n\n新增 FormItem 表单项 组件（VIP组件）。\n\n组件优化。\n\n修复部分已知问题。\n\n### FirstUI(\n\nFirst UI是一套超高性能、超高颜值的移动端UI综合解决方案，包含业内顶尖的组件库、强大的功能库、丰富精美的模板库，提供uni-app(完美支持nvue)、微信小程序、支付宝小程序等版本，兼顾高效率与高性能，让您的开发获得百倍提质提速！  \n包括框架、组件、模板、功能插件几个部分。FirstUI开发者、设计师不断精心打磨，持续发布新的组件、模板等新功能，力求为用户提供更高品质的产品，节约用户时间与成本。\n\n## 一、FirstUI uni-app版特性 [...] + SwiperDot 轮播图指示点\n+ LicensePlate 车牌号键盘\n+ SingleInput 单输入框\n+ 操作反馈\n+ ActionSheet 上拉菜单\n+ Toast 轻提示\n+ BackDrop 遮罩层\n+ Dialog 对话框\n+ DropdownMenu 下拉菜单\n+ Modal 模态框\n+ Landscape 压屏窗\n+ Loading 加载\n+ Message 消息提示\n+ SwipeAction 滑动菜单\n+ DropdownList 下拉菜单\n+ LoadAni 加载动画\n+ 数据组件\n+ Badge 徽章\n+ Alert 警告框\n+ Avatar 头像\n+ Tag 标签\n+ Progress 进度条\n+ Collapse 折叠面板\n+ Divider 分割线\n+ LoadMore 加载更多\n+ Empty 暂无数据\n+ 画布\n+ Poster 绘制分享海报\n+ 表单组件\n+ Picker 选择器\n+ DatePicker 日期时间选择器\n+ Form 表单校验\n+ Input 输入框\n+ InputNumber 数字输入框\n+ Radio 单选框 [...] + 基础组件\n+ Color 色彩\n+ Icon 图标\n+ Button 按钮\n+ Footer 页脚\n+ Animation 动画\n+ 导航组件\n+ NavBar 导航栏\n+ Pagination 分页器\n+ SegmentedControl 分段器\n+ Tabbar 标签栏\n+ Tabs 标签页\n+ IndexList 索引列表\n+ NoticeBar 通告栏\n+ Sticky 吸顶容器\n+ Steps 步骤条\n+ Fab 浮动按钮\n+ Drawer 抽屉\n+ BottomPopup 底部弹出层\n+ TopPopup 顶部弹出层\n+ TimeAxis 时间轴\n+ 布局组件\n+ Layout 栅格布局\n+ Panel 面板\n+ Preview 表单预览\n+ List 列表\n+ Card 卡片\n+ 扩展组件\n+ ShareSheet 分享面板\n+ Result 结果页\n+ FilterBar 筛选栏\n+ DigitalRoller 数字滚轮\n+ DigitalKeyboard 数字键盘\n+ CountdownVerify 验证码倒计时\n+ SwiperDot 轮播图指示点",
+      "score": 0.6246834,
+      "raw_content": null,
+      "id": "29e04f-02"
+    },
+    {
+      "url": "https://developers.weixin.qq.com/miniprogram/dev/devtools/auto/changelog.html",
+      "title": "更新日志 | 微信开放文档",
+      "content": "小程序\n\n 小程序\n 小游戏\n 公众号\n 服务号\n 开放平台\n 企业微信\n 微信支付\n 视频号\n 微信小店\n 智能对话\n 腾讯小微\n 教育平台\n\n取消\n\n查看更多\n\n在小程序下暂无结果，查看其它业务相关内容 >\n\n 指南\n 框架\n 组件\n API\n 服务端\n 平台能力\n\n  + 行业能力\n  + 商业能力\n  + 多端能力\n  + 服务市场\n  + 城市服务\n  + 付费能力\n  + 拓展能力\n 工具\n 云服务\n\n  + 云开发\n  + 云托管\n AI 能力\n\n开发\n\n中文\n\nEN\n\n取消\n\n- 工具\n\n# # 更新日志\n\n## # v0.12.0 (2022-9-28)\n\n1. `A` 新增 支持获取设置工具登录票据\n\n## # v0.11.0 (2021-9-14)\n\n> 对应基础库版本 2.19.3 [...] ## # v0.5.5 (2019-7-15)\n\n1. `U` 优化 工具启动错误提示\n2. `U` 优化 真机自动化\n\n## # v0.5.4 (2019-7-8)\n\n1. `F` 修复 miniProgram.remote 无法打印二维码的问题\n\n## # v0.5.3 (2019-6-24)\n\n1. `A` 新增 miniProgram.exposeFunction\n2. `A` 新增 JS 脚本错误监听\n3. `F` 修复 element.offset\n\n## # v0.5.2 (2019-6-17)\n\n1. `A` 新增 真机调试启动\n2. `U` 优化 工具启动及连接失败提示\n\n## # v0.5.1 (2019-5-28)\n\n1. `A` 新增 小程序控制\n2. `A` 新增 小程序页面控制\n3. `A` 新增 小程序页面元素控制 [...] > 对应基础库版本 2.19.3\n\n1. `A` 新增 miniProgram.callPluginWxMethod 方法\n2. `A` 新增 miniProgram.mockPluginWxMethod 方法\n3. `A` 新增 miniProgram.restorePluginWxMethod 方法\n4. `F` 修复 插件页跳转失败的问题\n\n## # v0.10.0 (2020-7-20)\n\n> 对应开发者工具版本 1.04.2006242\n\n1. `A` 新增 miniProgram.stopAudits 方法\n\n## # v0.9.1 (2020-1-3)\n\n1. `F` 修复 scroll-view 组件无法获取 scroll-top, scroll-left 属性的问题\n\n## # v0.9.0 (2019-12-31)\n\n> 对应基础库版本 2.9.5，开发者工具版本 1.02.2002272",
+      "score": 0.3339163,
+      "raw_content": null,
+      "id": "46d148-03"
+    },
+    {
+      "url": "https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/miniapp/changelog/android/changelog.html",
+      "title": "Android SDK 更新日志 | 微信开放文档",
+      "content": "# # Android SDK 更新日志\n\n注意：1.0.0 版本及以上的 SDK 为新架构版本，版本 >= 1.06.2306122 的开发者工具方可支持使用，后续不再提供单独的 SDK，若有相关 SDK 使用问题可以前往社区反馈。\n\n说明：当前最新版多端 SDK（ 即 Android SDK >= 1.5) 对齐小程序基础库的版本是 3.6.5；其余版本 SDK 对齐小程序基础库的版本是 3.2.5\n\n开发者可以通过开发者工具可视化编辑 `project.miniapp.json` 选择需要的对应版本。\n\n`project.miniapp.json`\n\n## # 1.7.0\n\n发布时间：2026-06-16 10:30:24\n\n`A`\n`F`\n\n## # 1.6.24\n\n发布时间：2025-12-10 16:24:35\n\n`F`\n`F`\n\n## # 1.6.23\n\n发布时间：2025-10-21 15:18:00\n\n`U`\n\n## # 1.6.22\n\n发布时间：2025-09-23 15:50:51\n\n`F`\n\n## # 1.6.21 [...] `F`\n\n## # 1.6.21\n\n发布时间：2025-09-10 14:20:56\n\n`F`\n\n## # 1.6.20\n\n发布时间：2025-08-28 19:16:57\n\n`U`\n\n## # 1.6.19\n\n发布时间：2025-08-20 15:05:09\n\n`F`\n\n## # 1.6.18\n\n发布时间：2025-08-06 16:41:56\n\n`F`\n\n## # 1.6.17\n\n发布时间：2025-07-28 20:26:47\n\n`U`\n`U`\n\n## # 1.6.16\n\n发布时间：2025-07-20 22:43:27\n\n`U`\n\n## # 1.6.15\n\n发布时间：2025-06-30 22:37:44\n\n`F`\n\n## # 1.6.14\n\n发布时间：2025-06-20 10:57:45\n\n`F`\n\n## # 1.6.13\n\n发布时间：2025-06-12 19:36:26\n\n`A`\n\n## # 1.6.12\n\n发布时间：2025-05-23 21:56:58\n\n`A`\n\n## # 1.6.11\n\n发布时间：2025-05-22 16:27:39 [...] `F`\n`U`\n`F`\n\n## # 1.6.10\n\n发布时间：2025-05-06 22:14:54\n\n`U`\n\n## # 1.6.9\n\n发布时间：2025-04-23 16:28:49\n\n`F`\n`A`\n\n## # 1.6.8\n\n发布时间：2025-04-10 10:51:19\n\n`F`\n`F`\n\n## # 1.6.7\n\n发布时间：2025-03-27 20:09:43\n\n`A`\n\n## # 1.6.6\n\n发布时间：2025-03-25 19:50:07\n\n`F`\n`U`\n\n## # 1.6.5\n\n发布时间：2025-03-21 17:26:26\n\n`F`\n`A`\n\n## # 1.6.4\n\n发布时间：2025-03-17 15:18:29\n\n`F`\n`U`\n\n## # 1.6.3\n\n发布时间：2025-03-10 16:21:51\n\n`A`\n\n## # 1.6.2\n\n发布时间：2025-02-28 15:06:41\n\n`F`\n`U`\n\n## # 1.6.1\n\n发布时间：2025-02-12 15:01:32\n\n`F`\n\n## # 1.6.0",
+      "score": 0.28852448,
+      "raw_content": null,
+      "id": "cdfc44-04"
+    },
+    {
+      "url": "https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/changelog/update-log",
+      "title": "基础库版本更新日志_抖音开放平台",
+      "content": "•新增 API 小程序 Canvas v2 新增`Canvas.createPath2D`方法\n\n•新增 API 小程序 Canvas v2 新增`Canvas.toDataURL`方法\n\n•新增 API `onUnhandledRejection`，`offUnhandledRejection` 监听未处理的 `Promise` 拒绝事件 详情\n\n•更新 组件 小程序 Canvas v2 组件新增`disable-scroll`属性 详情\n\n•更新 组件 小程序 Canvas v2 组件新增`bindlongtap`事件 详情\n\n•更新 API `CameraContext` 新增 `takePhoto`、`startRecord`、`stopRecord` 方法 详情\n\n•更新 组件 `camera` 新增 `mode`、`bindscancode` 属性 详情\n\n•更新 API `tt.downloadFile` 支持 `timeout` 属性，回调新增 `profile` 字段 详情 [...] [2021-10-14]\n\n•新增 API showShareMenu 和 hideShareMenu 支持 menus 字段 详情\n\n## 2.27.0\n\n[2021-09-28]\n\n•更新 API `RecorderManager.start` 支持 `format` 属性 详情\n\n## 2.26.0\n\n[2021-09-16]\n\n•新增 API canRateAwemeOrders/rateAwemeOrder 小程序订单评价能力 详情\n\n•更新 API `tt.canvasToTempFilePath` 新增 `fileType`、`quality` 属性 详情\n\n•更新 API 小程序 `getLocation` 增加 `isHighAcccuracy` 字段 详情\n\n## 2.25.0\n\n[2021-09-10]\n\n•新增 组件 movable-view/movable-area 详情\n\n•更新 API 小程序 `getLocation` 增加 `isHighAcccuracy` 字段 详情 [...] 抖音开放平台Logo\n\n###### 开发者文档\n\n控制台\n\n 开发\n\nJS API\n\n服务端 OpenAPI\n\n- 基础库版本更新日志- 开发者工具 IDE 更新日志\n\n# 基础库版本更新日志\n\n我的收藏\n\n•更新 API `tt.compressImage` 支持 `compressedWidth` 和 `compressedHeight` 属性 详情\n\n•更新 API `RewardedVideoAd.show` 针对激励广告视频增加频控限制 详情\n\n•新增 框架 大屏适配相关能力 详情\n\n•新增 API `tt.matchMedia` 判断当前页面状态是否满足指定的媒体查询条件 详情\n\n•新增 组件 `match-media` 媒体查询组件 详情\n\n•新增 框架 `createMediaQueryObserver` 创建页面媒体查询（Media query）的监听器 详情\n\n•新增 框架 小程序鸿蒙操作系统支持 详情\n\n•更新 API 小程序地理位置接口 chooseLocation 可选强制返回 name 详情",
+      "score": 0.2731469,
+      "raw_content": null,
+      "id": "483f4a-05"
+    }
+  ],
+  "response_time": 1.27,
+  "request_id": "a0c2dea0-0d91-48f1-8b3a-410678770125"
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>微信小程序后端方案 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小程序后端方案 · 横评</span></nav>
+  <article>
+<h1>微信小程序后端方案 · 横评</h1>
+<blockquote>主题：小程序的后端放哪——官方 serverless、官方容器托管、自建、第三方 BaaS 四路线五个条目。 用户画像：通用视角按场景分流——个人快速开发 / 团队长期维护 / 多端复用三场景；主评微信端表现。 数据核查日：2026-09-30（gh/npm 一手数据、价格页与官方文档当日采集；域名规则补充采集 2026-10-01）。原始留档 <code>raw/2026-09-30/</code> 与 <code>raw/2026-10-01/</code>。</blockquote>
+<h2>场景速配（先给结论）</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">推荐</th><th style="text-align:left">一句话理由</th></tr></thead><tbody><tr><td style="text-align:left">个人快速开发（默认答案）</td><td style="text-align:left"><strong>微信云开发 / CloudBase</strong></td><td style="text-align:left">免鉴权+集成中心把支付/公众号接入压到最低，免费 6 个月+¥19.9/月起 [1][8]</td></tr><tr><td style="text-align:left">存量服务迁移 / 任意语言运行时</td><td style="text-align:left"><strong>微信云托管</strong></td><td style="text-align:left">容器免改造上云，callContainer 免鉴权且免域名白名单 [2][3]</td></tr><tr><td style="text-align:left">团队长期维护 / 多端复用（默认答案）</td><td style="text-align:left"><strong>自建后端</strong></td><td style="text-align:left">资产完全自有、后端不随平台政策摆布；三道合规关是固定成本 [3][4]</td></tr><tr><td style="text-align:left">出海 / 海外用户</td><td style="text-align:left"><strong>Supabase</strong></td><td style="text-align:left">Postgres 生态+零运维；国内小程序主线不选（域名备案关+无节点）[3][5]</td></tr><tr><td style="text-align:left">国内第三方 BaaS 补位</td><td style="text-align:left">LeanCloud 观望</td><td style="text-align:left">服务在营但 SDK 双端冻结 3-5 年，新项目无理由入坑 [6]</td></tr></tbody></table>
+<h2>属性对比矩阵</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">云开发/CloudBase</th><th style="text-align:left">微信云托管</th><th style="text-align:left">自建后端</th><th style="text-align:left">Supabase</th><th style="text-align:left">LeanCloud</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">官方 Serverless BaaS [1]</td><td style="text-align:left">官方容器托管 [2]</td><td style="text-align:left">云服务器+自选框架 [4]</td><td style="text-align:left">开源 BaaS（Postgres）[5]</td><td style="text-align:left">国内老牌 BaaS [6]</td></tr><tr><td style="text-align:left">微信集成</td><td style="text-align:left"><strong>免鉴权·原生最深</strong>：云函数私有协议+集成中心微信支付/公众号一键接入 [1][7]</td><td style="text-align:left"><strong>免鉴权·免域名白名单</strong>：callContainer 私有协议 [2][3]</td><td style="text-align:left">手动：三道合规关+access_token/验签自管 [3][4]</td><td style="text-align:left">无：*.supabase.co 过不了备案关，须中转层 [3][4]</td><td style="text-align:left">有小程序 SDK，无免鉴权深集成 [3][6]</td></tr><tr><td style="text-align:left">计费（2026-09-30 查询）</td><td style="text-align:left">免费环境 6 个月；基础套餐 ¥19.9/月（40,000 资源点/月，1 点=¥0.001）[1][8]</td><td style="text-align:left">按量：实例 ¥0.02975/时起、数据库算力 ¥0.0855/时起；免费额度 3 个月 [2]</td><td style="text-align:left">服务器固定租用+域名/证书/备份自购</td><td style="text-align:left">免费档（2 项目）；Pro $25/月有自定义域名 [5]</td><td style="text-align:left">开发版免费；商用版最低消费 30 元/天、API 1.0 元/万次 [6]</td></tr><tr><td style="text-align:left">运维负担</td><td style="text-align:left">零运维</td><td style="text-align:left">低（免运维，冷启动可设常驻消除）</td><td style="text-align:left">高（部署/证书/备份/安全全自管）</td><td style="text-align:left">零运维</td><td style="text-align:left">零运维</td></tr><tr><td style="text-align:left">锁定风险</td><td style="text-align:left">高（专有数据模型/云函数 API）</td><td style="text-align:left">中（容器镜像可迁）</td><td style="text-align:left">低（资产自有）</td><td style="text-align:left">低-中（Postgres 标准接口）</td><td style="text-align:left">中高（专有 API，SDK 冻结放大）</td></tr><tr><td style="text-align:left">多端能力（参考列，不计权）</td><td style="text-align:left">中：公众号/Web/多端 SDK 支持但走云开发专用 API [1]</td><td style="text-align:left">中：容器即通用服务，天然多端可接 [2]</td><td style="text-align:left">高：API 自定义，任何端可接</td><td style="text-align:left">高：Postgres+REST，任何端可接 [5]</td><td style="text-align:left">中：多端 SDK 齐全但均为专有 API [6]</td></tr><tr><td style="text-align:left">AI 工具链（2026）</td><td style="text-align:left"><strong>活跃</strong>：AI Toolkit MIT ⭐1,129 pushed 2026-09-30，Skills/MCP/插件生态 [9]</td><td style="text-align:left">无专门工具链</td><td style="text-align:left">任意 AI coding 直接可用</td><td style="text-align:left">社区 MCP 生态丰富</td><td style="text-align:left">无</td></tr><tr><td style="text-align:left">维护活跃（2026-09-30）</td><td style="text-align:left">平台月度发版（2026-06 AI 工具/2026-05-28 集成中心）[7]</td><td style="text-align:left">官网/定价页现行口径在线 [2]</td><td style="text-align:left">—（路线条目）</td><td style="text-align:left">pushed 2026-09-30，⭐110,941（gh 2026-10-01）[10]</td><td style="text-align:left">SDK 双端冻结：JS 2023-10 / leanengine 2021-08 [6][11]</td></tr><tr><td style="text-align:left">verdict</td><td style="text-align:left"><strong>adopt</strong></td><td style="text-align:left">trial</td><td style="text-align:left"><strong>adopt</strong></td><td style="text-align:left">trial</td><td style="text-align:left">hold</td></tr></tbody></table>
+<h2>结构性结论（2026-09-30 / 10-01 快照）</h2>
+<ol><li><strong>后端层与前端框架层正交</strong>：Taro/uni-app/原生等任何前端框架都能配任何后端；唯一的例外级差异是微信原生集成深度——云开发免鉴权、云托管 callContainer 免域名白名单是平台特权，其余路线都要过 ICP 备案+HTTPS+白名单三关 [1][2][3][4]。</li><li><strong>「官方 serverless」与「腾讯云产品」的边界已变化</strong>：微信云开发与腾讯云 CloudBase 同栈同计费（资源点模式、同一份更新日志），平台定位转型「AI 原生后端一体化平台」，2026-05-28 上线集成中心（微信支付/公众号一键接入）；微信侧入口保留但叙事升维——配合微信「AI 应用及线上工具小程序成长计划」（激励期 2026 全年，云开发资源/AI 算力在激励包内），官方后端从「小程序配套」变成「AI 后端入口」[1][7][12]。</li><li><strong>合规三关是自建路线的真实门槛，官方两条线全部绕开</strong>：ICP 备案（API 层 45082 硬拦截）+ 仅 https/wss + 合法域名白名单（修改限频）[3][4]；云托管 callContainer 被官方文档明文豁免域名配置 [3]。选型本质是「用锁定换合规」。</li><li><strong>BaaS 看 SDK 活性不看公司存续</strong>：LeanCloud 公司在营（价格页活跃）但 SDK 双端冻结 3-5 年；对照 CloudBase 旧工具链（cloudbase-cli/cloudbase-framework 已 archived）与 npm SDK 2026-09 仍在发版——判断健康度的指标是包管理器最后发版时间 [6][9][11]。</li></ol>
+<h2>决策矩阵</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">微信集成（w=5）</th><th style="text-align:left">运维负担（w=4）</th><th style="text-align:left">计费成本（w=3）</th><th style="text-align:left">可迁移性（w=3）</th><th style="text-align:left">生态与 AI 工具链（w=3）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="cloudbase/report.md">微信云开发 / CloudBase</a></td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left"><strong>78</strong> / 90</td></tr><tr><td style="text-align:left"><a href="cloudrun/report.md">微信云托管</a></td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left"><strong>66</strong> / 90</td></tr><tr><td style="text-align:left"><a href="supabase/report.md">Supabase</a></td><td style="text-align:left">1</td><td style="text-align:left">5</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left"><strong>58</strong> / 90</td></tr><tr><td style="text-align:left"><a href="self-hosted/report.md">自建后端</a></td><td style="text-align:left">2</td><td style="text-align:left">1</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left"><strong>50</strong> / 90</td></tr><tr><td style="text-align:left"><a href="leancloud/report.md">LeanCloud</a></td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left"><strong>48</strong> / 90</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-10-01；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<blockquote><strong>注记</strong>：决策矩阵只覆盖所列维度；维度外风险（工具链拆旧建新、SDK 冻结、跨境延迟、锁定）以各条目 verdict 为准——自建后端矩阵分低于云托管而「团队长期场景 adopt」并存不是矛盾：矩阵度量通用画像综合值（微信集成权重最高），verdict 按三场景分流。</blockquote>
+<h2>来源</h2>
+<ol><li>微信云开发官网与价格计算器 — <a href="https://cloud.weixin.qq.com/cloudbase">https://cloud.weixin.qq.com/cloudbase</a> + <a href="https://cloud.weixin.qq.com/cloudbase/price">https://cloud.weixin.qq.com/cloudbase/price</a>（采集 2026-09-30，留档 raw/2026-09-30/web/）</li><li>微信云托管官网与产品定价 — <a href="https://cloud.weixin.qq.com">https://cloud.weixin.qq.com</a> + <a href="https://developers.weixin.qq.com/minigame/dev/wxcloudrun/src/Billing/price.html">https://developers.weixin.qq.com/minigame/dev/wxcloudrun/src/Billing/price.html</a>（采集 2026-09-30，留档 raw/2026-09-30/web/）</li><li>小程序网络使用规范（callContainer 免域名/域名规则原文）— <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html">https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html</a>（采集 2026-10-01，留档 raw/2026-10-01/web/wechat-network-doc-developers.weixin.qq.com.md）</li><li>域名配置规则与第三方解析 — <a href="https://developers.weixin.qq.com/doc/oplatform/openApi/miniprogram-management/domain-management/api_modifyserverdomaindirectly.html">https://developers.weixin.qq.com/doc/oplatform/openApi/miniprogram-management/domain-management/api_modifyserverdomaindirectly.html</a>（错误码表，留档 raw/2026-10-01/web/wechat-domain-api-errcode-developers.weixin.qq.com.md）、<a href="https://docs.cloudbase.net/lowcode/practices/miniapp-guide/downloadfile-guide">https://docs.cloudbase.net/lowcode/practices/miniapp-guide/downloadfile-guide</a>（采集 2026-10-01，留档 raw/2026-10-01/web/wechat-domain-limit-tavily.json）、百度智能云 2025-10 文（第三方，留档 raw/2026-09-30/web/selfhosted-backend-developers.weixin.qq.com.md）</li><li>Supabase — <a href="https://github.com/supabase/supabase">https://github.com/supabase/supabase</a>（gh 2026-09-30）+ kuizuo.me 一手体验 + CloudBase 官方博客 2026-04-22（留档 raw/2026-09-30/web/supabase-cn-latency.md）</li><li>LeanCloud — <a href="https://www.leancloud.cn/pricing">https://www.leancloud.cn/pricing</a>（2026-09-30）+ npm leancloud-storage/leanengine（2026-09-30 / 2026-10-01）</li><li>CloudBase 平台更新日志 — <a href="https://docs.cloudbase.net/changelog">https://docs.cloudbase.net/changelog</a>（采集 2026-09-30，留档 raw/2026-09-30/web/cloudbase-changelog-docs.cloudbase.net.md）</li><li>微信云开发计费说明 — <a href="https://developers.weixin.qq.com/minigame/dev/wxcloud/billing/price.html">https://developers.weixin.qq.com/minigame/dev/wxcloud/billing/price.html</a>（采集 2026-09-30）</li><li>CloudBase AI Toolkit + @cloudbase/js-sdk npm — <a href="https://github.com/TencentCloudBase/CloudBase-AI-Toolkit">https://github.com/TencentCloudBase/CloudBase-AI-Toolkit</a>（gh 2026-09-30）+ <a href="https://registry.npmjs.org/@cloudbase/js-sdk">https://registry.npmjs.org/@cloudbase/js-sdk</a>（2026-09-30）</li><li>supabase/supabase — gh 2026-09-30</li><li>leancloud/javascript-sdk gh + leanengine npm — gh 2026-09-30 / npm 2026-10-01（留档 raw/2026-10-01/web/leanengine-npmjs.com.md）</li><li>AI 应用及线上工具小程序成长计划（激励期 2026 全年）— 阿思达克财经报道，留档 raw/2026-09-30/web/ant-design-mini-wechat.md</li></ol>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

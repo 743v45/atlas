@@ -30,9 +30,9 @@
   },
   "stats": {
     "source_repo": "mysql/mysql-server",
-    "stars": 12431,
-    "pushed_at": "2026-09-11",
+    "stars": 12436,
+    "pushed_at": "2026-09-29",
     "license": "NOASSERTION",
-    "collected_at": "2026-09-17"
+    "collected_at": "2026-10-01"
   }
 }

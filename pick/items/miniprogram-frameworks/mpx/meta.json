@@ -1,0 +1,36 @@
+{
+  "name": "Mpx",
+  "repo": "https://github.com/didi/mpx",
+  "homepage": "https://mpxjs.cn/",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "滴滴增强型小程序框架——编译输出原生 DSL、运行时开销最小一档，复杂小程序业务的性能敏感之选；Skyline 选项式 API 可用而组合式 worklet 受限，社区声量小一档。",
+  "updated": "2026-10-01",
+  "verified": "2026-10-01",
+  "sources": [
+    "https://github.com/didi/mpx",
+    "https://mpxjs.cn/articles/performance.html",
+    "https://github.com/didi/mpx/issues/1454"
+  ],
+  "tags": [
+    "miniprogram",
+    "cross-platform",
+    "vue-like",
+    "skyline"
+  ],
+  "matrix": {
+    "形态": "增强型编译框架",
+    "语法": "类 Vue 增强 DSL",
+    "多端能力": "小程序多端+Web·RN",
+    "Skyline 适配": "选项式 API 可用",
+    "生态": "滴滴系·社区小",
+    "许可": "Apache-2.0"
+  },
+  "stats": {
+    "source_repo": "didi/mpx",
+    "stars": 3940,
+    "pushed_at": "2026-09-29",
+    "license": "Apache-2.0",
+    "collected_at": "2026-10-01"
+  }
+}

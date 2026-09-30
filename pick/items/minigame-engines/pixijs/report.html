@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PixiJS · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小游戏引擎与渲染方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../layaair/report.html">← LayaAir</a><span class="sep">·</span><a href="../threejs/report.html">Three.js（微信小游戏） →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>PixiJS</h1>
+<blockquote><strong>TL;DR</strong>：2D 渲染库 DIY 路线——引擎本体极活跃，微信端靠 weapp-adapter 适配、管线自担，仅适合已有 pixi 资产的前端团队。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用（场景限定：Web 前端团队复用 pixi 资产）</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">pixijs/pixijs（仓库已由 pixi.js 改名 pixijs），持续发布中</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT（gh 2026-09-30）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/pixijs/pixijs">https://github.com/pixijs/pixijs</a>（⭐48,247、pushed 2026-09-30，gh 2026-09-30）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">pushed 与采集日同日，头部活跃（gh 2026-09-30）</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选（作为 trial 而非 adopt/hold）</h2>
+<ul><li><strong>引擎本体一流但通道是民间的</strong>：⭐48k、pushed 2026-09-30 的顶级 2D 渲染器 [1]；微信官方对 PixiJS 的口径是「可以发布到小游戏，只需引入 weapp-adapter 并做一些适配调整，但并不推荐没有经验的开发者学习使用」——即官方承认可行、不给支持承诺 [2]。</li><li><strong>DIY 的真实成本</strong>：没有编辑器、没有场景/资源/分包管线，渲染循环、素材管线、分包、每个适配边角都自己扛（Cinevva 2026：最灵活也最费劲，适合小而定制、对体积敏感的游戏或本来就活在 Three.js/pixi 里的团队）[3]。</li><li><strong>不给 hold 的理由</strong>：weapp-adapter 模拟 DOM/canvas 的路子成熟（官方示例 + 社区文章覆盖 PixiJS/ThreeJS/Babylon 三家）[2][4]，库本体小、2D 场景包体友好；对已有 pixi 代码与技能的前端团队，复用收益是真实的。</li></ul>
+<h2>对比</h2>
+<ul><li>vs Cocos Creator：Cocos 给编辑器+引擎插件+官方适配，PixiJS 给裸渲染器+自适配；同一 2D 休闲游戏，Cocos 路径的上线确定性显著更高 [2][3]。</li><li>vs Three.js：同为渲染库 DIY，pixi 只做 2D；weapp-adapter 路线两者同门（ThreeJS 亦可走此路）[2][4]。</li><li>vs 裸 Canvas：pixi 提供 WebGL 批渲染/精灵图集性能层，裸 Canvas 无这些但零依赖 [3]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>适配层无维护承诺</strong>：weapp-adapter 是官方示例级代码，微信基础库或 pixi 大版本升级后回归靠团队自测 [2]。</li><li><strong>无微信平台能力封装</strong>：登录/支付/开放数据域等 wx API 全部自封装（引擎路线里由 Cocos/Laya 构建模板代劳的部分）[2][3]。</li><li>团队若无 pixi/WebGL 经验，选它纯属负重——官方文档明确不推荐无经验者走此路 [2]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/pixijs/pixijs">https://github.com/pixijs/pixijs</a>（gh 2026-09-30：⭐48,247、pushed 2026-09-30、MIT）</li><li>微信开放文档「学习进阶指南」— <a href="https://developers.weixin.qq.com/minigame/dev/guide/develop/develop">https://developers.weixin.qq.com/minigame/dev/guide/develop/develop</a>（2026-09-30：PixiJS/ThreeJS 走 weapp-adapter、不推荐无经验开发者）</li><li>Cinevva — WeChat Mini Game Engines (2026) — <a href="https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines">https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines</a>（2026-09-30 检索：最灵活最费劲、适用场景）</li><li>CSDN — WeApp-Adapter 终极指南 — <a href="https://blog.csdn.net/gitblog_00206/article/details/155330412">https://blog.csdn.net/gitblog_00206/article/details/155330412</a>（2026-09-30 检索：adapter 覆盖 PixiJS/ThreeJS/Babylon；个人博客口径）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：本体活跃+通道民间，复用 pixi 资产的前端团队限定</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

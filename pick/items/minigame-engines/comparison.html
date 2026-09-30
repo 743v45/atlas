@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>微信小游戏引擎与渲染方案 横评 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>微信小游戏引擎与渲染方案 · 横评</span></nav>
+  <article>
+<h1>微信小游戏引擎与渲染方案 · 横评</h1>
+<blockquote>主题：微信小游戏用什么渲染——完整引擎、渲染库 DIY、裸 Canvas、Unity 存量移植四条路线六个候选。 用户画像：通用视角按场景分流（个人快速开发 / 团队长期维护 / 多端复用），主评微信端表现。 数据核查日：2026-09-30（gh API 直查 stars/pushed_at/license；license NOASSERTION 已解码 2026-10-01；口碑与定价来自 tvly 检索 + 官方文档，原始留档 <code>raw/2026-09-30/web/</code> 与 <code>raw/2026-10-01/{gh,web}/</code>）。</blockquote>
+<h2>场景速配（先给结论）</h2>
+<table><thead><tr><th style="text-align:left">场景</th><th style="text-align:left">推荐</th><th style="text-align:left">一句话理由</th></tr></thead><tbody><tr><td style="text-align:left">个人快速开发 · 2D 休闲</td><td style="text-align:left"><strong>Cocos Creator</strong></td><td style="text-align:left">官方推荐+一键构建+教程最厚，上线确定性最高 [1][3]</td></tr><tr><td style="text-align:left">个人快速开发 · 3D</td><td style="text-align:left">Cocos Creator 或 LayaAir</td><td style="text-align:left">Cocos 省包体，LayaAir 3D 工作流口味替代 [4]</td></tr><tr><td style="text-align:left">团队长期维护</td><td style="text-align:left"><strong>Cocos Creator</strong></td><td style="text-align:left">生态/招人/案例厚度唯一一档，引擎插件降包体运维 [1][3][4]</td></tr><tr><td style="text-align:left">多端复用（微信+抖音+OPPO/vivo+原生）</td><td style="text-align:left">Cocos Creator / LayaAir</td><td style="text-align:left">两者皆全端发布；渠道支持面逐渠道核实（小米已停 Cocos 导出）[1][3][10]</td></tr><tr><td style="text-align:left">存量 Unity 项目移植</td><td style="text-align:left"><strong>Unity/团结转换</strong></td><td style="text-align:left">官方五阶段方案+团结引擎双轨；新项目不适用 [2][5]</td></tr><tr><td style="text-align:left">Web 前端团队复用 2D 资产</td><td style="text-align:left">PixiJS</td><td style="text-align:left">weapp-adapter 可行但管线自担 [3][4]</td></tr><tr><td style="text-align:left">复用 three.js 资产的小 3D</td><td style="text-align:left">Three.js</td><td style="text-align:left">官方适配层冻结 0.108，锁旧版为代价 [6]</td></tr><tr><td style="text-align:left">极简玩法 / 学习底层</td><td style="text-align:left">原生 Canvas 直写</td><td style="text-align:left">官方推荐引擎，直写只留给强定制与教学 [3]</td></tr></tbody></table>
+<h2>属性对比矩阵</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">Cocos Creator</th><th style="text-align:left">LayaAir</th><th style="text-align:left">Unity/团结转换</th><th style="text-align:left">PixiJS</th><th style="text-align:left">Three.js</th><th style="text-align:left">原生 Canvas/WebGL</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">完整引擎+编辑器</td><td style="text-align:left">完整引擎+IDE</td><td style="text-align:left">WebGL 转换方案</td><td style="text-align:left">2D 渲染库</td><td style="text-align:left">3D 渲染库</td><td style="text-align:left">裸 Canvas/WebGL</td></tr><tr><td style="text-align:left">2D/3D</td><td style="text-align:left">2D+3D 均衡</td><td style="text-align:left">2D+3D（3D 优先）</td><td style="text-align:left">3D 见长（Unity 系）</td><td style="text-align:left">仅 2D</td><td style="text-align:left">仅 3D</td><td style="text-align:left">2D/3D 裸写</td></tr><tr><td style="text-align:left">微信适配</td><td style="text-align:left"><strong>官方推荐·引擎插件</strong></td><td style="text-align:left">面板直出·一等目标</td><td style="text-align:left">官方转换工具·通道活</td><td style="text-align:left">weapp-adapter 自适配</td><td style="text-align:left">官方适配层停更</td><td style="text-align:left">平台原生·零适配层</td></tr><tr><td style="text-align:left">包体表现</td><td style="text-align:left">引擎入插件省首包</td><td style="text-align:left">运行时占包体预算</td><td style="text-align:left">4MB 首包残酷</td><td style="text-align:left">库小·管线自担</td><td style="text-align:left">锁旧版本·社区方案</td><td style="text-align:left">最零依赖</td></tr><tr><td style="text-align:left">许可/费用</td><td style="text-align:left">MIT·编辑器免费</td><td style="text-align:left">MIT·企业版商务</td><td style="text-align:left">引擎订阅·个人版免费</td><td style="text-align:left">MIT·免费</td><td style="text-align:left">MIT·免费</td><td style="text-align:left">无依赖·免费</td></tr><tr><td style="text-align:left">上手路径</td><td style="text-align:left">编辑器·中文教程最厚</td><td style="text-align:left">IDE·中文文档</td><td style="text-align:left">限存量 Unity 项目</td><td style="text-align:left">代码 DIY</td><td style="text-align:left">代码 DIY</td><td style="text-align:left">官方文档·不推荐新手</td></tr><tr><td style="text-align:left">多端能力（参考列，不计权重）*</td><td style="text-align:left">全端：微信/抖音/OPPO/vivo/小米/原生 App（小米已停 Cocos 导出）[1][10]</td><td style="text-align:left">全端：微信/H5/原生+各小游戏渠道（README 自述）[4]</td><td style="text-align:left">微信（团结引擎另覆盖多端）[2][5]</td><td style="text-align:left">Web 原生，小游戏端靠 adapter</td><td style="text-align:left">Web 原生，小游戏端靠冻结适配</td><td style="text-align:left">仅微信小游戏环境</td></tr><tr><td style="text-align:left">引擎本体活性(pushed)</td><td style="text-align:left">2026-09-21</td><td style="text-align:left">2026-09-24</td><td style="text-align:left">团结 1.6.0 在维护</td><td style="text-align:left"><strong>2026-09-30</strong></td><td style="text-align:left"><strong>2026-09-30</strong></td><td style="text-align:left">—（平台能力）</td></tr><tr><td style="text-align:left"><strong>微信通道活性</strong></td><td style="text-align:left"><strong>活（引擎插件）</strong></td><td style="text-align:left"><strong>活（面板直出）</strong></td><td style="text-align:left"><strong>活（微信文档+Gitee）</strong></td><td style="text-align:left">民间（官方示例级）</td><td style="text-align:left"><strong>冻结（0.108/2023-05）</strong></td><td style="text-align:left">平台原生</td></tr><tr><td style="text-align:left">⭐（gh 2026-09-30）</td><td style="text-align:left">9,837</td><td style="text-align:left">2,199</td><td style="text-align:left">GitHub 封锁/Gitee 24</td><td style="text-align:left">48,247</td><td style="text-align:left">116,086</td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">verdict</td><td style="text-align:left"><strong>adopt</strong></td><td style="text-align:left">trial</td><td style="text-align:left">trial</td><td style="text-align:left">trial</td><td style="text-align:left">trial</td><td style="text-align:left">trial</td></tr></tbody></table>
+<p>（逐格数据出处见各条目报告文末来源；⭐/pushed 均 gh 2026-09-30。） \* 多端口径：「多端能力」是独立参考列，不计入 decision.json 权重（口径见 decision.json note）；本类别「多端」指微信之外的发布出口，渠道支持面动态变化（小米已停 Cocos 导出改推快游戏联盟标准 [10]），多端复用场景发布前逐渠道核实。</p>
+<h2>本类别三条结构性结论（2026-09-30 快照）</h2>
+<ol><li><strong>判活必须看双线：引擎本体活性 ≠ 微信通道活性</strong>。Godot（⭐117,990 当日活跃）、Phaser（⭐40,392）、Babylon.js（⭐26,123）、Three.js（⭐116,086）引擎本体全部活跃，但微信通道分别是「作者弃维护的个人工具」「民间 shim」「通用 adapter 声量弱」「官方适配层 2023-05 冻结」——高 star 完全不保证微信可用性，这是本类别最大的选型陷阱 [6][7][8]。</li><li><strong>引擎是否被微信客户端内置是包体分水岭</strong>：Cocos 引擎可经官方「小游戏引擎插件」留在客户端、不占 4MB 首包；LayaAir/渲染库路线的运行时占自己的包预算；Unity WebGL 转换则被 4MB 首包「残酷」对待（Cinevva 2026）[1][4][5]。</li><li><strong>路线三分决定了问题的问法</strong>：新做（完整引擎）、DIY（渲染库/裸写）、移植（Unity 转换）回答的是三个不同问题——李卿（微信小游戏团队负责人）把「Unity 适配和 1G 包体基建的放开」列为 2023 年微信小游戏的重要突破，但它是移植工具而非微信优先工具；把它当新项目起点是最常见的错误选型 [5][9]。</li></ol>
+<h2>决策矩阵</h2>
+<table><thead><tr><th style="text-align:left">条目</th><th style="text-align:left">微信适配（w=5）</th><th style="text-align:left">生态与教程（w=4）</th><th style="text-align:left">上手效率（w=4）</th><th style="text-align:left">包体表现（w=4）</th><th style="text-align:left">2D/3D 能力（w=3）</th><th style="text-align:left">许可/费用（w=2）</th><th style="text-align:left">加权总分</th></tr></thead><tbody><tr><td style="text-align:left"><a href="cocos-creator/report.md">Cocos Creator</a></td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left">4</td><td style="text-align:left">5</td><td style="text-align:left"><strong>107</strong> / 110</td></tr><tr><td style="text-align:left"><a href="layaair/report.md">LayaAir</a></td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left"><strong>80</strong> / 110</td></tr><tr><td style="text-align:left"><a href="threejs/report.md">Three.js（微信小游戏）</a></td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">5</td><td style="text-align:left">5</td><td style="text-align:left"><strong>71</strong> / 110</td></tr><tr><td style="text-align:left"><a href="unity-transform/report.md">Unity / 团结引擎 微信小游戏转换</a></td><td style="text-align:left">4</td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">1</td><td style="text-align:left">5</td><td style="text-align:left">2</td><td style="text-align:left"><strong>67</strong> / 110</td></tr><tr><td style="text-align:left"><a href="pixijs/report.md">PixiJS</a></td><td style="text-align:left">2</td><td style="text-align:left">3</td><td style="text-align:left">3</td><td style="text-align:left">4</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left"><strong>66</strong> / 110</td></tr><tr><td style="text-align:left"><a href="canvas-native/report.md">原生 Canvas/WebGL 直写</a></td><td style="text-align:left">3</td><td style="text-align:left">2</td><td style="text-align:left">2</td><td style="text-align:left">5</td><td style="text-align:left">1</td><td style="text-align:left">5</td><td style="text-align:left"><strong>64</strong> / 110</td></tr></tbody></table>
+<p>*权重与评分均为 1–5；评于 2026-10-01；评分依据见各条目报告。决策矩阵只覆盖所列维度，维度外的风险（如维护断层史）以各条目 verdict 为准。*</p>
+<blockquote><strong>注记</strong>：决策矩阵只覆盖所列维度；维度外风险（Unity GitHub 商标封锁、LayaAir 份额自述无第三方复核、three/pixi 适配层无维护承诺、渠道政策变动）以各条目 verdict 为准——矩阵分与 verdict 并存差异不是矛盾，是「综合值」与「该场景该不该用」两层的分工。</blockquote>
+<h2>来源</h2>
+<ol><li>Cocos — <a href="https://github.com/cocos/cocos-engine">https://github.com/cocos/cocos-engine</a>（gh 2026-09-30，license 解码 2026-10-01）+ <a href="https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html">https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html</a>（2026-09-30）</li><li>微信开放文档 Unity 适配 — <a href="https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform.html">https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform.html</a>（2026-09-30）</li><li>微信开放文档「学习进阶指南」— <a href="https://developers.weixin.qq.com/minigame/dev/guide/develop/develop">https://developers.weixin.qq.com/minigame/dev/guide/develop/develop</a>（2026-09-30：官方推荐引擎、weapp-adapter、可视化工具）</li><li>Cinevva — WeChat Mini Game Engines (2026) — <a href="https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines">https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines</a>（2026-09-30 检索）</li><li>Unity/团结 — gh 403 封锁留档（raw/2026-09-30/gh/minigame-unity-webgl-transform.json）+ Gitee wechat-minigame/minigame-transform + unity.cn 团结 1.6.0 release note + unity.cn 服务条款（2026-10-01）+ unity.com 定价页（2026-09-30）</li><li>Three.js 通道 — <a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a> 与 <a href="https://github.com/wechat-miniprogram/threejs-miniprogram">https://github.com/wechat-miniprogram/threejs-miniprogram</a>（gh 2026-09-30：0.108.0、pushed 2023-05-22）</li><li>Godot 通道 — <a href="https://github.com/godotengine/godot">https://github.com/godotengine/godot</a>（gh 2026-09-30）+ <a href="https://github.com/yuchenyang1994/godot-love-wechat">https://github.com/yuchenyang1994/godot-love-wechat</a>（作者弃维护声明，raw/2026-09-30/web/godot-wechat.md）</li><li>Phaser/Babylon 通道 — <a href="https://github.com/phaserjs/phaser">https://github.com/phaserjs/phaser</a>、<a href="https://github.com/BabylonJS/Babylon.js">https://github.com/BabylonJS/Babylon.js</a>（gh 2026-09-30）+ raw/2026-09-30/web/{phaser,babylon}-wechat.md（Phaser 民间 shim 线索留档见 pixi-wechat.md）</li><li>虎嗅/Investing 转述李卿公开课 — <a href="https://cn.investing.com/analysis/article-200485325">https://cn.investing.com/analysis/article-200485325</a>（2026-04，2026-09-30 检索）</li><li>小米开发者文档 — 小米小游戏停止 Cocos 导出、迁移快游戏联盟标准公告 — <a href="https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2165">https://dev.mi.com/xiaomihyperos/documentation/detail?pId=2165</a>（2026-09-30 检索，留档 raw/2026-09-30/web/unity-transform-releases.md）</li></ol>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

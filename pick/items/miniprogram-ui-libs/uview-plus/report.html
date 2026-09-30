@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>uview-plus · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序 UI 组件库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../uni-ui/report.html">← uni-ui</a><span class="sep">·</span><a href="../vant-weapp/report.html">vant-weapp →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>uview-plus</h1>
+<blockquote><strong>TL;DR</strong>：uView 官方双仓冻结（2025-01）后的社区接棒者——uView2 API 高兼容 + 3.7 万 npm 下载/月的高频更新；uView 谱系 fork 生态，长期维护看接棒者</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/ijry/uview-plus">https://github.com/ijry/uview-plus</a>（⭐719、pushed 2026-09-28，gh 2026-10-01）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">最新版本</td><td style="text-align:left">npm uview-plus 3.8.126（2026-09-28；2026-10-01 查询）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">组件规模</td><td style="text-align:left">src/uni_modules/uview-plus/components 实测 142 个组件目录（含配对子组件）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">高频小版本滚动（3.8.x 三位数版本号）；npm 月下载 36,753（2026-08-30→09-28），uni-app 侧最高</td><td style="text-align:left">[2]</td></tr></tbody></table>
+<h2>uView 谱系（先读这个）</h2>
+<p>uView 是 uni-app 生态曾经最流行的 UI 框架，官方两仓已冻结：uView 1.x（umicro/uView，⭐4,220，pushed 2025-01-02）与 uView 2.0（umicro/uView2.0，⭐1,789，pushed 2025-01-02）[3]。官方停更后社区出现两条接棒 fork：</p>
+<ul><li><strong>uview-plus</strong>（ijry/uview-plus，本条目）：「基于 uView2.0 初步修改」，保持选项式 API 与 mixins 兼容，未用 TS 重写但带独立类型声明包；另规划 uview-ultra（uni-app x 版，uts + 组合式 API 重构）[4]。</li><li><strong>uview-pro</strong>（anyup/uView-Pro，未立条目）：与 plus 不同源——「基于 uView 1.8.8 用 TypeScript 重构」，Vue3+TS、80+ 组件（目录实测 99 项）、暗黑模式、多语言，已上架华为鸿蒙商店；v0.6.19（2026-09-07）活跃但版本号未到 1.0 [5]。</li><li>另有 @climblee/uv-ui（uView2 另一 fork，npm 月下载 1,719，2026-10-01 查询）声量更小，不单独立目 [6]。</li></ul>
+<h2>为什么选（作为 trial）</h2>
+<ul><li><strong>接棒者更新频率实打实</strong>：npm uview-plus 3.8.126（2026-09-28）——三位数小版本号意味着持续滚动修复；月下载 36,753（2026-08-30→09-28）为 uni-app 侧组件库最高，冻结前 uView 存量用户的迁移主通道 [1][2]。</li><li><strong>迁移成本最低的 uView2 延续</strong>：官方文档自述「尽可能兼容原有 uview2 各种 API（如 mixins），方便升级」——存量 uView2 项目续命首选 [4]。</li><li><strong>兼容面最宽</strong>：uni-app 全端 + nvue 兼容 + 鸿蒙方向（官网自述「全面兼容 nvue/鸿蒙/uni-app-x」）[4]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs wot-design-uni：uview-plus 胜在 uView2 生态兼容与用量（36.8k vs 17.5k/月）；wot 胜在 Vue3+TS 原生架构、暗黑、AI 工具链。存量 uView 项目选 plus，新 Vue3 项目 wot 起点更干净 [2][7]。</li><li>vs uni-ui：uni-ui 有 DCloud 官方兜底；uview-plus 社区接棒——「官方 vs 高频社区」的取舍 [8]。</li><li>vs uview-pro：plus 是 uView2 血统（JS、选项式），pro 是 uView1 血统 TS 重写（Vue3+TS、暗黑）；两者 API 不完全互通，选错血统迁移成本高 [4][5]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>fork 生态的结构性风险</strong>：上游官方仓冻结（2025-01-02）后由个人接棒——再断更的可能性永远存在；升级到 uview-ultra（uni-app x）或切换 wot/uni-ui 是预案 [3][4]。</li><li><strong>高频小版本 = 稳定性噪音</strong>：3.8.x 滚动快，升级需盯 changelog；锁版本上线是基本纪律（npm 2026-10-01 观测）[2]。</li><li><strong>Skyline 无适配证据</strong>——「待验证」：未检索到 skyline 适配声明或进度表（gh 检索 2026-10-01）；web 技术路线（同 wot/sard）大概率不支持微信 Skyline [9]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/ijry/uview-plus">https://github.com/ijry/uview-plus</a>（gh 2026-10-01：MIT、⭐719、pushed 2026-09-28；src/uni_modules/uview-plus/components 实测 142 项）</li><li>npm — <a href="https://www.npmjs.com/package/uview-plus">https://www.npmjs.com/package/uview-plus</a>（2026-10-01 查询：3.8.126 / 2026-09-28，近月下载 36,753）</li><li>官方冻结证据 — raw/2026-09-30/gh/uview1.json、uview2.json（gh 2026-09-30：umicro/uView ⭐4,220 与 umicro/uView2.0 ⭐1,789，均 pushed 2025-01-02）</li><li>uview-plus 官方文档/插件市场 — <a href="https://uview-plus.jiangruyi.com">https://uview-plus.jiangruyi.com</a> 与 <a href="https://ext.dcloud.net.cn/plugin?name=uview-plus">https://ext.dcloud.net.cn/plugin?name=uview-plus</a>（访问 2026-10-01：「基于uView2.0初步修改」「未使用typescript重写，但带有独立的类型申明包」「uview-ultra v4 (uni-app-x版本)」，留档 raw/2026-10-01/web/uview-lineage-tavily.json）</li><li>uview-pro 仓库 — <a href="https://github.com/anyup/uView-Pro">https://github.com/anyup/uView-Pro</a>（gh 2026-10-01：MIT、⭐555、pushed 2026-09-20、v0.6.19 2026-09-07、自述「基于 uView 1.8.8 用 TypeScript 重构…80+ 组件…鸿蒙」；components 目录实测 99 项）</li><li>npm — <a href="https://www.npmjs.com/package/@climblee/uv-ui">https://www.npmjs.com/package/@climblee/uv-ui</a>（2026-10-01 查询：近月下载 1,719）</li><li>wot-design-uni 对照 — <a href="https://github.com/Moonofweisheng/wot-design-uni">https://github.com/Moonofweisheng/wot-design-uni</a>（gh 2026-10-01）</li><li>uni-ui 对照 — <a href="https://github.com/dcloudio/uni-ui">https://github.com/dcloudio/uni-ui</a>（gh 2026-10-01）</li><li>Skyline 语境 — <a href="https://github.com/Moonofweisheng/wot-design-uni/issues/317">https://github.com/Moonofweisheng/wot-design-uni/issues/317</a>（gh 2026-10-01：web 路线适配 Skyline 工作量大）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：uView 谱系社区接棒，高频更新 + 兼容迁移双价值</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "updated": "2026-10-01",
+  "note": "评分口径：微信集成（免鉴权/私有协议/支付与公众号集成深度）cloudbase=5（云函数免鉴权+集成中心）、cloudrun=4（callContainer 免鉴权免白名单，无 BaaS 一件套）、leancloud=2（有小程序 SDK 无深集成）、self-hosted=2（全手动但完全可控）、supabase=1（*.supabase.co 过不了域名备案关须中转层）；运维负担（反向：越免运维越高分）cloudbase/supabase/leancloud=5、cloudrun=4（免运维但有冷启动与账单盯守）、self-hosted=1（全自管）；计费成本（免费层+入门价+成本可预期，价格均为 2026-09-30 查询）cloudbase=4（免费 6 个月+¥19.9/月，计费口径两年两更扣 1）、cloudrun=3（按量常驻成本高）、supabase=3（免费档+Pro $25 外币支付）、self-hosted=3（固定租用可预算，规模化最省）、leancloud=2（商用版最低消费 30 元/天≈900 元/月门槛）；可迁移性（锁定风险反向）self-hosted=5（资产自有）、supabase=4（Postgres 标准接口）、cloudrun=4（容器镜像可迁）、cloudbase=2（专有 API/数据模型）、leancloud=2（专有 API+SDK 冻结）；生态与 AI 工具链 cloudbase=5（AI Toolkit+Skills/MCP+插件生态）、self-hosted=4（任意工具直接用）、supabase=4（社区生态大）、cloudrun=3、leancloud=2。多端能力是横评矩阵参考列，按任务口径不计入权重：多端开放度主要随形态（容器/自建/Postgres）而非品牌变化，且与「微信端表现主评」画像弱相关。权重按用户画像：微信端表现主评（微信集成 5），运维负担次之（4）。矩阵外风险以各条目 verdict 为准——self-hosted 矩阵分低是「微信集成弱+运维重」的通用画像结果，团队长期/多端复用场景 verdict=adopt 不与矩阵矛盾。",
+  "weights": {
+    "微信集成": 5,
+    "运维负担": 4,
+    "计费成本": 3,
+    "可迁移性": 3,
+    "生态与 AI 工具链": 3
+  },
+  "scores": {
+    "cloudbase": { "微信集成": 5, "运维负担": 5, "计费成本": 4, "可迁移性": 2, "生态与 AI 工具链": 5 },
+    "cloudrun": { "微信集成": 4, "运维负担": 4, "计费成本": 3, "可迁移性": 4, "生态与 AI 工具链": 3 },
+    "self-hosted": { "微信集成": 2, "运维负担": 1, "计费成本": 3, "可迁移性": 5, "生态与 AI 工具链": 4 },
+    "supabase": { "微信集成": 1, "运维负担": 5, "计费成本": 3, "可迁移性": 4, "生态与 AI 工具链": 4 },
+    "leancloud": { "微信集成": 2, "运维负担": 5, "计费成本": 2, "可迁移性": 2, "生态与 AI 工具链": 2 }
+  }
+}

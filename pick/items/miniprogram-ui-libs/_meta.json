@@ -1,0 +1,6 @@
+{
+  "name": "小程序 UI 组件库",
+  "description": "微信小程序与 uni-app 生态的界面组件从哪来：原生赛道（vant-weapp/tdesign/weui）与跨端赛道（wot-design-uni/uni-ui/uview-plus/firstui）七家横评",
+  "order": 30,
+  "columns": ["技术栈", "组件规模", "主题/暗黑", "维护活性", "许可"]
+}

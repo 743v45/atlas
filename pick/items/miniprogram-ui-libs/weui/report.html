@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WeUI · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/wechat-dev.html">微信生态开发</a><span class="sep">·</span><span>小程序 UI 组件库</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../vant-weapp/report.html">← vant-weapp</a><span class="sep">·</span><a href="../wot-design-uni/report.html">wot-design-uni →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>WeUI</h1>
+<blockquote><strong>TL;DR</strong>：微信官方视觉组件库——扩展库引入不占包体积是独门优势，但仅 22 组件、更新缓慢，只适合轻量场景或对官方视觉有硬要求的界面</blockquote>
+<ul><li><strong>结论</strong>：trial 试用</li><li><strong>核实日期</strong>：2026-10-01</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">许可证</td><td style="text-align:left">weui-miniprogram：MIT；weui-wxss：腾讯格式 LICENSE 文件注明「源码以 MIT 许可发布」（gh 识别为 NOASSERTION，2026-10-01 解码原文确认）</td><td style="text-align:left">[1][2][9]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/wechat-miniprogram/weui-miniprogram">https://github.com/wechat-miniprogram/weui-miniprogram</a>（⭐2,429、pushed 2026-04-28，gh 2026-10-01）；样式库 <a href="https://github.com/Tencent/weui-wxss">https://github.com/Tencent/weui-wxss</a>（⭐15,278、pushed 2026-03-12）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">最新版本</td><td style="text-align:left">npm weui-miniprogram 1.5.6（2024-11-15；2026-10-01 查询）；GitHub releases 止于 v1.0.8（2021-04-14）</td><td style="text-align:left">[3]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">仓库仍有 push（2026-04-28）但发版缓慢：npm 末版 1.5.6（2024-11-15）后近两年无发版；月下载 2,341（2026-08-30→09-28）——数值偏低主因是扩展库方式不经过 npm</td><td style="text-align:left">[1][3]</td></tr></tbody></table>
+<h2>为什么选（作为 trial）</h2>
+<ul><li><strong>微信官方设计与小程序团队出品</strong>：官方文档自述「由微信官方设计团队和小程序团队为微信小程序量身设计」，「微信内部多个小程序项目已经使用」——与微信原生控件的视觉/交互一致性没有替代品 [4]。</li><li><strong>扩展库引入不占包体积（独门优势）</strong>：官方文档明确「支持扩展库引入，不占用小程序包体积」——对 2MB 主包红线敏感的小程序，这是其他任何组件库都给不了的 [4]。</li><li><strong>组件少且更新慢，只够轻量场景</strong>：src/components 实测 22 个组件目录（gh 2026-10-01），远少于其余候选（57–142）；npm 发版以年计——完整App级界面应选其他库，weui 适合工具类轻界面、表单页、或只用其个别控件（msg、dialog、uploader 等）[3][5]。</li></ul>
+<h2>对比</h2>
+<ul><li>vs vant-weapp / tdesign：weui 组件少一个量级（22 vs 57–68）但视觉是「微信亲儿子」；后两者适合整体 UI 框架，weui 更像「官方控件补丁包」[4][5]。</li><li>vs firstui：firstui 主打颜值与模板且商业收费，weui 官方免费——两者不在同一价值轴上 [6]。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>Skyline 兼容无官方声明</strong>——「待验证」：官方文档与 issue 区均未检索到 weui 组件的 Skyline 适配结论（gh/官网检索 2026-09-30～10-01），押 Skyline 前先实测。</li><li><strong>演进停滞风险</strong>：weui-wxss 样式库 pushed 2026-03-12、组件库发版以年计（2026-10-01 核实）——不建议围绕它做深度定制架构 [1][2][3]。</li><li>许可证注意：gh API 将 weui-wxss 标为 NOASSERTION，解码后为「腾讯开源惯例文件，源码 MIT」——合规可商用，但引用时注明自定义 LICENSE 文件 [9]。</li></ul>
+<h2>来源</h2>
+<ol><li>GitHub 仓库 — <a href="https://github.com/wechat-miniprogram/weui-miniprogram">https://github.com/wechat-miniprogram/weui-miniprogram</a>（gh 2026-10-01：MIT、⭐2,429、pushed 2026-04-28；src/components 实测 22 组件目录；releases 止于 v1.0.8 2021-04-14）</li><li>GitHub 仓库 — <a href="https://github.com/Tencent/weui-wxss">https://github.com/Tencent/weui-wxss</a>（gh 2026-10-01：⭐15,278、pushed 2026-03-12）</li><li>npm — <a href="https://www.npmjs.com/package/weui-miniprogram">https://www.npmjs.com/package/weui-miniprogram</a>（2026-10-01 查询：1.5.6 / 2024-11-15，近月下载 2,341）</li><li>微信官方文档 WeUI 组件库 — <a href="https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/weui">https://developers.weixin.qq.com/miniprogram/dev/platform-capabilities/extended/weui</a>（访问 2026-09-30：「支持扩展库引入，不占用小程序包体积」，留档 raw/2026-09-30/web/sard-ui-search.md）</li><li>组件实测 — raw/2026-10-01/gh/ui-libs-component-counts2.md（gh 2026-10-01）</li><li>FirstUI 对照 — raw/2026-09-30/web/firstui-price.md（查询 2026-09-30）</li><li>原始快照 — raw/2026-09-30/gh/weui-miniprogram.json、weui-wxss.json（gh 2026-09-30）</li><li>TDesign 对照 — <a href="https://github.com/Tencent/tdesign-miniprogram/issues/3149">https://github.com/Tencent/tdesign-miniprogram/issues/3149</a>（gh 2026-10-01）</li><li>weui-wxss LICENSE 解码 — raw/2026-10-01/gh/weui-wxss-license-decode.md（gh 2026-10-01：「source code is licensed under the MIT License」）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-01</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录：官方视觉 + 零包体积独门，组件少更新慢只做轻量场景</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>
