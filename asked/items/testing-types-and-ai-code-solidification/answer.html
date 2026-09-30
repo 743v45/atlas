@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>软件测试都有哪些类型?AI 生成的代码怎么固定下来? · asked</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .entry-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .entry-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../tencent-tke-access/answer.html">← 腾讯云 TKE 访问四场景 + kubectl 上手实录</a><span class="sep">·</span><a href="../two-kinds-of-fog/answer.html">两种雾:路不清,还是 Z 不清? →</a></nav>
+  <article>
+<h1>软件测试都有哪些类型?AI 生成的代码怎么固定下来?</h1>
+<blockquote><strong>TL;DR</strong>:测试没有穷尽的清单,但四个问题能装下一张地图——<strong>测多大一块(层次)、为什么要测(目的)、怎么测(方法)、什么时候测(阶段)</strong>,冒烟测试只是「发布后第一眼」。而固定 AI 生成代码的核心只有一句:<strong>AI 干活得快,验收得照样走全套</strong>——读懂再用、用测试锁死行为、进 git 才算存在、把实现藏在你定的接口后面、连「为什么」一起留档;其中测试本身就是最强的固定剂。</blockquote>
+<p>*(建于 2026-10-01 当日问答,非历史恢复。)*</p>
+<h2>一、测试地图:四个问题问下来</h2>
+<p>把软件想象成一栋要交付入住的房子:测试就是对房子做的各种验收。四类验收回答四个问题。</p>
+<h3>问题 1:测多大一块?(层次)</h3>
+<table><thead><tr><th style="text-align:left">层次</th><th style="text-align:left">通俗说法</th><th style="text-align:left">房子类比</th></tr></thead><tbody><tr><td style="text-align:left">单元测试(unit)</td><td style="text-align:left">验一个零件</td><td style="text-align:left">抽一块砖做抗压:这块砖本身合格吗</td></tr><tr><td style="text-align:left">集成测试(integration)</td><td style="text-align:left">验零件怎么拼</td><td style="text-align:left">砖砌成墙后接缝牢不牢、水管和龙头拧得上吗</td></tr><tr><td style="text-align:left">端到端测试(E2E)</td><td style="text-align:left">假装用户走全程</td><td style="text-align:left">从大门进,开灯、放水、点火做饭走一遍</td></tr><tr><td style="text-align:left">冒烟测试(smoke)</td><td style="text-align:left">能不能跑起来</td><td style="text-align:left">通电通水,没爆管就放行——名字来自硬件:新电路板上电,不冒烟就算过第一关;<strong>广而浅,只保核心路径</strong></td></tr></tbody></table>
+<h3>问题 2:为什么要测?(目的)</h3>
+<ul><li><strong>回归测试(regression)</strong>:改了厨房,别把客厅的灯搞灭——修过的 bug 不许复活。发版前全量重跑的老测试套件就是它。</li><li><strong>验收测试(UAT)</strong>:房主(业务方/用户)亲自来验收签字,交付前最后一道。</li><li><strong>性能测试</strong>——一家四口:</li><li>*负载(load)*:平常五口人住,水电够不够(预期流量下表现如何)</li><li>*压力(stress)*:过年三十口亲戚涌来,哪根线先烧(不断加压找崩溃点)</li><li>*浸泡(soak)*:连续住一年,水管漏不漏(长时间跑,查内存泄漏和性能衰减)</li><li>*尖峰(spike)*:电梯突然挤进二十人(流量瞬间暴涨时的表现)</li><li><strong>安全测试</strong>:小偷能不能翻进来(渗透测试、漏洞扫描、依赖审计)。</li><li><strong>混沌测试(chaos)</strong>:主动拉掉一路电闸,看房子还能不能住(Netflix 的 Chaos Monkey 是祖师爷)。</li><li><strong>兼容性测试</strong>:换种气候、换个家具品牌还住得住吗(不同浏览器/手机/操作系统/分辨率)。</li><li><strong>恢复测试</strong>:断电重启后,房子按设计复原吗(备份可用、状态不丢)。</li><li><strong>无障碍测试(accessibility)</strong>:轮椅和盲杖能不能用(读屏器、键盘导航、色彩对比度)。</li></ul>
+<h3>问题 3:怎么测?(方法)</h3>
+<ul><li><strong>黑盒</strong>:不给图纸只看现象(输入什么、吐什么);<strong>白盒</strong>:拿着图纸和线路图验,内部逻辑看得见。</li><li><strong>契约测试(contract)</strong>:装修队和水电工之间的交接单——两边对「插座在哪、水口在哪」的理解必须一字不差(微服务之间用 Pact 这类工具固化接口约定)。</li><li><strong>快照测试(snapshot)</strong>:给房间拍照存档,下次对比有没有人偷偷动过家具(UI 组件渲染结果与上次保存的基准比对)。</li><li><strong>模糊测试(fuzz)</strong>:随机乱按开关、乱泼水,看会不会坏(喂随机/畸形输入找崩溃)。</li><li><strong>猴子测试(monkey)</strong>:更原始的模糊——真·随机乱点一切。</li><li><strong>探索性测试(exploratory)</strong>:不照剧本,像一位挑剔的亲戚到处摸,边玩边记问题(靠经验,无固定脚本)。</li><li><strong>A/B 测试</strong>:两间房刷两种颜色,看访客更爱哪间(线上分流对比,偏产品实验)。</li><li><strong>突变测试(mutation)</strong>:给测试做体检——故意把代码改坏一小处,如果测试照样全绿,说明这些测试是摆设,什么也没锁住。</li><li><strong>属性测试(property-based)</strong>:不举具体例子,立一条规矩——「任何两个金额相加都不能为负」——让工具自己生成成百上千个例子去砸(Python 的 Hypothesis、JS 的 fast-check)。</li><li><strong>差分测试(differential)</strong>:同一个输入喂给两套实现,答案不一致必有一坑(常用于验证新版本和旧版本行为一致)。</li><li><strong>静态测试</strong>:不运行代码的检查——代码评审(code review)、lint、类型检查。<strong>不运行也能抓掉一大半问题</strong>,是性价比最高的一道。</li></ul>
+<h3>问题 4:什么时候测?(阶段)</h3>
+<ol><li><strong>写代码时</strong>:lint + 类型检查 + 本地单元测试(第一道闸,最便宜)。</li><li><strong>提交时</strong>:CI 门禁——全量单测 + 集成测试,不过不合入。</li><li><strong>发布前</strong>:回归测试 + 验收测试。</li><li><strong>发布中</strong>:</li></ol>
+<ul><li>*金丝雀(canary)*:新楼先放 1% 的住户进去住,没事再扩大(小流量先行)</li><li>*灰度*:按比例逐步放量</li><li>*影子流量(shadow)*:新系统跟着老系统并行跑,只看不接客</li></ul>
+<ol><li><strong>发布后</strong>:监控和告警——「住在房子里的测试」,出事先于用户知道。</li></ol>
+<h3>金字塔不是唯一的形状</h3>
+<ul><li><strong>测试金字塔</strong>(底宽顶尖:单元最多、E2E 最少)——传统后台服务的经典答案:越底层的测试越快越稳,越该多。</li><li><strong>测试奖杯(Testing Trophy)</strong>:前端更适用——重度 mock 的单元测试收益很低,组件级集成测试才是价值最厚的一层,形状中间鼓。</li><li><strong>蜂窝模型(Honeycomb)</strong>:微服务更适用——单个服务的单元测试价值小,服务之间的接口(集成)才是命门。</li><li>结论:<strong>形状跟着「价值密度」走</strong>,哪里的问题最多就在哪里加厚,别把金字塔当教条。</li></ul>
+<h3>三对最容易混</h3>
+<table><thead><tr><th style="text-align:left">对</th><th style="text-align:left">区别一句话</th></tr></thead><tbody><tr><td style="text-align:left">冒烟 vs 健全性(sanity)</td><td style="text-align:left">冒烟<strong>广而浅</strong>(核心全过一遍),健全<strong>窄而深</strong>(只验这次改动碰过的那个点)</td></tr><tr><td style="text-align:left">retest vs regression</td><td style="text-align:left">retest 验「<strong>这个</strong> bug 修好了没」,regression 验「<strong>别处</strong>没被带坏」</td></tr><tr><td style="text-align:left">验收 vs 回归</td><td style="text-align:left">验收对外签字(符合需求),回归对内兜底(没改坏旧功能)</td></tr></tbody></table>
+<h3>AI 时代新增:测 AI 本身</h3>
+<ul><li><strong>LLM eval</strong>:AI 应用的输出没有唯一正确答案,没法用「对/错」判卷——改用<strong>评测集打分</strong>:准备一批问题和期望标准,按相关性、幻觉率、格式合规度打分,像作文评分量规。</li><li><strong>prompt 回归</strong>:改提示词等于改代码——老任务不许变差,所以同一套 eval 要在改动前后各跑一次对比。</li></ul>
+<h2>二、AI 生成的代码怎么固定下来?</h2>
+<h3>「固定」是什么意思</h3>
+<p>AI 写的代码有个特点:来得快,但<strong>会话一关它就「忘」了</strong>,而且它写的时候没经过你脑子里的完整设计。直接放进项目跑,等于沙滩上盖楼。<strong>固定 = 把它从「会话里的一段回答」变成「仓库里的一份资产」</strong>——有历史、有测试、有人负责、以后谁都能改。</p>
+<p>类比:AI 像一支外包装修队,干得飞快,但你不能拎包入住——验货、上锁、办证、留图纸,一步都不能少。</p>
+<h3>七步固定法</h3>
+<ol><li><strong>读懂再收(验货)</strong>:看不懂的代码不要收——看不懂 = 以后没法修 = 不是资产是负债。并且记住:<strong>AI 代码出了 bug,责任是你的,不是 AI 的</strong>,收下就要像自己写的一样维护。</li><li><strong>测试当固定剂(上锁)</strong>:为它写(或让它写)测试,测试过了才算验收。测试锁死的是<strong>行为</strong>——以后任何人(包括 AI 自己)改动这段代码,一旦破坏行为,测试立刻报警。自查方法用突变思想:故意改坏一处,测试不红,等于门没锁。</li><li><strong>git commit 即定案(办证)</strong>:没进版本控制的代码不存在。固定下来的标志不是「能用」,是「进了仓库、进了历史」。</li><li><strong>类型与 lint(装报警器)</strong>:TypeScript/mypy 之类的类型检查、ruff/eslint 之类的 lint,把口头约定变成<strong>机器强制的约定</strong>——AI 留下的隐含假设会被静态检查当场揪出。</li><li><strong>接口契约化(统一门锁)</strong>:把 AI 的实现藏进<strong>你定义的接口</strong>(函数签名/API)后面。实现不满意可以随时推倒重新生成,接口不动,调用方就不用动——固定的是接口,不是实现。</li><li><strong>沉淀到可复用位置(图纸进档案柜)</strong>:一次性的回答留在会话里就好;值得复用的,长成 CLI 命令、脚本、配置项或服务接口。判据一句话:<strong>下次还会用到的,进代码库;只此一回的,让它随会话而去。</strong></li><li><strong>连「为什么」一起搬 + 防漂移(留维修手册)</strong>:AI 代码的「为什么这么写」在会话里,而会话会丢——收编时用注释或 ADR(架构决策记录)把理由搬进仓库。此后 AI 再改这段代码时,用快照/golden master 基准(把当前正确输出存档比对)加锁依赖版本(lockfile),防止「越改越漂」。</li></ol>
+<h3>一条主线</h3>
+<p>七步其实是一句话:<strong>AI 负责生成,你负责让生成物有归属</strong>——归属到接口、归属到测试、归属到版本历史、归属到文档。这和本仓的既有哲学同源:apprentice 馆「收录即定案」、conversations「可溯落地」、逻辑沉淀政策「所有逻辑往代码层推动」——<strong>值得留存的东西,必须有实文件</strong>。</p>
+<h2>速查</h2>
+<ul><li>测试四问:<strong>测多大(单元→集成→E2E→冒烟)/ 为什么(回归·验收·性能·安全·混沌·兼容·恢复·无障碍)/ 怎么测(黑盒白盒·契约·快照·模糊·突变·属性·差分·静态)/ 何时测(本地→CI→发布前→发布中→生产监控)</strong>。</li><li>形状跟价值走:后台金字塔、前端奖杯、微服务蜂窝。</li><li>AI 代码固定七步:<strong>读懂再收 → 测试上锁 → git 定案 → 类型 lint → 契约化 → 沉淀复用 → 留「为什么」防漂移</strong>。</li></ul>
+<h2>出处</h2>
+<ul><li>源对话归档:conversations/2026-10-01-testing-types-and-ai-code-solidification.md(2026-10-01,同场两问:测试类型补充 + AI 代码固化)</li><li>建条说明:当日问答当场建条,非历史恢复,无重构标注需求。</li></ul>
+  </article>
+  <footer>生成于 2026-10-01 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>
