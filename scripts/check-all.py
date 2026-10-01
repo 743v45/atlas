@@ -103,6 +103,8 @@ def main():
     for p in iter_files(".html", ".md"):
         if "template" in p.relative_to(ROOT).parts:
             continue
+        if "raw" in p.relative_to(ROOT).parts:  # raw/ = pick 逐字存档区，引文自带 {{}}（如 WXML 语法）是原文不是未填占位，同断链豁免
+            continue
         text = p.read_text(encoding="utf-8", errors="replace")
         text = strip_html_code(text) if p.suffix == ".html" else strip_md_code(text)
         m = PLACEHOLDER_RE.search(text)
