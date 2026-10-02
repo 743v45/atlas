@@ -19,10 +19,10 @@
   ],
   "stats": {
     "source_repo": "ChromeDevTools/chrome-devtools-mcp",
-    "stars": 52810,
-    "pushed_at": "2026-09-30",
+    "stars": 52880,
+    "pushed_at": "2026-10-02",
     "license": "Apache-2.0",
-    "collected_at": "2026-10-01"
+    "collected_at": "2026-10-02"
   },
   "matrix": {
     "形态": "MCP",

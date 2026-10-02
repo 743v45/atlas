@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LXC / Incus（系统容器） · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/app-deploy.html">应用部署</a><span class="sep">·</span><span>轻量部署方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../kamal/report.html">← Kamal</a><span class="sep">·</span><a href="../pm2/report.html">PM2 →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#d03b3b" title="观望"><i></i>观</span>
+<h1>LXC / Incus（系统容器）</h1>
+<blockquote><strong>TL;DR</strong>：系统容器路线的社区主线（Incus，Apache-2.0，LXD 社区分叉后由原班人马领导，LTS 7.0 支持至 2031-06），但对本类别根问题——部署几个 app 到一台 VPS——判 hold：应用部署退化为「容器内手动装环境 + 手写 init」，资源与运维开销都高于 Docker 系；其真正的适用域在本类别轴外——整机环境隔离、多发行版、快照回滚时才轮到它。</blockquote>
+<ul><li><strong>结论</strong>：hold（对本类别根问题「部署几个到十几个 app」不推荐；若根问题换成「一台机器跑多个完整隔离环境」则立即翻正为 trial~adopt，见下文适用域反转）</li><li><strong>核实日期</strong>：2026-10-02（gh 一手数据 + 官网/公告当日核实）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">主对象</td><td style="text-align:left">Incus（社区主线，LinuxContainers 项目旗下）</td><td style="text-align:left">[1][5]</td></tr><tr><td style="text-align:left">版本线</td><td style="text-align:left">7.x：LTS 7.0（2026-05-05 发布，支持至 2031-06，前 2 年全修 + 后 3 年仅安全）；最新 feature 版 7.5.1（2026-09-25 发布）</td><td style="text-align:left">[2][3]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">⭐6,310、push 2026-10-02（采集当日仍在推）、open issues 36；feature 版约月度节奏（gh 2026-10-02 采集）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">底座</td><td style="text-align:left">liblxc（lxc/lxc，上游已到 v7.0.0，2026-04-30 发布；⭐5,266）；Incus 7.0 硬依赖 LXC ≥6.0.0</td><td style="text-align:left">[3][4]</td></tr><tr><td style="text-align:left">定位</td><td style="text-align:left">「现代系统容器、应用容器与虚拟机管理器」——三种实例类型并存（系统容器/应用容器/QEMU 虚拟机），类云体验</td><td style="text-align:left">[1][3]</td></tr></tbody></table>
+<h2>为什么不选（针对类别根问题：部署几个 app 到一台 VPS）</h2>
+<ol><li><strong>应用部署心智错位</strong>：系统容器的部署单元是「一台虚拟小机器」（完整 OS 环境），不是「应用」[1]。部署一个 web 服务 = 进容器装运行时 + 手写 systemd 单元（或 rc 脚本），没有镜像/Compose 式的「应用即产物」声明层 [1][3]。本类别其他候选（容器引擎、进程管理器、微型 PaaS）都以应用为一等公民，Incus 以环境为一等公民——拿它部署 app 是用 VM 的心智干轻活。</li><li><strong>轻量化轴上不占优</strong>：同为共享宿主内核，系统容器空闲内存量级居中——Debian 13 base 空闲约 16 MB（Docker 容器几 MB～几十 MB、裸进程≈0；KVM VM 约 85 MB 起）[6]。比 VM 省的部分（独立内核）是真的，但对「就跑一个 app」而言，完整用户态（init + 系统服务）是纯 overhead。</li><li><strong>运维面按容器数放大</strong>：N 个 app = N 套各自要升级/维护/备份的完整用户态（每个系统容器都是一个「迷你整机」，含 init 与全套系统服务 [1]）；进程管理器/Docker 路线在宿主侧维护一次即可。对「几个到十几个 app」的个人场景，这恰恰把类别轴上的「运维心智」做重了（由机制推导）。</li></ol>
+<h3>适用域反转（何时解除 hold）</h3>
+<p>以下需求出现时，系统容器是同类最优解，本条目应升 trial~adopt：</p>
+<ul><li><strong>整机环境隔离</strong>：不同发行版并存（官方每日构建多发行版镜像 [1]）、整套技术栈独立、快照/整机回滚、跨主机迁移 [1]。</li><li><strong>「轻 VM」场景</strong>：Incus 同时管 QEMU 虚拟机，一套 CLI/REST API 覆盖容器与 VM 两种形态 [1][3]——要跑需要独立内核的东西（自建 DNS/邮件全套栈、内核模块实验）时不用再引入第二套管理面。</li><li><strong>OCI 兼容桥梁</strong>（6.3+）：可直接从 Docker Hub 等 OCI registry 拉应用镜像建应用容器（<code>incus remote add docker https://docker.io --protocol=oci</code>）[3]——但这恰恰说明：纯应用部署它只是「Docker 的一个次级入口」。</li></ul>
+<h2>形态差异：LXD（亚种，不独立立目）</h2>
+<p>LXD 与 Incus 是同型工具的两个分叉形态（fork 未分家式的选型差异，按 RULES §1 以正文小节说明，不立条目）：</p>
+<ul><li><strong>分叉史</strong>：LXD 原属 LinuxContainers 社区 8 年余；2023-07 Canonical 将其收归内部治理，社区随即拉出 Incus，由 LXD 原负责人 Stéphane Graber 领导 [1][5]；linuxcontainers.org 的 LXD 页现已挂声明「LXD 项目不再是 Linux Containers 项目的一部分」——分叉永久且已定局 [5]。</li><li><strong>Canonical LXD 现状</strong>（gh 2026-10-02 实测 [4]）：未死——canonical/lxd 仍在 push（2026-10-02）、未 archived、⭐4,833；但许可证 AGPL-3.0（对比 Incus Apache-2.0），且 GitHub latest release 停在 lxd-6.9（2026-06-23，距采集日 3 个多月），同期 Incus 已发 7.5.1——社区动能与版本节奏都在 Incus 侧。</li><li><strong>选择口径</strong>：个人/小团队自托管场景选 Incus 不选 LXD——许可更宽（Apache-2.0 vs AGPL-3.0）、社区治理、发行版官方文档（Rocky Linux 等）与 2026 年安装指南已转向 Incus [5]。有个反向趣味事实：LXD 的 UI（lxd-ui）反被 Incus 生态吸收为 <code>incus-ui-canonical</code> 可选包 [7]。</li><li>教程检索注意：LXD/LXC/Incus 三名在网上长期混用，2023 年前的教程讲的都是 LXD，认准 linuxcontainers.org/incus 文档域 [5]。</li></ul>
+<h2>对比</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">Incus 系统容器</th><th style="text-align:left">Docker/Compose</th><th style="text-align:left">systemd 裸进程</th><th style="text-align:left">KVM VM</th><th style="text-align:left">微型 PaaS</th></tr></thead><tbody><tr><td style="text-align:left">单实例空闲内存</td><td style="text-align:left">~16 MB（Debian 13 base，第三方实测）[6]</td><td style="text-align:left">几 MB～几十 MB [6]</td><td style="text-align:left">≈0</td><td style="text-align:left">~85 MB 起 [6]</td><td style="text-align:left">依底座</td></tr><tr><td style="text-align:left">部署单元</td><td style="text-align:left">完整环境</td><td style="text-align:left">应用镜像</td><td style="text-align:left">手写单元</td><td style="text-align:left">完整机器</td><td style="text-align:left">应用</td></tr><tr><td style="text-align:left">应用声明层</td><td style="text-align:left">无（OCI 入口为次级 [3]）</td><td style="text-align:left">有（镜像+Compose）</td><td style="text-align:left">无</td><td style="text-align:left">无</td><td style="text-align:left">有</td></tr><tr><td style="text-align:left">隔离强度</td><td style="text-align:left">中（共享内核 + 完整用户态边界）[1]</td><td style="text-align:left">中（共享内核）</td><td style="text-align:left">无</td><td style="text-align:left">强（独立内核）[6]</td><td style="text-align:left">依底座</td></tr><tr><td style="text-align:left">本类别贴合度</td><td style="text-align:left">低（轴外强项）</td><td style="text-align:left">高</td><td style="text-align:left">高（极简场景）</td><td style="text-align:left">低（更重）</td><td style="text-align:left">高</td></tr></tbody></table>
+<p>逐维度横评见类别 comparison（如存在）。</p>
+<h2>风险与注意</h2>
+<ul><li><strong>内核版本硬门槛</strong>：Incus 7.0 要求宿主 Linux ≥6.12、QEMU ≥8.2 等 [3]——不少廉价/老式 VPS 内核旧且不可换，采买前先核对 <code>uname -r</code>；同时 7.0 弃用 CGroupV1 与 xtables [3]。</li><li><strong>Web UI 非默认</strong>：主发行渠道中 UI 是可选包（Zabbly <code>incus-ui-canonical</code> / Arch <code>incus-ui</code>），需 Incus 监听网络 + 客户端证书导入后才可用；2026-04 公告披露过一处 UI web server 漏洞（6.23.0 修复）——UI 面暴露到公网需谨慎 [7]。IncusOS（项目专属 OS）出厂带 UI，但那是整机方案不是包方案 [7]。</li><li><strong>内存数据口径</strong>：本报告内存数字均为 Proxmox/LXC 语境的第三方社区实测（访问 2026-10-02），非 Incus 官方基准；Incus 系统容器同以 liblxc 为底座、机制相同，量级可参考但非精确断言 [6]。</li><li><strong>官网页面滞后</strong>：访问 2026-10-02 时 Incus 主页仍写「当前 LTS 为 6.0，支持至 2029-06」，而 news 页 2026-05-05 已宣布 7.0 LTS——官方页面间更新不同步，时效判断以 news 页与 gh release 为准 [1][3]（待验证：主页是否随后续版本刷新）。</li><li><strong>每 2 年一个 LTS 的跟进节奏</strong>：feature 版月度发布、LTS 窗口错开（6.0 至 2029-06、7.0 至 2031-06）[3]，升级路径需要读 release notes，但窗口内可长期不动，个人场景跟 LTS 即可。</li></ul>
+<h2>来源</h2>
+<ol><li>Incus 官网主页（定位、三实例类型、镜像/profile/迁移/设备直通、Zabbly 商业支持） — <a href="https://linuxcontainers.org/incus/">https://linuxcontainers.org/incus/</a>（访问 2026-10-02；原始摘录留档 raw/2026-10-02/web/lxc-linuxcontainers.org.md）</li><li>lxc/incus — <a href="https://github.com/lxc/incus">https://github.com/lxc/incus</a>（gh 2026-10-02 采集：⭐6,310、push 2026-10-02、Apache-2.0、latest v7.5.1 发布 2026-09-25、open issues 36；原始响应留档 raw/2026-10-02/web/lxc-github.com.md）</li><li>Incus 7.0 LTS 发布公告（2026-05-05，支持至 2031-06；OCI 镜像支持、依赖最低版本 Linux 6.12/LXC 6.0.0、弃用 CGroupV1/xtables） — <a href="https://linuxcontainers.org/incus/news/2026_05_05_16_29.html">https://linuxcontainers.org/incus/news/2026_05_05_16_29.html</a>（访问 2026-10-02；留档 raw/2026-10-02/web/lxc-linuxcontainers.org-news.md）</li><li>lxc/lxc 与 canonical/lxd（gh 2026-10-02 采集：lxc ⭐5,266 / v7.0.0 发布 2026-04-30；lxd ⭐4,833 / AGPL-3.0 / latest lxd-6.9 发布 2026-06-23 / 未 archived） — <a href="https://github.com/lxc/lxc">https://github.com/lxc/lxc</a> 、<a href="https://github.com/canonical/lxd">https://github.com/canonical/lxd</a>（留档 raw/2026-10-02/web/lxc-github.com.md）</li><li>Incus/LXD 分叉现状（WebSearch，访问 2026-10-02；含 linuxcontainers.org LXD 迁移声明、stgraber.org、Rocky Linux 文档转向、Ubuntu 26.04 收录） — 留档 raw/2026-10-02/web/lxc-websearch-fork-status.md</li><li>系统容器内存开销第三方实测（WebSearch，访问 2026-10-02：Alpine &lt;4 MB vs VM ~60 MB [Reddit r/Proxmox]；Debian 13 ~16 MB vs ~85 MB [proxmoxmigracje.pl]；Nextcloud ~145 MB vs ~520 MB [proxmoxpulse.com]；Docker 几 MB～几十 MB [datazone.de]） — 留档 raw/2026-10-02/web/lxc-websearch-memory-overhead.md</li><li>Incus Web UI 与 Zabbly 打包渠道（WebSearch，访问 2026-10-02：UI 为可选包 incus-ui-canonical、<code>incus webui</code>、客户端证书；IncusOS 出厂带 UI；6.23.0 修复 UI 漏洞；Zabbly 构建目标 Ubuntu 22.04/24.04/26.04 + Debian 12/13，stable 与 lts-7.0 双通道） — 留档 raw/2026-10-02/web/lxc-zabbly-webui.md</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-02</td><td style="text-align:left">hold</td><td style="text-align:left">首次记录（对类别根问题「部署几个 app 到一台 VPS」判 hold；适用域反转条件已写明）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

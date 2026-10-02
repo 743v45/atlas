@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fly.io · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/app-deploy.html">应用部署</a><span class="sep">·</span><span>轻量部署方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../dokku/report.html">← Dokku</a><span class="sep">·</span><a href="../kamal/report.html">Kamal →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Fly.io</h1>
+<blockquote><strong>TL;DR</strong>：「真机器手感」托管平台的代表：Firecracker 微 VM 按秒计费（最小 256MB ≈ $2.23/月，2026-10 查），fly.toml + fly deploy 免服务器运维、Anycast 多区分布与自动 HTTPS 开箱即用；但 2024-10 起新用户免费额度取消、2024 Q4 连环重大故障、2026-07 公司整体转向 AI agent——个人非关键路径服务值得试用，关键服务慎押。</blockquote>
+<ul><li><strong>结论</strong>：trial（适用域：个人/小团队的<strong>非关键路径</strong>服务——要「自己的机器感」而非 PaaS 沙箱、想白捡全球分布、按量付费可接受；不适用域：关键业务重押、流量型服务的成本敏感场景、想要零平台绑定的人）</li><li><strong>核实日期</strong>：2026-10-02（官方定价/架构/公告页当日抓取；故障史与社区口碑当日检索）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">商业闭源托管平台；<code>flyctl</code> CLI 开源（superfly/flyctl）</td><td style="text-align:left">[1][8]</td></tr><tr><td style="text-align:left">计算底座</td><td style="text-align:left">Firecracker microVM（Fly Machines），硬件虚拟化，启动 ~300ms</td><td style="text-align:left">[2][5]</td></tr><tr><td style="text-align:left">网络入口</td><td style="text-align:left">Anycast IPv4/IPv6 全域广播、流量就近落地 microVM；数据中心间 WireGuard 隧道回程</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">计费</td><td style="text-align:left">Pay As You Go：按秒计费、无月费承诺、无预付；新用户无免费额度（2024-10-07 起）</td><td style="text-align:left">[1][3]</td></tr><tr><td style="text-align:left">规模口径</td><td style="text-align:left">37,000+ 客户（2026-07 官方公告口径，其中 8,000+ agent-native）</td><td style="text-align:left">[4]</td></tr><tr><td style="text-align:left">公司动向</td><td style="text-align:left">2026-07-24 官宣转向「Computers for Agents」，新 CEO Scott Johnston（前 Docker CEO），$25M Series D</td><td style="text-align:left">[4][7]</td></tr></tbody></table>
+<h2>为什么选（轻量部署视角）</h2>
+<ol><li><strong>资源心智最轻的一档</strong>：装 <code>flyctl</code> → <code>fly launch</code>（生成 <code>fly.toml</code>）→ 之后每次 <code>fly deploy</code>，全程不碰服务器 [8]。构建既可以吃本地 Docker daemon，也可以 <code>--remote-only</code> 甩给远程 builder，或 <code>--image</code> 直接推现成 OCI 镜像——本地机器可以完全不参与构建 [8]。</li><li><strong>「真机器」手感</strong>：跑的是硬件虚拟化 microVM 而非受限沙箱，有持久磁盘（Volume）、能跑任意语言/任意 Dockerfile；官方定位就是「给应用一台真计算机」[2][4]。</li><li><strong>成本对个人小服务极友好</strong>：最小机型 shared-cpu-1x/256MB ≈ <strong>$2.23/月</strong>（2026-10-02 查，iad 无区域加价；按区域系数线性折算，东京 ≈ $2.9/月，圣保罗 ≈ $3.6/月）；停机只收 rootfs 存储费（每 GB 停 30 天 $0.15）——挂着的闲置服务也能很便宜 [1]。</li><li><strong>全球分布白送</strong>：Anycast 就近路由 + 多区域部署 + 自动 TLS；每应用送共享 IPv4 + 无限 Anycast IPv6，前 10 个单主机名证书免费，入站流量全免费 [1][2]。</li><li><strong>秒级弹性</strong>：Machines API 约 300ms 启动，代理可按请求拉起机器、空闲关停（auto-stop/start），流量极小的服务可以只付「有请求的时间」[5]。</li></ol>
+<h2>为什么不选 / 谨慎（同样真实）</h2>
+<ol><li><strong>公司战略重心已离开你这类客户（2026 最大变量）</strong>：2026-07-24 官宣整体转向「Computers for Agents」（为 AI 编码 agent 提供计算），融资叙事、官网首页、新 CEO 全部押注 agent 负载；<strong>GPU 产品 2026-07-31 全面弃用</strong>是首个收缩实锤。官方称核心 Machines 平台用户「many, many」不会关——而新 agent 业务恰好也跑在同一套 Machines 上，这是平台存续的最强保证，但传统 web 托管客户从此是第二叙事，社区已有迁移与信任讨论 [4][7]。</li><li><strong>可靠性记录平平</strong>：2024-10-22 全网编排故障（Consul root key 签名密钥过期，官方称「记录在案的最长重大故障」）、2024-11-25 全球故障（交换机饱和）、2025-02 Tigris 存储故障（约一周）；第三方监控 121 天实测 94.41% uptime、约 13 起事件/月（2026-10 检索口径）。透明度高（infra log 全量公开）救不了可用率 [6][10]。</li><li><strong>新用户免费额度已死</strong>：2024-10-07 起 legacy free allowances（3 台 256MB + 3GB 存储）不再发给新用户，只剩短期试用；「白嫖」时代结束，同价位自托管 VPS 的控制权优势凸显 [3]。</li><li><strong>定价复杂度口碑差</strong>：区域加价 1.0–1.615 × 机型 × 出站流量分区（北美 $0.02/GB 至非洲 $0.12/GB）× 卷/快照/IP 附加费；HN/Reddit 有意外账单案例（多来自流量型/多机型业务，个人低流量服务月账单通常稳定在 $2–5）[1][9]。且定价仍在持续变动：2026-01-01 起新增快照存储收费 [1]。</li><li><strong>平台绑定中度</strong>：部署产物是标准 OCI 镜像（可搬走），但 fly.toml、Anycast 网络、Machines API、远程构建、Volume 都是平台专属；迁出成本 ≈ 换一家托管平台重新接线 [8]。</li></ol>
+<h2>对比</h2>
+<p>同类别八条路线的逐维度对比见 <code>../comparison.md</code>（如存在）。Fly.io 在坐标系里的位置：</p>
+<table><thead><tr><th style="text-align:left">对比对象</th><th style="text-align:left">关键差异</th></tr></thead><tbody><tr><td style="text-align:left">Docker/Podman + 自有 VPS</td><td style="text-align:left">同价位（$2–5/月 VPS）但控制权完整、无绑定；代价是自己管服务器、自己搞证书/网络/备份，无全球分布</td></tr><tr><td style="text-align:left">Kamal（VPS 编排工具）</td><td style="text-align:left">同样容器化、同样 fly.toml 式声明，但落在自己的 VPS 上——「省心」程度低一档、绑定也低一档</td></tr><tr><td style="text-align:left">Heroku 类 PaaS</td><td style="text-align:left">Fly 给的是完整 microVM（有磁盘、任意进程），不是 dyno 沙箱；计费粒度更细（按秒）但账单心智更重</td></tr><tr><td style="text-align:left">裸 systemd/pm2</td><td style="text-align:left">零平台费、零绑定，但运维门槛高数档——Fly 的存在意义就是替你省掉这些</td></tr></tbody></table>
+<h2>风险与注意</h2>
+<ul><li><strong>平台优先级风险（本条目最大风险）</strong>：pivot + GPU 弃用先例俱在；持续观察信号 = Machines 平台的定价与产品动向、agent 收入占比变化 [4][7]。</li><li><strong>可靠性</strong>：只放非关键路径；需要多副本时记住 2024 Q4 那两次是<strong>平台级</strong>故障，多区域救不了 [6]。</li><li><strong>账单护栏</strong>：出站流量按区计费（亚太 $0.04/GB、非洲 $0.12/GB，2026-10 查），流量型服务先算这笔账；快照 2026-01 起计费，默认每日自动快照开着——不想要要手动关 [1][9]。</li><li><strong>fly.toml 重置坑</strong>：<code>fly deploy</code> 会把手动改过的机器配置拉回 fly.toml 所声明状态——改配置要改文件而不是只改线上 [8]。</li><li>文档与现实漂移：部分官方页面仍引用 free tier 字样，新组织实际没有——以账单为准 [3]。</li></ul>
+<h2>来源</h2>
+<ol><li>Fly.io 官方定价文档 — <a href="https://docs.fly.io/about/pricing">https://docs.fly.io/about/pricing</a>（访问 2026-10-02；费率/区域系数/流量分区/快照收费全文留档 raw/2026-10-02/web/flyio-docs.fly.io.md）</li><li>Fly.io 官方架构文档 — <a href="https://docs.fly.io/reference/architecture">https://docs.fly.io/reference/architecture</a>（访问 2026-10-02；Firecracker microVM/Anycast/WireGuard 原文留档 raw/2026-10-02/web/flyio-architecture-reference.md）</li><li>Fly.io Discontinued Plans 与免费额度变动 — <a href="https://fly.io/docs/about/discontinued-plans">https://fly.io/docs/about/discontinued-plans</a>、<a href="https://community.fly.io/t/free-tier-is-dead/20651">https://community.fly.io/t/free-tier-is-dead/20651</a>（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-web-search-result.md）</li><li>Fly.io 官方公告「Computers for Agents」 — <a href="https://fly.io/news/fly-io-launches-computers-for-agents">https://fly.io/news/fly-io-launches-computers-for-agents</a>（访问 2026-10-02；$25M Series D/新 CEO/37,000 客户口径全文留档 raw/2026-10-02/web/flyio-fly-io-news.md）</li><li>Fly Machines 产品页与博客（~300ms 启动、按需拉起/空闲关停） — <a href="https://fly.io/machines">https://fly.io/machines</a>、<a href="https://fly.io/blog/fly-machines">https://fly.io/blog/fly-machines</a>（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-fly-io-architecture.md）</li><li>Fly.io 故障史（infra-log 及 postmortem） — <a href="https://fly.io/infra-log">https://fly.io/infra-log</a>、<a href="https://fly.io/infra-log/2024-10-26">https://fly.io/infra-log/2024-10-26</a>、<a href="https://community.fly.io/t/psa-postmortem-for-the-nov-25-outage/22933">https://community.fly.io/t/psa-postmortem-for-the-nov-25-outage/22933</a>、<a href="https://fly.io/infra-log/2025-02-22">https://fly.io/infra-log/2025-02-22</a>（检索 2026-10-02；时间线留档 raw/2026-10-02/web/flyio-outage-history.md）</li><li>公司转向报道与社区反应 — <a href="https://daily.dev/posts/fly-io-pivots-to-ephemeral-cloud-computers-for-ai-agents-names-new-ceo-v9mpmy2bi">https://daily.dev/posts/fly-io-pivots-to-ephemeral-cloud-computers-for-ai-agents-names-new-ceo-v9mpmy2bi</a>、<a href="https://community.fly.io/t/gpu-migration-fly-io-gpus-will-be-deprecated-as-of-july-31-2026/27110">https://community.fly.io/t/gpu-migration-fly-io-gpus-will-be-deprecated-as-of-july-31-2026/27110</a>、<a href="https://community.fly.io/t/will-the-apps-and-machine-platform-start-winding-down/28380/7">https://community.fly.io/t/will-the-apps-and-machine-platform-start-winding-down/28380/7</a>、<a href="https://elixirforum.com/t/now-that-fly-are-pivoting-should-i-trust-them-for-hosting/76144">https://elixirforum.com/t/now-that-fly-are-pivoting-should-i-trust-them-for-hosting/76144</a>（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-pivot-ai-agents.md）</li><li>部署工作流（fly launch/deploy、本地与远程构建、fly.toml） — <a href="https://fly.io/django">https://fly.io/django</a>、<a href="https://hexdocs.pm/phoenix/1.6.4/fly.html">https://hexdocs.pm/phoenix/1.6.4/fly.html</a>、<a href="https://community.fly.io/t/build-images-with-nixpacks/6169">https://community.fly.io/t/build-images-with-nixpacks/6169</a>（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-deploy-workflow.md）</li><li>定价复杂度口碑（Reddit r/selfhosted、r/elixir、HN） — <a href="https://www.reddit.com/r/selfhosted/comments/1pri1wo/">https://www.reddit.com/r/selfhosted/comments/1pri1wo/</a>、<a href="https://www.reddit.com/r/elixir/comments/1h8ajm2/">https://www.reddit.com/r/elixir/comments/1h8ajm2/</a>、<a href="https://news.ycombinator.com/item?id=48688835">https://news.ycombinator.com/item?id=48688835</a>（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-pricing-criticism.md）</li><li>第三方可用性监控口径 — <a href="https://www.pulsapi.com/services/fly-io/uptime">https://www.pulsapi.com/services/fly-io/uptime</a>（94.41%/121 天）、IsDown 统计约 609 起事件（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-outage-history.md）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-02</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（定价/架构/官方公告当日抓取，故障史与社区口碑当日检索；全部原始数据留档 raw/2026-10-02/web/flyio-*.md）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

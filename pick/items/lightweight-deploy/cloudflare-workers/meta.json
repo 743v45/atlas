@@ -1,0 +1,41 @@
+{
+  "name": "Cloudflare Workers",
+  "homepage": "https://workers.cloudflare.com",
+  "repo": "https://github.com/cloudflare/workerd",
+  "license": "Proprietary",
+  "verdict": "trial",
+  "summary": "托管轻量化轴的极点：V8 isolate 边缘运行时把运维压到零、免费层（10 万请求/日 + 10ms CPU，2026-10 查）即可起步，状态存储平台内置（KV/D1/Durable Objects/R2/Queues）——但 isolate 不是进程，应用必须按 Workers 形态写（请求驱动、无长驻后台、绑定最深），已有 Node 服务不能原样迁移，另有 Containers 补容器类负载；适用域为新写 API/全栈 JS 小服务与全球低延迟场景，非通用部署方案。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "Workers Pricing 官方文档 — https://developers.cloudflare.com/workers/platform/pricing/（访问 2026-10-02，Last updated 2026-10-02，留档 raw/2026-10-02/web/workers-pricing-full.md）",
+    "Workers Limits 官方文档 — https://developers.cloudflare.com/workers/platform/limits/（访问 2026-10-02，Last updated 2026-09-05）",
+    "How Workers works 官方文档 — https://developers.cloudflare.com/workers/reference/how-workers-works/（访问 2026-10-02，Last updated 2026-09-18）",
+    "Node.js compatibility 官方文档 — https://developers.cloudflare.com/workers/runtime-apis/nodejs/（访问 2026-10-02，Last updated 2026-08-12）",
+    "Containers 官方文档 — https://developers.cloudflare.com/containers/（访问 2026-10-02，Last updated 2026-09-30）",
+    "Workers Framework Guides 官方文档 — https://developers.cloudflare.com/workers/framework-guides/（访问 2026-10-02，Last updated 2026-07-03）",
+    "cloudflare/workerd — https://github.com/cloudflare/workerd（gh 2026-10-02 采集：⭐8,801、push 2026-10-02、Apache-2.0）"
+  ],
+  "tags": [
+    "边缘运行时",
+    "serverless",
+    "托管平台",
+    "isolate",
+    "全栈框架"
+  ],
+  "matrix": {
+    "形态": "边缘运行时",
+    "资源占用": "isolate 按请求",
+    "运维门槛": "零",
+    "自托管": "否",
+    "多应用": "多应用",
+    "成本": "免费层+$5/月（2026-10 查）"
+  },
+  "stats": {
+    "source_repo": "cloudflare/workerd",
+    "stars": 8801,
+    "pushed_at": "2026-10-02",
+    "license": "Apache-2.0",
+    "collected_at": "2026-10-02"
+  }
+}

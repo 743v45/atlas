@@ -1,0 +1,34 @@
+{
+  "name": "Render",
+  "homepage": "https://render.com",
+  "license": "Proprietary",
+  "verdict": "trial",
+  "summary": "托管 PaaS 中「免费起步+零运维」的默认解：git push 即部署、零停机、托管 Postgres/Redis/Cron 全家桶，Heroku 退场后承接定位明确；代价是免费层三重限制（15 分钟休眠约 1 分钟冷启动、免费 Postgres 30 天过期、2026-04 起 Hobby 带宽仅 5GB/月）与低价层政策突变史——适用 side project 与原型免费起步，长期生产托付前先核算成本与锁定。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "Render 官方定价页 — https://render.com/pricing（访问 2026-10-02）",
+    "Render 免费层文档 — https://render.com/docs/free（访问 2026-10-02）",
+    "Render Changelog: Updated plans for Render workspaces — https://render.com/changelog/updated-plans-for-render-workspaces（访问 2026-10-02）",
+    "CNBC: Cloud startup Render raises funding at $1.5 billion valuation — https://www.cnbc.com/2026/02/17/render-raises-100-million-at-1point5-billion-valuation.html（访问 2026-10-02）",
+    "Railway 官方定价页 — https://railway.com/pricing（访问 2026-10-02）",
+    "Fly.io 官方定价页 — https://fly.io/pricing/（访问 2026-10-02）",
+    "WebSearch 聚合（checkthat.ai / Reddit / render.com blog，2026-10-02，留档 raw/2026-10-02/web/render-websearch-policy-history.md）"
+  ],
+  "tags": [
+    "PaaS",
+    "托管平台",
+    "免费层",
+    "零运维",
+    "Heroku 替代"
+  ],
+  "matrix": {
+    "形态": "托管平台",
+    "资源占用": "托管实例（零资源心智）",
+    "运维门槛": "零",
+    "自托管": "否",
+    "多应用": "多应用",
+    "成本": "免费层+$7/月起（2026-10 查）"
+  },
+  "stats": {}
+}

@@ -1,0 +1,43 @@
+{
+  "name": "CapRover",
+  "repo": "https://github.com/caprover/caprover",
+  "homepage": "https://caprover.com",
+  "license": "Apache-2.0（附加条款 appendix）",
+  "verdict": "trial",
+  "summary": "微型 PaaS 老牌（2017 起）：Web 面板 + 360 个一键应用 + 自动 HTTPS 把 Docker 藏在一键体验后面，空闲仅约 300-400MB RAM，2026 年维护明显回升（8 月连发 5 版、issue 当天关闭）——个人 VPS、简单单容器工作流值得用，但单维护者 bus factor=1，不设为无脑默认项。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "caprover/caprover 仓库元数据与 LICENSE — https://github.com/caprover/caprover（gh 2026-10-02 采集：⭐15,177、push 2026-09-30、open issues 178；原始响应留档 raw/2026-10-02/gh/caprover_repo.json 与 caprover-gh-metrics.md）",
+    "caprover/caprover releases — https://github.com/caprover/caprover/releases（gh 2026-10-02 采集：v1.15.4 @ 2026-08-30 及近 10 版节奏；留档 raw/2026-10-02/gh/caprover_releases.json）",
+    "commits 年度分布与贡献者集中度 — https://github.com/caprover/caprover（gh 2026-10-02 采集：2025 年 92 / 2026 年 237 commits；githubsaturn 1,837 vs 第二名 25；留档 raw/2026-10-02/gh/caprover-gh-metrics.md）",
+    "CapRover 官方入门文档（服务器要求） — https://caprover.com/docs/get-started（访问 2026-10-02：1GB RAM 起步、Ubuntu 24.04 + Docker 25+、端口 80/443/3000、docker run 安装命令；留档 raw/2026-10-02/web/caprover-caprover.com.md）",
+    "Discussion #1544「Stale Development」 — https://github.com/CapRover/CapRover/discussions/1544（访问 2026-10-02：2022 年维护放缓讨论与维护者「稳定优先」立场、应用可脱离 Swarm 运行；留档 raw/2026-10-02/web/caprover-github-discussion-1544.md）",
+    "MassiveGRID「Dokploy vs Coolify vs CapRover」 — https://www.massivegrid.com/blog/dokploy-vs-coolify-vs-caprover/（2026-02-27 发布，访问 2026-10-02：空闲资源实测、Compose 支持短板、三者底层对比；留档 raw/2026-10-02/web/caprover-massivegrid.com.md）",
+    "CapRover 官网首页 — https://caprover.com/（访问 2026-10-02：定位口号、面板/CLI/集群功能、OpenCollective 捐赠；留档 raw/2026-10-02/web/caprover-home-caprover.com.md）",
+    "caprover/one-click-apps — https://github.com/caprover/one-click-apps（gh 2026-10-02 采集：public/v4/apps/ 下 360 个应用、push 2026-09-29；留档 raw/2026-10-02/gh/caprover-gh-metrics.md）",
+    "issue 抽样与 CapRover PRO 检索 — https://github.com/caprover/caprover/issues（gh 2026-10-02 采集：2026-09 issue 响应时长、#2410 Netdata→Beszel 提议、\"CapRover PRO\" 命中 9 个 issue；留档 raw/2026-10-02/gh/caprover-gh-metrics.md）"
+  ],
+  "tags": [
+    "微型paas",
+    "docker swarm",
+    "自托管",
+    "一键应用",
+    "vps"
+  ],
+  "matrix": {
+    "形态": "微型PaaS",
+    "资源占用": "低",
+    "运维门槛": "低",
+    "自托管": "是",
+    "多应用": "多机编排",
+    "成本": "免费开源（+付费PRO）"
+  },
+  "stats": {
+    "source_repo": "caprover/caprover",
+    "stars": 15177,
+    "pushed_at": "2026-09-30",
+    "license": "NOASSERTION",
+    "collected_at": "2026-10-02"
+  }
+}

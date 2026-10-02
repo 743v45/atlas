@@ -1,0 +1,28 @@
+# containers/podman v6.0.0 release notes — gh api 摘录
+
+- 来源: `gh api repos/containers/podman/releases/tags/v6.0.0`
+- 采集日期: 2026-10-02
+- release 元信息: tag v6.0.0，name "v6.0.0"，**published_at 2026-06-24T17:38:25Z**
+
+## Security（摘录）
+
+- CVE-2026-57231：恶意镜像畸形 `Env` 条目可致宿主机环境变量泄漏进容器（含 `*` glob 批量泄漏）；GHSA-4hq8-gpf5-8p68
+- CVE-2026-19730：`podman quadlet install --replace` 未截断被替换文件；GHSA-fx76-2j3w-2mx6
+
+## Breaking Changes（摘录，原文要点）
+
+- 版本配套：v6.0.0 须配 Buildah v1.44.0、Skopeo v1.23、Netavark/Aardvark v2.0.0、container-libs common/v0.68.0
+- **BoltDB 支持移除**；启动时自动从 BoltDB 迁移到 SQLite
+- **Intel Mac 支持移除**（macOS 仅剩 Apple Silicon）
+- Windows 10 支持移除
+- **cgroups v1 移除**（须 cgroups v2）
+- iptables 移除（改用 nftables）
+- **CNI 网络移除**（改用 Netavark）
+- **slirp4netns rootless 网络栈移除**（改用 Pasta）；`--network-cmd-path` 一并移除
+- 配置文件解析逻辑重写（design doc: contrib/design-docs/config-file-parsing.md）
+- **import 路径从 `github.com/containers/podman/v5` 改为 `go.podman.io/podman/v6`——"as part of our move into a CNCF-owned GitHub organization"**（迁入 CNCF 拥有的 GitHub 组织）
+- 网络隔离默认启用（改善 Docker 兼容性与安全；#27349）
+- `podman quadlet` 命令组行为变化：Quadlet 及关联文件改放子目录管理（原 `.app` 追踪机制废弃）
+- Linux 上 `podman machine` VM 改用 systemd 挂载宿主卷（旧 VM 须重建）
+- `podman volume prune` 对齐 Docker 行为（只清未用匿名卷；全量清用 `--all`）
+- `podman volume list` 多过滤器 AND 语义（原 OR；#26786）

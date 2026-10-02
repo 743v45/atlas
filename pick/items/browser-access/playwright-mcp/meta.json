@@ -18,10 +18,10 @@
   ],
   "stats": {
     "source_repo": "microsoft/playwright-mcp",
-    "stars": 37719,
+    "stars": 37760,
     "pushed_at": "2026-09-28",
     "license": "Apache-2.0",
-    "collected_at": "2026-10-01"
+    "collected_at": "2026-10-02"
   },
   "matrix": {
     "形态": "MCP",

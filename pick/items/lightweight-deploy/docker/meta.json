@@ -1,0 +1,43 @@
+{
+  "name": "Docker",
+  "repo": "https://github.com/moby/moby",
+  "homepage": "https://www.docker.com",
+  "license": "Apache-2.0",
+  "verdict": "adopt",
+  "summary": "Linux 单机部署的行业默认与基线：daemon 常驻开销约 100 MB 级、compose 生态与可复现性使其仍是多应用单机的安全选择；轻量轴的真实痛点在桌面端 VM（常驻 2 GB+）与 daemon 单点/需 root——该问的不是「要不要 Docker」而是「是否只在服务器上用 Docker」。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "moby/moby — https://github.com/moby/moby（gh 2026-10-02 采集：⭐72,144、push 2026-10-01、Apache-2.0、open_issues 3,913；原始响应留档 raw/2026-10-02/web/docker-api.github.com.md）",
+    "moby/moby releases — `gh api repos/moby/moby/releases`（2026-10-02：v29.8.2 2026-09-30、v29.9.0-rc.1 2026-10-01、v25.0.18 2026-09-30；节奏留档 raw/2026-10-02/web/docker-releases-cadence.md）",
+    "docker/compose — https://github.com/docker/compose（gh 2026-10-02 采集：⭐38,278、v5.5.1 2026-09-03；留档同 [1] 文件）",
+    "Docker Docs · Resource Saver — https://docs.docker.com/desktop/use-desktop/resource-saver/（访问 2026-10-02：默认开启、空闲 5 分钟停 VM 省 2 GB+、唤醒 3-10 s、WSL 只暂停引擎；留档 raw/2026-10-02/web/docker-docs-resource-saver.md）",
+    "Docker Docs · Desktop 订阅许可 — https://docs.docker.com/subscription-billing/desktop-license（经 WebSearch 聚合 2026-10-02：<250 员工且 <$10M 免费、超限需 Pro/Team/Business；留档 raw/2026-10-02/web/docker-desktop-license-search.md）",
+    "dockerd Linux 开销与 VPS 坑 — WebSearch 聚合 2026-10-02：Docker Forums（daemon 300-400 MB 报告）、Taubyte（基础套件 100-200 MB）、Torizon（容器开销 ~23 MB）、Stackademic（自托管空闲 300-500 MB）、SSD Nodes（UFW/磁盘坑）；聚合共识空闲 daemon 约 60-100 MB；留档 raw/2026-10-02/web/dockerd-linux-overhead-search.md",
+    "Docker Hub 政策 — 官方公告 https://www.docker.com/blog/revisiting-docker-hub-policies-prioritizing-developer-experience（经 WebSearch 聚合 2026-10-02：2025-04-01 起付费无限/免费认证 100/h/匿名 10/h；留档 raw/2026-10-02/web/docker-hub-policy-search.md）",
+    "rootless 模式现状 — WebSearch 聚合 2026-10-02：sanj.dev《Container Runtime Showdown 2025》（P99 +20-40%）、kenmuse.com（userns 前提）、The New Stack（cgroup 委派）；留档 raw/2026-10-02/web/docker-rootless-search.md",
+    "Engine v29 — release notes https://docs.docker.com/engine/release-notes/29（经 WebSearch 聚合 2026-10-02：2025-11 发布、containerd image store 新装默认、API ≥1.44、拉取快约 37% 为二手转述；留档 raw/2026-10-02/web/docker-engine-v29-search.md）"
+  ],
+  "tags": [
+    "部署",
+    "容器",
+    "自托管",
+    "vps",
+    "compose"
+  ],
+  "matrix": {
+    "形态": "容器引擎",
+    "资源占用": "Linux 低 / 桌面 VM 高",
+    "运维门槛": "中",
+    "自托管": "是",
+    "多应用": "多应用",
+    "成本": "开源免费（Desktop 大企业收费）"
+  },
+  "stats": {
+    "source_repo": "moby/moby",
+    "stars": 72144,
+    "pushed_at": "2026-10-01",
+    "license": "Apache-2.0",
+    "collected_at": "2026-10-02"
+  }
+}

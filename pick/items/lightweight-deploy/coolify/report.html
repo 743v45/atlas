@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coolify · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/app-deploy.html">应用部署</a><span class="sep">·</span><span>轻量部署方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../cloudflare-workers/report.html">← Cloudflare Workers</a><span class="sep">·</span><a href="../docker/report.html">Docker →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Coolify</h1>
+<blockquote><strong>TL;DR</strong>：微 PaaS/Web UI 派代表：面板托管一切（Git 推送部署、300+ 一键服务、多机编排），自托管免费无功能墙、停用后应用照跑——代价是 2GB 级资源底线与面板 root 级攻击面（52,890 暴露实例教训），适合要 PaaS 体验且能守暴露面纪律的个人/小团队。</blockquote>
+<ul><li><strong>结论</strong>：trial（适用域：想要 Web UI 微 PaaS 体验（一键服务市场 / Git push 自动部署 / 多机面板）、接受 2GB 级资源底线与面板暴露面纪律（PrivateIP/VPN 访问）；单机资源极简派与纯声明式信仰者不适用）</li><li><strong>核实日期</strong>：2026-10-02（gh 一手数据 + 官方文档 + Wayback 历史快照当日采集）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">v4.3.23（2026-09-18 发布；2026-10-02 快照）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/coollabsio/coolify">https://github.com/coollabsio/coolify</a>（2021-01-25 创建）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">⭐62,500、push 2026-10-02（当日实测）、forks 5,580、open issues 737（gh 2026-10-02 采集）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">release 节奏</td><td style="text-align:left">2025-04→2026-09 共 100 个 release（月均 ~5.6；2026-08 单月 16 个；2026-06/07 各仅 1 个，节奏不均但无断档）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">维护模式</td><td style="text-align:left">自托管 Free Forever + Coolify Cloud 托管面板双轨（Cloud $5/月含 2 台服务器，+$3/月/台，年付 -20%；2026-09-20 定价页快照）</td><td style="text-align:left">[8]</td></tr></tbody></table>
+<h2>为什么选（该形态内）</h2>
+<ol><li><strong>微 PaaS 体验的天花板级开源实现</strong>：Web UI 全托管——Git 推送自动部署、PR preview 环境、部署 webhook、镜像回滚；构建源覆盖 GitHub/GitLab/Bitbucket/Gitea，构建方式覆盖 Nixpacks/Railpack/Dockerfile/Docker Compose/预构建镜像；300+ one-click 服务带持久化存储与自动生成凭据 [4]。全类目 star 增速最快：36,408（2025-01）→ 49,193（2026-01）→ 62,500（2026-10-02），2026 年月均增速较 2025 年提速约 39%，仍在加速 [1][5]。</li><li><strong>Apache-2.0 + 无功能墙 + 退出无害</strong>：开源版「no feature behind the paywall」（官方哲学声明），全部功能免费；配置留在用户服务器上，停用 Coolify 后正在运行的应用不受影响、仍可管理——PaaS 类产品里少见的低锁定声明 [4]。商业模式靠 Cloud 托管面板（$5/月起）+ 赞助商，不靠开源版设卡 [8]。</li><li><strong>多机编排开箱即用</strong>：面板可添加任意 SSH 可达的远程 VPS（官方推荐架构 = 1 台面板机 + N 台应用机），API/CLI/MCP/团队 RBAC 齐全；Cloud 版连接服务器台数不限 [4][8]。</li><li><strong>微型 PaaS = 藏 Docker 而非绕开</strong>：一键安装脚本装的就是 Docker Engine 26+，Coolify 自身也是一组 docker compose 容器（含 PostgreSQL/Redis/SOKATE 等依赖）跑在宿主机上 [3]。对用户而言 Docker 被面板抽象掉了（点按钮即得容器），但故障排查时仍需 Docker 知识兜底——这是该形态的本质属性，横评时与其他路线的根本差异所在 [3]。</li></ol>
+<h2>对比（同类目其他路线）</h2>
+<ul><li>与 <strong>裸 Docker/docker compose</strong>（基线）：coolify 把 compose 手写、镜像构建、HTTPS 证书、域名反代、备份全部 GUI 化，代价是面板本体 + 官方最低 2 Core/2GB RAM/30+ GB 存储的资源底线与一个 root 级常驻攻击面 [3][7]；裸 compose 反过来，零面板开销但一切手写。</li><li>与 <strong>Kamal</strong>（声明式/CLI 派）：Kamal 无 Web UI、以 YAML + CLI 提交部署心智，资源占用远低于 coolify（无常驻面板服务）；coolify 换来一键服务市场与 PR preview 等 PaaS 便利。两者是「面板省心」与「声明式可控」的路线之争，不是优劣关系。</li><li>与 <strong>systemd 裸进程 / pm2</strong>：后两者资源占用极低、无容器化隔离；coolify 提供容器隔离与完整应用生命周期，但 2GB 底线在小 VPS 上是硬门槛（官方还提示构建期内存挤占可能拖垮同机面板，建议加 swap）[3]。</li><li>逐维度对比见 <code>../comparison.md</code>（如存在）。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>面板 = root 级攻击面（最大风险，有实测教训）</strong>：Coolify 面板持有全部被管服务器的 SSH root 凭据。2026-01 官方一次披露 11 个 critical 漏洞（CVE-2025-66209~66213 多数 CVSS 10.0、CVE-2025-64419/64420/64424、CVE-2025-59156~59158），含 root 命令执行与 root SSH 私钥泄露；Censys 同期实测 <strong>52,890 个实例直接暴露公网</strong>（德国 ~15,000、美国 ~9,800、法国 ~8,000）[6][7]。官方安装文档自己建议用 PrivateIP/VPN 访问面板 [3]——采用本方案等于接受「面板绝不裸奔公网」的运维纪律。2025-01 还有 CVE-2025-22605/22606（认证命令注入 RCE，beta.253 修复）；阿联酋网络安全委员会 2025-01-29 发 Alert 88 警告勒索软件风险，比利时 CCB 2026-01 同类警告 [7]。</li><li><strong>「批量删除+勒索」传闻未证实</strong>：调研未找到「攻击者批量删除 Coolify 实例并勒索」实际事件的任何可信报道——相关表述均为漏洞披露时的风险警告；用户侧零星被黑个案（挖矿）与升级自伤（连点更新按钮致 env 丢失，discussion #3687）存在 [7]。引用时勿夸大为既成事故。</li><li><strong>两年两波 critical 批量披露 → 升级纪律必须严格</strong>：2025-01 与 2026-01 两次批量披露说明面板代码的安全更新节奏快于一般基础设施软件；官方有自动更新通道（2025 年初曾对暴露实例强制推送），自托管应开启自动更新或至少每周跟进 [7]。</li><li><strong>单维护者依赖</strong>：前 100 名贡献者中创始人 andrasbacsai 一人 12,909 次提交，是第二名（peaklabs-dev，1,853）的约 7 倍——核心代码高度集中一人，bus factor 低是结构性风险 [9]。</li><li><strong>release 节奏快且不均</strong>：月均 5.6 个 release、2026-08 单月 16 个 vs 2026-06/07 各 1 个——追新有稳定性风险，滞后有安全风险，生产实例建议跟版本但不追当日最新 [2]。</li><li><strong>资源口径</strong>：官方最低 2 Core/2GB RAM/30+ GB 存储为面板+同机部署的底线；数据库类一键服务（Supabase/Appwrite 等）官方明示需要远超此线 [3]。「资源占用：高」的矩阵评级即据此（类目内相对 systemd/pm2 而言）。</li></ul>
+<h2>来源</h2>
+<ol><li>coollabsio/coolify — <a href="https://github.com/coollabsio/coolify">https://github.com/coollabsio/coolify</a>（gh 2026-10-02 采集：⭐62,500、push 2026-10-02T15:21:45Z、Apache-2.0、forks 5,580、open issues 737、created 2021-01-25；原始响应留档 raw/2026-10-02/gh/coollabsio_coolify.json）</li><li>coollabsio/coolify releases — <a href="https://github.com/coollabsio/coolify/releases">https://github.com/coollabsio/coolify/releases</a>（gh 2026-10-02 采集：最新 v4.3.23 2026-09-18；2025-04-28→2026-09-18 共 100 个 release 的月度分布留档 raw/2026-10-02/gh/coollabsio_coolify_releases.json）</li><li>Coolify 官方安装文档 — <a href="https://coolify.io/docs/installation">https://coolify.io/docs/installation</a>（访问 2026-10-02：最低 2 Core/2GB RAM/30+ GB、安装脚本装 Docker Engine 26+、手动安装即 docker compose up、PrivateIP 建议、构建期内存提示；留档 raw/2026-10-02/web/coolify-coolify.io-installation.md）</li><li>Coolify README — <a href="https://github.com/coollabsio/coolify">https://github.com/coollabsio/coolify</a>（gh api 2026-10-02：功能清单、300+ one-click services、Git 推送部署/PR preview/回滚、多服务器管理、API/CLI/MCP/RBAC、双轨模式、退出无害与 no-paywall 声明；留档 raw/2026-10-02/gh/coollabsio_coolify_readme.md）</li><li>Wayback Machine star 序列 — web.archive.org 对 repo 页的 8 个快照（2025-01-18→2026-09-04：36,408→61,371）+ 当日 gh 62,500（访问 2026-10-02；留档 raw/2026-10-02/web/coolify-web.archive.org-star-history.md）</li><li>The Hacker News — <a href="https://thehackernews.com/2026/01/coolify-discloses-11-critical-flaws.html">https://thehackernews.com/2026/01/coolify-discloses-11-critical-flaws.html</a>（2026-01-08 报道：11 个 critical 漏洞、多数 CVSS 10.0、Censys 52,890 暴露主机及分国别分布、beta.445/451/420.7 修复映射；访问 2026-10-02）</li><li>安全事件调研汇总 — NVD CVE-2025-22605（<a href="https://nvd.nist.gov/vuln/detail/CVE-2025-22605">https://nvd.nist.gov/vuln/detail/CVE-2025-22605</a> ）、UAE Cyber Security Council Alert 88（2025-01-29 PDF）、比利时 CCB 警告页（2026-01-07 更新）、Censys advisory（<a href="https://censys.com/advisory/cve-2025-64424-cve-2025-64420-cve-2025-64419">https://censys.com/advisory/cve-2025-64424-cve-2025-64420-cve-2025-64419</a> ）、Reddit r/selfhosted 被黑个案、GitHub discussion #3687（访问 2026-10-02；多轮检索汇总留档 raw/2026-10-02/web/coolify-websearch-security-incidents.md）</li><li>Coolify Cloud 定价页 — <a href="https://coolify.io/pricing">https://coolify.io/pricing</a>（Wayback 2026-09-20 快照，访问 2026-10-02：自托管 Free Forever 无功能限制、Cloud $5/月含 2 台服务器 +$3/月/台年付 -20%、社区 20k+；留档 raw/2026-10-02/web/coolify-pricing-team.md）</li><li>维护集中度 — gh api contributors（2026-10-02：andrasbacsai 12,909 次提交 vs 第二名 peaklabs-dev 1,853；留档 raw/2026-10-02/web/coolify-pricing-team.md §二）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-02</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（gh + 官方文档 + Wayback 历史快照当日采集；安全事件史经多源交叉核实，「批量删除勒索」传闻未证实故未采信为既成事故）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Render · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/app-deploy.html">应用部署</a><span class="sep">·</span><span>轻量部署方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../railway/report.html">← Railway</a><span class="sep">·</span><a href="../systemd/report.html">systemd →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Render</h1>
+<blockquote><strong>TL;DR</strong>：托管 PaaS 中「免费起步+零运维」的默认解：git push 即部署、零停机、托管 Postgres/Redis/Cron 全家桶，Heroku 退场后承接定位明确；代价是免费层三重限制（15 分钟休眠约 1 分钟冷启动、免费 Postgres 30 天过期、2026-04 起 Hobby 带宽仅 5GB/月）与低价层政策突变史——适用 side project 与原型免费起步，长期生产托付前先核算成本与锁定。</blockquote>
+<ul><li><strong>结论</strong>：trial 试用（适用域：个人 side project / 原型 / 内部小工具的零运维起步；不适用：延迟敏感的免费层对外服务、无预算审查的长期生产托付）</li><li><strong>核实日期</strong>：2026-10-02（官方 pricing/docs/changelog + CNBC 当日全量核实）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">全托管 PaaS（"The Zero DevOps cloud"；计算跑在 Render 管理的 AWS/GCP 容器上，用户不感知底座）</td><td style="text-align:left">[1][4]</td></tr><tr><td style="text-align:left">公司</td><td style="text-align:left">Render（2018 年创立，旧金山，约 100 人；CEO Anurag Goel 为 Stripe 第 8 号员工）</td><td style="text-align:left">[4]</td></tr><tr><td style="text-align:left">免费层</td><td style="text-align:left">750 实例小时/月/workspace + 静态站永久免费 + 免费 Postgres(1GB)/Key Value(25MB)（2026-10-02 核实仍存在）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">起步价</td><td style="text-align:left">Starter 实例 0.5 CPU/512MB <strong>$7/月</strong>；1 CPU/2GB $25/月（2026-10-02 查，compute 按秒 prorated）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">工作区订阅</td><td style="text-align:left">Hobby 免费 / Pro $25 月 / Scale $499 月（2026-04-23 起的新结构）</td><td style="text-align:left">[1][3]</td></tr><tr><td style="text-align:left">许可</td><td style="text-align:left">商业闭源托管服务（无 GitHub 主仓，stats 不适用）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">合规</td><td style="text-align:left">SOC 2 Type II、ISO 27001；HIPAA 需 Pro/Scale 且 compute +20% 溢价</td><td style="text-align:left">[1]</td></tr></tbody></table>
+<h2>为什么选（四条论断）</h2>
+<ol><li><strong>运维心智是同类最低</strong>：git push 自动构建部署、零停机部署、即时回滚为全计划内置 [1]；托管 Postgres / Key Value（Redis 兼容）/ Cron Jobs / Background Workers / 静态站同在一个工作台开箱即用 [1][2]；预览环境按计划分级（Hobby 单服务预览、Pro 全栈预览）[1]。容器底座对用户完全透明，对比 Fly.io 的 machine 操作面抽象层级高一层（见对比节）。</li><li><strong>免费起步真实可用</strong>（2026-10 现状）：每 workspace 每月 750 免费实例小时（休眠不计时、可同时跑多个免费服务分摊），静态站永久免费 [2]；免费 Postgres 1GB、免费 Key Value 25MB 让「零成本起一个全栈 demo」成立 [2]。</li><li><strong>公司健康度缓解小厂存续顾虑</strong>：2026-02-17 宣布 $100M 融资、估值 $1.5B；收入增速 "well above 100%"，450 万开发者，客户含 Shopify、Alibaba、Base44；基础设施在 AWS+GCP 之上（近测自有服务器降本）[4]。</li><li><strong>承接 Heroku 生态的位势明确</strong>：Salesforce 于 2026-02 表示不再为 Heroku 开发新功能，Render CEO 称用户「正在找最成熟的替代品」[4]；官方提供 Heroku/Railway 迁移指南与最高 $10K 迁移积分 [1]；OpenAI Codex 已把 Render 列为内置部署目标 [4]。</li></ol>
+<h2>为什么不选 / 代价（三条论断）</h2>
+<ol><li><strong>免费层是「免费但慢 + 数据不驻留」</strong>：免费 web 服务 15 分钟无入站流量即休眠，唤醒约 1 分钟（官方口径，期间展示 loading 页）[2]；免费 Postgres 创建 30 天后过期，14 天宽限期后删除（无备份）[2]；免费 Key Value 25MB 纯内存、重启即丢、升级也不迁移 [2]。三者叠加意味着「免费组合」本质是试用层，不是长期免费托管。</li><li><strong>低价层政策有突变前科</strong>：2026-04-23 工作区计划重构，官方承认新 Hobby/Pro「带宽少于 legacy」（legacy 用席位费补贴带宽）[3]；第三方口径 Hobby 含带宽 <strong>100GB→5GB</strong>（Pro 500GB→25GB），超额从 100GB 增量计费改 $0.15/GB，社区反应负面 [7]；存量工作区 2026-08-01 强制迁移 [3]。免费层条款与低价层包含额都可能是移动靶。</li><li><strong>涨价曲线比自有 VPS 陡</strong>：$7 档仅 512MB 内存 [1]；带宽超额 $0.15/GB、Hobby 自定义域名超 2 个后 $0.25/个/月、构建分钟超 500 后 $5/千分 [1]——有持续外网流量的服务月账单不可控；同等月预算在自有 VPS 上能拿到的资源量级完全不同（自托管路线的运维成本是另一轴，见同类条目 dokku/caprover）。</li></ol>
+<h2>对比（同类托管平台）</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left"><strong>Render</strong></th><th style="text-align:left">Railway</th><th style="text-align:left">Fly.io</th></tr></thead><tbody><tr><td style="text-align:left">抽象层级</td><td style="text-align:left">PaaS：推代码即部署，不见基础设施 [1]</td><td style="text-align:left">PaaS：同为推代码部署 [5]</td><td style="text-align:left">微型 VM/裸算力：Machines 按秒计量，运维面更大 [6]</td></tr><tr><td style="text-align:left">免费层</td><td style="text-align:left">750 实例小时/月 + 免费静态站 + 免费 PG/KV（2026-10 在）[2]</td><td style="text-align:left">永久 Free 计划但仅 $1/月用量额度 [5]</td><td style="text-align:left">旧 3×256MB 免费额度已从定价页消失 [6]</td></tr><tr><td style="text-align:left">计价模型</td><td style="text-align:left">实例规格整月固定价（$7/512MB 起），compute 按秒 prorated [1]</td><td style="text-align:left">低固定订阅（$5 月含 $5 额度）+ 按秒资源计（CPU $20/vCPU·月满载），停止不计费 [5]</td><td style="text-align:left">纯按量（shared-1x/256MB ≈ $2.19/月），无前置计划 [6]</td></tr><tr><td style="text-align:left">适合</td><td style="text-align:left">常驻小服务要成本可预期 / 免费起步 [1][2]</td><td style="text-align:left">间歇性轻负载（用多少付多少）[5]</td><td style="text-align:left">要底层控制、多区域裸算力 [6]</td></tr></tbody></table>
+<ul><li><strong>vs Railway</strong> 的本质是定价模型：Render「实例月租」对常驻服务可预期、免费层更厚；Railway「订阅+计量、停机不计费」对间歇负载更省 [1][5]。</li><li><strong>vs Fly.io</strong> 的本质是抽象层级：Render 是沙箱化 PaaS（换走容易——标准构建产物 + SQL dump），Fly 给你 machine 但你要自己面对扩缩/放置 [6]。</li><li><strong>vs 自托管路线</strong>（dokku/caprover/docker，本类别其他条目）：Render 把运维门槛降到零、代价是持续付费 + 平台绑定；自有 VPS 反之。选哪边取决于「每月几美元」和「几小时运维」哪个更贵。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>平台绑定是中等的</strong>：服务定义（render.yaml / 工作台配置）、Cron、磁盘、托管数据库的组合迁出是手工活（PG 可标准 SQL dump，服务配置需按目标平台重写）；本次调研未发现 Render 有 config 导出为通用格式的一手证据——<strong>待验证</strong>。</li><li><strong>免费/低价层条款是移动靶</strong>：2026-04 已发生一次砍额 [3][7]；引用本报告价格须带「2026-10-02 查」时间戳，决策前复查官方 pricing 页。</li><li><strong>延迟敏感服务勿用免费层</strong>：约 1 分钟冷启动（官方口径）[2] 对 API/_bot 类场景不可接受；解决办法只有常驻付费实例（$7/月起）[1]。</li><li><strong>免费层安全阀与限制</strong>：750 小时耗尽即暂停至下月（不结转）；无 SSH、单实例、SMTP 端口（25/465/587）封禁、保留端口受限 [2]。</li><li><strong>存续风险</strong>：商业闭源、无自托管兜底；缓解因素为融资健康（$1.5B 估值、2026-02 新融资）与收入高增速 [4]。总融资约 $258M 为搜索聚合口径——<strong>待验证</strong> [7]。</li><li><strong>a16z 领投传闻未核实</strong>：本次调研（2026-10-02）未能确认早期轮领投方，CNBC 实名投资方为 01A、Addition、Bessemer、General Catalyst、Georgian Partners [4]——不采信无来源的 a16z 说法。</li></ul>
+<h2>来源</h2>
+<ol><li>Render 官方定价页 — <a href="https://render.com/pricing">https://render.com/pricing</a>（访问 2026-10-02；全文留档 raw/2026-10-02/web/render-render.com-pricing.md）</li><li>Render 免费层文档 — <a href="https://render.com/docs/free">https://render.com/docs/free</a>（访问 2026-10-02；留档 raw/2026-10-02/web/render-render.com-free.md）</li><li>Render Changelog: Updated plans for Render workspaces — <a href="https://render.com/changelog/updated-plans-for-render-workspaces">https://render.com/changelog/updated-plans-for-render-workspaces</a>（访问 2026-10-02；细节留档 raw/2026-10-02/web/render-websearch-policy-history.md）</li><li>CNBC: Cloud startup Render raises funding at $1.5 billion valuation as AI-built apps boom — <a href="https://www.cnbc.com/2026/02/17/render-raises-100-million-at-1point5-billion-valuation.html">https://www.cnbc.com/2026/02/17/render-raises-100-million-at-1point5-billion-valuation.html</a>（访问 2026-10-02；留档 raw/2026-10-02/web/render-cnbc.com-funding.md）</li><li>Railway 官方定价页 — <a href="https://railway.com/pricing">https://railway.com/pricing</a>（访问 2026-10-02；留档 raw/2026-10-02/web/render-railway.com-pricing.md）</li><li>Fly.io 官方定价页 — <a href="https://fly.io/pricing/">https://fly.io/pricing/</a>（访问 2026-10-02；留档 raw/2026-10-02/web/render-fly.io-pricing.md）</li><li>WebSearch 聚合（2026-10-02，Z.ai web_search_prime）：checkthat.ai「April 2026 bandwidth cut」100GB→5GB 口径、Reddit r/render 社区反应、render.com/blog/better-pricing-for-fast-growing-teams、融资史（2025-01 $80M Series C，Georgian 领投）——留档 raw/2026-10-02/web/render-websearch-policy-history.md</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-02</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（官方 pricing/docs/changelog + CNBC 全量核实于 2026-10-02）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

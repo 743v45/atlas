@@ -1,0 +1,42 @@
+{
+  "name": "LXC / Incus（系统容器）",
+  "repo": "https://github.com/lxc/incus",
+  "homepage": "https://linuxcontainers.org/incus/",
+  "license": "Apache-2.0",
+  "verdict": "hold",
+  "summary": "系统容器路线的社区主线（Incus，Apache-2.0，LXD 社区分叉后由原班人马领导，LTS 7.0 支持至 2031-06），但对本类别根问题——部署几个 app 到一台 VPS——判 hold：应用部署退化为「容器内手动装环境 + 手写 init」，资源与运维开销都高于 Docker 系；其真正的适用域在本类别轴外——整机环境隔离、多发行版、快照回滚时才轮到它。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "https://linuxcontainers.org/incus/（官网主页，访问 2026-10-02）",
+    "https://github.com/lxc/incus（gh 2026-10-02 采集：⭐6,310、push 2026-10-02、Apache-2.0、latest v7.5.1 发布 2026-09-25）",
+    "https://linuxcontainers.org/incus/news/2026_05_05_16_29.html（Incus 7.0 LTS 公告，2026-05-05 发布，访问 2026-10-02）",
+    "https://github.com/lxc/lxc 与 https://github.com/canonical/lxd（gh 2026-10-02 采集：⭐5,266 / v7.0.0；⭐4,833 / AGPL-3.0 / lxd-6.9）",
+    "WebSearch 分叉现状（访问 2026-10-02，含 linuxcontainers.org LXD 迁移声明、stgraber.org）",
+    "WebSearch 系统容器内存开销第三方实测（Reddit r/Proxmox、proxmoxmigracje.pl、proxmoxpulse.com，访问 2026-10-02）",
+    "WebSearch Incus Web UI 与 Zabbly 打包渠道（github.com/zabbly/incus、discuss.linuxcontainers.org、incus-os docs，访问 2026-10-02）"
+  ],
+  "tags": [
+    "系统容器",
+    "lxc",
+    "incus",
+    "lxd",
+    "自托管",
+    "vps"
+  ],
+  "matrix": {
+    "形态": "系统容器",
+    "资源占用": "中",
+    "运维门槛": "中",
+    "自托管": "是",
+    "多应用": "多应用",
+    "成本": "免费开源"
+  },
+  "stats": {
+    "source_repo": "lxc/incus",
+    "stars": 6310,
+    "pushed_at": "2026-10-02",
+    "license": "Apache-2.0",
+    "collected_at": "2026-10-02"
+  }
+}

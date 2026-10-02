@@ -1,0 +1,44 @@
+{
+  "name": "Kamal",
+  "repo": "https://github.com/basecamp/kamal",
+  "homepage": "https://kamal-deploy.org",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "容器化小应用的声明式部署甜点：一条 `kamal deploy` 在任意 VPS 上实现零停机部署 + 单机多应用，控制面仅 kamal-proxy ~14MB 内存——但 Docker 是硬前提（不用管、没绕开），适用域是已容器化或愿容器化、要零停机与多应用复用一台 VPS 的个人/小团队。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "https://github.com/basecamp/kamal（gh 2026-10-02 采集：⭐14,625、push 2026-09-30、MIT；latest v2.12.0 2026-06-18）",
+    "https://kamal-deploy.org（官网：语言无关、工作方式、官方托管平台警告，访问 2026-10-02）",
+    "https://dev.37signals.com/kamal-2（Kamal 2.0 发布公告 2024-09-26：traefik→kamal-proxy、HEY 生产使用、Rails 8 默认内置，访问 2026-10-02）",
+    "https://dev.37signals.com/once-app-server（ONCE 复用 kamal-proxy，2026-04-17，访问 2026-10-02）",
+    "https://ecn-apps.com/pages/articles/kamal-vs-coolify-2026.html（资源基准：kamal-proxy 14.2MB vs Coolify 885.6MB，2026，访问 2026-10-02）",
+    "https://judoscale.com/blog/kamal-vs-paas（Kamal 缺口：无 autoscaling、本地构建、需 registry，访问 2026-10-02）",
+    "https://github.com/basecamp/kamal/discussions/1823（2026-04 批评帖：文档缺口/Docker 硬依赖/net-ssh 质疑，访问 2026-10-02）",
+    "https://github.com/basecamp/kamal-proxy（gh 2026-10-02 采集：Go、MIT、⭐1,110）",
+    "WebSearch 检索记录（语言无关采纳度 + 应用容器内存，2026-10-02）"
+  ],
+  "tags": [
+    "部署",
+    "docker",
+    "零停机",
+    "vps",
+    "37signals",
+    "自托管"
+  ],
+  "matrix": {
+    "形态": "声明式工具",
+    "资源占用": "极低",
+    "运维门槛": "中",
+    "自托管": "是",
+    "多应用": "多机编排",
+    "成本": "免费（自付 VPS）"
+  },
+  "stats": {
+    "source_repo": "basecamp/kamal",
+    "stars": 14625,
+    "pushed_at": "2026-09-30",
+    "license": "MIT",
+    "collected_at": "2026-10-02"
+  }
+}

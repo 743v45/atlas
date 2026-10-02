@@ -25,9 +25,9 @@
   },
   "stats": {
     "source_repo": "pgvector/pgvector",
-    "stars": 23202,
-    "pushed_at": "2026-09-30",
+    "stars": 23220,
+    "pushed_at": "2026-10-01",
     "license": "NOASSERTION",
-    "collected_at": "2026-10-01"
+    "collected_at": "2026-10-02"
   }
 }

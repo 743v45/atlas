@@ -1,0 +1,38 @@
+{
+  "name": "Railway",
+  "homepage": "https://railway.com",
+  "verdict": "trial",
+  "summary": "全托管 PaaS 的体验标杆：GitHub push 自动构建部署、PR 自动开预览环境、模板一键拉起 Postgres/Redis，用户全程不碰服务器与容器细节，$5/月 Hobby 起步；但按量计费存在「超 $5 按全额收」的悬崖与社区公认的意外账单风险，2026 年事故记录偏多——不想运维的个人/小团队服务值得试用，账单敏感或求稳的服务须配硬限制并掂量。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "https://railway.com/pricing（官方定价页，访问 2026-10-02）",
+    "https://docs.railway.com/reference/pricing/plans（官方计划文档，访问 2026-10-02）",
+    "https://docs.railway.com/pricing/cost-control（官方成本控制文档，访问 2026-10-02）",
+    "https://docs.railway.com/guides/build-configuration（Railpack 零配置构建，访问 2026-10-02）",
+    "https://docs.railway.com/reference/deployments（部署机制，访问 2026-10-02）",
+    "https://docs.railway.com/guides/environments（PR 预览环境，访问 2026-10-02）",
+    "https://docs.railway.com/reference/databases（托管数据库，访问 2026-10-02）",
+    "https://docs.railway.com/reference/templates（模板市场，访问 2026-10-02）",
+    "https://nixpacks.com + gh railwayapp/nixpacks、railwayapp/railpack（构建器开源，gh 2026-10-02 采集）",
+    "https://blog.railway.com/p/series-b（$100M Series B 2026-01-22，访问 2026-10-02）",
+    "https://selfhost.dev/blog/railway-vs-render-pricing-2026-verdict（第三方竞品横评，访问 2026-10-02）",
+    "raw/2026-10-02/web/railway-websearch-reputation.md（社区口碑/融资 WebSearch 检索留档 2026-10-02，含 reddit 与 FinSMEs/VentureBeat）"
+  ],
+  "tags": [
+    "托管平台",
+    "paas",
+    "按量计费",
+    "github 自动部署",
+    "预览环境"
+  ],
+  "matrix": {
+    "形态": "托管平台",
+    "资源占用": "按量容器",
+    "运维门槛": "零",
+    "自托管": "否",
+    "多应用": "多应用",
+    "成本": "$5/月起（2026-10 查）"
+  },
+  "stats": {}
+}

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>应用部署 · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .masthead { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .masthead .sub { color: var(--muted); font-size: .92rem; }
+  .masthead .figures { margin-left: auto; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+  #filter {
+    width: 100%; padding: .5rem .8rem; margin-bottom: .6rem; font-size: .95rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text);
+  }
+  .chips { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .chip {
+    padding: .1rem .7rem; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--card); color: var(--muted); cursor: pointer; font-size: .8rem; font-family: var(--font-body);
+  }
+  .chip.active { color: var(--chip-c); border-color: var(--chip-c); font-weight: 600; }
+  .category { margin-bottom: 2.1rem; animation: drawer .4s ease both; }
+  .category:nth-child(1) { animation-delay: .02s } .category:nth-child(2) { animation-delay: .07s }
+  .category:nth-child(3) { animation-delay: .12s } .category:nth-child(4) { animation-delay: .17s }
+  @keyframes drawer { from { opacity: 0; transform: translateY(7px) } to { opacity: 1; transform: none } }
+  @media (prefers-reduced-motion: reduce) { .category { animation: none } }
+  .category h2 { font-size: 1.32rem; margin: 0 0 .5rem; display: flex; align-items: center; gap: .65rem; }
+  .gan {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1.75em; height: 1.75em; border: 1.5px solid var(--text); border-radius: 5px;
+    font-size: .82em; font-family: var(--font-display); line-height: 1; flex-shrink: 0;
+  }
+  .cmp { font-size: .8rem; font-weight: normal; margin-left: auto; font-family: var(--font-body); }
+  .idx-table { display: table; table-layout: fixed; }
+  .idx-table th {
+    font-size: .73rem; color: var(--muted); font-weight: 500; text-align: left; font-family: var(--font-body);
+    cursor: pointer; user-select: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .idx-table th:focus-visible { outline-offset: -2px; }
+  .idx-table th.sorted-asc::after { content: " ↑"; color: var(--link); }
+  .idx-table th.sorted-desc::after { content: " ↓"; color: var(--link); }
+  .idx-table td { border-bottom: 1px solid var(--border); font-size: .82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .idx-table td:first-child { width: 7.5rem; }
+  .idx-table td.num, .idx-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-family: var(--font-mono); font-size: .78rem; }
+  .idx-table td.mx { color: var(--muted); }
+  .idx-table td.warn { color: var(--accent); }
+  .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
+  .idx-table .tool-name { font-weight: 600; }
+  .push-stale { color: var(--danger); }
+  .stale-flag {
+    margin-left: .45rem; padding: 0 .4rem; border: 1px solid var(--accent); border-radius: 999px;
+    color: var(--accent); font-size: .68rem; font-family: var(--font-body); white-space: nowrap;
+  }
+  .collected-note { color: var(--muted); font-size: .75rem; margin-top: .3rem; font-family: var(--font-mono); }
+  .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
+  /* 域列表（顶层索引）与域页 */
+  .domain {
+    margin-bottom: 1.3rem; padding: 1rem 1.2rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+  }
+  .domain h2 { margin: 0 0 .35rem; display: flex; align-items: center; gap: .65rem; font-size: 1.3rem; }
+  .domain h2 a { color: inherit; text-decoration: none; }
+  .domain h2 a:hover { color: var(--link); }
+  .domain .figures { margin-left: auto; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); font-weight: 400; }
+  .domain-desc { margin: .1rem 0 .7rem; color: var(--muted); font-size: .9rem; font-family: var(--font-body); }
+  .cat-chips { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .cat-chip {
+    display: inline-flex; align-items: baseline; gap: .4rem; padding: .18rem .8rem;
+    border: 1px solid var(--border); border-radius: 999px; background: var(--bg);
+    text-decoration: none; color: var(--text); font-size: .85rem; font-family: var(--font-body);
+  }
+  .cat-chip:hover { border-color: var(--link); color: var(--link); }
+  .cat-chip span { color: var(--muted); font-family: var(--font-mono); font-size: .72rem; }
+  .cat-count { font-size: .74rem; color: var(--muted); font-weight: 400; font-family: var(--font-mono); }
+  .kingdom-name {
+    font-size: 1.05rem; color: var(--muted); font-weight: 600; margin: 1.6rem 0 .6rem;
+    border-bottom: 1px dashed var(--border); padding-bottom: .3rem;
+  }
+  .omni-wrap { position: relative; margin-bottom: 1.4rem; }
+  #omni {
+    width: 100%; padding: .55rem .9rem; font-size: .98rem; font-family: var(--font-body);
+    border: 1px solid var(--border); border-radius: 9px; background: var(--card); color: var(--text);
+  }
+  .omni-results {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 10;
+    background: var(--card); border: 1px solid var(--border); border-radius: 9px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.10); overflow: hidden;
+  }
+  .omni-results a, .omni-none {
+    display: flex; align-items: baseline; gap: .6rem; padding: .45rem .9rem;
+    text-decoration: none; color: var(--text); font-size: .88rem; font-family: var(--font-body);
+  }
+  .omni-results a:hover { background: color-mix(in srgb, var(--link) 6%, transparent); }
+  .omni-results b { font-weight: 600; }
+  .omni-v { font-size: .74rem; color: var(--muted); }
+  .omni-d { margin-left: auto; font-size: .76rem; color: var(--muted); font-family: var(--font-mono); }
+  @media (max-width: 720px) {
+    body { padding: 1rem .7rem 2.5rem; }
+    .category { overflow-x: auto; }
+    .category h2 { font-size: 1.12rem; }
+    .masthead .figures { display: none; }
+    .idx-table { min-width: 640px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../index.html">← 索引</a><span class="sep">·</span><span>应用部署</span><span class="sep">·</span><span>1 类 13 条</span></nav>
+  <div class="masthead">
+    <h1>应用部署</h1>
+    <span class="sub">个人/小团队服务的部署形态选型：一台自有 VPS 上怎么跑（裸进程 / 进程管理器 / 容器 / 系统容器 / 微型 PaaS / 声明式工具），或干脆不碰服务器（托管平台 / 边缘运行时）——轻量化为轴。</span>
+  </div>
+  <input id="filter" type="search" placeholder="按名称 / 结论 / 标签过滤…" autocomplete="off">
+  <div class="chips">
+    <button class="chip active" data-verdict="all">全部</button>
+    <button class="chip" data-verdict="adopt" style="--chip-c:#0ca30c">推荐</button><button class="chip" data-verdict="trial" style="--chip-c:#fab219">试用</button><button class="chip" data-verdict="assess" style="--chip-c:#898781">评估</button><button class="chip" data-verdict="hold" style="--chip-c:#d03b3b">观望</button>
+  </div>
+  <section class="category" id="lightweight-deploy" data-search="轻量部署方案">
+    <h2>轻量部署方案 <span class="cat-count">13 条</span> <a class="cmp" href="../items/lightweight-deploy/comparison.html">横评 →</a></h2>
+    <table class="idx-table">
+      <thead><tr>
+        <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
+        <th>形态</th><th>资源占用</th><th>运维门槛</th><th>自托管</th><th>多应用</th><th>成本</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+      </tr></thead>
+      <tbody>
+      <tr data-verdict="trial" data-stars="15177"
+          data-push="2026-09-30" data-name="CapRover"
+          data-search="caprover 微型 paas 老牌（2017 起）：web 面板 + 360 个一键应用 + 自动 https 把 docker 藏在一键体验后面，空闲仅约 300-400mb ram，2026 年维护明显回升（8 月连发 5 版、issue 当天关闭）——个人 vps、简单单容器工作流值得用，但单维护者 bus factor=1，不设为无脑默认项。 微型paas docker swarm 自托管 一键应用 vps">
+        <td class="tool-name"><a href="../items/lightweight-deploy/caprover/report.html" title="微型 PaaS 老牌（2017 起）：Web 面板 + 360 个一键应用 + 自动 HTTPS 把 Docker 藏在一键体验后面，空闲仅约 300-400MB RAM，2026 年维护明显回升（8 月连发 5 版、issue 当天关闭）——个人 VPS、简单单容器工作流值得用，但单维护者 bus factor=1，不设为无脑默认项。">CapRover</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">微型PaaS</td><td class="mx">低</td><td class="mx">低</td><td class="mx">是</td><td class="mx">多机编排</td><td class="mx">免费开源（+付费PRO）</td>
+        <td class="num">15.2k</td>
+        <td class="num">09-30</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="8801"
+          data-push="2026-10-02" data-name="Cloudflare Workers"
+          data-search="cloudflare workers 托管轻量化轴的极点：v8 isolate 边缘运行时把运维压到零、免费层（10 万请求/日 + 10ms cpu，2026-10 查）即可起步，状态存储平台内置（kv/d1/durable objects/r2/queues）——但 isolate 不是进程，应用必须按 workers 形态写（请求驱动、无长驻后台、绑定最深），已有 node 服务不能原样迁移，另有 containers 补容器类负载；适用域为新写 api/全栈 js 小服务与全球低延迟场景，非通用部署方案。 边缘运行时 serverless 托管平台 isolate 全栈框架">
+        <td class="tool-name"><a href="../items/lightweight-deploy/cloudflare-workers/report.html" title="托管轻量化轴的极点：V8 isolate 边缘运行时把运维压到零、免费层（10 万请求/日 + 10ms CPU，2026-10 查）即可起步，状态存储平台内置（KV/D1/Durable Objects/R2/Queues）——但 isolate 不是进程，应用必须按 Workers 形态写（请求驱动、无长驻后台、绑定最深），已有 Node 服务不能原样迁移，另有 Containers 补容器类负载；适用域为新写 API/全栈 JS 小服务与全球低延迟场景，非通用部署方案。">Cloudflare Workers</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">边缘运行时</td><td class="mx">isolate 按请求</td><td class="mx">零</td><td class="mx">否</td><td class="mx">多应用</td><td class="mx">免费层+$5/月（2026-10 查）</td>
+        <td class="num">8.8k</td>
+        <td class="num">10-02</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="62500"
+          data-push="2026-10-02" data-name="Coolify"
+          data-search="coolify 微 paas/web ui 派代表：面板托管一切（git 推送部署、300+ 一键服务、多机编排），自托管免费无功能墙、停用后应用照跑——代价是 2gb 级资源底线与面板 root 级攻击面（52,890 暴露实例教训），适合要 paas 体验且能守暴露面纪律的个人/小团队。 微型paas web-ui 自托管 docker vps">
+        <td class="tool-name"><a href="../items/lightweight-deploy/coolify/report.html" title="微 PaaS/Web UI 派代表：面板托管一切（Git 推送部署、300+ 一键服务、多机编排），自托管免费无功能墙、停用后应用照跑——代价是 2GB 级资源底线与面板 root 级攻击面（52,890 暴露实例教训），适合要 PaaS 体验且能守暴露面纪律的个人/小团队。">Coolify</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">微型PaaS</td><td class="mx">高</td><td class="mx">低</td><td class="mx">是</td><td class="mx">多机编排</td><td class="mx">自托管免费,Cloud $5/月起</td>
+        <td class="num">62.5k</td>
+        <td class="num">10-02</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="72144"
+          data-push="2026-10-01" data-name="Docker"
+          data-search="docker linux 单机部署的行业默认与基线：daemon 常驻开销约 100 mb 级、compose 生态与可复现性使其仍是多应用单机的安全选择；轻量轴的真实痛点在桌面端 vm（常驻 2 gb+）与 daemon 单点/需 root——该问的不是「要不要 docker」而是「是否只在服务器上用 docker」。 部署 容器 自托管 vps compose">
+        <td class="tool-name"><a href="../items/lightweight-deploy/docker/report.html" title="Linux 单机部署的行业默认与基线：daemon 常驻开销约 100 MB 级、compose 生态与可复现性使其仍是多应用单机的安全选择；轻量轴的真实痛点在桌面端 VM（常驻 2 GB+）与 daemon 单点/需 root——该问的不是「要不要 Docker」而是「是否只在服务器上用 Docker」。">Docker</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">容器引擎</td><td class="mx">Linux 低 / 桌面 VM 高</td><td class="mx">中</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">开源免费（Desktop 大企业收费）</td>
+        <td class="num">72.1k</td>
+        <td class="num">10-01</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="32157"
+          data-push="2026-10-01" data-name="Dokku"
+          data-search="dokku 单机微型 paas 的事实标准：git push 即部署、buildpack 路线免写 dockerfile、官方插件全家桶（postgres/redis/let&#x27;s encrypt 等 28 个）加内置 nginx 路由与零停机发布——本质是把 docker 藏起来而非绕开，官方 1gb 内存是硬门槛（不足时部署直接 remote rejected）；日常部署运维心智最低，但深度排障仍落到 docker 层、单维护者依赖（9,759 vs 603 commits）是结构性风险——适用 ubuntu/debian vps 上 cli 优先的个人/小团队多应用托管。 paas 部署 git-push buildpack 自托管 vps">
+        <td class="tool-name"><a href="../items/lightweight-deploy/dokku/report.html" title="单机微型 PaaS 的事实标准：git push 即部署、buildpack 路线免写 Dockerfile、官方插件全家桶（Postgres/Redis/Let&#x27;s Encrypt 等 28 个）加内置 nginx 路由与零停机发布——本质是把 Docker 藏起来而非绕开，官方 1GB 内存是硬门槛（不足时部署直接 remote rejected）；日常部署运维心智最低，但深度排障仍落到 Docker 层、单维护者依赖（9,759 vs 603 commits）是结构性风险——适用 Ubuntu/Debian VPS 上 CLI 优先的个人/小团队多应用托管。">Dokku</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">微型PaaS</td><td class="mx">中（官方门槛 1GB）</td><td class="mx">低-中</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源（MIT；有 Pro 商业版）</td>
+        <td class="num">32.2k</td>
+        <td class="num">10-01</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Fly.io"
+          data-search="fly.io 「真机器手感」托管平台的代表：firecracker 微 vm 按秒计费（最小 256mb ≈ $2.23/月，2026-10 查），fly.toml + fly deploy 免服务器运维、anycast 多区分布与自动 https 开箱即用；但 2024-10 起新用户免费额度取消、2024 q4 连环重大故障、2026-07 公司整体转向 ai agent——个人非关键路径服务值得试用，关键服务慎押。 托管平台 firecracker 微 vm 按量计费 全球分布">
+        <td class="tool-name"><a href="../items/lightweight-deploy/flyio/report.html" title="「真机器手感」托管平台的代表：Firecracker 微 VM 按秒计费（最小 256MB ≈ $2.23/月，2026-10 查），fly.toml + fly deploy 免服务器运维、Anycast 多区分布与自动 HTTPS 开箱即用；但 2024-10 起新用户免费额度取消、2024 Q4 连环重大故障、2026-07 公司整体转向 AI agent——个人非关键路径服务值得试用，关键服务慎押。">Fly.io</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">托管平台</td><td class="mx">按量微 VM</td><td class="mx">低</td><td class="mx">否</td><td class="mx">多应用</td><td class="mx">按量 ~$2.2/月（2026-10 查）</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="14625"
+          data-push="2026-09-30" data-name="Kamal"
+          data-search="kamal 容器化小应用的声明式部署甜点：一条 `kamal deploy` 在任意 vps 上实现零停机部署 + 单机多应用，控制面仅 kamal-proxy ~14mb 内存——但 docker 是硬前提（不用管、没绕开），适用域是已容器化或愿容器化、要零停机与多应用复用一台 vps 的个人/小团队。 部署 docker 零停机 vps 37signals 自托管">
+        <td class="tool-name"><a href="../items/lightweight-deploy/kamal/report.html" title="容器化小应用的声明式部署甜点：一条 `kamal deploy` 在任意 VPS 上实现零停机部署 + 单机多应用，控制面仅 kamal-proxy ~14MB 内存——但 Docker 是硬前提（不用管、没绕开），适用域是已容器化或愿容器化、要零停机与多应用复用一台 VPS 的个人/小团队。">Kamal</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">声明式工具</td><td class="mx">极低</td><td class="mx">中</td><td class="mx">是</td><td class="mx">多机编排</td><td class="mx">免费（自付 VPS）</td>
+        <td class="num">14.6k</td>
+        <td class="num">09-30</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="6310"
+          data-push="2026-10-02" data-name="LXC / Incus（系统容器）"
+          data-search="lxc / incus（系统容器） 系统容器路线的社区主线（incus，apache-2.0，lxd 社区分叉后由原班人马领导，lts 7.0 支持至 2031-06），但对本类别根问题——部署几个 app 到一台 vps——判 hold：应用部署退化为「容器内手动装环境 + 手写 init」，资源与运维开销都高于 docker 系；其真正的适用域在本类别轴外——整机环境隔离、多发行版、快照回滚时才轮到它。 系统容器 lxc incus lxd 自托管 vps">
+        <td class="tool-name"><a href="../items/lightweight-deploy/lxc/report.html" title="系统容器路线的社区主线（Incus，Apache-2.0，LXD 社区分叉后由原班人马领导，LTS 7.0 支持至 2031-06），但对本类别根问题——部署几个 app 到一台 VPS——判 hold：应用部署退化为「容器内手动装环境 + 手写 init」，资源与运维开销都高于 Docker 系；其真正的适用域在本类别轴外——整机环境隔离、多发行版、快照回滚时才轮到它。">LXC / Incus（系统容器）</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">系统容器</td><td class="mx">中</td><td class="mx">中</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源</td>
+        <td class="num">6.3k</td>
+        <td class="num">10-02</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="43297"
+          data-push="2026-09-04" data-name="PM2"
+          data-search="pm2 node 生态上手最快的进程管理器：npm 装完即用，cluster mode 与零停机 reload 内置，pm2 startup+save 覆盖六种 init 系统开机自启——代价是多一层常驻 god daemon（基线约 30–100mb、有泄漏史 open issue）且与 vps 上已有的 systemd 功能重叠；快速上线的 node 单机多应用适用，长期加固运维场景 systemd 更轻。 进程管理 node 部署 自托管">
+        <td class="tool-name"><a href="../items/lightweight-deploy/pm2/report.html" title="Node 生态上手最快的进程管理器：npm 装完即用，cluster mode 与零停机 reload 内置，pm2 startup+save 覆盖六种 init 系统开机自启——代价是多一层常驻 God daemon（基线约 30–100MB、有泄漏史 open issue）且与 VPS 上已有的 systemd 功能重叠；快速上线的 Node 单机多应用适用，长期加固运维场景 systemd 更轻。">PM2</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">进程管理器</td><td class="mx">低</td><td class="mx">低</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源（AGPL-3.0）</td>
+        <td class="num">43.3k</td>
+        <td class="num">09-04</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="32986"
+          data-push="2026-10-02" data-name="Podman"
+          data-search="podman daemonless 无守护进程容器引擎、docker 的直接替代：空闲零内存（对比 dockerd 常驻 140–180 mb），quadlet 把容器/卷/网络声明为 systemd unit、自启/重启/日志全交 systemd 原生管理，cli/dockerfile/docker 兼容 api 让存量技能近乎无损迁移——适用域：linux vps 小规模自托管服务；rootless 边界坑与文档生态弱于 docker 使整体定 trial，新装 linux 机且无存量 docker 生态的场景可按 adopt 用。 容器 部署 systemd rootless 轻量部署">
+        <td class="tool-name"><a href="../items/lightweight-deploy/podman/report.html" title="daemonless 无守护进程容器引擎、Docker 的直接替代：空闲零内存（对比 dockerd 常驻 140–180 MB），quadlet 把容器/卷/网络声明为 systemd unit、自启/重启/日志全交 systemd 原生管理，CLI/Dockerfile/Docker 兼容 API 让存量技能近乎无损迁移——适用域：Linux VPS 小规模自托管服务；rootless 边界坑与文档生态弱于 Docker 使整体定 trial，新装 Linux 机且无存量 Docker 生态的场景可按 adopt 用。">Podman</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">容器引擎</td><td class="mx">低</td><td class="mx">中</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源（Apache-2.0）</td>
+        <td class="num">33.0k</td>
+        <td class="num">10-02</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Railway"
+          data-search="railway 全托管 paas 的体验标杆：github push 自动构建部署、pr 自动开预览环境、模板一键拉起 postgres/redis，用户全程不碰服务器与容器细节，$5/月 hobby 起步；但按量计费存在「超 $5 按全额收」的悬崖与社区公认的意外账单风险，2026 年事故记录偏多——不想运维的个人/小团队服务值得试用，账单敏感或求稳的服务须配硬限制并掂量。 托管平台 paas 按量计费 github 自动部署 预览环境">
+        <td class="tool-name"><a href="../items/lightweight-deploy/railway/report.html" title="全托管 PaaS 的体验标杆：GitHub push 自动构建部署、PR 自动开预览环境、模板一键拉起 Postgres/Redis，用户全程不碰服务器与容器细节，$5/月 Hobby 起步；但按量计费存在「超 $5 按全额收」的悬崖与社区公认的意外账单风险，2026 年事故记录偏多——不想运维的个人/小团队服务值得试用，账单敏感或求稳的服务须配硬限制并掂量。">Railway</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">托管平台</td><td class="mx">按量容器</td><td class="mx">零</td><td class="mx">否</td><td class="mx">多应用</td><td class="mx">$5/月起（2026-10 查）</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Render"
+          data-search="render 托管 paas 中「免费起步+零运维」的默认解：git push 即部署、零停机、托管 postgres/redis/cron 全家桶，heroku 退场后承接定位明确；代价是免费层三重限制（15 分钟休眠约 1 分钟冷启动、免费 postgres 30 天过期、2026-04 起 hobby 带宽仅 5gb/月）与低价层政策突变史——适用 side project 与原型免费起步，长期生产托付前先核算成本与锁定。 paas 托管平台 免费层 零运维 heroku 替代">
+        <td class="tool-name"><a href="../items/lightweight-deploy/render/report.html" title="托管 PaaS 中「免费起步+零运维」的默认解：git push 即部署、零停机、托管 Postgres/Redis/Cron 全家桶，Heroku 退场后承接定位明确；代价是免费层三重限制（15 分钟休眠约 1 分钟冷启动、免费 Postgres 30 天过期、2026-04 起 Hobby 带宽仅 5GB/月）与低价层政策突变史——适用 side project 与原型免费起步，长期生产托付前先核算成本与锁定。">Render</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">托管平台</td><td class="mx">托管实例（零资源心智）</td><td class="mx">零</td><td class="mx">否</td><td class="mx">多应用</td><td class="mx">免费层+$7/月起（2026-10 查）</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="16768"
+          data-push="2026-10-02" data-name="systemd"
+          data-search="systemd 一台 linux vps 上跑几个到十几个小服务的轻量默认解：发行版自带零安装、无 daemon 中间层（应用总内存≈应用自身，对照组 pm2 daemon 约 83mb）、restart=always 自愈与 journalctl 日志开箱即得；代价是仅 linux、无隔离无镜像、部署无声明式回滚——适用域为进程级部署够用的个人/小团队自有 vps。 部署 进程管理 linux vps init-system">
+        <td class="tool-name"><a href="../items/lightweight-deploy/systemd/report.html" title="一台 Linux VPS 上跑几个到十几个小服务的轻量默认解：发行版自带零安装、无 daemon 中间层（应用总内存≈应用自身，对照组 PM2 daemon 约 83MB）、Restart=always 自愈与 journalctl 日志开箱即得；代价是仅 Linux、无隔离无镜像、部署无声明式回滚——适用域为进程级部署够用的个人/小团队自有 VPS。">systemd</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">进程管理器</td><td class="mx">极低</td><td class="mx">低</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源（LGPL-2.1）</td>
+        <td class="num">16.8k</td>
+        <td class="num">10-02</td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="collected-note">star / push 为 gh 快照，采集 2026-10-02；红色 push 表示停滞超 180 天，「待复核」表示采集/核实超 180 天；条目名悬停看一句话结论。</p>
+  </section>
+  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
+</main>
+<script>
+  // 文本过滤 + verdict chips + 表头排序（类别内，点击切换升降序）
+  const VERDICT_ORDER = {"adopt": 0, "trial": 1, "assess": 2, "hold": 3};
+  const input = document.getElementById('filter');
+  let verdictF = 'all';
+  const chips = [...document.querySelectorAll('.chip')];
+
+  function applyFilter() {
+    document.querySelectorAll('.category').forEach(sec => {
+      let visible = 0;
+      sec.querySelectorAll('tbody tr').forEach(tr => {
+        const q = input.value.trim().toLowerCase();
+        const hitText = !q || tr.dataset.search.includes(q) || sec.dataset.search.includes(q);
+        const hitVerdict = verdictF === 'all' || tr.dataset.verdict === verdictF;
+        const hit = hitText && hitVerdict;
+        tr.classList.toggle('hidden', !hit);
+        if (hit) visible++;
+      });
+      sec.classList.toggle('hidden', visible === 0);
+    });
+  }
+  input.addEventListener('input', applyFilter);
+  chips.forEach(ch => ch.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    ch.classList.add('active');
+    verdictF = ch.dataset.verdict;
+    applyFilter();
+  }));
+
+  document.querySelectorAll('.idx-table th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const table = th.closest('table');
+      const tbody = table.querySelector('tbody');
+      const key = th.dataset.sort;
+      const asc = !th.classList.contains('sorted-asc');
+      table.querySelectorAll('th').forEach(t => t.classList.remove('sorted-asc', 'sorted-desc'));
+      th.classList.add(asc ? 'sorted-asc' : 'sorted-desc');
+      [...tbody.querySelectorAll('tr')].sort((a, b) => {
+        let va = a.dataset[key], vb = b.dataset[key];
+        if (key === 'stars') return (Number(va) - Number(vb)) * (asc ? 1 : -1);
+        if (key === 'verdict') return ((VERDICT_ORDER[va] ?? 9) - (VERDICT_ORDER[vb] ?? 9)) * (asc ? 1 : -1);
+        if (key === 'push') return String(va).localeCompare(String(vb)) * (asc ? 1 : -1);
+        return va.localeCompare(vb, 'zh') * (asc ? 1 : -1);
+      }).forEach(tr => tbody.appendChild(tr));
+    });
+  });
+</script>
+</body>
+</html>

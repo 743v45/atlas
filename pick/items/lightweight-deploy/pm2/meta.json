@@ -1,0 +1,45 @@
+{
+  "name": "PM2",
+  "repo": "https://github.com/Unitech/pm2",
+  "homepage": "https://pm2.keymetrics.io",
+  "license": "AGPL-3.0",
+  "verdict": "trial",
+  "summary": "Node 生态上手最快的进程管理器：npm 装完即用，cluster mode 与零停机 reload 内置，pm2 startup+save 覆盖六种 init 系统开机自启——代价是多一层常驻 God daemon（基线约 30–100MB、有泄漏史 open issue）且与 VPS 上已有的 systemd 功能重叠；快速上线的 Node 单机多应用适用，长期加固运维场景 systemd 更轻。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "https://github.com/Unitech/pm2（gh 2026-10-02 采集：⭐43,297、push 2026-09-04、open issues 1,105、AGPL-3.0）",
+    "https://github.com/Unitech/pm2/releases（gh 2026-10-02 采集：v7.0.4 2026-08-24、v7.0.0 2026-05-02 Node≥18+Bun）",
+    "https://registry.npmjs.org/pm2（2026-10-02 采集：license AGPL-3.0、月下载 14,020,856（2026-09））",
+    "https://pm2.keymetrics.io/docs/usage/cluster-mode/（访问 2026-10-02）",
+    "https://pm2.keymetrics.io/docs/usage/startup/（访问 2026-10-02）",
+    "https://github.com/Unitech/pm2/issues/6113（2026-05 建，open：daemon 内存泄漏 5.7GB/22 天）",
+    "https://github.com/Unitech/pm2/issues/5145（2021-08 建，open：daemon 230MB）",
+    "https://stackoverflow.com/questions/34520775/should-pm2-god-daemon-always-be-running（2026-10-02 检索：~27MB 口径）",
+    "https://khimananda.com/blog/pm2-vs-systemd-for-node-js-services（2026-10-02 检索：daemon ~30–50MB 口径与 systemd 共识）",
+    "https://pm2.keymetrics.io/pricing（访问 2026-10-02：PM2 Plus $79/月起、Runtime 免费）",
+    "https://www.reddit.com/r/node/comments/1ocoqxd/（2026-10-02 检索：daemon ~95MB 实测）",
+    "https://dev.to/empellio/process-manager-comparison-2026-pm2-systemd-supervisor-oxmgr-and-more-4e0p（2026-10-02 检索：行业定位）"
+  ],
+  "tags": [
+    "进程管理",
+    "node",
+    "部署",
+    "自托管"
+  ],
+  "matrix": {
+    "形态": "进程管理器",
+    "资源占用": "低",
+    "运维门槛": "低",
+    "自托管": "是",
+    "多应用": "多应用",
+    "成本": "免费开源（AGPL-3.0）"
+  },
+  "stats": {
+    "source_repo": "Unitech/pm2",
+    "stars": 43297,
+    "pushed_at": "2026-09-04",
+    "license": "NOASSERTION",
+    "collected_at": "2026-10-02"
+  }
+}

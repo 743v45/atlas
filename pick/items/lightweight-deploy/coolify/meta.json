@@ -1,0 +1,43 @@
+{
+  "name": "Coolify",
+  "repo": "https://github.com/coollabsio/coolify",
+  "homepage": "https://coolify.io",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "微 PaaS/Web UI 派代表：面板托管一切（Git 推送部署、300+ 一键服务、多机编排），自托管免费无功能墙、停用后应用照跑——代价是 2GB 级资源底线与面板 root 级攻击面（52,890 暴露实例教训），适合要 PaaS 体验且能守暴露面纪律的个人/小团队。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "coollabsio/coolify — https://github.com/coollabsio/coolify（gh 2026-10-02 采集：⭐62,500、push 2026-10-02T15:21:45Z、Apache-2.0、forks 5,580、open issues 737、created 2021-01-25；原始响应留档 raw/2026-10-02/gh/coollabsio_coolify.json）",
+    "coollabsio/coolify releases — https://github.com/coollabsio/coolify/releases（gh 2026-10-02 采集：最新 v4.3.23 2026-09-18；2025-04-28→2026-09-18 共 100 个 release 的月度分布留档 raw/2026-10-02/gh/coollabsio_coolify_releases.json）",
+    "Coolify 官方安装文档 — https://coolify.io/docs/installation（访问 2026-10-02：最低 2 Core/2GB RAM/30+ GB、安装脚本装 Docker Engine 26+、手动安装即 docker compose up、PrivateIP 建议、构建期内存提示；留档 raw/2026-10-02/web/coolify-coolify.io-installation.md）",
+    "Coolify README — https://github.com/coollabsio/coolify（gh api 2026-10-02：功能清单、300+ one-click services、Git 推送部署/PR preview/回滚、多服务器管理、API/CLI/MCP/RBAC、双轨模式、退出无害与 no-paywall 声明；留档 raw/2026-10-02/gh/coollabsio_coolify_readme.md）",
+    "Wayback Machine star 序列 — web.archive.org 对 repo 页的 8 个快照（2025-01-18→2026-09-04：36,408→61,371）+ 当日 gh 62,500（访问 2026-10-02；留档 raw/2026-10-02/web/coolify-web.archive.org-star-history.md）",
+    "The Hacker News — https://thehackernews.com/2026/01/coolify-discloses-11-critical-flaws.html（2026-01-08 报道：11 个 critical 漏洞、多数 CVSS 10.0、Censys 52,890 暴露主机及分国别分布、beta.445/451/420.7 修复映射；访问 2026-10-02）",
+    "安全事件调研汇总 — NVD CVE-2025-22605（https://nvd.nist.gov/vuln/detail/CVE-2025-22605 ）、UAE Cyber Security Council Alert 88（2025-01-29 PDF）、比利时 CCB 警告页（2026-01-07 更新）、Censys advisory（https://censys.com/advisory/cve-2025-64424-cve-2025-64420-cve-2025-64419 ）、Reddit r/selfhosted 被黑个案、GitHub discussion #3687（访问 2026-10-02；多轮检索汇总留档 raw/2026-10-02/web/coolify-websearch-security-incidents.md）",
+    "Coolify Cloud 定价页 — https://coolify.io/pricing（Wayback 2026-09-20 快照，访问 2026-10-02：自托管 Free Forever 无功能限制、Cloud $5/月含 2 台服务器 +$3/月/台年付 -20%、社区 20k+；留档 raw/2026-10-02/web/coolify-pricing-team.md）",
+    "维护集中度 — gh api contributors（2026-10-02：andrasbacsai 12,909 次提交 vs 第二名 peaklabs-dev 1,853；留档 raw/2026-10-02/web/coolify-pricing-team.md §二）"
+  ],
+  "tags": [
+    "微型paas",
+    "web-ui",
+    "自托管",
+    "docker",
+    "vps"
+  ],
+  "matrix": {
+    "形态": "微型PaaS",
+    "资源占用": "高",
+    "运维门槛": "低",
+    "自托管": "是",
+    "多应用": "多机编排",
+    "成本": "自托管免费,Cloud $5/月起"
+  },
+  "stats": {
+    "source_repo": "coollabsio/coolify",
+    "stars": 62500,
+    "pushed_at": "2026-10-02",
+    "license": "Apache-2.0",
+    "collected_at": "2026-10-02"
+  }
+}

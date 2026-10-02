@@ -1,0 +1,36 @@
+{
+  "name": "Fly.io",
+  "homepage": "https://fly.io",
+  "verdict": "trial",
+  "summary": "「真机器手感」托管平台的代表：Firecracker 微 VM 按秒计费（最小 256MB ≈ $2.23/月，2026-10 查），fly.toml + fly deploy 免服务器运维、Anycast 多区分布与自动 HTTPS 开箱即用；但 2024-10 起新用户免费额度取消、2024 Q4 连环重大故障、2026-07 公司整体转向 AI agent——个人非关键路径服务值得试用，关键服务慎押。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "Fly.io 官方定价文档 — https://docs.fly.io/about/pricing（访问 2026-10-02；费率/区域系数/流量分区/快照收费全文留档 raw/2026-10-02/web/flyio-docs.fly.io.md）",
+    "Fly.io 官方架构文档 — https://docs.fly.io/reference/architecture（访问 2026-10-02；Firecracker microVM/Anycast/WireGuard 原文留档 raw/2026-10-02/web/flyio-architecture-reference.md）",
+    "Fly.io Discontinued Plans 与免费额度变动 — https://fly.io/docs/about/discontinued-plans、https://community.fly.io/t/free-tier-is-dead/20651（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-web-search-result.md）",
+    "Fly.io 官方公告「Computers for Agents」 — https://fly.io/news/fly-io-launches-computers-for-agents（访问 2026-10-02；$25M Series D/新 CEO/37,000 客户口径全文留档 raw/2026-10-02/web/flyio-fly-io-news.md）",
+    "Fly Machines 产品页与博客（~300ms 启动、按需拉起/空闲关停） — https://fly.io/machines、https://fly.io/blog/fly-machines（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-fly-io-architecture.md）",
+    "Fly.io 故障史（infra-log 及 postmortem） — https://fly.io/infra-log、https://fly.io/infra-log/2024-10-26、https://community.fly.io/t/psa-postmortem-for-the-nov-25-outage/22933、https://fly.io/infra-log/2025-02-22（检索 2026-10-02；时间线留档 raw/2026-10-02/web/flyio-outage-history.md）",
+    "公司转向报道与社区反应 — https://daily.dev/posts/fly-io-pivots-to-ephemeral-cloud-computers-for-ai-agents-names-new-ceo-v9mpmy2bi、https://community.fly.io/t/gpu-migration-fly-io-gpus-will-be-deprecated-as-of-july-31-2026/27110、https://community.fly.io/t/will-the-apps-and-machine-platform-start-winding-down/28380/7、https://elixirforum.com/t/now-that-fly-are-pivoting-should-i-trust-them-for-hosting/76144（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-pivot-ai-agents.md）",
+    "部署工作流（fly launch/deploy、本地与远程构建、fly.toml） — https://fly.io/django、https://hexdocs.pm/phoenix/1.6.4/fly.html、https://community.fly.io/t/build-images-with-nixpacks/6169（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-deploy-workflow.md）",
+    "定价复杂度口碑（Reddit r/selfhosted、r/elixir、HN） — https://www.reddit.com/r/selfhosted/comments/1pri1wo/、https://www.reddit.com/r/elixir/comments/1h8ajm2/、https://news.ycombinator.com/item?id=48688835（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-pricing-criticism.md）",
+    "第三方可用性监控口径 — https://www.pulsapi.com/services/fly-io/uptime（94.41%/121 天）、IsDown 统计约 609 起事件（检索 2026-10-02；留档 raw/2026-10-02/web/flyio-outage-history.md）"
+  ],
+  "tags": [
+    "托管平台",
+    "firecracker",
+    "微 VM",
+    "按量计费",
+    "全球分布"
+  ],
+  "matrix": {
+    "形态": "托管平台",
+    "资源占用": "按量微 VM",
+    "运维门槛": "低",
+    "自托管": "否",
+    "多应用": "多应用",
+    "成本": "按量 ~$2.2/月（2026-10 查）"
+  },
+  "stats": {}
+}

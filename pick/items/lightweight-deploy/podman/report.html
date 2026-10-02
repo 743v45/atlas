@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Podman · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/app-deploy.html">应用部署</a><span class="sep">·</span><span>轻量部署方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../pm2/report.html">← PM2</a><span class="sep">·</span><a href="../railway/report.html">Railway →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Podman</h1>
+<blockquote><strong>TL;DR</strong>：daemonless 无守护进程容器引擎、Docker 的直接替代：空闲零内存（对比 dockerd 常驻 140–180 MB），quadlet 把容器/卷/网络声明为 systemd unit、自启/重启/日志全交 systemd 原生管理，CLI/Dockerfile/Docker 兼容 API 让存量技能近乎无损迁移——适用域：Linux VPS 小规模自托管服务；rootless 边界坑与文档生态弱于 Docker 使整体定 trial，新装 Linux 机且无存量 Docker 生态的场景可按 adopt 用。</blockquote>
+<ul><li><strong>结论</strong>：trial（试用；轻量轴——资源占用+运维心智——上赢 Docker，但 rootless 边界与 Compose 边缘差距要求使用者有 Linux 底子）</li><li><strong>核实日期</strong>：2026-10-02（gh 一手数据 + 官网/官方文档/LWN 当日核实）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">当前版本</td><td style="text-align:left">v6.1.3（2026-09-29 发布）；5.x 线并行维护（v5.8.8 同日发布，近三个月 5.8.6→5.8.8 三连发）</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">上个大版本</td><td style="text-align:left">v6.0.0（2026-06-24 发布，断裂式变更见风险节）</td><td style="text-align:left">[2][3]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">Apache-2.0</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">治理</td><td style="text-align:left">Red Hat 主导研发多年 → 2024-11 宣布捐入 CNCF → 2025-01-21 接纳为 Sandbox</td><td style="text-align:left">[5][6]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">⭐32,985、push 2026-10-02（与采集同日）、open issues 1,014（gh 2026-10-02）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">平台</td><td style="text-align:left">Linux 原生；macOS/Windows 走 podman machine（VM 内跑）；FreeBSD 实验支持（14.3+）</td><td style="text-align:left">[2][9]</td></tr><tr><td style="text-align:left">发行版地位</td><td style="text-align:left">RHEL 8 起替代 Docker 成默认容器引擎；Fedora/CentOS/Ubuntu/Debian 官方仓库直装</td><td style="text-align:left">[11]</td></tr></tbody></table>
+<h2>为什么选</h2>
+<ol><li><strong>daemonless = 空闲零基线成本</strong>。无常驻守护进程：没有容器在跑时 Podman 占 0 MB；对照 dockerd 空闲常驻 140–180 MB [8]。这是架构性差异——CNCF 官方描述即「without requiring a daemon or root privileges」[6]——不是调优得来的。对「一台 VPS 跑几个到十几个小服务」的场景，省掉的是常驻的百 MB 级基线。</li><li><strong>quadlet：容器声明即 systemd unit</strong>。<code>.container</code>/<code>.volume</code> 等声明文件放进 <code>~/.config/containers/systemd/</code>（rootful 为 <code>/etc/containers/systemd/</code>），由 systemd generator 翻译成原生 unit [4]——开机自启（源文件内 <code>[Install] WantedBy=multi-user.target</code>）、重启策略、依赖编排（卷/网络按名引用即隐式接线）、<code>journalctl</code> 日志全部是 systemd 本身的能力，无额外组件常驻 [4]。rootless 实践要点：<code>loginctl enable-linger</code> 登出续命 + <code>systemctl --user daemon-reload</code> [10]。这是「容器引擎」与「systemd」两条部署路线之间的桥：日常运维心智收敛到 systemctl 一套命令。</li><li><strong>Docker 兼容是迁移成本的答案</strong>。CLI 命令与 Dockerfile 直接用（drop-in replacement 口径 [11]）；<code>systemctl --user start podman.socket</code> 起兼容 API socket（systemd socket activation）后，官方 Docker Compose v2 经 <code>DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock</code> 直连使用，是 2026 年的共识路线 [7]。存量技能与 compose 文件基本无损迁移。</li><li><strong>治理与成熟度双保险</strong>。Red Hat 工程投入多年、RHEL 默认引擎的生产规模背书 [11]；2024-11 KubeCon NA 宣布连同 Buildah/Skopeo/Composefs/bootc/Podman Desktop 整体捐入 CNCF，2025-01-21 接纳为 Sandbox（LFX Health Score "Excellent (86)"）[5][6]——单一厂商绑定风险解除。v6.0.0 起 import 路径改 <code>go.podman.io/podman/v6</code>，GitHub 组织迁至 <code>podman-container-tools</code>（旧址自动重定向）[2]。</li><li><strong>rootless 安全边界</strong>。容器由非 root 用户经 user namespace 运行，公网服务被攻破不直接等于主机失守 [6][10]——对自托管公网服务，这是 Docker rootful 默认之外的真实加分。</li></ol>
+<h2>对比</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">Podman</th><th style="text-align:left">Docker</th></tr></thead><tbody><tr><td style="text-align:left">守护进程</td><td style="text-align:left">无（daemonless）[6]</td><td style="text-align:left">dockerd 常驻，空闲 140–180 MB [8]</td></tr><tr><td style="text-align:left">空闲内存</td><td style="text-align:left">0 MB [8]</td><td style="text-align:left">见上</td></tr><tr><td style="text-align:left">服务管理</td><td style="text-align:left">quadlet → systemd 原生（systemctl/journalctl）[4]</td><td style="text-align:left">restart policy + compose，或 systemd 再包一层</td></tr><tr><td style="text-align:left">权限模型</td><td style="text-align:left">rootless 一等公民 [6][10]</td><td style="text-align:left">rootful 默认，rootless 非主路径</td></tr><tr><td style="text-align:left">Compose</td><td style="text-align:left">官方 Compose v2 经兼容 socket 可用；自带 podman-compose 但功能完整度更低（init containers 等缺失）[7]</td><td style="text-align:left">原生</td></tr><tr><td style="text-align:left">文档/GUI 生态</td><td style="text-align:left">较弱；Podman Desktop（v1.29，2026-10-02 快照）缓解 [9]</td><td style="text-align:left">最强</td></tr><tr><td style="text-align:left">systemd 集成</td><td style="text-align:left">quadlet 官方正路 [4]</td><td style="text-align:left">无对等物</td></tr></tbody></table>
+<p>多机编排非其射程（无原生多主机能力，该需求应看 Kubernetes/微型 PaaS，见类别横评）。逐维度横评见 <code>../comparison.md</code>（如存在）。</p>
+<h2>风险与注意</h2>
+<ul><li><strong>v6.0.0 是断裂式升级（2026-06-24）</strong>：移除 BoltDB（启动时自动迁 SQLite）、cgroups v1（须 v2）、iptables（须 nftables）、CNI（须 Netavark）、slirp4netns（须 Pasta）、<strong>Intel Mac 支持</strong>、Windows 10 支持；须配套 Buildah v1.44/Skopeo v1.23/Netavark v2.0；社区口径「当迁移对待，而非原地版本升级」[2][3]。老机器（cgroups v1）直接不可用。</li><li><strong>rootless 边界坑</strong>：rootless Quadlet 必须用 systemd <strong>user units</strong>——系统级 unit 里用 <code>User=</code> 跑 rootless Podman <strong>不受支持</strong> [10]；登出后服务续命须 <code>enable-linger</code> [10]；容器内绑低端口（&lt;1024）需调 sysctl <code>net.ipv4.ip_unprivileged_port_start</code>（待验证）；卷的 UID 映射（subuid/subgid）与镜像内用户对不齐是社区高频踩坑点（待验证，未单独取证）。</li><li><strong>Compose 边缘差距</strong>：官方 Compose 经兼容 socket 存在边缘 case；<code>podman-compose</code> 缺 init containers 等特性，远端场景差距更明显 [7]。</li><li><strong>性能数据口径警示</strong>：空闲内存优势无争议（架构性）；<strong>负载下</strong>各基准互相矛盾——有反例显示特定负载 Docker overhead 反而更低，精确数字只作量级参考 [8]。rootless 模式对双方都加约 25–30% 冷启动开销 [8]。</li><li><strong>macOS/Windows 非一等公民</strong>：走 podman machine VM，多一层 VM 心智；且 6.0 起 Intel Mac 不再支持，只剩 Apple Silicon [2][9]。</li></ul>
+<h2>来源</h2>
+<ol><li>containers/podman — <a href="https://github.com/containers/podman">https://github.com/containers/podman</a>（gh 2026-10-02 采集：⭐32,985、push 2026-10-02、Apache-2.0、open issues 1,014；原始响应留档 raw/2026-10-02/gh/containers_podman.json）</li><li>Podman releases（gh api 2026-10-02 采集）：v6.1.3 发布 2026-09-29、v5.8.8 同日、v6.0.0 发布 2026-06-24T17:38Z；v6.0.0 release notes 摘录留档 raw/2026-10-02/gh/containers_podman_v6.0.0_release.json</li><li>LWN: Podman 6.0 released — <a href="https://lwn.net/Articles/1079600">https://lwn.net/Articles/1079600</a>（访问 2026-10-02；留档 raw/2026-10-02/web/podman-lwn.net.md）</li><li>Podman 官方文档 quadlet-basic-usage(7) — <a href="https://docs.podman.io/en/latest/markdown/podman-quadlet-basic-usage.7.html">https://docs.podman.io/en/latest/markdown/podman-quadlet-basic-usage.7.html</a>（访问 2026-10-02；留档 raw/2026-10-02/web/podman-docs.podman.io.md）</li><li>Red Hat 公告：向 CNCF 捐赠容器工具集（2024-11 KubeCon NA）— <a href="https://www.redhat.com/en/blog/red-hat-contribute-comprehensive-container-tools-collection-cloud-native-computing-foundation">https://www.redhat.com/en/blog/red-hat-contribute-comprehensive-container-tools-collection-cloud-native-computing-foundation</a>（访问 2026-10-02；留档 raw/2026-10-02/web/podman-websearch-cncf.md）</li><li>CNCF 项目页 Podman Container Tools — <a href="https://www.cncf.io/projects/podman-container-tools">https://www.cncf.io/projects/podman-container-tools</a>（访问 2026-10-02；2025-01-21 Sandbox 接纳；留档 raw/2026-10-02/web/podman-cncf.io.md）</li><li>Compose 兼容聚合（WebSearch 2026-10-02）：OneUptime <a href="https://oneuptime.com/blog/post/2026-03-17-use-docker-compose-podman-socket/view">https://oneuptime.com/blog/post/2026-03-17-use-docker-compose-podman-socket/view</a> 、GitHub discussion <a href="https://github.com/podman-container-tools/podman/discussions/29355">https://github.com/podman-container-tools/podman/discussions/29355</a> 、Red Hat <a href="https://www.redhat.com/en/blog/podman-compose-docker-compose">https://www.redhat.com/en/blog/podman-compose-docker-compose</a>（留档 raw/2026-10-02/web/podman-websearch-compose.md）</li><li>资源占用聚合（WebSearch 2026-10-02，口径警示见风险节）：Medium @jamilxt <a href="https://medium.com/@jamilxt/docker-vs-podman-in-2026-the-benchmarks-contradict-each-other-here-is-how-to-decide-6eda538f8190">https://medium.com/@jamilxt/docker-vs-podman-in-2026-the-benchmarks-contradict-each-other-here-is-how-to-decide-6eda538f8190</a> 、uptrace.dev <a href="https://uptrace.dev/comparisons/podman-vs-docker">https://uptrace.dev/comparisons/podman-vs-docker</a> 、shattered.io <a href="https://shattered.io/docker-vs-podman-overhead-comparison-2026">https://shattered.io/docker-vs-podman-overhead-comparison-2026</a> 等（留档 raw/2026-10-02/web/podman-websearch-memory.md）</li><li>podman.io 官网 — <a href="https://podman.io">https://podman.io</a>（访问 2026-10-02；安装文档 <a href="https://podman.io/docs/installation">https://podman.io/docs/installation</a>；留档 raw/2026-10-02/web/podman-podman.io.md）</li><li>Quadlet rootless 实践聚合（WebSearch 2026-10-02）：ubitools <a href="https://www.ubitools.com/podman-quadlet-guide">https://www.ubitools.com/podman-quadlet-guide</a> 、unix.SE <a href="https://unix.stackexchange.com/questions/714167">https://unix.stackexchange.com/questions/714167</a> 、GitHub discussion <a href="https://github.com/podman-container-tools/podman/discussions/20573">https://github.com/podman-container-tools/podman/discussions/20573</a>（留档 raw/2026-10-02/web/podman-websearch-quadlet.md）</li><li>RHEL/发行版打包聚合（WebSearch 2026-10-02）：Fedora Docs <a href="https://docs.fedoraproject.org/en-US/neurofedora/containers">https://docs.fedoraproject.org/en-US/neurofedora/containers</a> 、Podman 安装文档 <a href="https://podman.io/docs/installation">https://podman.io/docs/installation</a> 、Red Hat Developer 迁移指南 <a href="https://developers.redhat.com/blog/2020/11/19/transitioning-from-docker-to-podman">https://developers.redhat.com/blog/2020/11/19/transitioning-from-docker-to-podman</a>（留档 raw/2026-10-02/web/podman-websearch-rhel.md）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-02</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（lightweight-deploy 类别新建；gh+官方文档+LWN+CNCF 当日核实）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

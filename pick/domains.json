@@ -1,6 +1,14 @@
 {
-  "updated": "2026-10-01",
+  "updated": "2026-10-02",
   "domains": [
+    {
+      "slug": "app-deploy",
+      "name": "应用部署",
+      "description": "个人/小团队服务的部署形态选型：一台自有 VPS 上怎么跑（裸进程 / 进程管理器 / 容器 / 系统容器 / 微型 PaaS / 声明式工具），或干脆不碰服务器（托管平台 / 边缘运行时）——轻量化为轴。",
+      "categories": [
+        "lightweight-deploy"
+      ]
+    },
     {
       "slug": "browser-agents",
       "name": "AI × 浏览器",
@@ -87,6 +95,14 @@
     }
   ],
   "kingdoms": [
+    {
+      "slug": "server-ops",
+      "name": "服务与运维",
+      "description": "把服务跑起来并保持运行的基础设施选型",
+      "domains": [
+        "app-deploy"
+      ]
+    },
     {
       "slug": "ai-agents",
       "name": "AI 与智能体",

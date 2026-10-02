@@ -1,0 +1,45 @@
+{
+  "name": "Podman",
+  "repo": "https://github.com/containers/podman",
+  "homepage": "https://podman.io",
+  "license": "Apache-2.0",
+  "verdict": "trial",
+  "summary": "daemonless 无守护进程容器引擎、Docker 的直接替代：空闲零内存（对比 dockerd 常驻 140–180 MB），quadlet 把容器/卷/网络声明为 systemd unit、自启/重启/日志全交 systemd 原生管理，CLI/Dockerfile/Docker 兼容 API 让存量技能近乎无损迁移——适用域：Linux VPS 小规模自托管服务；rootless 边界坑与文档生态弱于 Docker 使整体定 trial，新装 Linux 机且无存量 Docker 生态的场景可按 adopt 用。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "containers/podman — https://github.com/containers/podman（gh 2026-10-02 采集：⭐32,985、push 2026-10-02、Apache-2.0、open issues 1,014；原始响应留档 raw/2026-10-02/gh/containers_podman.json）",
+    "Podman releases（gh api 2026-10-02 采集）：v6.1.3 发布 2026-09-29、v5.8.8 同日、v6.0.0 发布 2026-06-24T17:38Z；v6.0.0 release notes 摘录留档 raw/2026-10-02/gh/containers_podman_v6.0.0_release.json",
+    "LWN: Podman 6.0 released — https://lwn.net/Articles/1079600（访问 2026-10-02；留档 raw/2026-10-02/web/podman-lwn.net.md）",
+    "Podman 官方文档 quadlet-basic-usage(7) — https://docs.podman.io/en/latest/markdown/podman-quadlet-basic-usage.7.html（访问 2026-10-02；留档 raw/2026-10-02/web/podman-docs.podman.io.md）",
+    "Red Hat 公告：向 CNCF 捐赠容器工具集（2024-11 KubeCon NA）— https://www.redhat.com/en/blog/red-hat-contribute-comprehensive-container-tools-collection-cloud-native-computing-foundation（访问 2026-10-02；留档 raw/2026-10-02/web/podman-websearch-cncf.md）",
+    "CNCF 项目页 Podman Container Tools — https://www.cncf.io/projects/podman-container-tools（访问 2026-10-02；2025-01-21 Sandbox 接纳；留档 raw/2026-10-02/web/podman-cncf.io.md）",
+    "Compose 兼容聚合（WebSearch 2026-10-02）：OneUptime https://oneuptime.com/blog/post/2026-03-17-use-docker-compose-podman-socket/view 、GitHub discussion https://github.com/podman-container-tools/podman/discussions/29355 、Red Hat https://www.redhat.com/en/blog/podman-compose-docker-compose（留档 raw/2026-10-02/web/podman-websearch-compose.md）",
+    "资源占用聚合（WebSearch 2026-10-02，口径警示见风险节）：Medium @jamilxt https://medium.com/@jamilxt/docker-vs-podman-in-2026-the-benchmarks-contradict-each-other-here-is-how-to-decide-6eda538f8190 、uptrace.dev https://uptrace.dev/comparisons/podman-vs-docker 、shattered.io https://shattered.io/docker-vs-podman-overhead-comparison-2026 等（留档 raw/2026-10-02/web/podman-websearch-memory.md）",
+    "podman.io 官网 — https://podman.io（访问 2026-10-02；安装文档 https://podman.io/docs/installation；留档 raw/2026-10-02/web/podman-podman.io.md）",
+    "Quadlet rootless 实践聚合（WebSearch 2026-10-02）：ubitools https://www.ubitools.com/podman-quadlet-guide 、unix.SE https://unix.stackexchange.com/questions/714167 、GitHub discussion https://github.com/podman-container-tools/podman/discussions/20573（留档 raw/2026-10-02/web/podman-websearch-quadlet.md）",
+    "RHEL/发行版打包聚合（WebSearch 2026-10-02）：Fedora Docs https://docs.fedoraproject.org/en-US/neurofedora/containers 、Podman 安装文档 https://podman.io/docs/installation 、Red Hat Developer 迁移指南 https://developers.redhat.com/blog/2020/11/19/transitioning-from-docker-to-podman（留档 raw/2026-10-02/web/podman-websearch-rhel.md）"
+  ],
+  "tags": [
+    "容器",
+    "部署",
+    "systemd",
+    "rootless",
+    "轻量部署"
+  ],
+  "matrix": {
+    "形态": "容器引擎",
+    "资源占用": "低",
+    "运维门槛": "中",
+    "自托管": "是",
+    "多应用": "多应用",
+    "成本": "免费开源（Apache-2.0）"
+  },
+  "stats": {
+    "source_repo": "containers/podman",
+    "stars": 32986,
+    "pushed_at": "2026-10-02",
+    "license": "Apache-2.0",
+    "collected_at": "2026-10-02"
+  }
+}

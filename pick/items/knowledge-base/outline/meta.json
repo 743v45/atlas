@@ -24,10 +24,10 @@
   ],
   "stats": {
     "source_repo": "outline/outline",
-    "stars": 40765,
-    "pushed_at": "2026-09-29",
+    "stars": 40780,
+    "pushed_at": "2026-10-02",
     "license": "NOASSERTION",
-    "collected_at": "2026-10-01"
+    "collected_at": "2026-10-02"
   },
   "matrix": {
     "数据形态": "Postgres + 自管",

@@ -1,0 +1,47 @@
+{
+  "name": "Dokku",
+  "repo": "https://github.com/dokku/dokku",
+  "homepage": "https://dokku.com",
+  "license": "MIT",
+  "verdict": "trial",
+  "summary": "单机微型 PaaS 的事实标准：git push 即部署、buildpack 路线免写 Dockerfile、官方插件全家桶（Postgres/Redis/Let's Encrypt 等 28 个）加内置 nginx 路由与零停机发布——本质是把 Docker 藏起来而非绕开，官方 1GB 内存是硬门槛（不足时部署直接 remote rejected）；日常部署运维心智最低，但深度排障仍落到 Docker 层、单维护者依赖（9,759 vs 603 commits）是结构性风险——适用 Ubuntu/Debian VPS 上 CLI 优先的个人/小团队多应用托管。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "https://github.com/dokku/dokku（gh 2026-10-02 采集：⭐32,157、push 2026-10-01、MIT、v0.38.31 2026-09-27、contributors josegonzalez 9,759 vs 603）",
+    "https://dokku.com/（官网定位，访问 2026-10-02）",
+    "https://dokku.com/docs/getting-started/installation/（官方安装要求：1GB/OS 支持，访问 2026-10-02）",
+    "https://dokku.com/docs/getting-started/advanced-installation/（<1GB 警告 + swap 建议，访问 2026-10-02）",
+    "https://dokku.com/docs/deployment/builders/herokuish-buildpacks/（默认 buildpack 免写 Dockerfile，访问 2026-10-02）",
+    "https://dokku.com/docs/community/plugins/（官方插件 28 + 活跃社区 53，访问 2026-10-02）",
+    "https://dokku.com/docs/getting-started/upgrading/（25 份迁移指南 + does not run any daemons，访问 2026-10-02）",
+    "https://dokku.com/docs/networking/proxy-management/（默认 nginx proxy、五种可换，访问 2026-10-02）",
+    "https://github.com/dokku/dokku-letsencrypt（gh 2026-10-02 采集：⭐1,119、push 2026-09-28）",
+    "https://wz-it.com/en/blog/self-hosted-paas-comparison-coolify-dokploy-caprover（横评，2026-08-23 观测，访问 2026-10-02）",
+    "https://aaron.com.es/blog/dokku-performance-issues-vps（OOM 实测记录，检索 2026-10-02）",
+    "https://kanopylabs.com/blog/coolify-vs-dokku-vs-caprover（CLI 派定位共识，检索 2026-10-02）"
+  ],
+  "tags": [
+    "paas",
+    "部署",
+    "git-push",
+    "buildpack",
+    "自托管",
+    "vps"
+  ],
+  "matrix": {
+    "形态": "微型PaaS",
+    "资源占用": "中（官方门槛 1GB）",
+    "运维门槛": "低-中",
+    "自托管": "是",
+    "多应用": "多应用",
+    "成本": "免费开源（MIT；有 Pro 商业版）"
+  },
+  "stats": {
+    "source_repo": "dokku/dokku",
+    "stars": 32157,
+    "pushed_at": "2026-10-01",
+    "license": "MIT",
+    "collected_at": "2026-10-02"
+  }
+}

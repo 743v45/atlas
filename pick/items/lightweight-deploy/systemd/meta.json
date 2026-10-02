@@ -1,0 +1,43 @@
+{
+  "name": "systemd",
+  "repo": "https://github.com/systemd/systemd",
+  "homepage": "https://systemd.io",
+  "license": "LGPL-2.1",
+  "verdict": "adopt",
+  "summary": "一台 Linux VPS 上跑几个到十几个小服务的轻量默认解：发行版自带零安装、无 daemon 中间层（应用总内存≈应用自身，对照组 PM2 daemon 约 83MB）、Restart=always 自愈与 journalctl 日志开箱即得；代价是仅 Linux、无隔离无镜像、部署无声明式回滚——适用域为进程级部署够用的个人/小团队自有 VPS。",
+  "updated": "2026-10-02",
+  "verified": "2026-10-02",
+  "sources": [
+    "https://systemd.io/（官网：官方定义/PID1/组件清单，访问 2026-10-02）",
+    "https://github.com/systemd/systemd（gh 2026-10-02 采集：⭐16,768、push 2026-10-02、v262 2026-09-22；原始响应留档 raw/2026-10-02/gh/）",
+    "https://dev.to/empellio/process-manager-comparison-2026-pm2-systemd-supervisor-oxmgr-and-more-4e0p（Empellio 2026-03 横评：benchmark 与内存开销数据；Oxmgr 厂商非中立，访问 2026-10-02）",
+    "https://deploysmith.dev/hosting/docker-vs-vps（Deploysmith 2026-09-26：小机质性结论，无实测数字，访问 2026-10-02）",
+    "https://dev.to/_russell/systemd-vs-docker-exploring-a-surprising-alternative-4pmm（unit 文件范例与局限清单，2024-12/2025-07，访问 2026-10-02）",
+    "https://caddyserver.com/（自动 HTTPS 宣称原文，访问 2026-10-02）",
+    "https://github.com/caddyserver/caddy（gh 2026-10-02：⭐76,231、Apache-2.0、v2.11.6 2026-10-01）",
+    "https://en.wikipedia.org/wiki/Systemd（发行版采用时间线，WebSearch 检索 2026-10-02）",
+    "https://www.freedesktop.org/software/systemd/man/journald.conf.html（journald 持久化机制，WebSearch 检索 2026-10-02）"
+  ],
+  "tags": [
+    "部署",
+    "进程管理",
+    "linux",
+    "vps",
+    "init-system"
+  ],
+  "matrix": {
+    "形态": "进程管理器",
+    "资源占用": "极低",
+    "运维门槛": "低",
+    "自托管": "是",
+    "多应用": "多应用",
+    "成本": "免费开源（LGPL-2.1）"
+  },
+  "stats": {
+    "source_repo": "systemd/systemd",
+    "stars": 16768,
+    "pushed_at": "2026-10-02",
+    "license": "GPL-2.0",
+    "collected_at": "2026-10-02"
+  }
+}

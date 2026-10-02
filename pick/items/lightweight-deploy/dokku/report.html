@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dokku · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/app-deploy.html">应用部署</a><span class="sep">·</span><span>轻量部署方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../docker/report.html">← Docker</a><span class="sep">·</span><a href="../flyio/report.html">Fly.io →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Dokku</h1>
+<blockquote><strong>TL;DR</strong>：单机微型 PaaS 的事实标准：git push 即部署、buildpack 路线免写 Dockerfile、官方插件全家桶（Postgres/Redis/Let's Encrypt 等 28 个）加内置 nginx 路由与零停机发布——本质是把 Docker 藏起来而非绕开，官方 1GB 内存是硬门槛（不足时部署直接 remote rejected）；日常部署运维心智最低，但深度排障仍落到 Docker 层、单维护者依赖（9,759 vs 603 commits）是结构性风险——适用 Ubuntu/Debian VPS 上 CLI 优先的个人/小团队多应用托管。</blockquote>
+<ul><li><strong>结论</strong>：trial（适用域：自有 Linux VPS、接受 CLI 工作流、几个到十几个应用的托管——试用顺利可直接当主力）</li><li><strong>核实日期</strong>：2026-10-02（gh 一手数据 + 官方文档当日核实）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">版本</td><td style="text-align:left">v0.38.31（2026-09-27 发布）；v0.38 系列 2026-05 起已发 30+ 个 patch</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">许可证</td><td style="text-align:left">MIT</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">仓库</td><td style="text-align:left"><a href="https://github.com/dokku/dokku">https://github.com/dokku/dokku</a>（2013-06 创建，Go + Shell）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">维护活跃度</td><td style="text-align:left">⭐32,157、push 2026-10-01（gh 2026-10-02 采集）；30 个 release / 4.5 个月（2026-05-10 → 2026-09-27）</td><td style="text-align:left">[1]</td></tr><tr><td style="text-align:left">定位</td><td style="text-align:left">"The smallest PaaS implementation you've ever seen"——单机 Heroku，"Powered by Docker"</td><td style="text-align:left">[2]</td></tr><tr><td style="text-align:left">支持系统</td><td style="text-align:left">Ubuntu 22.04/24.04/26.04 或 Debian 11+（AMD64/arm64）；安装约 5-10 分钟</td><td style="text-align:left">[3]</td></tr><tr><td style="text-align:left">最低内存</td><td style="text-align:left">Docker 调度器 1GB（K3s 调度器 2GB/节点）；&lt;1GB 部署可能直接失败</td><td style="text-align:left">[3][4]</td></tr></tbody></table>
+<h2>为什么选（微型 PaaS 路线的核心论据）</h2>
+<ol><li><strong>部署心智最低：git push 即部署</strong>。每个应用一个 git remote，push 即构建即上线，官方定位即 "you can push Heroku-compatible applications to it via Git" [2]。这是八条部署路线里「上线一个新应用」步骤最少的。</li><li><strong>buildpack 路线免写 Dockerfile</strong>：默认走 Herokuish（Heroku buildpacks），push 纯代码即可；builder 链可插拔七种（herokuish / Cloud Native Buildpacks / Dockerfile / Lambda / Nixpacks / Railpack / Null），Dockerfile 只在 herokuish 与 pack 都未命中时才被自动选中 [5]。不懂 Docker 概念也能完成日常部署。</li><li><strong>插件生态是数据服务全家桶</strong>：官方插件 28 个——Postgres / MariaDB / MySQL / Redis / Mongo / Memcached / RabbitMQ / Elasticsearch / Let's Encrypt 等一条龙，另加活跃社区插件 53 个（合计约 155 个，其中 55 个已因并入核心而弃用）[6]；<code>dokku postgres:create</code> 级别的一条命令替代手写 compose + 网络对接。Let's Encrypt 插件独立活跃（⭐1,119、push 2026-09-28）[9]。</li><li><strong>域名路由与证书开箱即用</strong>：默认 proxy 是内置 nginx（0.5.0 起解耦，<code>proxy:set</code> 可换 caddy/haproxy/traefik/openresty 共五种）[8]，配合 letsencrypt 插件自动签续证书 [6][9]；官方文档化零停机部署 [8]。</li><li><strong>升级纪律健全</strong>：官方维护 0.5 → 0.38 共 <strong>25 份迁移指南</strong>（0.20 起每代都有），升级前有明确的 stop/rebuild 指引 [7]；发布节奏极密（30 release / 4.5 个月，gh 2026-10-02 采集）[1]，bug 修复以天计。</li><li><strong>控制面自身极轻</strong>："As Dokku does not run any daemons, the security risk introduced by our software is minimal"——dokku 自身无常驻进程，VPS 上常驻的只有 dockerd + nginx + 各应用容器 [7]。第三方横评同样给出 "smallest resource footprint and the fewest moving parts"（2026-08 观测）[10]。</li></ol>
+<h2>为什么不选（改用其他路线的信号）</h2>
+<ol><li><strong>它不绕开 Docker，是把 Docker 藏起来</strong>：dokku 官方自述 "Powered by Docker" [2]，每应用一个容器、构建用 herokuish 镜像。轻量化的下限被 Docker 底座钉死（见类别 docker 条目：daemon 常驻 + 需 root）。想去掉这层，看 podman/systemd 路线。</li><li><strong>1GB 内存是官方硬门槛且 1GB 档确实翻车</strong>：官方明言 "Having less than 1 GB of system memory available for Dokku and its containers may result in unexpected errors"，典型症状是部署报 <code>! [remote rejected] master -&gt; master (pre-receive hook declined)</code>，官方解法是 swap 扩到物理内存 2 倍 [4]；社区有真实 OOM 踩坑记录（构建期内存压力主要来自 buildpack 编译与应用容器）[11]。内存预算应按「1GB + swap」起跳。</li><li><strong>深度排障仍要懂 Docker</strong>：buildpack 构建失败、网络不通、存储卷问题，最终都落到 <code>docker</code> 层排查；buildpack 屏蔽的是日常路径，不是故障路径 [5][11]。</li><li><strong>需要 Web UI 或集群就别选它</strong>：无 dashboard 是设计选择而非缺陷 [10]；第三方共识定位 "Dokku is better for hardcore CLI teams with simple stacks"，要 Web UI 看 Coolify/Dokploy，要集群看 CapRover [12]。</li></ol>
+<h2>对比</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">Dokku</th><th style="text-align:left">裸 Docker/compose（本类别基线）</th><th style="text-align:left">Podman/quadlet</th><th style="text-align:left">PM2</th></tr></thead><tbody><tr><td style="text-align:left">部署动作</td><td style="text-align:left">git push</td><td style="text-align:left">docker compose up（手写 YAML）</td><td style="text-align:left">quadlet unit + systemd</td><td style="text-align:left">pm2 start</td></tr><tr><td style="text-align:left">证书/域名路由</td><td style="text-align:left">letsencrypt 插件 + 内置 nginx 自动配 [6][8]</td><td style="text-align:left">自配（caddy/traefik 或手写）</td><td style="text-align:left">自配</td><td style="text-align:left">无（无 HTTP 层）</td></tr><tr><td style="text-align:left">免写 Dockerfile</td><td style="text-align:left">✅（默认 buildpack）[5]</td><td style="text-align:left">❌</td><td style="text-align:left">❌</td><td style="text-align:left">❌（裸进程）</td></tr><tr><td style="text-align:left">底座</td><td style="text-align:left">Docker（被藏起来）[2]</td><td style="text-align:left">Docker 本尊</td><td style="text-align:left">无 daemon</td><td style="text-align:left">Node 常驻 God daemon</td></tr><tr><td style="text-align:left">数据服务</td><td style="text-align:left">插件一条命令（官方 28 个）[6]</td><td style="text-align:left">手写 compose 服务段</td><td style="text-align:left">手写 quadlet</td><td style="text-align:left">不适用</td></tr></tbody></table>
+<p>与同赛道微型 PaaS（横评，2026-10 检索 [10][12]）：<strong>CapRover</strong>（Web UI + 一键应用 + 内置集群）、<strong>Coolify/Dokploy</strong>（GUI 派新贵）、<strong>Kamal</strong>（无常驻控制面的部署工具，非完整 PaaS）。dokku 的差异化＝纯 CLI + 插件生态 + 单机最小 footprint。逐维度宽表见类别索引与 <code>_meta.json</code> columns。</p>
+<h2>风险与注意</h2>
+<ul><li><strong>单维护者依赖（最大结构性风险）</strong>：josegonzalez 一人 9,759 commits，第二名 michaelshobbs 603（gh 2026-10-02 采集，35 倍差距）[1]——项目实质 Bus Factor ≈ 1。缓解因素：13 年历史、发布极密、MIT 许可（最坏情况可 fork）、有商业版 Dokku Pro 持续输血 [2][10]；但任何「关键插件长期靠一个人响应」的预期都要有心理准备。</li><li><strong>升级须读迁移指南</strong>：每代大版本（0.x 每 +1）都有 migration guide [7]；同时升级 docker/herokuish 时官方建议先 <code>dokku ps:stop --all</code> 再重建（有请求打到错误容器的已知风险）[7]。0.x 版本号 13 年未到 1.0， breaking change 的预期要保留。</li><li><strong>支持系统面窄</strong>：仅 Ubuntu 22.04/24.04/26.04 或 Debian 11+ [3]——Arch/RHEL 系没有官方安装路径。</li><li><strong>构建在本机跑</strong>：buildpack 编译消耗 VPS 自身内存/CPU，小内存机器需用官方 resource-management 对 build 过程限流，或外推到 CI [11]（待验证：CI 外推的具体插件方案未深入核实）。</li><li><strong>社区插件衰减</strong>：约 155 个插件中 19 个无人维护、55 个已弃用 [6]——选社区插件前先查维护状态。</li></ul>
+<h2>来源</h2>
+<ol><li>dokku/dokku — <a href="https://github.com/dokku/dokku">https://github.com/dokku/dokku</a>（gh 2026-10-02 采集：⭐32,157、push 2026-10-01、MIT、open issues 30、v0.38.31 2026-09-27、30 release/4.5 个月、contributors josegonzalez 9,759 vs michaelshobbs 603；原始响应留档 raw/2026-10-02/gh/dokku_dokku.json、dokku-releases.json、dokku-contributors.json）</li><li>Dokku 官网首页 — <a href="https://dokku.com/">https://dokku.com/</a>（访问 2026-10-02；留档 raw/2026-10-02/web/dokku-dokku.com-home.md）</li><li>Installation 官方文档 — <a href="https://dokku.com/docs/getting-started/installation/">https://dokku.com/docs/getting-started/installation/</a>（访问 2026-10-02；留档 raw/2026-10-02/web/dokku-dokku.com-installation.md）</li><li>Advanced Installation 官方文档 — <a href="https://dokku.com/docs/getting-started/advanced-installation/">https://dokku.com/docs/getting-started/advanced-installation/</a>（访问 2026-10-02；留档 raw/2026-10-02/web/dokku-dokku.com-advanced-installation.md）</li><li>Herokuish Buildpacks 官方文档 — <a href="https://dokku.com/docs/deployment/builders/herokuish-buildpacks/">https://dokku.com/docs/deployment/builders/herokuish-buildpacks/</a>（访问 2026-10-02；留档 raw/2026-10-02/web/dokku-dokku.com-herokuish-buildpacks.md）</li><li>插件生态官方页 — <a href="https://dokku.com/docs/community/plugins/">https://dokku.com/docs/community/plugins/</a>（访问 2026-10-02；留档 raw/2026-10-02/web/dokku-dokku.com-plugins.md）</li><li>Upgrading 官方文档 — <a href="https://dokku.com/docs/getting-started/upgrading/">https://dokku.com/docs/getting-started/upgrading/</a>（经 gh api 读仓库 docs/getting-started/upgrading/index.md，访问 2026-10-02；留档 raw/2026-10-02/web/dokku-dokku.com-upgrading.md）</li><li>Proxy Management 官方文档 — <a href="https://dokku.com/docs/networking/proxy-management/">https://dokku.com/docs/networking/proxy-management/</a>（经 gh api 读仓库 docs/networking/proxy-management.md，访问 2026-10-02；留档 raw/2026-10-02/web/dokku-dokku.com-proxy-management.md）</li><li>dokku/dokku-letsencrypt — <a href="https://github.com/dokku/dokku-letsencrypt">https://github.com/dokku/dokku-letsencrypt</a>（gh 2026-10-02 采集：⭐1,119、push 2026-09-28）</li><li>WZ-IT: Self-hosted PaaS compared 2026 — <a href="https://wz-it.com/en/blog/self-hosted-paas-comparison-coolify-dokploy-caprover">https://wz-it.com/en/blog/self-hosted-paas-comparison-coolify-dokploy-caprover</a>（访问 2026-10-02；2026-08-23 观测快照；注意：作者运营 Coolify 托管服务，利益相关声明见文内；留档见 raw/2026-10-02/web/dokku-websearch-paas-comparison.md 引文）</li><li>WebSearch: dokku 内存/低内存 VPS 实测与官方口径汇总 — <a href="https://dokku.com/docs/getting-started/advanced-installation">https://dokku.com/docs/getting-started/advanced-installation</a>、<a href="https://aaron.com.es/blog/dokku-performance-issues-vps">https://aaron.com.es/blog/dokku-performance-issues-vps</a>（检索 2026-10-02；留档 raw/2026-10-02/web/dokku-websearch-memory.md）</li><li>WebSearch: dokku vs caprover vs coolify vs kamal 横评 — <a href="https://kanopylabs.com/blog/coolify-vs-dokku-vs-caprover">https://kanopylabs.com/blog/coolify-vs-dokku-vs-caprover</a> 等（检索 2026-10-02；留档 raw/2026-10-02/web/dokku-websearch-paas-comparison.md）</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-02</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（gh 一手数据 + 官方文档当日核实；类内 docker=adopt 为基线，dokku 作为其上的体验增强层定 trial——Bus Factor≈1 与 1GB 硬门槛两点未消化前不升 adopt）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>

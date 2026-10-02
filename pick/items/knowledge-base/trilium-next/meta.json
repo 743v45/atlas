@@ -20,10 +20,10 @@
   ],
   "stats": {
     "source_repo": "TriliumNext/Trilium",
-    "stars": 38102,
-    "pushed_at": "2026-09-30",
+    "stars": 38158,
+    "pushed_at": "2026-10-02",
     "license": "AGPL-3.0",
-    "collected_at": "2026-10-01"
+    "collected_at": "2026-10-02"
   },
   "matrix": {
     "数据形态": "自管数据库",

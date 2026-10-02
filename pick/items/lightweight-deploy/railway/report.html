@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Railway · pick</title>
+<style>
+  :root {
+    --bg: #f7f7f4; --card: #fffdf9; --text: #1d2430; --muted: #5d6570; --border: #e4e3de;
+    --link: #3157a6; --accent: #b07d10; --danger: #d03b3b;
+    --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    --font-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1d2024; --text: #e8e6e1; --muted: #9aa0a8; --border: #2c2f34;
+      --link: #7a9ce0; --accent: #d29922; --danger: #e05252;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1.6rem 1.25rem 3rem; background: var(--bg); color: var(--text);
+    font: 15px/1.68 var(--font-body);
+  }
+  main { max-width: 1040px; margin: 0 auto; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 .25em; font-size: .86em; font-family: var(--font-mono); }
+  pre { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; overflow-x: auto; }
+  pre code { border: none; background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .6rem 0; }
+  th, td { border: 1px solid var(--border); padding: .28rem .55rem; font-size: .88rem; }
+  th { background: var(--card); }
+  blockquote {
+    margin: .8rem 0; padding: .45rem 1rem; border-left: 3px solid var(--link);
+    background: color-mix(in srgb, var(--link) 4%, transparent);
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; }
+  h1 { font-size: 1.7rem; letter-spacing: .02em; margin: 0 0 .2rem; }
+  h2 { font-size: 1.22rem; margin-top: 1.7rem; } h3 { font-size: 1.02rem; margin-top: 1.3rem; }
+  footer {
+    margin-top: 2.6rem; color: var(--muted); font-size: .78rem; text-align: center;
+    border-top: 1px solid var(--border); padding-top: .9rem;
+  }
+  .hidden { display: none !important; }
+  .seal {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border: 1.5px solid var(--vb); border-radius: 50%;
+    color: var(--vb); font-family: var(--font-display); font-size: 12.5px; line-height: 1;
+    flex-shrink: 0; text-decoration: none;
+  }
+  .seal i { display: none; }
+  .seal-big {
+    width: 46px; height: 46px; font-size: 22px; border-width: 2px;
+    transform: rotate(-6deg); opacity: .92;
+  }
+
+  .report-nav {
+    display: flex; gap: .9rem; flex-wrap: wrap; align-items: center;
+    font-size: .84rem; color: var(--muted); margin-bottom: 1rem; font-family: var(--font-body);
+  }
+  .report-nav .sep { color: var(--border); }
+  article {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem 1.45rem; position: relative;
+  }
+  article > .seal-big { position: absolute; top: 1rem; right: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+  <nav class="report-nav"><a href="../../../index.html">← 索引</a><span class="sep">·</span><a href="../../../domains/app-deploy.html">应用部署</a><span class="sep">·</span><span>轻量部署方案</span><span class="sep">·</span><a href="../comparison.html">类别横评</a><span class="sep">·</span><a href="../podman/report.html">← Podman</a><span class="sep">·</span><a href="../render/report.html">Render →</a></nav>
+  <article>
+  <span class="seal seal-big" style="--vb:#fab219" title="试用"><i></i>试</span>
+<h1>Railway</h1>
+<blockquote><strong>TL;DR</strong>：全托管 PaaS 的体验标杆：GitHub push 自动构建部署、PR 自动开预览环境、模板一键拉起 Postgres/Redis，用户全程不碰服务器与容器细节，$5/月 Hobby 起步；但按量计费存在「超 $5 按全额收」的悬崖与社区公认的意外账单风险，2026 年事故记录偏多——不想运维的个人/小团队服务值得试用，账单敏感或求稳的服务须配硬限制并掂量。</blockquote>
+<ul><li><strong>结论</strong>：trial（适用域：不想碰服务器的个人 side project 与小团队服务——要 PR 预览环境、要几分钟从 git 仓库到线上 URL 的体验；不适用：要可预测账单的常驻服务、要数据库备份/PITR 的有状态生产服务）</li><li><strong>核实日期</strong>：2026-10-02（官方 pricing/docs 六页 + Series B 公告当日核实；社区口碑与第三方横评同日检索）</li></ul>
+<h2>基本信息</h2>
+<table><thead><tr><th style="text-align:left">项</th><th style="text-align:left">值</th><th style="text-align:left">来源</th></tr></thead><tbody><tr><td style="text-align:left">形态</td><td style="text-align:left">全托管 PaaS（底座是容器，用户不见容器/服务器）</td><td style="text-align:left">[5][7]</td></tr><tr><td style="text-align:left">计划</td><td style="text-align:left">Trial $0（一次性 $5 额度 30 天）/ Free $0（含 $1/月）/ Hobby $5/月（含 $5 额度）/ Pro $20/月/工作区（席位不限，含 $20 额度）/ Enterprise 定制（2026-10-02 查）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">按量单价</td><td style="text-align:left">RAM $10/GB/月、vCPU $20/核/月、Volume $0.15/GB/月、egress $0.05/GB、构建免费；按秒计量，停止的服务不计费（2026-10-02 查）</td><td style="text-align:left">[1][2]</td></tr><tr><td style="text-align:left">构建器</td><td style="text-align:left">Railpack 零配置默认（Nixpacks 已维护模式）；有 Dockerfile 则用 Dockerfile</td><td style="text-align:left">[4][9]</td></tr><tr><td style="text-align:left">公司</td><td style="text-align:left">$100M Series B（2026-01-22），累计约 $124M，200 万用户</td><td style="text-align:left">[10][12]</td></tr><tr><td style="text-align:left">开源性</td><td style="text-align:left">平台闭源；构建器 Nixpacks/Railpack 开源（MIT）</td><td style="text-align:left">[9]</td></tr></tbody></table>
+<h2>为什么选（不想运维的前提下）</h2>
+<ol><li><strong>部署心智最接近零</strong>：连 GitHub 仓库后 push 即自动构建部署，Railpack 零配置从源码出镜像，无服务器、无 Dockerfile、无 CI 配置可写——「deploy 从 git push 到跑起来」全程无一步服务器操作 [4][5]。这是该类别（轻量部署）里唯一做到「零」的一档：VPS 系（dokku/caprover）最低也要装机器，Fly.io 仍暴露 machines/fly.toml，Railway 连这些概念都不出现。</li><li><strong>PR 预览环境是招牌能力</strong>：开 PR 自动建临时环境、merge/close 自动销毁，且只部署受变更影响的服务（Focused PR Environments），官方明确支持 Dependabot/Claude Code 等机器人 PR——个人项目做 PR 工作流几乎没有对手 [6]。</li><li><strong>数据服务一键化</strong>：PostgreSQL/MySQL/MongoDB/Redis 官方模板即点即部署，默认进项目私有网络，市场另有 ClickHouse/Dragonfly/Minio 等；服务间用 <code>${{service.URL}}</code> 变量引用连线 [7][8]。</li><li><strong>模板市场</strong>：整套应用栈（服务+数据库）几小时点击部署，可发布自己的模板并获最高 25% 使用分成 [8]。</li><li><strong>存续风险显著缓解</strong>：2026-01-22 宣布 $100M Series B（TQ Ventures 领投），自称 200 万用户、数万家公司客户——「小厂暴毙」风险较 2024 年代明显下降 [10][12]。</li></ol>
+<h2>成本分析（2026-10-02 查，官方口径 [1][2]）</h2>
+<ul><li><strong>Hobby $5/月的实际覆盖</strong>：含 $5/月使用额度。256MB RAM 常驻 ≈ $2.6/月、停机不计费——纯低流量小服务可压在 $5 订阅费内；但 <strong>1GB RAM 常驻 + 半核忙 ≈ $20/月</strong>（与社区实测帖一致 [12]），已超额度 3 倍。</li><li><strong>「悬崖」条款</strong>：Hobby 月末总用量 ≤ $5 则只收 $5；<strong>一旦超过 $5，按总用量全额收费</strong>（非 $5+超出部分）——小额超用会被放大成整月按量账单 [1]。</li><li><strong>对策</strong>：官方 Cost Control 支持软限制（75%/90%/100% 邮件提醒）+ 硬限制（最低 $10，触顶全部工作负载下线）；硬限制是官方明示的「possibly destructive action」[3]。</li></ul>
+<h2>对比（同类托管平台）</h2>
+<table><thead><tr><th style="text-align:left">维度</th><th style="text-align:left">Railway</th><th style="text-align:left">Render</th><th style="text-align:left">Fly.io</th><th style="text-align:left">自托管 VPS（dokku 等）</th></tr></thead><tbody><tr><td style="text-align:left">计费模型</td><td style="text-align:left">按量（含额度最低消费）</td><td style="text-align:left">订阅+每服务固定费（Pro $25/席、服务约 $7/月起）</td><td style="text-align:left">按量微 VM，无订阅门槛</td><td style="text-align:left">固定（VPS 月租）</td></tr><tr><td style="text-align:left">账单可预测性</td><td style="text-align:left">差（社区公认 "bill anxiety" [11][12]）</td><td style="text-align:left">好 [11]</td><td style="text-align:left">中</td><td style="text-align:left">最好</td></tr><tr><td style="text-align:left">抽象层级</td><td style="text-align:left">容器全托管，不见机器</td><td style="text-align:left">全托管</td><td style="text-align:left">Firecracker 微 VM，见 machines/fly.toml</td><td style="text-align:left">见整台机器</td></tr><tr><td style="text-align:left">PR 预览环境</td><td style="text-align:left">✅ 自动 + Focused 部署 [6]</td><td style="text-align:left">✅ 有</td><td style="text-align:left">需自建</td><td style="text-align:left">需自建</td></tr><tr><td style="text-align:left">数据库备份</td><td style="text-align:left">无内置（仅 Volume ≠ 备份）[7]</td><td style="text-align:left">托管 Postgres 含备份/PITR [11]</td><td style="text-align:left">卷快照自理</td><td style="text-align:left">自理</td></tr><tr><td style="text-align:left">免费层</td><td style="text-align:left">Trial 一次性 $5/30 天 [1]</td><td style="text-align:left">真免费层（15 分钟休眠冷启动）[11]</td><td style="text-align:left">2024-10 起取消</td><td style="text-align:left">—</td></tr></tbody></table>
+<ul><li><strong>vs Render</strong>：Railway 赢在按量对突发/闲置流量更省、preview 环境更顺手；Render 赢在账单可预测、托管数据库有备份体系——第三方横评的结论分野即「突发流量选 Railway，稳定生产选 Render」（竞品撰文，注意立场 [11]）。</li><li><strong>vs Fly.io</strong>：同为按量托管，Fly 用微 VM 给更多控制权（区域、machine 配置）且无订阅下限；Railway 抽象更彻底、模板/预览环境体验更顺——「PaaS 沙箱 vs 微型 VM」的取舍。</li><li>类别内横评见 <code>../comparison.md</code>。</li></ul>
+<h2>风险与注意</h2>
+<ul><li><strong>意外账单是头号社区风险</strong>：闲置服务 RAM 常驻照计费（r/n8n 实测闲置 $16/月）、超 $5 全额收条款、支持仅工单无电话——2025–2026 社区口碑一致指向「必须主动设 limit」[1][3][12]。</li><li><strong>可靠性记录偏多</strong>：第三方（竞品）引 StatusGator 截至 2026-06 逾 1,134 起事故，列举 2026 年滥用误杀（约 3% 服务被终止）、CDN 鉴权响应缓存泄漏、GCP 账号暂停致停机约 8 小时——立场有偏但事件可查证，Railway 均发了复盘 [11]。</li><li><strong>数据库无备份机制</strong>：官方数据库文档只讲 Volume 持久化，无任何备份/恢复流程——有状态生产数据需自导出或改用其他托管数据库 [7]。</li><li><strong>平台绑定</strong>：应用代码是容器可迁移，但变量引用、私有网络、TCP Proxy、preview 环境这些拓扑资产不可搬 [7]。</li><li><strong>默认不优雅退出</strong>：新部署上线后旧部署默认 0 秒即 SIGKILL，长请求服务需自行配置 drain 时间 [5]。</li><li><strong>免费层形同试用</strong>：Trial 一次性 $5 限 30 天、Free 每月 $1 额度；2026-03-30 起不再支持预付卡 [1][2]。</li><li>待验证：Free 计划「高峰时段（8AM–8PM）拒收部署」仅见于第三方对比文，官方 plans 页未载 [11]。</li></ul>
+<h2>来源</h2>
+<ol><li>Railway 官方定价页 — <a href="https://railway.com/pricing">https://railway.com/pricing</a>（访问 2026-10-02；原始抓取留档 raw/2026-10-02/web/railway-railway.com.md）</li><li>Railway Docs: Pricing Plans — <a href="https://docs.railway.com/reference/pricing/plans">https://docs.railway.com/reference/pricing/plans</a>（访问 2026-10-02；留档同上）</li><li>Railway Docs: Cost Control — <a href="https://docs.railway.com/pricing/cost-control">https://docs.railway.com/pricing/cost-control</a>（访问 2026-10-02；留档 raw/2026-10-02/web/railway-docs.railway.com.md）</li><li>Railway Docs: Build Configuration — <a href="https://docs.railway.com/guides/build-configuration">https://docs.railway.com/guides/build-configuration</a>（访问 2026-10-02；留档同上）</li><li>Railway Docs: Deployments — <a href="https://docs.railway.com/reference/deployments">https://docs.railway.com/reference/deployments</a>（访问 2026-10-02；留档同上）</li><li>Railway Docs: Environments — <a href="https://docs.railway.com/guides/environments">https://docs.railway.com/guides/environments</a>（访问 2026-10-02；留档同上）</li><li>Railway Docs: Databases — <a href="https://docs.railway.com/reference/databases">https://docs.railway.com/reference/databases</a>（访问 2026-10-02；留档同上）</li><li>Railway Docs: Templates — <a href="https://docs.railway.com/reference/templates">https://docs.railway.com/reference/templates</a>（访问 2026-10-02；留档同上）</li><li>Nixpacks 官网（维护模式声明）— <a href="https://nixpacks.com">https://nixpacks.com</a> + gh railwayapp/nixpacks、railwayapp/railpack（gh 2026-10-02 采集：⭐3,554 / ⭐1,215、均 MIT；留档 raw/2026-10-02/web/railway-nixpacks.com.md 与 railway-gh-*.json）</li><li>Railway Blog: Series B — <a href="https://blog.railway.com/p/series-b">https://blog.railway.com/p/series-b</a>（2026-01-22 发布，访问 2026-10-02；留档 raw/2026-10-02/web/railway-blog.railway.com.md）</li><li>selfhost.dev: Railway vs Render 2026（第三方竞品横评，立场已标注）— <a href="https://selfhost.dev/blog/railway-vs-render-pricing-2026-verdict">https://selfhost.dev/blog/railway-vs-render-pricing-2026-verdict</a>（访问 2026-10-02；留档 raw/2026-10-02/web/railway-selfhost.dev.md）</li><li>WebSearch 社区口碑与融资报道（reddit r/n8n、r/SaaS、r/node、r/webdev 2025–2026 帖；FinSMEs/VentureBeat 融资报道）— 检索 2026-10-02；留档 raw/2026-10-02/web/railway-websearch-reputation.md</li></ol>
+<h2>变更记录</h2>
+<table><thead><tr><th style="text-align:left">日期</th><th style="text-align:left">verdict</th><th style="text-align:left">说明</th></tr></thead><tbody><tr><td style="text-align:left">2026-10-02</td><td style="text-align:left">trial</td><td style="text-align:left">首次记录（官方 pricing/docs 六页 + Series B 公告当日核实；raw/2026-10-02/ 共 8 份留档）</td></tr></tbody></table>
+  </article>
+  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改 · 源文件见同目录 .md</footer>
+</main>
+</body>
+</html>
