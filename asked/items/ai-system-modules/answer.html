@@ -75,6 +75,8 @@
 <blockquote><strong>TL;DR</strong>:一个完整的 AI(agent)系统按能力可划成 <strong>11 个模块</strong>:感知、思考、检索、工具调用、写文件、记忆、生成、输出、规划、编排循环、护栏。每个模块按「两行制」描述——第一行说人话(给使用者看),第二行放术语(给实现看);输出层必须正常简要,生成层允许晦涩。清单以「单机对话产品」为默认语境,附边界说明(哪些东西故意不单列)。</blockquote>
 <h2>划分的来历</h2>
 <p>最初的划分只想到三个:思考、输出、工具调用。追问「还有哪些」后补全为十类;再经两处修正:①「写文件」从工具调用中独立单列;② 初版样例表漏了「编排循环」,补回后定为 11 个。</p>
+<h2>框架出处</h2>
+<ul><li><strong>Lilian Weng 综述</strong>:《LLM Powered Autonomous Agents》(Lilian Weng 博客,2023-06,lilianweng.github.io)提出经典四件套——Agent = LLM 核心 + <strong>Planning</strong>(规划)+ <strong>Memory</strong>(记忆)+ <strong>Tool Use</strong>(工具使用)。本清单的规划/记忆/工具调用三模块直接对应其中三件,LLM 核心在本清单里展开为「生成」模块,思考能力视为 LLM 核心的推理表现。</li><li><strong>工程实践补全</strong>:其余模块(感知、检索、写文件、输出、编排循环、护栏)不在 Weng 四件套里,来自业界 agent 框架与产品的通行切分——如护栏(guardrails)在生产化实践中独立成层(NVIDIA NeMo Guardrails、Guardrails AI 等工程库),感知/输出是多模态产品(图像理解、语音)的标配分层。</li></ul>
 <h2>写法约定(六条)</h2>
 <ol><li><strong>两行制</strong>:每个模块两行——第一行人话,第二行术语。</li><li><strong>人话行 ≤ 12 字</strong>,动词开头,中文动宾(「写文件」不叫「Artifact 写出」)。</li><li><strong>术语只进第二行</strong>:第一行出现 RAG、解码这类词即违规。</li><li><strong>一个能力只归一个模块</strong>:模块间不重叠。</li><li><strong>模块可指认</strong>:每个模块能在产品里指出来——「点这个按钮触发它」。</li><li><strong>总数上限 10,可破例</strong>:超过说明该合并;破例要有理由(本清单 11 个,破例点是编排循环从规划拆出,见边界说明)。</li></ol>
 <h2>11 模块清单</h2>
