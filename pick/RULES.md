@@ -96,6 +96,7 @@
 - **刷新一手数据**：`python3 scripts/refresh-stats.py [--dry-run]`（gh 拉 star/push/license → meta.stats）
 - **产物断言（防漂移测试）**：`python3 scripts/check.py`——链接完整性 / 模板残留 / 产物新鲜度 / 关键内容；CI 部署前必跑，本地 build 后建议跟跑
 - Slidev deck（`decks/`）不自动生成：deck 引用的数据必须带采集日期，meta 更新后人工核对 deck。
+- 索引默认**按 `stats.pushed_at` 倒序**（上游最后推送最新的在上；口径见 `atlas/DESIGN-TREE.md` A10）。用 push 不用 updated/verified：后两者在类别内全同，无区分度；**无 stats 的条目**（商业闭源等）无日期可比，固定沉底，不混进倒序。排序在 build 层做——索引表行序与 report.html 上下篇导航同源同一份列表；类别内按目录名升序定次级键，输出可复现。
 
 ## 7. 设计树（两级，同步变更）
 

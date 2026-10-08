@@ -196,7 +196,16 @@ def collect():
                 "meta": meta,
                 "report_md": report_md,
                 "stale": base is not None and (date.today() - base).days > STALE_DAYS,
+                "_push_key": ((meta.get("stats") or {}).get("pushed_at") or ""),
             })
+
+        # 默认日期倒序（口径见 atlas/DESIGN-TREE.md A10）：本馆唯一逐条有差异的日期是
+        # stats.pushed_at（updated/verified 在类别内全同，无区分度），故按 push 倒序。
+        # 无 stats 的条目（商业闭源等）无日期可比 → 固定排末位，不混进倒序里。
+        # 先按目录名升序定次级键（稳定排序），条目行序与 report.html 上下篇导航同源此列表。
+        tools.sort(key=lambda t: t["dir"].name)
+        tools.sort(key=lambda t: t["_push_key"], reverse=True)
+        tools.sort(key=lambda t: t["_push_key"] == "")  # 空 push 恒沉底（False < True）
 
         categories.append({
             "slug": cat_dir.name,
@@ -441,7 +450,7 @@ def render_category_sections(cats, base_prefix=""):
             cmp_html = f'<a class="cmp" href="{base_prefix}items/{html.escape(c["slug"])}/comparison.html">横评 →</a>'
         rows = "\n".join(render_row(t, c["columns"], base_prefix=base_prefix) for t in c["tools"]) or f'<tr><td colspan="{2 + len(c["columns"]) + 2}" class="sum">该类别暂无条目报告。</td></tr>'
         collected = sorted({(t["meta"].get("stats") or {}).get("collected_at") for t in c["tools"]} - {None})
-        note = f'<p class="collected-note">star / push 为 gh 快照，采集 {", ".join(collected)}；红色 push 表示停滞超 {STALE_DAYS} 天，「待复核」表示采集/核实超 {STALE_DAYS} 天；条目名悬停看一句话结论。</p>' if collected else ""
+        note = f'<p class="collected-note">行序默认按 push 倒序（最新在上），无 stats 的条目沉底；star / push 为 gh 快照，采集 {", ".join(collected)}；红色 push 表示停滞超 {STALE_DAYS} 天，「待复核」表示采集/核实超 {STALE_DAYS} 天；条目名悬停看一句话结论。</p>' if collected else ""
         dim_ths = "".join(f'<th>{html.escape(col)}</th>' for col in c["columns"])
         sections.append(f"""  <section class="category" id="{c['slug']}" data-search="{html.escape(c['name'].lower())}">
     <h2>{html.escape(c['name'])} <span class="cat-count">{len(c['tools'])} 条</span> {cmp_html}</h2>
@@ -449,7 +458,7 @@ def render_category_sections(cats, base_prefix=""):
       <thead><tr>
         <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
         {dim_ths}
-        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num sorted-desc" tabindex="0">push</th>
       </tr></thead>
       <tbody>
 {rows}

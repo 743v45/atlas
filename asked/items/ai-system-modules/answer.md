@@ -59,5 +59,5 @@
 
 ## 出处
 
-- 源对话归档:[conversations/2026-10-07-ai-module-map.md](../../conversations/2026-10-07-ai-module-map.md)
+- 源对话归档:[conversations/2026-10-07-ai-module-map.md](../../../conversations/2026-10-07-ai-module-map.md)
 - 问答日期:2026-10-07

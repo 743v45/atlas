@@ -69,7 +69,7 @@
 </head>
 <body>
 <main>
-  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../k8s-config-storage/answer.html">← k8s 里配置到底存在哪:deploy→cm/secret 反查</a><span class="sep">·</span><a href="../kafka-architecture-logic/answer.html">Kafka 使用架构逻辑:组件、协调层与关键语义 →</a></nav>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../k8s-config-storage/answer.html">← k8s 里配置到底存在哪:deploy→cm/secret 反查</a><span class="sep">·</span><a href="../database-landscape/answer.html">给你 10 种数据库,优先选哪些?——全景与决策漏斗 →</a></nav>
   <article>
 <h1>k8s 入门速查:kubectl 命令、资源缩写与层级结构</h1>
 <blockquote><strong>TL;DR</strong>:kubectl 按「查看 / 增删改 / 调试日志 / 发布滚动 / 标签 / 集群节点 / 配置上下文」七组场景记,覆盖 90% 日常;14 个资源缩写(po/svc/deploy/rs/sts/ds/ns/cm…)是读输出的钥匙;层级结构记住「Node → Pod →(ReplicaSet 管副本)→ Deployment 管发布、Service 管访问」两棵半树;服务和脚本的区别就看 <code>restartPolicy: Always</code> 还是 <code>Never/OnFailure</code>。</blockquote>
@@ -119,7 +119,7 @@ kubectl patch cronjob &lt;名&gt; -p '{"spec":{"suspend":true}}'</code></pre>
 <h2>出处</h2>
 <ul><li>源对话归档:../../../conversations/2026-08-07-k8s-kubectl-basics.md(2026-08-07)</li><li>原始会话:~/.claude/projects/-Users-taevas/86bf1d57-f3a8-43d7-b18c-6e111d5ceaf3.jsonl(主体;另两场卫星会话见归档)</li><li>关联 artifact:~/docs/k8s-resource-hierarchy.html(资源层级 mermaid 关系图);当日同步发布至自托管 Outline(后弃用)</li><li>关联条目:<a href="../k8s-config-storage/">k8s-config-storage</a>(配置存哪)、<a href="../tencent-tke-access/">tencent-tke-access</a>(云上集群接入)</li></ul>
   </article>
-  <footer>生成于 2026-10-07 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
 </body>
 </html>

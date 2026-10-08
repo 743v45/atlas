@@ -157,6 +157,13 @@ def collect():
                 "stale": base is not None and (date.today() - base).days > STALE_DAYS,
             })
 
+        # 默认日期倒序（入口统一排序见 atlas/DESIGN-TREE.md A10）：目录名升序定次级键，
+        # 再按 verified 倒序——本馆 date 是首次沉淀日（现全馆同为 2026-08-27，无区分度），
+        # verified 才是逐课有差异的日期，与索引「验证」列同源。稳定排序，输出可复现。
+        # 索引表行序与 lesson.html 上下篇同源此列表。
+        lessons.sort(key=lambda l: l["dir"].name)
+        lessons.sort(key=lambda l: l["meta"]["verified"], reverse=True)
+
         categories.append({
             "slug": cat_dir.name,
             "dir": cat_dir,
@@ -291,7 +298,7 @@ def render_index(categories):
       <thead><tr>
         <th data-sort="name" tabindex="0">课</th><th data-sort="question" tabindex="0">问题</th>
         <th>症状</th><th data-sort="status" tabindex="0">状态</th>
-        <th data-sort="verified" class="num" tabindex="0">验证</th><th>模型</th>
+        <th data-sort="verified" class="num sorted-desc" tabindex="0">验证</th><th>模型</th>
       </tr></thead>
       <tbody>
 {rows}

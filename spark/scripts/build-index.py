@@ -98,6 +98,10 @@ def collect():
         if s_errors:
             continue
         sparks.append({"dir": d, "meta": meta, "md": md_path.read_text(encoding="utf-8")})
+    # 默认日期倒序（入口统一排序见 atlas/DESIGN-TREE.md A10）：目录名升序定次级键，再按 date 倒序；稳定可复现。
+    # 索引表与 spark.html 上下篇同源此列表。
+    sparks.sort(key=lambda s: s["dir"].name)
+    sparks.sort(key=lambda s: s["meta"]["date"], reverse=True)
     return sparks, errors, warnings
 
 
@@ -209,7 +213,7 @@ def render_index(sparks):
   <div class="wrap-x">
   <table class="idx-table">
     <thead><tr>
-      <th data-sort="name" tabindex="0">念头</th><th data-sort="date" class="num" tabindex="0">日期</th>
+      <th data-sort="name" tabindex="0">念头</th><th data-sort="date" class="num sorted-desc" tabindex="0">日期</th>
       <th>标签</th><th data-sort="status" tabindex="0">状态</th><th>去向</th>
     </tr></thead>
     <tbody>

@@ -69,7 +69,7 @@
 </head>
 <body>
 <main>
-  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../deepseek-harness-design-philosophy/answer.html">← deepseek-harness 的设计哲学:为无记忆的 AI agent 造工具</a><span class="sep">·</span><a href="../gate-of-gates-green-not-sound/answer.html">「门的门」:CI 绿不等于 sound,漂移发生在层间缝隙 →</a></nav>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../database-landscape/answer.html">← 给你 10 种数据库,优先选哪些?——全景与决策漏斗</a><span class="sep">·</span><a href="../sqlite-wal/answer.html">SQLite WAL:预写日志机制详解 →</a></nav>
   <article>
 <h1>文档库信息架构:建 collection 还是加层级?</h1>
 <blockquote><strong>TL;DR</strong>:判据一句话——<strong>独立知识域 / 跨主题复用 / 权限可见性边界 → 建 collection(顶层容器,创建有成本);同域内细分 → 父文档层级(就是个父文档,成本低、可重组)</strong>。深度以「级 = 含 collection 的总深度」计:2 级平铺(同域 &lt;7 篇)、3 级 collection→分类→文章(默认推荐、知识库甜点)、4 级封顶——再深该拆 collection 或重组。触发重组的数字:某层子项 &gt;10 拆分组、平铺 &gt;15 开一层、collection &gt;50 拆两个。</blockquote>
@@ -102,7 +102,7 @@
 <h2>出处</h2>
 <ul><li>源对话归档:../../../conversations/2026-08-06-outline-doc-ia.md(2026-08-06)</li><li>原始会话:~/.claude/projects/-Users-taevas/666c3f48-2551-49df-ba92-d4e8faadc4ec.jsonl</li><li>落盘:判据定稿于 outline skill 的 SKILL.md「文档组织建议(信息架构)」一节(taevas-plugins 仓库),随 skill 发布;本条为通用化恢复。</li></ul>
   </article>
-  <footer>生成于 2026-10-07 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
 </body>
 </html>

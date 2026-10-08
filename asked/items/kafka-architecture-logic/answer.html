@@ -69,7 +69,7 @@
 </head>
 <body>
 <main>
-  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../k8s-kubectl-cheatsheet/answer.html">← k8s 入门速查:kubectl 命令、资源缩写与层级结构</a><span class="sep">·</span><a href="../maxwell-kafka-single-partition/answer.html">Maxwell→Kafka 分区为什么全挤一个区?producer_partition_by 诊断记 →</a></nav>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../tao-and-ai-development/answer.html">← 学道才能做好 AI 开发吗?为什么</a><span class="sep">·</span><a href="../maxwell-kafka-single-partition/answer.html">Maxwell→Kafka 分区为什么全挤一个区?producer_partition_by 诊断记 →</a></nav>
   <article>
 <h1>Kafka 使用架构逻辑:组件、协调层与关键语义</h1>
 <blockquote><strong>TL;DR</strong>:一句话串起 Kafka——<strong>Producer 往 Topic 的某 Partition 写,该 Partition 的 Leader(在某 Broker)落盘并复制给 ISR 里的 Follower;Consumer 以 Group 形式 pull、各自记录 Offset;集群状态由 ZooKeeper/KRaft + Controller 维护,消费组由 Group Coordinator 协调</strong>。按逻辑层/物理层/客户端/协调层/语义参数五组记组件,比背零散名词快。</blockquote>
@@ -87,7 +87,7 @@
 <h2>出处</h2>
 <ul><li>源对话归档:../../../conversations/2026-07-29-maxwell-kafka-pipeline.md(2026-07-29)</li><li>原始会话:~/.claude/projects/-Users-taevas/5bd0d732-5cc4-469c-9698-4c078aed0c36.jsonl</li><li>关联 artifact:~/docs/kafka-architecture.html(9 张 mermaid 关系图:核心架构/核心组件等,卡片式布局 + 组件表)</li><li>关联条目:<a href="../maxwell-kafka-single-partition/">maxwell-kafka-single-partition</a>(同日分区倾斜诊断)、<a href="../maxwell-restart-loop/">maxwell-restart-loop</a></li></ul>
   </article>
-  <footer>生成于 2026-10-07 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
 </body>
 </html>

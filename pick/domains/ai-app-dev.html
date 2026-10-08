@@ -171,18 +171,9 @@
       <thead><tr>
         <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
         <th>形态</th><th>许可</th><th>成本</th><th>RAG 能力</th><th>agentic 支持</th><th>上手路径</th>
-        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num sorted-desc" tabindex="0">push</th>
       </tr></thead>
       <tbody>
-      <tr data-verdict="assess" data-stars="-1"
-          data-push="" data-name="Azure AI Search"
-          data-search="azure ai search 托管三家能力天花板：hybrid+语义 ranker、字段级权限、企业合规最全；只在 azure 栈内才是正解，栈外无理由引入 rag managed azure">
-        <td class="tool-name"><a href="../items/rag-frameworks/azure-ai-search/report.html" title="托管三家能力天花板：hybrid+语义 ranker、字段级权限、企业合规最全；只在 Azure 栈内才是正解，栈外无理由引入">Azure AI Search</a></td>
-        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
-        <td class="mx">托管 API</td><td class="mx">闭源</td><td class="mx">按 Search Unit 计费</td><td class="mx">hybrid+语义 ranker，可调项多</td><td class="mx">Azure AI Agent 集成</td><td class="mx">Portal/SDK，Azure 体系内</td>
-        <td class="num">—</td>
-        <td class="num">—</td>
-      </tr>
       <tr data-verdict="trial" data-stars="157719"
           data-push="2026-10-02" data-name="Dify"
           data-search="dify 低代码 llm 应用平台头部（⭐156k 全场最高）：可视化编排+知识库+agent 一站式，快速搭内部应用首选；深度定制与多租户商用是天花板 rag low-code platform">
@@ -200,15 +191,6 @@
         <td class="mx">代码框架（声明式）</td><td class="mx">MIT</td><td class="mx">免费·开源</td><td class="mx">有检索原语，非管线主力</td><td class="mx">程序式 agent 可写，非主打</td><td class="mx">Python，需懂评估指标</td>
         <td class="num">38.5k</td>
         <td class="num">10-02</td>
-      </tr>
-      <tr data-verdict="hold" data-stars="55482"
-          data-push="2026-08-13" data-name="Flowise"
-          data-search="flowise 拖拽式 langchain 可视化编排：教学与原型直观，但生产路径弱，定位被 dify（平台化）与手写（可维护）两头挤压 rag low-code visual">
-        <td class="tool-name"><a href="../items/rag-frameworks/flowise/report.html" title="拖拽式 LangChain 可视化编排：教学与原型直观，但生产路径弱，定位被 Dify（平台化）与手写（可维护）两头挤压">Flowise</a></td>
-        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
-        <td class="mx">低代码平台（可视化）</td><td class="mx">Apache-2.0+商业双轨</td><td class="mx">免费·自托管+云</td><td class="mx">依赖外接向量库</td><td class="mx">拖拽 Agent/Chatflow</td><td class="mx">Web UI 拖拽，最直观</td>
-        <td class="num">55.5k</td>
-        <td class="num">08-13</td>
       </tr>
       <tr data-verdict="trial" data-stars="26640"
           data-push="2026-10-02" data-name="Haystack"
@@ -228,6 +210,15 @@
         <td class="num">147.4k</td>
         <td class="num">10-02</td>
       </tr>
+      <tr data-verdict="trial" data-stars="91603"
+          data-push="2026-10-02" data-name="RAGFlow"
+          data-search="ragflow 文档理解最深的开源 rag 引擎：版式感知切块（deepdoc）、引用溯源、内置知识图谱，生产级文档问答利器；中文社区一线 rag document-understanding knowledge-base">
+        <td class="tool-name"><a href="../items/rag-frameworks/ragflow/report.html" title="文档理解最深的开源 RAG 引擎：版式感知切块（DeepDoc）、引用溯源、内置知识图谱，生产级文档问答利器；中文社区一线">RAGFlow</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">低代码平台（RAG 引擎）</td><td class="mx">Apache-2.0</td><td class="mx">免费·自托管</td><td class="mx">最深（DeepDoc 解析+溯源）</td><td class="mx">内置 Agent 工作流</td><td class="mx">Web UI + API，Docker 部署</td>
+        <td class="num">91.6k</td>
+        <td class="num">10-02</td>
+      </tr>
       <tr data-verdict="adopt" data-stars="52381"
           data-push="2026-10-01" data-name="LlamaIndex"
           data-search="llamaindex 为 rag 而生的数据框架：连接器/索引/检索抽象全场最深，文档密集场景管线首选，现已扩展为文档处理平台（llamaparse/llamacloud） rag data-framework indexing">
@@ -237,6 +228,24 @@
         <td class="num">52.4k</td>
         <td class="num">10-01</td>
       </tr>
+      <tr data-verdict="hold" data-stars="55482"
+          data-push="2026-08-13" data-name="Flowise"
+          data-search="flowise 拖拽式 langchain 可视化编排：教学与原型直观，但生产路径弱，定位被 dify（平台化）与手写（可维护）两头挤压 rag low-code visual">
+        <td class="tool-name"><a href="../items/rag-frameworks/flowise/report.html" title="拖拽式 LangChain 可视化编排：教学与原型直观，但生产路径弱，定位被 Dify（平台化）与手写（可维护）两头挤压">Flowise</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">低代码平台（可视化）</td><td class="mx">Apache-2.0+商业双轨</td><td class="mx">免费·自托管+云</td><td class="mx">依赖外接向量库</td><td class="mx">拖拽 Agent/Chatflow</td><td class="mx">Web UI 拖拽，最直观</td>
+        <td class="num">55.5k</td>
+        <td class="num">08-13</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="Azure AI Search"
+          data-search="azure ai search 托管三家能力天花板：hybrid+语义 ranker、字段级权限、企业合规最全；只在 azure 栈内才是正解，栈外无理由引入 rag managed azure">
+        <td class="tool-name"><a href="../items/rag-frameworks/azure-ai-search/report.html" title="托管三家能力天花板：hybrid+语义 ranker、字段级权限、企业合规最全；只在 Azure 栈内才是正解，栈外无理由引入">Azure AI Search</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">托管 API</td><td class="mx">闭源</td><td class="mx">按 Search Unit 计费</td><td class="mx">hybrid+语义 ranker，可调项多</td><td class="mx">Azure AI Agent 集成</td><td class="mx">Portal/SDK，Azure 体系内</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
       <tr data-verdict="trial" data-stars="-1"
           data-push="" data-name="OpenAI File Search"
           data-search="openai file search assistants 内置的一行调用 rag：上传文件即得检索增强回答，原型最快；仅 openai 栈、向量库黑盒、控制力最低 rag managed openai">
@@ -245,15 +254,6 @@
         <td class="mx">托管 API</td><td class="mx">闭源</td><td class="mx">按量付费（存储+查询）</td><td class="mx">黑盒（自动切块/嵌入）</td><td class="mx">Assistants 工具链内</td><td class="mx">一行 API 调用</td>
         <td class="num">—</td>
         <td class="num">—</td>
-      </tr>
-      <tr data-verdict="trial" data-stars="91603"
-          data-push="2026-10-02" data-name="RAGFlow"
-          data-search="ragflow 文档理解最深的开源 rag 引擎：版式感知切块（deepdoc）、引用溯源、内置知识图谱，生产级文档问答利器；中文社区一线 rag document-understanding knowledge-base">
-        <td class="tool-name"><a href="../items/rag-frameworks/ragflow/report.html" title="文档理解最深的开源 RAG 引擎：版式感知切块（DeepDoc）、引用溯源、内置知识图谱，生产级文档问答利器；中文社区一线">RAGFlow</a></td>
-        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
-        <td class="mx">低代码平台（RAG 引擎）</td><td class="mx">Apache-2.0</td><td class="mx">免费·自托管</td><td class="mx">最深（DeepDoc 解析+溯源）</td><td class="mx">内置 Agent 工作流</td><td class="mx">Web UI + API，Docker 部署</td>
-        <td class="num">91.6k</td>
-        <td class="num">10-02</td>
       </tr>
       <tr data-verdict="assess" data-stars="-1"
           data-push="" data-name="Vertex AI Search"
@@ -266,7 +266,7 @@
       </tr>
       </tbody>
     </table>
-    <p class="collected-note">star / push 为 gh 快照，采集 2026-10-02；红色 push 表示停滞超 180 天，「待复核」表示采集/核实超 180 天；条目名悬停看一句话结论。</p>
+    <p class="collected-note">行序默认按 push 倒序（最新在上），无 stats 的条目沉底；star / push 为 gh 快照，采集 2026-10-02；红色 push 表示停滞超 180 天，「待复核」表示采集/核实超 180 天；条目名悬停看一句话结论。</p>
   </section>
   <section class="category" id="vector-databases" data-search="向量数据库">
     <h2>向量数据库 <span class="cat-count">7 条</span> <a class="cmp" href="../items/vector-databases/comparison.html">横评 →</a></h2>
@@ -274,7 +274,7 @@
       <thead><tr>
         <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
         <th>形态</th><th>许可</th><th>成本</th><th>混合检索</th><th>部署</th><th>规模定位</th>
-        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num sorted-desc" tabindex="0">push</th>
       </tr></thead>
       <tbody>
       <tr data-verdict="trial" data-stars="29425"
@@ -304,24 +304,6 @@
         <td class="num">46.3k</td>
         <td class="num">10-02</td>
       </tr>
-      <tr data-verdict="adopt" data-stars="23220"
-          data-push="2026-10-01" data-name="pgvector"
-          data-search="pgvector 已有 postgres 就从这里起步：一条 create extension 获得向量检索，acid/权限/备份全部白拿，千万级向量内不用考虑换库 rag postgres vector-search">
-        <td class="tool-name"><a href="../items/vector-databases/pgvector/report.html" title="已有 Postgres 就从这里起步：一条 CREATE EXTENSION 获得向量检索，ACID/权限/备份全部白拿，千万级向量内不用考虑换库">pgvector</a></td>
-        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
-        <td class="mx">Postgres 插件</td><td class="mx">PostgreSQL</td><td class="mx">免费·自托管</td><td class="mx">SQL 全文+向量</td><td class="mx">随 PG 走</td><td class="mx">千万级向量内</td>
-        <td class="num">23.2k</td>
-        <td class="num">10-01</td>
-      </tr>
-      <tr data-verdict="assess" data-stars="-1"
-          data-push="" data-name="Pinecone"
-          data-search="pinecone 全托管向量检索的代名词：serverless 免运维、规模弹性好；闭源按量计费+数据出域+锁定，学习与个人场景性价比低 rag vector-search saas">
-        <td class="tool-name"><a href="../items/vector-databases/pinecone/report.html" title="全托管向量检索的代名词：serverless 免运维、规模弹性好；闭源按量计费+数据出域+锁定，学习与个人场景性价比低">Pinecone</a></td>
-        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
-        <td class="mx">全托管 SaaS</td><td class="mx">闭源</td><td class="mx">按量付费</td><td class="mx">sparse+dense</td><td class="mx">仅云</td><td class="mx">亿级</td>
-        <td class="num">—</td>
-        <td class="num">—</td>
-      </tr>
       <tr data-verdict="trial" data-stars="34904"
           data-push="2026-10-02" data-name="Qdrant"
           data-search="qdrant postgres 不够用后的第一升级：rust 内核、payload 过滤与量化是强项，apache-2.0 且云/自托管同核，亿级向量性价比均衡 rag vector-search rust">
@@ -340,11 +322,29 @@
         <td class="num">16.9k</td>
         <td class="num">10-02</td>
       </tr>
+      <tr data-verdict="adopt" data-stars="23220"
+          data-push="2026-10-01" data-name="pgvector"
+          data-search="pgvector 已有 postgres 就从这里起步：一条 create extension 获得向量检索，acid/权限/备份全部白拿，千万级向量内不用考虑换库 rag postgres vector-search">
+        <td class="tool-name"><a href="../items/vector-databases/pgvector/report.html" title="已有 Postgres 就从这里起步：一条 CREATE EXTENSION 获得向量检索，ACID/权限/备份全部白拿，千万级向量内不用考虑换库">pgvector</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">Postgres 插件</td><td class="mx">PostgreSQL</td><td class="mx">免费·自托管</td><td class="mx">SQL 全文+向量</td><td class="mx">随 PG 走</td><td class="mx">千万级向量内</td>
+        <td class="num">23.2k</td>
+        <td class="num">10-01</td>
+      </tr>
+      <tr data-verdict="assess" data-stars="-1"
+          data-push="" data-name="Pinecone"
+          data-search="pinecone 全托管向量检索的代名词：serverless 免运维、规模弹性好；闭源按量计费+数据出域+锁定，学习与个人场景性价比低 rag vector-search saas">
+        <td class="tool-name"><a href="../items/vector-databases/pinecone/report.html" title="全托管向量检索的代名词：serverless 免运维、规模弹性好；闭源按量计费+数据出域+锁定，学习与个人场景性价比低">Pinecone</a></td>
+        <td><span class="seal" style="--vb:#898781" title="评估"><i></i>评</span></td>
+        <td class="mx">全托管 SaaS</td><td class="mx">闭源</td><td class="mx">按量付费</td><td class="mx">sparse+dense</td><td class="mx">仅云</td><td class="mx">亿级</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+      </tr>
       </tbody>
     </table>
-    <p class="collected-note">star / push 为 gh 快照，采集 2026-10-02；红色 push 表示停滞超 180 天，「待复核」表示采集/核实超 180 天；条目名悬停看一句话结论。</p>
+    <p class="collected-note">行序默认按 push 倒序（最新在上），无 stats 的条目沉底；star / push 为 gh 快照，采集 2026-10-02；红色 push 表示停滞超 180 天，「待复核」表示采集/核实超 180 天；条目名悬停看一句话结论。</p>
   </section>
-  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
+  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
 </main>
 <script>
   // 文本过滤 + verdict chips + 表头排序（类别内，点击切换升降序）

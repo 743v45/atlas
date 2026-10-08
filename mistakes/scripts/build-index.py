@@ -118,6 +118,11 @@ def collect():
         md = (d / "mistake.md").read_text(encoding="utf-8")
         check_sections(md, where, errors)
         mistakes.append({"dir": d, "meta": meta, "md": md})
+    # 默认日期倒序（入口统一排序见 atlas/DESIGN-TREE.md A10）：
+    # 先按目录名升序定次级键，再按 date 倒序——稳定排序，同日错题保持目录序，输出可复现。
+    # 索引表行序与详情页上下篇导航同源此列表，故排序必须在此层做，两处才自洽。
+    mistakes.sort(key=lambda m: m["dir"].name)
+    mistakes.sort(key=lambda m: m["meta"]["date"], reverse=True)
     return mistakes, errors, warnings
 
 
@@ -224,7 +229,7 @@ def render_index(mistakes):
   </div>
   <table class="idx-table">
     <thead><tr>
-      <th data-sort="name" tabindex="0">错题</th><th data-sort="date" class="num" tabindex="0">日期</th>
+      <th data-sort="name" tabindex="0">错题</th><th data-sort="date" class="num sorted-desc" tabindex="0">日期</th>
       <th>类型</th><th data-sort="status" tabindex="0">状态</th>
     </tr></thead>
     <tbody>

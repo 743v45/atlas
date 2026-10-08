@@ -28,3 +28,5 @@
 ## 4. 引擎
 
 渲染器在 `atlas/shared/render.py`(全馆共用),本馆 build 无本地副本。HTML 由 `python3 scripts/build-index.py` 生成,禁止手改;门禁:必填字段、source 存在性、TL;DR 必在、tags 非空。
+
+索引默认**按 `date` 倒序**(最新问答在上;口径见 `atlas/DESIGN-TREE.md` A10)。排序在 build 层做,同日按目录名升序定次级键,输出可复现。

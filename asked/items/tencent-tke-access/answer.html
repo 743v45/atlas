@@ -69,7 +69,7 @@
 </head>
 <body>
 <main>
-  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../tao-and-ai-development/answer.html">← 学道才能做好 AI 开发吗?为什么</a><span class="sep">·</span><a href="../testing-types-and-ai-code-solidification/answer.html">软件测试都有哪些类型?AI 生成的代码怎么固定下来? →</a></nav>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../one-click-login/answer.html">← 移动端一键登录是怎么实现的?</a><span class="sep">·</span><a href="../tao-and-ai-development/answer.html">学道才能做好 AI 开发吗?为什么 →</a></nav>
   <article>
 <h1>腾讯云 TKE 访问四场景 + kubectl 上手实录</h1>
 <blockquote><strong>TL;DR</strong>:「访问腾讯云容器服务」按四场景对号入座:控制台 Web UI(CAM 权限)/ 本地 kubectl 连集群(拿 kubeconfig → 配网络接入 → 验证)/ 访问集群内应用(LoadBalancer、port-forward)/ TCR 镜像服务。最容易卡住的两步:① 网络接入——kubeconfig 里的 server 是 VPC 私网地址还是公网地址,决定要不要 VPN/云联网;② 鉴权——TKE 是 CAM 用户映射到 K8s RBAC,子账号没绑角色就是 forbidden。当日从零到连上集群、查 ns/日志/配置,全程走通。</blockquote>
@@ -95,7 +95,7 @@
 <h2>出处</h2>
 <ul><li>源对话归档:../../../conversations/2026-08-03-tencent-tke-access.md(2026-08-03)</li><li>原始会话:~/.claude/projects/-Users-taevas/bcbd5d97-4d63-4446-9e7b-c5883a11d7e1.jsonl</li><li>关联条目:<a href="../k8s-kubectl-cheatsheet/">k8s-kubectl-cheatsheet</a>(kubectl 全景)、<a href="../k8s-config-storage/">k8s-config-storage</a></li></ul>
   </article>
-  <footer>生成于 2026-10-07 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
 </body>
 </html>

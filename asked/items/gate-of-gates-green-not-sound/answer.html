@@ -69,7 +69,7 @@
 </head>
 <body>
 <main>
-  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../doc-library-information-architecture/answer.html">← 文档库信息架构:建 collection 还是加层级?</a><span class="sep">·</span><a href="../k8s-config-storage/answer.html">k8s 里配置到底存在哪:deploy→cm/secret 反查 →</a></nav>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../deepseek-harness-design-philosophy/answer.html">← deepseek-harness 的设计哲学:为无记忆的 AI agent 造工具</a><span class="sep">·</span><a href="../k8s-config-storage/answer.html">k8s 里配置到底存在哪:deploy→cm/secret 反查 →</a></nav>
   <article>
 <h1>「门的门」:CI 绿不等于 sound,漂移发生在层间缝隙</h1>
 <blockquote><strong>TL;DR</strong>:给 deepseek-harness 做了一次「治理体系自身的治理」审查(防漂移工具自己会不会漂移)。结论:治理的「机制层」有效——调度器有测试、CI 结构被钉住、manifest 双向自校验;但<strong>漂移发生在无人守望的层间缝隙</strong>,实证揪出 2 个孤儿 gate、9 行过期版本表、全线失守的软预算。核心方法论:<strong>CI 绿只证明「接受当前仓库」,不证明「拒绝坏仓库」</strong>——绿灯含义是 consistent(与当前仓库一致),不是 sound(真的挡得住坏东西)。</blockquote>
@@ -92,7 +92,7 @@
 <h2>出处</h2>
 <ul><li>源对话归档:../../../conversations/2026-08-18-deepseek-harness-self-governance.md(2026-08-18)</li><li>原始会话:~/.claude/projects/-Users-taevas-code-openresources-deepseek-harness/163afc75-d939-4984-ae98-aa89375ad52d.jsonl</li><li>关联:同仓库设计哲学全景见 <a href="../deepseek-harness-design-philosophy/">deepseek-harness-design-philosophy</a>;本条是它的「已知漏洞」收尾维度。</li></ul>
   </article>
-  <footer>生成于 2026-10-07 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
 </body>
 </html>

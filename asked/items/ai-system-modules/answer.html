@@ -69,7 +69,7 @@
 </head>
 <body>
 <main>
-  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../ai-interaction-forms/answer.html">← 人和 AI 协作有哪些形态?——从 2 种到 100 种的图谱与常用二十</a><span class="sep">·</span><a href="../database-landscape/answer.html">给你 10 种数据库,优先选哪些?——全景与决策漏斗 →</a></nav>
+  <nav class="entry-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../reasoning-skeletons/answer.html">设计树写进提示词,AI 才会按设计树思考么? →</a></nav>
   <article>
 <h1>AI 系统有哪几个能力模块？</h1>
 <blockquote><strong>TL;DR</strong>:一个完整的 AI(agent)系统按能力可划成 <strong>11 个模块</strong>:感知、思考、检索、工具调用、写文件、记忆、生成、输出、规划、编排循环、护栏。每个模块按「两行制」描述——第一行说人话(给使用者看),第二行放术语(给实现看);输出层必须正常简要,生成层允许晦涩。清单以「单机对话产品」为默认语境,附边界说明(哪些东西故意不单列)。</blockquote>
@@ -86,9 +86,9 @@
 <h2>边界说明(故意不单列的东西)</h2>
 <ul><li><strong>写文件 vs 工具调用</strong>:标准划分里写文件只是工具调用的一种。本清单单列它的理由:落盘是<strong>持久化边界</strong>——产物跨会话存在,与瞬时性工具(查天气、算数)不同,值得在产品层单独指认。定性按默认记为「单列的重要特例,底层仍是工具调用的一种」,<strong>此定性可改</strong>(边界归属未由用户最终拍板)。</li><li><strong>编排循环 vs 规划</strong>:规划是「想清楚步骤」(静态分解),编排循环是「驱动执行」(动态状态机:跑一步、看结果、决定下一步)。想≠做,故拆开——这是清单破 10 上限的唯一破例点。</li><li><strong>学习/训练不收</strong>:微调、强化学习是离线过程,不在运行时闭环里,不属于能力模块。</li><li><strong>「追问澄清」「多轮对话」不单列</strong>:它们是感知(听懂意图)+输出(把问题问出口)+编排循环(决定要不要再问一轮)的组合行为,不是独立能力。</li><li><strong>「评价/自评」并入思考</strong>:检查自己答案好坏属于反思,不独立。</li></ul>
 <h2>出处</h2>
-<ul><li>源对话归档:<a href="../../conversations/2026-10-07-ai-module-map.md">conversations/2026-10-07-ai-module-map.md</a></li><li>问答日期:2026-10-07</li></ul>
+<ul><li>源对话归档:<a href="../../../conversations/2026-10-07-ai-module-map.md">conversations/2026-10-07-ai-module-map.md</a></li><li>问答日期:2026-10-07</li></ul>
   </article>
-  <footer>生成于 2026-10-07 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
 </body>
 </html>

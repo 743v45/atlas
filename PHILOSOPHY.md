@@ -71,6 +71,6 @@
 | 结论馆/草稿箱 | 馆的定位二分;在学的留在对话里 | apprentice/DESIGN-TREE |
 | 格式锚点 | 输出里不变的结构,漂移探测器 | apprentice/express/describe-the-goal |
 | 先复述再执行 | 指令末尾的配套动作,漂移暴露在出发前 | 同上 |
-| 腐烂警示 | 超 180 天未验证/已过期的条目,门户聚合 | atlas 门户 |
+| 腐烂警示 | 超 180 天未验证/已过期的条目,错题集视图聚合 | atlas 门户 `views.html` |
 | 复发(recurring) | 同一根因又犯;错题馆最高警示 | mistakes/RULES |
 | 抽象触发条件 | 第三馆出现或第三次跨馆改同段逻辑,才抽共享层 | apprentice/scripts/ORIGIN.md |

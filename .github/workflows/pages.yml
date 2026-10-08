@@ -17,6 +17,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 步骤顺序与 scripts/build-all.py(本地一键)保持一致——两边改一边,另一边必须同步
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
@@ -40,7 +41,7 @@ jobs:
       - name: Build asked
         run: python3 scripts/build-index.py
         working-directory: asked
-      - name: Build atlas（门户 + 错题集视图）
+      - name: Build atlas（封面 index.html + 错题集视图 views.html）
         run: python3 scripts/build-atlas.py
       - name: Check all（全站断言：链接 / 模板残留 / 渲染器单源）
         run: python3 scripts/check-all.py

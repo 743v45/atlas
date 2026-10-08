@@ -70,7 +70,7 @@
 </head>
 <body>
 <main>
-  <nav class="mistake-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../e2e-green-config-missing/mistake.html">← E2E 绿灯掩盖入口缺失:测试路径绕过配置</a><span class="sep">·</span><a href="../paper-production-experience/mistake.html">「读过模板=会生产运维」:纸面样板冒充经验 →</a></nav>
+  <nav class="mistake-nav"><a href="../../index.html">← 索引</a><span class="sep">·</span><a href="../../../index.html">← atlas</a><span class="sep">·</span><a href="../cli-credential-verification/mistake.html">← 「你不验证一下吗」:凭据采集无验证闭环</a><span class="sep">·</span><a href="../subagent-report-truncation/mistake.html">长报告回传只剩最后一句:final text 不是传输通道 →</a></nav>
   <article>
   <span class="seal seal-big" style="--vb:#0ca30c" title="已修正"><i></i>修</span>
 <h1>28 个分片各过 gate,合并后 lint 溃败</h1>
@@ -83,7 +83,7 @@
 <h2>修正</h2>
 <p>独立全局 gate:分片全部合并后,全仓级 lint/build/test 单独跑一遍、不过不算完。可复用判据:凡并发分片开发,门禁至少两层——task gate(分发单元)+ 全局 gate(合并整体);后者不可被前者代言。</p>
   </article>
-  <footer>生成于 2026-08-27 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
 </body>
 </html>

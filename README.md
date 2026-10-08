@@ -22,16 +22,25 @@ atlas = 地图集:馆是图上的区域,错题集是警示图层,根 `index.html
 
 各馆自带 RULES.md / 门禁 / CLAUDE.md,规则互不合并。渲染引擎单源 `shared/render.py`(新馆复制骨架、删副本、接 shared)。时态分工:spark 将来时 / 对话现在时 / pick·apprentice·asked 完成时 / mistakes 过去时不过期。
 
-## 门户与错题集视图
+## 门户封面与错题集视图
 
-根 `index.html` 由 `python3 scripts/build-atlas.py` 生成(需先跑五馆各自的 build):
+两个生成物同出 `python3 scripts/build-atlas.py`(需先跑五馆各自的 build),**内容不搬家,原地链接**:
 
-- 馆导航 + 动态统计
-- **翻车**:mistakes 馆条目,根因一行直读
-- **落选**:pick 的 hold 条目(默认折叠)
-- **腐烂警示**:两馆超 180 天未验证/过期的条目
+- **index.html** — 封面(窄页,只回答「这是什么地方、去哪」):大标题 + 一句话 + 五馆卡片(各带一枚馆印)+ 一条细的错题集入口。错题集不在此展开。
+- **views.html** — 错题集视图(跨馆负知识聚合,三区):
+  - **翻车**:mistakes 馆条目,按错题日期倒序,根因一行直读
+  - **落选**:pick 的 hold 条目(默认折叠),按 push 倒序,无 stats 的沉底
+  - **腐烂警示**:pick / apprentice 超 180 天未验证/未采集的条目 + apprentice status=outdated,按腐烂天数倒序
+
+错题集是**视图维度**不是第六馆(有门禁的才是馆,见 PHILOSOPHY.md §5),五馆卡片之外故用细条入口,视觉层级低于馆卡片。
+
+## 默认排序
+
+入口页一律**日期倒序**(口径与各馆字段选择见 [DESIGN-TREE.md](DESIGN-TREE.md) A10):索引表行序与详情页上下篇导航同源同一份 Python 列表,故排序在 build 层做,两处才自洽;同日/同值条目按目录名升序定次级键,输出可复现。
 
 ## 部署
+
+本地一键:`python3 scripts/build-all.py`——五馆 build + atlas 聚合 + 全部断言,顺序与 CI 一致,任一步失败即停并打出失败现场;只做构建不刷新数据(star/push 采集另行先跑 `pick/scripts/refresh-stats.py`)。
 
 push 到 main → GitHub Pages 单站部署:五馆 build + pick 防漂移断言 + 全站链接断言 + atlas 聚合,纯标准库零依赖。
 

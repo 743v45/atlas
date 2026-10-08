@@ -93,6 +93,10 @@ def collect():
         md = md_path.read_text(encoding="utf-8")
         check_self_contained(md, where, errors)
         entries.append({"dir": d, "meta": meta, "md": md})
+    # 默认日期倒序（入口统一排序见 atlas/DESIGN-TREE.md A10）：目录名升序定次级键，再按 date 倒序；稳定可复现。
+    # 索引表与 answer.html 上下篇同源此列表。
+    entries.sort(key=lambda e: e["dir"].name)
+    entries.sort(key=lambda e: e["meta"]["date"], reverse=True)
     return entries, errors, warnings
 
 
@@ -176,7 +180,7 @@ def render_index(entries):
   <div class="wrap-x">
   <table class="idx-table">
     <thead><tr>
-      <th data-sort="name" tabindex="0">问题</th><th data-sort="date" class="num" tabindex="0">日期</th>
+      <th data-sort="name" tabindex="0">问题</th><th data-sort="date" class="num sorted-desc" tabindex="0">日期</th>
       <th>标签</th><th>出处</th>
     </tr></thead>
     <tbody>

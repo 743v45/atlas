@@ -49,3 +49,4 @@
 - 所有 HTML（`index.html`、各课 `lesson.html`）由 `python3 scripts/build-index.py` 生成，**禁止手改**。
 - 门禁项：必填字段、status 枚举、日期格式（YYYY-MM-DD）、`## 验证` 与 `## 翻车记录` 小节、artifacts 路径存在性。任何错误 → 退出码 1，索引不更新。
 - 校验只认代码，不认自觉：规则改了先改 build，再改文档。
+- 索引默认**按 `verified` 倒序**（最近验证的在上；口径见 `atlas/DESIGN-TREE.md` A10）。用 verified 不用 date：date 是首次沉淀日（现全馆同为 2026-08-27，无区分度），verified 才逐课有差异且与索引「验证」列同源。排序在 build 层做——索引表行序与 lesson.html 上下篇导航同源同一份列表；课内按目录名升序定次级键，输出可复现。

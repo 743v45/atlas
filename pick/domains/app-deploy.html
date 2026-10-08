@@ -171,18 +171,9 @@
       <thead><tr>
         <th data-sort="name" tabindex="0">条目</th><th data-sort="verdict" tabindex="0">结论</th>
         <th>形态</th><th>资源占用</th><th>运维门槛</th><th>自托管</th><th>多应用</th><th>成本</th>
-        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num" tabindex="0">push</th>
+        <th data-sort="stars" class="num" tabindex="0">star</th><th data-sort="push" class="num sorted-desc" tabindex="0">push</th>
       </tr></thead>
       <tbody>
-      <tr data-verdict="trial" data-stars="15177"
-          data-push="2026-09-30" data-name="CapRover"
-          data-search="caprover 微型 paas 老牌（2017 起）：web 面板 + 360 个一键应用 + 自动 https 把 docker 藏在一键体验后面，空闲仅约 300-400mb ram，2026 年维护明显回升（8 月连发 5 版、issue 当天关闭）——个人 vps、简单单容器工作流值得用，但单维护者 bus factor=1，不设为无脑默认项。 微型paas docker swarm 自托管 一键应用 vps">
-        <td class="tool-name"><a href="../items/lightweight-deploy/caprover/report.html" title="微型 PaaS 老牌（2017 起）：Web 面板 + 360 个一键应用 + 自动 HTTPS 把 Docker 藏在一键体验后面，空闲仅约 300-400MB RAM，2026 年维护明显回升（8 月连发 5 版、issue 当天关闭）——个人 VPS、简单单容器工作流值得用，但单维护者 bus factor=1，不设为无脑默认项。">CapRover</a></td>
-        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
-        <td class="mx">微型PaaS</td><td class="mx">低</td><td class="mx">低</td><td class="mx">是</td><td class="mx">多机编排</td><td class="mx">免费开源（+付费PRO）</td>
-        <td class="num">15.2k</td>
-        <td class="num">09-30</td>
-      </tr>
       <tr data-verdict="trial" data-stars="8801"
           data-push="2026-10-02" data-name="Cloudflare Workers"
           data-search="cloudflare workers 托管轻量化轴的极点：v8 isolate 边缘运行时把运维压到零、免费层（10 万请求/日 + 10ms cpu，2026-10 查）即可起步，状态存储平台内置（kv/d1/durable objects/r2/queues）——但 isolate 不是进程，应用必须按 workers 形态写（请求驱动、无长驻后台、绑定最深），已有 node 服务不能原样迁移，另有 containers 补容器类负载；适用域为新写 api/全栈 js 小服务与全球低延迟场景，非通用部署方案。 边缘运行时 serverless 托管平台 isolate 全栈框架">
@@ -199,6 +190,33 @@
         <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
         <td class="mx">微型PaaS</td><td class="mx">高</td><td class="mx">低</td><td class="mx">是</td><td class="mx">多机编排</td><td class="mx">自托管免费,Cloud $5/月起</td>
         <td class="num">62.5k</td>
+        <td class="num">10-02</td>
+      </tr>
+      <tr data-verdict="hold" data-stars="6310"
+          data-push="2026-10-02" data-name="LXC / Incus（系统容器）"
+          data-search="lxc / incus（系统容器） 系统容器路线的社区主线（incus，apache-2.0，lxd 社区分叉后由原班人马领导，lts 7.0 支持至 2031-06），但对本类别根问题——部署几个 app 到一台 vps——判 hold：应用部署退化为「容器内手动装环境 + 手写 init」，资源与运维开销都高于 docker 系；其真正的适用域在本类别轴外——整机环境隔离、多发行版、快照回滚时才轮到它。 系统容器 lxc incus lxd 自托管 vps">
+        <td class="tool-name"><a href="../items/lightweight-deploy/lxc/report.html" title="系统容器路线的社区主线（Incus，Apache-2.0，LXD 社区分叉后由原班人马领导，LTS 7.0 支持至 2031-06），但对本类别根问题——部署几个 app 到一台 VPS——判 hold：应用部署退化为「容器内手动装环境 + 手写 init」，资源与运维开销都高于 Docker 系；其真正的适用域在本类别轴外——整机环境隔离、多发行版、快照回滚时才轮到它。">LXC / Incus（系统容器）</a></td>
+        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
+        <td class="mx">系统容器</td><td class="mx">中</td><td class="mx">中</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源</td>
+        <td class="num">6.3k</td>
+        <td class="num">10-02</td>
+      </tr>
+      <tr data-verdict="trial" data-stars="32986"
+          data-push="2026-10-02" data-name="Podman"
+          data-search="podman daemonless 无守护进程容器引擎、docker 的直接替代：空闲零内存（对比 dockerd 常驻 140–180 mb），quadlet 把容器/卷/网络声明为 systemd unit、自启/重启/日志全交 systemd 原生管理，cli/dockerfile/docker 兼容 api 让存量技能近乎无损迁移——适用域：linux vps 小规模自托管服务；rootless 边界坑与文档生态弱于 docker 使整体定 trial，新装 linux 机且无存量 docker 生态的场景可按 adopt 用。 容器 部署 systemd rootless 轻量部署">
+        <td class="tool-name"><a href="../items/lightweight-deploy/podman/report.html" title="daemonless 无守护进程容器引擎、Docker 的直接替代：空闲零内存（对比 dockerd 常驻 140–180 MB），quadlet 把容器/卷/网络声明为 systemd unit、自启/重启/日志全交 systemd 原生管理，CLI/Dockerfile/Docker 兼容 API 让存量技能近乎无损迁移——适用域：Linux VPS 小规模自托管服务；rootless 边界坑与文档生态弱于 Docker 使整体定 trial，新装 Linux 机且无存量 Docker 生态的场景可按 adopt 用。">Podman</a></td>
+        <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
+        <td class="mx">容器引擎</td><td class="mx">低</td><td class="mx">中</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源（Apache-2.0）</td>
+        <td class="num">33.0k</td>
+        <td class="num">10-02</td>
+      </tr>
+      <tr data-verdict="adopt" data-stars="16768"
+          data-push="2026-10-02" data-name="systemd"
+          data-search="systemd 一台 linux vps 上跑几个到十几个小服务的轻量默认解：发行版自带零安装、无 daemon 中间层（应用总内存≈应用自身，对照组 pm2 daemon 约 83mb）、restart=always 自愈与 journalctl 日志开箱即得；代价是仅 linux、无隔离无镜像、部署无声明式回滚——适用域为进程级部署够用的个人/小团队自有 vps。 部署 进程管理 linux vps init-system">
+        <td class="tool-name"><a href="../items/lightweight-deploy/systemd/report.html" title="一台 Linux VPS 上跑几个到十几个小服务的轻量默认解：发行版自带零安装、无 daemon 中间层（应用总内存≈应用自身，对照组 PM2 daemon 约 83MB）、Restart=always 自愈与 journalctl 日志开箱即得；代价是仅 Linux、无隔离无镜像、部署无声明式回滚——适用域为进程级部署够用的个人/小团队自有 VPS。">systemd</a></td>
+        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
+        <td class="mx">进程管理器</td><td class="mx">极低</td><td class="mx">低</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源（LGPL-2.1）</td>
+        <td class="num">16.8k</td>
         <td class="num">10-02</td>
       </tr>
       <tr data-verdict="adopt" data-stars="72144"
@@ -219,14 +237,14 @@
         <td class="num">32.2k</td>
         <td class="num">10-01</td>
       </tr>
-      <tr data-verdict="trial" data-stars="-1"
-          data-push="" data-name="Fly.io"
-          data-search="fly.io 「真机器手感」托管平台的代表：firecracker 微 vm 按秒计费（最小 256mb ≈ $2.23/月，2026-10 查），fly.toml + fly deploy 免服务器运维、anycast 多区分布与自动 https 开箱即用；但 2024-10 起新用户免费额度取消、2024 q4 连环重大故障、2026-07 公司整体转向 ai agent——个人非关键路径服务值得试用，关键服务慎押。 托管平台 firecracker 微 vm 按量计费 全球分布">
-        <td class="tool-name"><a href="../items/lightweight-deploy/flyio/report.html" title="「真机器手感」托管平台的代表：Firecracker 微 VM 按秒计费（最小 256MB ≈ $2.23/月，2026-10 查），fly.toml + fly deploy 免服务器运维、Anycast 多区分布与自动 HTTPS 开箱即用；但 2024-10 起新用户免费额度取消、2024 Q4 连环重大故障、2026-07 公司整体转向 AI agent——个人非关键路径服务值得试用，关键服务慎押。">Fly.io</a></td>
+      <tr data-verdict="trial" data-stars="15177"
+          data-push="2026-09-30" data-name="CapRover"
+          data-search="caprover 微型 paas 老牌（2017 起）：web 面板 + 360 个一键应用 + 自动 https 把 docker 藏在一键体验后面，空闲仅约 300-400mb ram，2026 年维护明显回升（8 月连发 5 版、issue 当天关闭）——个人 vps、简单单容器工作流值得用，但单维护者 bus factor=1，不设为无脑默认项。 微型paas docker swarm 自托管 一键应用 vps">
+        <td class="tool-name"><a href="../items/lightweight-deploy/caprover/report.html" title="微型 PaaS 老牌（2017 起）：Web 面板 + 360 个一键应用 + 自动 HTTPS 把 Docker 藏在一键体验后面，空闲仅约 300-400MB RAM，2026 年维护明显回升（8 月连发 5 版、issue 当天关闭）——个人 VPS、简单单容器工作流值得用，但单维护者 bus factor=1，不设为无脑默认项。">CapRover</a></td>
         <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
-        <td class="mx">托管平台</td><td class="mx">按量微 VM</td><td class="mx">低</td><td class="mx">否</td><td class="mx">多应用</td><td class="mx">按量 ~$2.2/月（2026-10 查）</td>
-        <td class="num">—</td>
-        <td class="num">—</td>
+        <td class="mx">微型PaaS</td><td class="mx">低</td><td class="mx">低</td><td class="mx">是</td><td class="mx">多机编排</td><td class="mx">免费开源（+付费PRO）</td>
+        <td class="num">15.2k</td>
+        <td class="num">09-30</td>
       </tr>
       <tr data-verdict="trial" data-stars="14625"
           data-push="2026-09-30" data-name="Kamal"
@@ -237,15 +255,6 @@
         <td class="num">14.6k</td>
         <td class="num">09-30</td>
       </tr>
-      <tr data-verdict="hold" data-stars="6310"
-          data-push="2026-10-02" data-name="LXC / Incus（系统容器）"
-          data-search="lxc / incus（系统容器） 系统容器路线的社区主线（incus，apache-2.0，lxd 社区分叉后由原班人马领导，lts 7.0 支持至 2031-06），但对本类别根问题——部署几个 app 到一台 vps——判 hold：应用部署退化为「容器内手动装环境 + 手写 init」，资源与运维开销都高于 docker 系；其真正的适用域在本类别轴外——整机环境隔离、多发行版、快照回滚时才轮到它。 系统容器 lxc incus lxd 自托管 vps">
-        <td class="tool-name"><a href="../items/lightweight-deploy/lxc/report.html" title="系统容器路线的社区主线（Incus，Apache-2.0，LXD 社区分叉后由原班人马领导，LTS 7.0 支持至 2031-06），但对本类别根问题——部署几个 app 到一台 VPS——判 hold：应用部署退化为「容器内手动装环境 + 手写 init」，资源与运维开销都高于 Docker 系；其真正的适用域在本类别轴外——整机环境隔离、多发行版、快照回滚时才轮到它。">LXC / Incus（系统容器）</a></td>
-        <td><span class="seal" style="--vb:#d03b3b" title="观望"><i></i>观</span></td>
-        <td class="mx">系统容器</td><td class="mx">中</td><td class="mx">中</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源</td>
-        <td class="num">6.3k</td>
-        <td class="num">10-02</td>
-      </tr>
       <tr data-verdict="trial" data-stars="43297"
           data-push="2026-09-04" data-name="PM2"
           data-search="pm2 node 生态上手最快的进程管理器：npm 装完即用，cluster mode 与零停机 reload 内置，pm2 startup+save 覆盖六种 init 系统开机自启——代价是多一层常驻 god daemon（基线约 30–100mb、有泄漏史 open issue）且与 vps 上已有的 systemd 功能重叠；快速上线的 node 单机多应用适用，长期加固运维场景 systemd 更轻。 进程管理 node 部署 自托管">
@@ -255,14 +264,14 @@
         <td class="num">43.3k</td>
         <td class="num">09-04</td>
       </tr>
-      <tr data-verdict="trial" data-stars="32986"
-          data-push="2026-10-02" data-name="Podman"
-          data-search="podman daemonless 无守护进程容器引擎、docker 的直接替代：空闲零内存（对比 dockerd 常驻 140–180 mb），quadlet 把容器/卷/网络声明为 systemd unit、自启/重启/日志全交 systemd 原生管理，cli/dockerfile/docker 兼容 api 让存量技能近乎无损迁移——适用域：linux vps 小规模自托管服务；rootless 边界坑与文档生态弱于 docker 使整体定 trial，新装 linux 机且无存量 docker 生态的场景可按 adopt 用。 容器 部署 systemd rootless 轻量部署">
-        <td class="tool-name"><a href="../items/lightweight-deploy/podman/report.html" title="daemonless 无守护进程容器引擎、Docker 的直接替代：空闲零内存（对比 dockerd 常驻 140–180 MB），quadlet 把容器/卷/网络声明为 systemd unit、自启/重启/日志全交 systemd 原生管理，CLI/Dockerfile/Docker 兼容 API 让存量技能近乎无损迁移——适用域：Linux VPS 小规模自托管服务；rootless 边界坑与文档生态弱于 Docker 使整体定 trial，新装 Linux 机且无存量 Docker 生态的场景可按 adopt 用。">Podman</a></td>
+      <tr data-verdict="trial" data-stars="-1"
+          data-push="" data-name="Fly.io"
+          data-search="fly.io 「真机器手感」托管平台的代表：firecracker 微 vm 按秒计费（最小 256mb ≈ $2.23/月，2026-10 查），fly.toml + fly deploy 免服务器运维、anycast 多区分布与自动 https 开箱即用；但 2024-10 起新用户免费额度取消、2024 q4 连环重大故障、2026-07 公司整体转向 ai agent——个人非关键路径服务值得试用，关键服务慎押。 托管平台 firecracker 微 vm 按量计费 全球分布">
+        <td class="tool-name"><a href="../items/lightweight-deploy/flyio/report.html" title="「真机器手感」托管平台的代表：Firecracker 微 VM 按秒计费（最小 256MB ≈ $2.23/月，2026-10 查），fly.toml + fly deploy 免服务器运维、Anycast 多区分布与自动 HTTPS 开箱即用；但 2024-10 起新用户免费额度取消、2024 Q4 连环重大故障、2026-07 公司整体转向 AI agent——个人非关键路径服务值得试用，关键服务慎押。">Fly.io</a></td>
         <td><span class="seal" style="--vb:#fab219" title="试用"><i></i>试</span></td>
-        <td class="mx">容器引擎</td><td class="mx">低</td><td class="mx">中</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源（Apache-2.0）</td>
-        <td class="num">33.0k</td>
-        <td class="num">10-02</td>
+        <td class="mx">托管平台</td><td class="mx">按量微 VM</td><td class="mx">低</td><td class="mx">否</td><td class="mx">多应用</td><td class="mx">按量 ~$2.2/月（2026-10 查）</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
       </tr>
       <tr data-verdict="trial" data-stars="-1"
           data-push="" data-name="Railway"
@@ -282,20 +291,11 @@
         <td class="num">—</td>
         <td class="num">—</td>
       </tr>
-      <tr data-verdict="adopt" data-stars="16768"
-          data-push="2026-10-02" data-name="systemd"
-          data-search="systemd 一台 linux vps 上跑几个到十几个小服务的轻量默认解：发行版自带零安装、无 daemon 中间层（应用总内存≈应用自身，对照组 pm2 daemon 约 83mb）、restart=always 自愈与 journalctl 日志开箱即得；代价是仅 linux、无隔离无镜像、部署无声明式回滚——适用域为进程级部署够用的个人/小团队自有 vps。 部署 进程管理 linux vps init-system">
-        <td class="tool-name"><a href="../items/lightweight-deploy/systemd/report.html" title="一台 Linux VPS 上跑几个到十几个小服务的轻量默认解：发行版自带零安装、无 daemon 中间层（应用总内存≈应用自身，对照组 PM2 daemon 约 83MB）、Restart=always 自愈与 journalctl 日志开箱即得；代价是仅 Linux、无隔离无镜像、部署无声明式回滚——适用域为进程级部署够用的个人/小团队自有 VPS。">systemd</a></td>
-        <td><span class="seal" style="--vb:#0ca30c" title="推荐"><i></i>荐</span></td>
-        <td class="mx">进程管理器</td><td class="mx">极低</td><td class="mx">低</td><td class="mx">是</td><td class="mx">多应用</td><td class="mx">免费开源（LGPL-2.1）</td>
-        <td class="num">16.8k</td>
-        <td class="num">10-02</td>
-      </tr>
       </tbody>
     </table>
-    <p class="collected-note">star / push 为 gh 快照，采集 2026-10-02；红色 push 表示停滞超 180 天，「待复核」表示采集/核实超 180 天；条目名悬停看一句话结论。</p>
+    <p class="collected-note">行序默认按 push 倒序（最新在上），无 stats 的条目沉底；star / push 为 gh 快照，采集 2026-10-02；红色 push 表示停滞超 180 天，「待复核」表示采集/核实超 180 天；条目名悬停看一句话结论。</p>
   </section>
-  <footer>生成于 2026-10-02 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
+  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物，禁止手改</footer>
 </main>
 <script>
   // 文本过滤 + verdict chips + 表头排序（类别内，点击切换升降序）

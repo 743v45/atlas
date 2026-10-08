@@ -31,3 +31,5 @@
 ## 4. 引擎
 
 渲染器与基础样式在 `atlas/shared/render.py`(五馆与门户共用)。本馆 build 内不得出现本地渲染器副本(scripts/check-all.py 单源断言看守)。所有 HTML 由 `python3 scripts/build-index.py` 生成,禁止手改;门禁不过的错题不进索引。
+
+索引默认**按 `date` 倒序**(最近摔的在上;口径见 `atlas/DESIGN-TREE.md` A10)。排序在 build 层做而非页面 JS——索引表行序与 mistake.html 上下篇导航同源同一份列表;同日错题按目录名升序定次级键,输出可复现。
