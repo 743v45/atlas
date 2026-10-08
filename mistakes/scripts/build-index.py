@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """聚合 items/ 下所有错题的 meta.json,校验后生成全部 HTML(均为生成物,禁止手改):
 
-- index.html                    错题索引(状态过滤 + 类型搜索 + 表头排序)
+- index.html                    错题集主页:错题索引(状态过滤 + 类型搜索 + 表头排序)
+                                + 跨馆警示两区(落选/腐烂,直读邻馆 meta,见 A11)
 - items/<错题>/mistake.html      渲染 mistake.md,带面包屑与上下篇导航
 
 校验门禁(RULES.md 第 4 节):
@@ -20,8 +21,10 @@ from datetime import date, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+ATLAS = ROOT.parent  # atlas 根:跨馆警示区直读邻馆 meta——是源文件非生成物,无构建顺序耦合(A11)
 ITEMS_DIR = ROOT / "items"
 OUTPUT = ROOT / "index.html"
+STALE_DAYS = 180  # 与 pick/apprentice 两馆一致
 
 # ============================================================
 # 引擎共享层(atlas/shared/render.py)
@@ -126,6 +129,51 @@ def collect():
     return mistakes, errors, warnings
 
 
+def days_since(d):
+    try:
+        return (date.today() - datetime.strptime(d, "%Y-%m-%d").date()).days
+    except (TypeError, ValueError):
+        return None
+
+
+def collect_zones():
+    """跨馆警示两区数据(内容不搬家,原地链接,宿主从门户迁入本馆索引见 A11):
+
+    - 落选:pick verdict=hold 的条目(带类别与 push 日期)
+    - 腐烂:pick 超 STALE_DAYS 未采集/未验证,apprentice 超 STALE_DAYS 未验证或 outdated
+    """
+    holds, rotten = [], []
+    for meta_path in sorted((ATLAS / "pick" / "items").glob("*/*/meta.json")):
+        meta = load_json(meta_path)
+        if meta.get("verdict") == "hold":
+            push = (meta.get("stats") or {}).get("pushed_at") or ""
+            holds.append((meta_path.parent, meta, push))
+            continue
+        stats = meta.get("stats") or {}
+        base = stats.get("collected_at") or meta.get("verified")
+        d = days_since(base)
+        if d is not None and d > STALE_DAYS:
+            rotten.append(("pick", meta_path.parent, meta.get("name", ""), "待复核", d))
+    for meta_path in sorted((ATLAS / "apprentice" / "items").glob("*/*/meta.json")):
+        meta = load_json(meta_path)
+        if meta.get("status") == "outdated":
+            rotten.append(("apprentice", meta_path.parent, meta.get("name", ""), "过期", None))
+        else:
+            d = days_since(meta.get("verified"))
+            if d is not None and d > STALE_DAYS:
+                rotten.append(("apprentice", meta_path.parent, meta.get("name", ""), "待重验", d))
+
+    # 排序口径同 DESIGN-TREE A10/A11:稳定双重排序,目录名升序定次级键,输出可复现。
+    # 落选:push 倒序,无 push(商业闭源等)无日期可比 → 固定沉底,不混进倒序。
+    holds.sort(key=lambda t: t[1].get("name", ""))
+    holds.sort(key=lambda t: t[2], reverse=True)
+    holds.sort(key=lambda t: t[2] == "")
+    # 腐烂:越烂越靠前(距今天数降序;outdated 无天数按最烂处理 → 排最前)。
+    rotten.sort(key=lambda t: t[2])
+    rotten.sort(key=lambda t: t[4] if t[4] is not None else 10**6, reverse=True)
+    return holds, rotten
+
+
 # ============================================================
 # 页面渲染
 # ============================================================
@@ -159,6 +207,18 @@ INDEX_CSS = """
   .idx-table tbody tr:hover td { background: color-mix(in srgb, var(--link) 5%, transparent); }
   .idx-table .mistake-name { font-weight: 600; }
   .empty { text-align: center; color: var(--muted); padding: 4rem 0; }
+  /* ── 跨馆警示两区(A11:宿主从门户 views.html 迁入本馆索引;非本馆门禁内容,只聚合+原地链接) ── */
+  h2.zone { font-size: 1.3rem; margin: 2.6rem 0 .4rem; }
+  .zone-note { color: var(--muted); font-size: .82rem; margin: 0 0 .6rem; }
+  .empty-zone { color: var(--muted); font-size: .88rem; padding: .3rem 0 1rem; }
+  details.fold { margin-bottom: 1rem; }
+  details.fold > summary {
+    cursor: pointer; color: var(--muted); font-size: .88rem; padding: .35rem 0;
+    user-select: none; list-style: none;
+  }
+  details.fold > summary::before { content: "▸ "; }
+  details.fold[open] > summary::before { content: "▾ "; }
+  details.fold > summary:hover { color: var(--link); }
   @media (max-width: 720px) { .idx-table { min-width: 560px; } .category { overflow-x: auto; } }
 """
 
@@ -200,13 +260,58 @@ def render_row(m):
       </tr>"""
 
 
-def render_index(mistakes):
+def _rel_link(item_dir, page):
+    """邻馆条目页相对本索引(mistakes/index.html,深度 1)的链接:../pick/items/.../report.html。"""
+    return f"../{item_dir.relative_to(ATLAS).as_posix()}/{page}"
+
+
+def render_zone_holds(holds):
+    """落选区:pick verdict=hold,默认折叠——不常看的知识不占视野(A5 取舍,随 A11 迁入)。"""
+    note = "来自 pick 馆——verdict=hold 的条目:被毙的方案与理由。按 push 倒序,无 push 沉底;内容不搬家,原地链接。"
+    if not holds:
+        body = '<p class="empty-zone">暂无落选条目——被毙的方案带着理由住在 pick 的决策树里。</p>'
+    else:
+        rows = "".join(
+            f"\n      <tr><td><a href=\"{_rel_link(d, 'report.html')}\">{html.escape(meta.get('name', ''))}</a></td>"
+            f'<td class="mx">{html.escape(d.relative_to(ATLAS).as_posix().split("/")[2])}</td>'
+            f'<td class="num">{html.escape(push or "—")}</td>'
+            f'<td class="mx">{html.escape(meta.get("summary", ""))}</td></tr>'
+            for d, meta, push in holds
+        )
+        table = ('  <table class="idx-table">\n    <thead><tr>'
+                 '<th>条目</th><th>类别</th><th class="num">push</th><th>一句话结论</th>'
+                 f'</tr></thead>\n    <tbody>{rows}\n    </tbody>\n  </table>')
+        body = f'  <details class="fold"><summary>展开 {len(holds)} 条落选(不常看,收着)</summary>\n{table}\n  </details>'
+    return f'  <h2 class="zone">落选</h2>\n  <p class="zone-note">{note}</p>\n{body}'
+
+
+def render_zone_rotten(rotten):
+    """腐烂警示区:两馆超期/outdated,越烂越靠前。"""
+    note = f"来自 pick · apprentice 两馆——超 {STALE_DAYS} 天未验证/未采集,或已过期(outdated)。按距今倒序,烂得最久的在最上。"
+    if not rotten:
+        body = '<p class="empty-zone">全部在保鲜期内。</p>'
+    else:
+        rows = "".join(
+            f'\n      <tr><td class="mx">{html.escape(lib)}</td>'
+            f'<td><a href="{_rel_link(d, "report.html" if lib == "pick" else "lesson.html")}">{html.escape(name)}</a></td>'
+            f'<td>{html.escape(tag)}</td>'
+            f'<td class="num">{f"{days} 天" if days is not None else "—"}</td></tr>'
+            for lib, d, name, tag, days in rotten
+        )
+        body = ('  <table class="idx-table">\n    <thead><tr>'
+                '<th>馆</th><th>条目</th><th>状态</th><th class="num">距今</th>'
+                f'</tr></thead>\n    <tbody>{rows}\n    </tbody>\n  </table>')
+    return f'  <h2 class="zone">腐烂警示</h2>\n  <p class="zone-note">{note}</p>\n{body}'
+
+
+def render_index(mistakes, holds, rotten):
     today = date.today().isoformat()
     rows = "\n".join(render_row(m) for m in mistakes) or '<tr><td colspan="4">还没有错题——要么你走得很稳,要么你还没开始记。</td></tr>'
     chips = "".join(
         f'<button class="chip" data-status="{key}" style="--chip-c:{color}">{label}</button>'
         for key, (label, _seal, color) in STATUS.items()
     )
+    zones = render_zone_holds(holds) + "\n" + render_zone_rotten(rotten)
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -227,7 +332,7 @@ def render_index(mistakes):
     <button class="chip active" data-status="all">全部</button>
     {chips}
   </div>
-  <table class="idx-table">
+  <table class="idx-table" id="main-table">
     <thead><tr>
       <th data-sort="name" tabindex="0">错题</th><th data-sort="date" class="num sorted-desc" tabindex="0">日期</th>
       <th>类型</th><th data-sort="status" tabindex="0">状态</th>
@@ -236,17 +341,19 @@ def render_index(mistakes):
 {rows}
     </tbody>
   </table>
+{zones}
   <footer>生成于 {today} · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改</footer>
 </main>
 <script>
-  // 文本过滤 + status chips + 表头排序(点击切换升降序)
+  // 文本过滤 + status chips + 表头排序(点击切换升降序)。
+  // 过滤只作用于主表(#main-table)——跨馆警示两区不参与搜索/状态过滤(A11)
   const STATUS_ORDER = {json.dumps({k: i for i, k in enumerate(STATUS)})};
   const input = document.getElementById('filter');
   let statusF = 'all';
   const chips = [...document.querySelectorAll('.chip')];
 
   function applyFilter() {{
-    document.querySelectorAll('tbody tr').forEach(tr => {{
+    document.querySelectorAll('#main-table tbody tr').forEach(tr => {{
       const q = input.value.trim().toLowerCase();
       const hitText = !q || tr.dataset.search.includes(q);
       const hitStatus = statusF === 'all' || tr.dataset.status === statusF;
@@ -318,6 +425,7 @@ def render_mistake_page(m, prev, nxt, today):
 
 def main():
     mistakes, errors, warnings = collect()
+    holds, rotten = collect_zones()
     for w in warnings:
         print(f"⚠️  {w}")
     if errors:
@@ -334,8 +442,9 @@ def main():
         nxt = mistakes[idx + 1] if idx + 1 < len(mistakes) else None
         page = render_mistake_page(m, prev, nxt, today)
         (m["dir"] / "mistake.html").write_text(page, encoding="utf-8")
-    OUTPUT.write_text(render_index(mistakes), encoding="utf-8")
-    print(f"✅ 已生成 {len(mistakes) + 1} 个页面(index + {len(mistakes)} 条错题)")
+    OUTPUT.write_text(render_index(mistakes, holds, rotten), encoding="utf-8")
+    print(f"✅ 已生成 {len(mistakes) + 1} 个页面(index + {len(mistakes)} 条错题)"
+          f"| 落选 {len(holds)}(折叠) · 腐烂 {len(rotten)}")
 
 
 if __name__ == "__main__":

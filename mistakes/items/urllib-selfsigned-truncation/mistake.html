@@ -83,7 +83,7 @@
 <h2>修正</h2>
 <p>skill 的 <code>_request</code> 底层换成 curl 子进程(<code>-sk</code> 跳过证书校验 + 双重重试)。三段链闭环:08-05 翻车定位 → 当天改 skill → 08-07 新会话对真实实例复验,704ms 成功。可复用判据:传输层问题先做「同端点换客户端」对照(curl 正常 = 库的问题);修完必须新起会话走真实链路复验,不复验不算修完。</p>
   </article>
-  <footer>生成于 2026-10-08 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
+  <footer>生成于 2026-10-09 · <code>python3 scripts/build-index.py</code> · 本页为生成物,禁止手改 · 源文件见同目录 .md</footer>
 </main>
 </body>
 </html>

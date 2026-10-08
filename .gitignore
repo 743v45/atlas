@@ -5,9 +5,8 @@
 !/PHILOSOPHY.md
 !/DESIGN-TREE.md
 !/COMPARISON.md
-# 根门户生成物(atlas 聚合,入库):封面 + 错题集视图子页
+# 根门户生成物(atlas 聚合,入库):封面
 !/index.html
-!/views.html
 !/dig/
 !/.github/
 !/scripts/

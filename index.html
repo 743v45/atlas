@@ -62,7 +62,7 @@
   .cover-head .lead { color: var(--muted); font-size: 1rem; margin: 0 0 .8rem; max-width: 40em; }
   .cover-head .meta { color: var(--muted); font-size: .78rem; font-family: var(--font-mono); }
   .cover-head .meta a { font-family: var(--font-body); }
-  .halls { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: .8rem; margin: 0 0 .8rem; }
+  .halls { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: .8rem; }
   .hall {
     display: flex; gap: .8rem; align-items: flex-start; text-decoration: none; color: var(--text);
     background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: .9rem 1rem;
@@ -72,17 +72,7 @@
   .hall h2 { margin: 0 0 .25rem; font-size: 1.06rem; }
   .hall .desc { color: var(--muted); font-size: .82rem; line-height: 1.55; }
   .hall .figures { font-family: var(--font-mono); font-size: .75rem; color: var(--link); margin-top: .5rem; }
-  /* 错题集入口:是跨馆视图不是第六馆,故刻意不长成馆卡片(细条,视觉层级低于五馆) */
-  .views-entry {
-    display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap;
-    text-decoration: none; color: var(--muted); font-size: .84rem;
-    border-top: 1px dashed var(--border); padding: .65rem .1rem 0;
-  }
-  .views-entry:hover { color: var(--link); }
-  .views-entry b { color: var(--text); font-weight: 600; }
-  .views-entry:hover b { color: var(--link); }
-  .views-entry .figures { margin-left: auto; font-family: var(--font-mono); font-size: .74rem; }
-  /* 馆印:五馆各答一问的单字(文字承载识别,与五馆判词章同语系;色只作强调) */
+  /* 馆印:五馆各答一问的单字(文字承载识别,色只作强调) */
   .sigil {
     flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
     width: 34px; height: 34px; border: 1.5px solid var(--text); border-radius: 50%;
@@ -90,25 +80,6 @@
     margin-top: .1rem;
   }
   .hall:hover .sigil { border-color: var(--link); color: var(--link); }
-  /* ── 错题集视图:三区共用 ── */
-  h2.zone { font-size: 1.34rem; margin: 2.4rem 0 .5rem; }
-  h2.zone:first-of-type { margin-top: 1.4rem; }
-  .zone-note { color: var(--muted); font-size: .82rem; margin: 0 0 .6rem; }
-  table { table-layout: fixed; }
-  td, th { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  td.wrap { white-space: normal; overflow: visible; }
-  td.num { font-variant-numeric: tabular-nums; font-family: var(--font-mono); font-size: .78rem; white-space: nowrap; }
-  .muted { color: var(--muted); font-size: .8rem; }
-  .empty-zone { color: var(--muted); font-size: .88rem; padding: .3rem 0 1rem; }
-  details.fold { margin-bottom: 1rem; }
-  details.fold > summary {
-    cursor: pointer; color: var(--muted); font-size: .88rem; padding: .35rem 0;
-    user-select: none; list-style: none;
-  }
-  details.fold > summary::before { content: "▸ "; }
-  details.fold[open] > summary::before { content: "▾ "; }
-  details.fold > summary:hover { color: var(--link); }
-  .report-nav { display: flex; gap: .9rem; flex-wrap: wrap; align-items: center; font-size: .84rem; color: var(--muted); margin-bottom: 1.2rem; }
   @media (max-width: 720px) {
     .cover-head h1 { font-size: 2rem; }
     body { padding: 1.1rem .8rem 2.5rem; }
@@ -143,7 +114,7 @@
       <span class="sigil" aria-hidden="true">摔</span>
       <div class="hall-body">
         <h2>mistakes · 错题集</h2>
-        <div class="desc">怎么摔的——经过 / 根因 / 修正,单一事实源</div>
+        <div class="desc">怎么摔的——经过 / 根因 / 修正,索引页附落选 / 腐烂警示区</div>
         <div class="figures">12 条</div>
       </div>
     </a>
@@ -164,12 +135,7 @@
       </div>
     </a>
   </div>
-  <a class="views-entry" href="views.html">
-    <b>错题集视图 →</b>
-    <span>跨馆负知识聚合:翻车 / 落选 / 腐烂警示</span>
-    <span class="figures">12 翻车 · 28 落选 · 0 腐烂</span>
-  </a>
-  <footer>生成于 2026-10-08 · <code>python3 scripts/build-atlas.py</code>(五馆 build 之后跑)· 本页为生成物,禁止手改</footer>
+  <footer>生成于 2026-10-09 · <code>python3 scripts/build-atlas.py</code>(五馆 build 之后跑)· 本页为生成物,禁止手改</footer>
 </main>
 </body>
 </html>

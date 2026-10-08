@@ -30,7 +30,7 @@ STEPS = [
     ("mistakes build", "mistakes", "scripts/build-index.py"),
     ("spark build", "spark", "scripts/build-index.py"),
     ("asked build", "asked", "scripts/build-index.py"),
-    ("atlas build(封面+错题集视图)", ".", "scripts/build-atlas.py"),
+    ("atlas build(封面)", ".", "scripts/build-atlas.py"),
     ("check all(全站断言)", ".", "scripts/check-all.py"),
 ]
 

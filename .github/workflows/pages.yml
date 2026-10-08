@@ -41,7 +41,7 @@ jobs:
       - name: Build asked
         run: python3 scripts/build-index.py
         working-directory: asked
-      - name: Build atlas（封面 index.html + 错题集视图 views.html）
+      - name: Build atlas（封面 index.html）
         run: python3 scripts/build-atlas.py
       - name: Check all（全站断言：链接 / 模板残留 / 渲染器单源）
         run: python3 scripts/check-all.py

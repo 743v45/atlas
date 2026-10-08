@@ -33,3 +33,5 @@
 渲染器与基础样式在 `atlas/shared/render.py`(五馆与门户共用)。本馆 build 内不得出现本地渲染器副本(scripts/check-all.py 单源断言看守)。所有 HTML 由 `python3 scripts/build-index.py` 生成,禁止手改;门禁不过的错题不进索引。
 
 索引默认**按 `date` 倒序**(最近摔的在上;口径见 `atlas/DESIGN-TREE.md` A10)。排序在 build 层做而非页面 JS——索引表行序与 mistake.html 上下篇导航同源同一份列表;同日错题按目录名升序定次级键,输出可复现。
+
+索引页底部附**跨馆警示两区**(宿主从门户 views.html 迁入,见 `atlas/DESIGN-TREE.md` A11):落选(pick verdict=hold,默认折叠,按 push 倒序、无 push 沉底)与腐烂警示(pick/apprentice 超 180 天未验证/未采集或 outdated,按距今倒序)。数据由本馆 build 直读邻馆 meta.json——是源文件非生成物,无构建顺序耦合;两区不过本馆门禁,只聚合+原地链接,不参与主表的搜索/状态过滤。
